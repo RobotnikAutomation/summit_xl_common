@@ -2,7 +2,7 @@
 <robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
 
   
-	<xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
+  <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
 
   <xacro:macro name="summit_xl_base" params="name publish_bf hq">
 

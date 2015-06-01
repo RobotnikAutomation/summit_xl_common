@@ -3,7 +3,7 @@
 
 
   <!-- ros control plugin -->
-  <!-- xacro:macro name="ros_control">
+  <xacro:macro name="ros_control">
     <gazebo>
       <plugin name="ros_control" filename="libgazebo_ros_control.so">
         <robotNamespace>/summit_xl</robotNamespace>
@@ -12,13 +12,13 @@
 	    <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       </plugin>
     </gazebo>
-	</xacro:macro -->
+	</xacro:macro>
 	
 	<!-- skid steering plugin -->
 	<xacro:macro name="skid_steering" params="broadcastOdomTF">
     <gazebo>
       <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-				<robotNamespace>/summit_xl</robotNamespace>
+			<robotNamespace>/summit_xl</robotNamespace>
 		    <updateRate>100.0</updateRate>
 		    <leftFrontJoint>joint_front_left_wheel</leftFrontJoint>  
 		    <rightFrontJoint>joint_front_right_wheel</rightFrontJoint>

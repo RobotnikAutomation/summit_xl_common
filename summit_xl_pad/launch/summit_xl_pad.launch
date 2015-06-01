@@ -9,7 +9,7 @@
   </node>
   
   <!-- Parameters -->
-  <param name="cmd_topic_vel" value="/joy_vel" type="string"/>
+  <param name="cmd_topic_vel" value="/summit_xl/robot_control/command" type="string"/>
   <param name="cmd_service_io" value="/modbus_io/write_digital_output" type="string"/>
   <param name="cmd_topic_ptz" value="/axis1/cmd_ptz" type="string"/>
   <rosparam command="load" file="$(find summit_xl_pad)/launch/ps3.yaml" />

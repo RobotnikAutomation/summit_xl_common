@@ -18,12 +18,11 @@ add_service_files(DIRECTORY srv
 
 generate_messages(
    DEPENDENCIES
-   nav_msgs robotnik_msgs sensor_msgs summit_xl_pad
+   robotnik_msgs sensor_msgs summit_xl_pad
  )
 
 catkin_package(
   CATKIN_DEPENDS 
-    nav_msgs 
     robotnik_msgs
     roscpp 
     sensor_msgs 

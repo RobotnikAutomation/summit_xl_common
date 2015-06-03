@@ -46,7 +46,7 @@
   <xacro:ros_control/>
   
   <!-- Gazebo omni steering plugin -->
-	<xacro:omni_steering/>
+  <xacro:omni_steering/>
   
     
 	<!-- WHEELS -->

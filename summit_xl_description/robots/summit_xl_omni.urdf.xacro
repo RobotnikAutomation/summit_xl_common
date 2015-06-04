@@ -25,8 +25,8 @@
 	<xacro:property name="PI" value="3.1415926535897931"/>
   
 	<!-- Wheel parameters -->
-	<xacro:property name="wheel_offset_x" value="0.229" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
-	<xacro:property name="wheel_offset_y" value="0.234" />    
+	<xacro:property name="wheel_offset_x" value="0.22911" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="wheel_offset_y" value="0.24070" />    
 	<xacro:property name="wheel_offset_z" value="0.0" />
 
 	<!-- Flag to select the high or low quality model -->

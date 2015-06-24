@@ -40,7 +40,6 @@
 // #include <sound_play/sound_play.h>
 #include <unistd.h>
 #include <robotnik_msgs/set_mode.h>
-#include <summit_xl_pad/enable_disable_pad.h>
 #include <robotnik_msgs/set_digital_output.h>
 #include <robotnik_msgs/ptz.h>
 #include <robotnik_msgs/home.h>
@@ -72,8 +71,6 @@ class SummitXLPad
 
 	private:
 	void padCallback(const sensor_msgs::Joy::ConstPtr& joy);
-	bool EnableDisablePad(summit_xl_pad::enable_disable_pad::Request &req, summit_xl_pad::enable_disable_pad::Response &res );
-
 	ros::NodeHandle nh_;
 
 	int linear_x_, linear_y_, linear_z_, angular_;
@@ -113,8 +110,6 @@ class SummitXLPad
 	//! buttons to the pan-tilt-zoom camera
 	int ptz_tilt_up_, ptz_tilt_down_, ptz_pan_right_, ptz_pan_left_;
 	int ptz_zoom_wide_, ptz_zoom_tele_;	
-	//! Enables/disables the pad
-	ros::ServiceServer enable_disable_srv_;
 	//! Service to modify the digital outputs
 	ros::ServiceClient set_digital_outputs_client_;  
 	//! Number of buttons of the joystick
@@ -241,10 +236,8 @@ SummitXLPad::SummitXLPad():
 	pub_command_freq = new diagnostic_updater::HeaderlessTopicDiagnostic(cmd_topic_vel_.c_str(), updater_pad,
 	                    diagnostic_updater::FrequencyStatusParam(&min_freq_command, &max_freq_command, 0.1, 10));
 
-	// Advertises new service to enable/disable the pad
-	enable_disable_srv_ = nh_.advertiseService("/summit_xl_pad/enable_disable_pad",  &SummitXLPad::EnableDisablePad, this);
 
-	bEnable = true;	// Communication flag enabled by default
+	bEnable = false;	// Communication flag disabled by default
 }
 
 
@@ -256,18 +249,7 @@ void SummitXLPad::Update(){
 	updater_pad.update();
 }
 
-/*
- *	\brief Enables/Disables the pad
- *
- */
-bool SummitXLPad::EnableDisablePad(summit_xl_pad::enable_disable_pad::Request &req, summit_xl_pad::enable_disable_pad::Response &res )
-{
-	bEnable = req.value;
 
-	ROS_INFO("SummitXLPad::EnablaDisablePad: Setting to %d", req.value);
-	res.ret = true;
-	return true;
-}
 
 void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
@@ -277,6 +259,8 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 	vel.angular.x = 0.0;  vel.angular.y = 0.0; vel.angular.z = 0.0;
 	vel.linear.x = 0.0;   vel.linear.y = 0.0; vel.linear.z = 0.0;
+
+    bEnable = (joy->buttons[dead_man_button_] == 1);
 
   	// Actions dependant on dead-man button
  	if (joy->buttons[dead_man_button_] == 1) {

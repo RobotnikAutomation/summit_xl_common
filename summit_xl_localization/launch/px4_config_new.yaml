@@ -49,12 +49,12 @@ global_position:
   rot_covariance: 99999.0   # covariance for attitude?
 
 # gps
-gps:
-  frame_id: "gps"
+# gps:
+#  frame_id: "gps"
 
 # imu_pub
 imu:
-  frame_id: "imu_link"
+  frame_id: "fcu"
   # need find actual values
   linear_acceleration_stdev: 0.0003
   angular_velocity_stdev: !degrees 0.02
@@ -63,7 +63,7 @@ imu:
 
 # local_position
 local_position:
-  send_tf: false
+  send_tf: true
   frame_id: "local_origin"
   child_frame_id: "fcu"
 

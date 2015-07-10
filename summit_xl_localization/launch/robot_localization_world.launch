@@ -17,7 +17,9 @@
       <param name="world_frame" value="world"/>
 
       <param name="odom0" value="/odom"/>
-      <param name="imu0" value="mavros/imu/data"/>
+
+     <!-- CHANGE TO /mavros/imu/data if local_tf node is not working -->
+      <param name="imu0" value="mavros/imu/data_new"/>
 
       <rosparam param="odom0_config">[false, false, true,
                                       false, false, false,

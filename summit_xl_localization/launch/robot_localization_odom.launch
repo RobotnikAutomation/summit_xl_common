@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-    <node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 -0.1 0.20 0 0 -1.57079632 1 base_link local_origin 10"/>
+    <node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 -0.1 0.4 0 0 0 1 base_footprint_fake local_origin 10"/>
+
+    <node pkg="summit_xl_localization" type="local_tf" name="change_imu_frame"/>
 
      <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc1" clear_params="true" output="screen">
-      <remap from="odometry/filtered" to="/odometry/filtered_odom" />
+   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc1" clear_params="true" output="screen">
+      <remap from="odometry/filtered" to="/odometry/filtered_odom" /> 
 
       <!-- Odometry update frequency: 15 Hz -->
       <param name="frequency" value="15"/>
@@ -17,7 +19,9 @@
       <param name="world_frame" value="odom"/>
 
       <param name="odom0" value="/odom"/>
-      <param name="imu0" value="/mavros/imu/data"/>
+
+     <!-- CHANGE TO /mavros/imu/data if local_tf node is not working -->
+      <param name="imu0" value="/mavros/imu/data_new"/>
 
       <rosparam param="odom0_config">[false, false, true,
                                       false, false, false,

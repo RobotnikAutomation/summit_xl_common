@@ -5,6 +5,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   robot_localization
   tf2
+  tf
   tf2_ros
   tf2_geometry_msgs
   message_filters
@@ -26,6 +27,7 @@ catkin_package(
   CATKIN_DEPENDS
     robot_localization
     roscpp
+    tf
     tf2
     tf2_ros
     message_filters
@@ -45,16 +47,19 @@ include_directories(include
 		    ${Eigen_INCLUDE_DIRS})
 
 # Library definition
-add_library(navsat_transform_new src/navsat_transform_new.cpp)
+#add_library(navsat_transform_new src/navsat_transform_new.cpp)
 # Dependencies
-add_dependencies(navsat_transform_new robot_localization_gencpp)
+#add_dependencies(navsat_transform_new robot_localization_gencpp)
 
 # Executables
-add_executable(navsat_transform_new_node src/navsat_transform_new_node.cpp)
+#add_executable(navsat_transform_new_node src/navsat_transform_new_node.cpp)
+
+add_executable(local_tf src/local_tf.cpp)
+target_link_libraries(local_tf ${catkin_LIBRARIES})
 
 # Linking
-target_link_libraries(navsat_transform_new filter_utilities ros_filter_utilities ${catkin_LIBRARIES})
-target_link_libraries(navsat_transform_new_node navsat_transform_new ${catkin_LIBRARIES})
+#target_link_libraries(navsat_transform_new filter_utilities ros_filter_utilities ${catkin_LIBRARIES})
+#target_link_libraries(navsat_transform_new_node navsat_transform_new ${catkin_LIBRARIES})
 
 #############
 ## Install ##

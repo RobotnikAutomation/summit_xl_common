@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-    <node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 0 0 0 0 0 1 imu_link local_origin 10"/>
+    <node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 -0.1 0.20 0 0 -1.57079632 1 base_link local_origin 10"/>
 
      <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc1" clear_params="true" output="screen">

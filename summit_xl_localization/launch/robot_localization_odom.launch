@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 0 0 0 0 0 1 imu_link local_origin 10"/>
+
+     <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc1" clear_params="true" output="screen">
+      <remap from="odometry/filtered" to="/odometry/filtered_odom" />
+
+      <!-- Odometry update frequency: 15 Hz -->
+      <param name="frequency" value="15"/>
+      <param name="sensor_timeout" value="0.1"/>
+
+      <param name="two_d_mode" value="false"/>
+
+      <param name="odom_frame" value="odom"/>
+      <param name="base_link_frame" value="base_footprint"/>
+      <param name="world_frame" value="odom"/>
+
+      <param name="odom0" value="/odom"/>
+      <param name="imu0" value="/mavros/imu/data"/>
+
+      <rosparam param="odom0_config">[false, false, true,
+                                      false, false, false,
+                                      true,  true, true,
+                                      false, false, true,
+                                      false, false, false]</rosparam>
+
+        <rosparam param="imu0_config">[false, false, false,
+                                     true,  true,  true,
+                                     false, false, false,
+                                     true, true, true,
+                                     false, false, false]</rosparam>
+
+      <param name="odom0_differential" value="false"/>
+      <param name="imu0_differential" value="true"/>
+
+      <param name="odom0_relative" value="false"/>
+      <param name="imu0_relative" value="false"/>
+
+      <param name="imu0_remove_gravitational_acceleration" value="true"/>
+
+      <param name="print_diagnostics" value="false"/>
+   </node>
+</launch>
+

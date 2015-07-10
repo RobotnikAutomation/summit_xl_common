@@ -44,7 +44,7 @@ public:
     tf::vector3TFToMsg(accel_out, imu_out.linear_acceleration);
  
     imu_out.header.stamp = imu_ptr->header.stamp;
-    imu_out.header.frame_id = target_frame_;
+    imu_out.header.frame_id = "base_footprint";
 
     pub_.publish(imu_out);
   }

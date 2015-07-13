@@ -74,7 +74,7 @@
 	<!-- SENSORS -->
 
     
-	<xacro:sensor_hokuyo_utm30lx name="hokuyo" parent="base_link">
+	<xacro:sensor_hokuyo_utm30lx name="hokuyo_base" parent="base_link">
 		<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 	</xacro:sensor_hokuyo_utm30lx>
   

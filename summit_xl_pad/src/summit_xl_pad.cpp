@@ -129,6 +129,8 @@ class SummitXLPad
 	double max_freq_command, max_freq_joy; // 	
 	//! Flag to enable/disable the communication with the publishers topics
 	bool bEnable;
+	//! Flag to track the first reading without the deadman's button pressed.
+	bool last_command_;
 	//! Client of the sound play service
 	//  sound_play::SoundClient sc;
 	//! Pan & tilt increment (degrees)
@@ -238,6 +240,7 @@ SummitXLPad::SummitXLPad():
 
 
 	bEnable = false;	// Communication flag disabled by default
+	last_command_ = true;
 }
 
 
@@ -504,12 +507,24 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 	sus_joy_freq->tick();	// Ticks the reception of joy events
 
-        // Publish 
+     // Publish 
 	// Only publishes if it's enabled
 	if(bEnable){
-        	if (ptzEvent) ptz_pub_.publish(ptz);
+		if (ptzEvent) ptz_pub_.publish(ptz);
 		vel_pub_.publish(vel);
 		pub_command_freq->tick();
+		last_command_ = true;
+		}
+		
+		
+	if(!bEnable && last_command_){
+		if (ptzEvent) ptz_pub_.publish(ptz);
+		
+		vel.angular.x = 0.0;  vel.angular.y = 0.0; vel.angular.z = 0.0;
+		vel.linear.x = 0.0;   vel.linear.y = 0.0; vel.linear.z = 0.0;
+		vel_pub_.publish(vel);
+		pub_command_freq->tick();
+		last_command_ = false;
 		}
 }
 

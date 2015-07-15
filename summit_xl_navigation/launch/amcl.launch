@@ -1,8 +1,15 @@
+<?xml version="1.0"?>
 <launch>
+
+<!-- Run the map server -->
+<node name="map_server" pkg="map_server" type="map_server" args="$(find vinbot_demo)/maps/map2.yaml"/>
+
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
 
-  <remap from="scan" to="hokuyo_laser_topic" />
-  <remap from="cmd_vel" to="summit_xl_controller/cmd_vel" />
+  <remap from="scan" to="scan" />
+  <remap from="cmd_vel" to="/summit_xl_controller/cmd_vel"/>
+  <!-- remap from="scan" to="hokuyo_laser_topic" / -->
+  <!-- remap from="cmd_vel" to="summit_xl_controller/cmd_vel" / -->
 
   <!-- Publish scans from best pose at a max of 10 Hz -->
   <param name="odom_model_type" value="diff"/>
@@ -44,4 +51,5 @@
   <param name="initial_pose_a" value ="0.0"/>
 
 </node>
+
 </launch>

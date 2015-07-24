@@ -86,6 +86,8 @@ class SummitXLPad
 	//! Name of the topic where it will be publishing the pant-tilt values	
 	std::string cmd_topic_ptz_;
 	double current_vel;
+        //! Pad type
+        std::string pad_type_;
 	//! Number of the DEADMAN button
 	int dead_man_button_;
 	//! Number of the button for increase or decrease the speed max of the joystick	
@@ -116,6 +118,9 @@ class SummitXLPad
 	int num_of_buttons_;
 	//! Pointer to a vector for controlling the event when pushing the buttons
 	bool bRegisteredButtonEvent[DEFAULT_NUM_OF_BUTTONS];
+        //! Pointer to a vector for controlling the event when pushing directional arrows (UNDER AXES ON PX4!)
+        bool bRegisteredDirectionalArrows[4];
+
 	// DIAGNOSTICS
 	//! Diagnostic to control the frequency of the published command velocity topic
 	diagnostic_updater::HeaderlessTopicDiagnostic *pub_command_freq; 
@@ -149,11 +154,14 @@ SummitXLPad::SummitXLPad():
   linear_z_(3)
 {
 	current_vel = 0.1;
+
+	//JOYSTICK PAD TYPE
+	nh_.param<std::string>("pad_type",pad_type_,"ps3");
 	// 
 	nh_.param("num_of_buttons", num_of_buttons_, DEFAULT_NUM_OF_BUTTONS);
 	// MOTION CONF
 	nh_.param("axis_linear_x", linear_x_, DEFAULT_AXIS_LINEAR_X);
-  nh_.param("axis_linear_y", linear_y_, DEFAULT_AXIS_LINEAR_Y);
+  	nh_.param("axis_linear_y", linear_y_, DEFAULT_AXIS_LINEAR_Y);
 	nh_.param("axis_linear_z", linear_z_, DEFAULT_AXIS_LINEAR_Z);
 	nh_.param("axis_angular", angular_, DEFAULT_AXIS_ANGULAR);
 	nh_.param("scale_angular", a_scale_, DEFAULT_SCALE_ANGULAR);
@@ -179,7 +187,7 @@ SummitXLPad::SummitXLPad():
 	nh_.param("button_ptz_pan_left", ptz_pan_left_, ptz_pan_left_);
 	nh_.param("button_ptz_zoom_wide", ptz_zoom_wide_, ptz_zoom_wide_);
 	nh_.param("button_ptz_zoom_tele", ptz_zoom_tele_, ptz_zoom_tele_);
-  nh_.param("button_home", button_home_, button_home_);
+  	nh_.param("button_home", button_home_, button_home_);
 	nh_.param("pan_increment", pan_increment_, 1);
 	nh_.param("tilt_increment",tilt_increment_, 1);
 	nh_.param("zoom_increment", zoom_increment_, 1);
@@ -195,6 +203,10 @@ SummitXLPad::SummitXLPad():
 		bRegisteredButtonEvent[i] = false;
 		ROS_INFO("bREG %d", i);
 		}
+
+	for(int i = 0; i < 3; i++){
+	  bRegisteredDirectionalArrows[i] = false;
+	}
 
 	/*ROS_INFO("Service I/O = [%s]", cmd_service_io_.c_str());
 	ROS_INFO("Topic PTZ = [%s]", cmd_topic_ptz_.c_str());
@@ -409,52 +421,102 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}
 
 		// SPHERECAM
-		// TILT-MOVEMENTS (RELATIVE POS)
 		ptz.pan = ptz.tilt = ptz.zoom = 0.0;
 		ptz.relative = true;
-		if (joy->buttons[ptz_tilt_up_] == 1) {		
-			if(!bRegisteredButtonEvent[ptz_tilt_up_]){
-				ptz.tilt = tilt_increment_;
-				//ROS_INFO("SummitXLPad::padCallback: TILT UP");
-				bRegisteredButtonEvent[ptz_tilt_up_] = true;
-				ptzEvent = true;
-			}
-		}else {
-			bRegisteredButtonEvent[ptz_tilt_up_] = false;
-		}
 
-		if (joy->buttons[ptz_tilt_down_] == 1) {
-			if(!bRegisteredButtonEvent[ptz_tilt_down_]){
-			  	ptz.tilt = -tilt_increment_;
-				//ROS_INFO("SummitXLPad::padCallback: TILT DOWN");
-				bRegisteredButtonEvent[ptz_tilt_down_] = true;
-				ptzEvent = true;
-			}
-		}else{
-			bRegisteredButtonEvent[ptz_tilt_down_] = false;
-		}
-		 
-		// PAN-MOVEMENTS (RELATIVE POS)
-		if (joy->buttons[ptz_pan_left_] == 1) {			
-			if(!bRegisteredButtonEvent[ptz_pan_left_]){
-				ptz.pan = -pan_increment_;
-				//ROS_INFO("SummitXLPad::padCallback: PAN LEFT");
-				bRegisteredButtonEvent[ptz_pan_left_] = true;
-				ptzEvent = true;
-			}
-		}else{
-			bRegisteredButtonEvent[ptz_pan_left_] = false;
-		}
+		if(pad_type_=="ps4")
+		  {
+		    if (joy->axes[ptz_tilt_up_] == 1.0) {
+		       if(!bRegisteredDirectionalArrows[AXIS_PTZ_TILT_UP]){
+			 ptz.tilt = tilt_increment_;
+			 ROS_INFO("SummitXLPad::padCallback: TILT UP");
+			 bRegisteredDirectionalArrows[AXIS_PTZ_TILT_UP] = true;
+			 ptzEvent = true;
+		      }
+		    }else{
+		      bRegisteredDirectionalArrows[AXIS_PTZ_TILT_UP] = false;
+		    }
+		       
+		    if (joy->axes[ptz_tilt_down_] == -1.0) {
+		      if(!bRegisteredDirectionalArrows[AXIS_PTZ_TILT_DOWN]){
+			ptz.tilt = -tilt_increment_;
+			ROS_INFO("SummitXLPad::padCallback: TILT DOWN");
+			bRegisteredDirectionalArrows[AXIS_PTZ_TILT_DOWN] = true;
+			ptzEvent = true;
+		      }
+		    }else{
+		      bRegisteredDirectionalArrows[AXIS_PTZ_TILT_DOWN] = false;
+		    }
+		    
+		    if (joy->axes[ptz_pan_left_] == 1.0) {
+		      if(!bRegisteredDirectionalArrows[AXIS_PTZ_PAN_LEFT]){
+			ptz.pan = -pan_increment_;
+			ROS_INFO("SummitXLPad::padCallback: PAN LEFT");
+			bRegisteredDirectionalArrows[AXIS_PTZ_PAN_LEFT] = true;
+			ptzEvent = true;
+		      }
+		    }else{
+		      bRegisteredDirectionalArrows[AXIS_PTZ_PAN_LEFT] = false;
+		    }
+		    
+		    if (joy->axes[ptz_pan_right_] == -1.0) {
+		      if(!bRegisteredDirectionalArrows[AXIS_PTZ_PAN_RIGHT]){
+			ptz.pan = pan_increment_;
+			ROS_INFO("SummitXLPad::padCallback: PAN RIGHT");
+			bRegisteredDirectionalArrows[AXIS_PTZ_PAN_RIGHT] = true;
+			ptzEvent = true;
+		      }
+		    }else{
+		      bRegisteredDirectionalArrows[AXIS_PTZ_PAN_RIGHT] = false;
+		    }
+		  }
 
-		if (joy->buttons[ptz_pan_right_] == 1) {
-			if(!bRegisteredButtonEvent[ptz_pan_right_]){
-			  	ptz.pan = pan_increment_;
-				//ROS_INFO("SummitXLPad::padCallback: PAN RIGHT");
-				bRegisteredButtonEvent[ptz_pan_right_] = true;
-				ptzEvent = true;
-			}
-		}else{
+		else{
+		  // TILT-MOVEMENTS (RELATIVE POS)
+		  if (joy->buttons[ptz_tilt_up_] == 1) {		
+		    if(!bRegisteredButtonEvent[ptz_tilt_up_]){
+		      ptz.tilt = tilt_increment_;
+		      //ROS_INFO("SummitXLPad::padCallback: TILT UP");
+		      bRegisteredButtonEvent[ptz_tilt_up_] = true;
+		      ptzEvent = true;
+		    }
+		  }else {
+		    bRegisteredButtonEvent[ptz_tilt_up_] = false;
+		  }
+		  
+		  if (joy->buttons[ptz_tilt_down_] == 1) {
+		    if(!bRegisteredButtonEvent[ptz_tilt_down_]){
+		      ptz.tilt = -tilt_increment_;
+		      //ROS_INFO("SummitXLPad::padCallback: TILT DOWN");
+		      bRegisteredButtonEvent[ptz_tilt_down_] = true;
+		      ptzEvent = true;
+		    }
+		  }else{
+		    bRegisteredButtonEvent[ptz_tilt_down_] = false;
+		  }
+		  
+		  // PAN-MOVEMENTS (RELATIVE POS)
+		  if (joy->buttons[ptz_pan_left_] == 1) {			
+		    if(!bRegisteredButtonEvent[ptz_pan_left_]){
+		      ptz.pan = -pan_increment_;
+		      //ROS_INFO("SummitXLPad::padCallback: PAN LEFT");
+		      bRegisteredButtonEvent[ptz_pan_left_] = true;
+		      ptzEvent = true;
+		    }
+		  }else{
+		    bRegisteredButtonEvent[ptz_pan_left_] = false;
+		  }
+		  
+		  if (joy->buttons[ptz_pan_right_] == 1) {
+		    if(!bRegisteredButtonEvent[ptz_pan_right_]){
+		      ptz.pan = pan_increment_;
+		      //ROS_INFO("SummitXLPad::padCallback: PAN RIGHT");
+		      bRegisteredButtonEvent[ptz_pan_right_] = true;
+		      ptzEvent = true;
+		    }
+		  }else{
 			bRegisteredButtonEvent[ptz_pan_right_] = false;
+		  }
 		}
 
 		// ZOOM Settings (RELATIVE)

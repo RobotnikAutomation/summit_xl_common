@@ -3,10 +3,7 @@ Panels:
     Help Height: 78
     Name: Displays
     Property Tree Widget:
-      Expanded:
-        - /Global Options1
-        - /Grid1
-        - /TF1/Frames1
+      Expanded: ~
       Splitter Ratio: 0.474308
     Tree Height: 451
   - Class: rviz/Selection
@@ -79,6 +76,19 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_pan_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_tilt_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         front_left_wheel:
           Alpha: 1
           Show Axes: false
@@ -99,27 +109,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        hokuyo_pole_laser_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         imu_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        jai_cam2_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        jai_cam_1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -130,113 +120,6 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
-    - Arrow Length: 0.3
-      Class: rviz/PoseArray
-      Color: 255; 25; 0
-      Enabled: true
-      Name: PoseArray
-      Topic: ""
-      Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: ""
-      Decay Time: 0
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 4096
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: PointCloud2
-      Position Transformer: ""
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.01
-      Style: Flat Squares
-      Topic: ""
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: true
-    - Angle Tolerance: 0.1
-      Class: rviz/Odometry
-      Color: 255; 25; 0
-      Enabled: true
-      Keep: 100
-      Length: 1
-      Name: Odometry
-      Position Tolerance: 0.1
-      Topic: /odometry/filtered_odom
-      Value: true
-    - Angle Tolerance: 0.1
-      Class: rviz/Odometry
-      Color: 85; 0; 255
-      Enabled: true
-      Keep: 100
-      Length: 1
-      Name: Odometry
-      Position Tolerance: 0.1
-      Topic: /odom
-      Value: true
-    - Class: rviz/TF
-      Enabled: false
-      Frame Timeout: 15
-      Frames:
-        All Enabled: false
-      Marker Scale: 1
-      Name: TF
-      Show Arrows: true
-      Show Axes: true
-      Show Names: true
-      Tree:
-        {}
-      Update Interval: 0
-      Value: false
-    - Class: rviz/InteractiveMarkers
-      Enable Transparency: true
-      Enabled: true
-      Name: InteractiveMarkers
-      Show Axes: false
-      Show Descriptions: true
-      Show Visual Aids: false
-      Update Topic: /path_marker/update
-      Value: true
-    - Alpha: 1
-      Buffer Length: 1
-      Class: rviz/Path
-      Color: 25; 255; 0
-      Enabled: true
-      Line Style: Lines
-      Line Width: 0.03
-      Name: Path
-      Offset:
-        X: 0
-        Y: 0
-        Z: 0
-      Topic: /move_base/TrajectoryPlannerROS/local_plan
-      Value: true
-    - Alpha: 1
-      Buffer Length: 1
-      Class: rviz/Path
-      Color: 255; 0; 0
-      Enabled: true
-      Line Style: Lines
-      Line Width: 0.03
-      Name: Path
-      Offset:
-        X: 0
-        Y: 0
-        Z: 0
-      Topic: /move_base/TrajectoryPlannerROS/global_plan
-      Value: true
     - Alpha: 1
       Blocks: 1
       Class: rviz_plugins/AerialMapDisplay
@@ -271,7 +154,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 239.183
+      Distance: 126.225
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -283,10 +166,10 @@ Visualization Manager:
         Z: -0.0336394
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 1.5698
+      Pitch: 0.739796
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.69942
+      Yaw: 5.54442
     Saved: ~
 Window Geometry:
   Displays:

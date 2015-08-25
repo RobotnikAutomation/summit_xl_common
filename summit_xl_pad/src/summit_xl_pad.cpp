@@ -55,6 +55,12 @@
 #define DEFAULT_SCALE_ANGULAR		2.0
 #define DEFAULT_SCALE_LINEAR_Z      1.0 
 
+//Used only with ps4
+#define AXIS_PTZ_TILT_UP  0
+#define AXIS_PTZ_TILT_DOWN  1
+#define AXIS_PTZ_PAN_LEFT  2
+#define AXIS_PTZ_PAN_RIGHT  3
+
     
 ////////////////////////////////////////////////////////////////////////
 //                               NOTE:                                //

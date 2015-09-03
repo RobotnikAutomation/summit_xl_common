@@ -2,11 +2,12 @@
 <launch>
 
 <!-- Run the map server -->
-<node name="map_server" pkg="map_server" type="map_server" args="$(find vinbot_demo)/maps/map2.yaml"/>
+<node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/map1/map1.yaml"/>
 
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
 
-  <remap from="scan" to="scan" />
+  <!-- remap from="scan" to="scan" / -->
+  <remap from="scan" to="/hokuyo_base/scan" />
   <remap from="cmd_vel" to="/summit_xl_controller/cmd_vel"/>
   <!-- remap from="scan" to="hokuyo_laser_topic" / -->
   <!-- remap from="cmd_vel" to="summit_xl_controller/cmd_vel" / -->

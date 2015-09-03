@@ -7,8 +7,8 @@ clearing_rotation_allowed: true
 shutdown_costmaps: false
 oscillation_timeout: 0.0
 oscillation_distance: 0.5
-planner_frequency: 0.0
-
+#planner_frequency: 0.0
+planner_frequency: 0.2
 
 
 #clearing_radius: 0.59

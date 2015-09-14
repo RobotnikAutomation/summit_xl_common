@@ -16,6 +16,6 @@ This package contains launch files to use the EKF of the robot_localization pack
 
 This package contains all the configuration files needed to execute the AMCL and SLAM navigation algorithms in simulation.
 
-<h2>summit_xl_pad<h2>
+<h2>summit_xl_pad</h2>
 
 This package contains the node that subscribes to /joy messages and publishes command messages for the robot platform. The joystick output is feed to a mux (http://wiki.ros.org/twist_mux) so that the final command to the robot can be set by different components (move_base, etc.)

@@ -1,49 +1,49 @@
 <?xml version="1.0"?>
-<launch>
-    <node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 -0.1 0.4 0 0 0 1 base_footprint_fake local_origin 10"/>
-
-    <node pkg="summit_xl_localization" type="local_tf" name="change_imu_frame"/>
+<launch>  
+      
+     <node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 -0.1 0.40 0 0 0 1 base_footprint fcu 50"/> 
 
      <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
-   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc1" clear_params="true" output="screen">
-      <remap from="odometry/filtered" to="/odometry/filtered_odom" /> 
+   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc1" clear_params="true" output="screen">      
+      <remap from="odometry/filtered" to="odometry/filtered_odom" />
 
-      <!-- Odometry update frequency: 15 Hz -->
-      <param name="frequency" value="15"/>
+      <param name="frequency" value="30"/>
       <param name="sensor_timeout" value="0.1"/>
 
-      <param name="two_d_mode" value="false"/>
+      <param name="two_d_mode" type="bool" value="true"/>
 
       <param name="odom_frame" value="odom"/>
       <param name="base_link_frame" value="base_footprint"/>
       <param name="world_frame" value="odom"/>
 
-      <param name="odom0" value="/odom"/>
+      <!-- NOTE: when using only the twist components of odometry, it does not matter fusing the odometry from the wheels-->
+      <param name="odom0" value="/imu_odom"/>
+      <param name="imu0" value="/mavros/imu/data"/>
 
-     <!-- CHANGE TO /mavros/imu/data if local_tf node is not working -->
-      <param name="imu0" value="/mavros/imu/data_new"/>
-
-      <rosparam param="odom0_config">[false, false, true,
+       <rosparam param="odom0_config">[false, false, false,
                                       false, false, false,
-                                      true,  true, true,
+                                      true,  false, false,
                                       false, false, true,
                                       false, false, false]</rosparam>
 
         <rosparam param="imu0_config">[false, false, false,
-                                     true,  true,  true,
-                                     false, false, false,
-                                     true, true, true,
-                                     false, false, false]</rosparam>
+                                       false, false, false,
+                                       false, false, false,
+                                       true, true, true,
+                                       false, false, false]</rosparam>
 
-      <param name="odom0_differential" value="false"/>
-      <param name="imu0_differential" value="true"/>
+      <param name="odom0_differential" value="true"/>
+      <param name="imu0_differential" value="false" />
 
       <param name="odom0_relative" value="false"/>
-      <param name="imu0_relative" value="false"/>
-
-      <param name="imu0_remove_gravitational_acceleration" value="true"/>
+      <param name="imu0_relative" value="true"/>
+    
+      <param name="imu0_remove_gravitational_acceleration" type="bool" value="true"/>
 
       <param name="print_diagnostics" value="false"/>
-   </node>
-</launch>
+     
+      <param name="imu0_queue_size" value="1"/>
 
+   </node>
+
+</launch>

@@ -58,7 +58,7 @@ private:
   
   string odom_topic_;
   string imu_topic_;
-  string imu_output_topic_,
+  string imu_output_topic_;
 
   //FLAGS
   //If true, the node subscribes to sensor_msgs/Imu messages and republishes them dynamically adaptating the orientation covariance matrix accordingly to the state of motion of the robot
@@ -68,14 +68,14 @@ private:
 };
 
 LocalizationUtils::LocalizationUtils(ros::NodeHandle nh): nh_(nh), private_nh_("~"), 
-				    			  in_motion_(false), angular_vel_(0.0), 
+				    			  in_motion_(false), angular_vel_(0.0)
 {
   private_nh_.param<string>("odom_topic", odom_topic_, "/odom");
   private_nh_.param<string>("imu_topic", imu_topic_, "/mavros/imu/data");
   private_nh_.param<string>("dynamic_imu_covariance", dynamic_imu_covariance_, "false");
   private_nh_.param<string>("imu_outpur_topic", imu_output_topic_, "/mavros/imu/data_adapted");
 
-  if (dynamic_imu_covariance == "true"){
+  if (dynamic_imu_covariance_ == "true"){
 	ROS_INFO("[LocalizationUtils]: using dynamic Imu covariance");
   	imu_sub_=nh_.subscribe<sensor_msgs::Imu>(imu_topic_, 1, &LocalizationUtils::imuCallback, this);
   	odom_sub_=nh_.subscribe<nav_msgs::Odometry>(odom_topic_, 1, &LocalizationUtils::odomCallback, this);

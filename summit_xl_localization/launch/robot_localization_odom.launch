@@ -16,8 +16,8 @@
       <param name="base_link_frame" value="base_footprint"/>
       <param name="world_frame" value="odom"/>
 
-      <param name="odom0" value="/imu_odom"/>
-      <param name="imu0" value="/mavros/imu/data"/>
+      <param name="odom0" value="/odom"/>
+      <param name="imu0" value="/imu/data"/>
 
       <rosparam param="odom0_config">[true, true, false,
                                       false, false, true,

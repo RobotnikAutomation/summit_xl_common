@@ -1,42 +1,36 @@
-<!-- Launch file for navsat_transform_new_node:
- - travelled_distance: set the distance for GPS publishing 
- - localOdomTopic: name of the topic from which get the travelled distance -->
-
+<?xml version="1.0"?>
 <launch>
-    <node pkg="summit_xl_localization" type="navsat_transform_new_node" name="navsat_transform_new_node" respawn="true" output="screen">
-      <!-- Frequency of the main run loop -->
-      <param name="frequency" value="30"/>
-
+    <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
        <!-- If your IMU does not account for magnetic declination -->
-       <!-- Now magnetic declination is not internally set in the IMU (it can be set during the calibration) -->
-	<param name="magnetic_declination_radians" value="0.001164"/> 
+     	<param name="magnetic_declination_radians" value="0.001164"/> 
         <!-- Value for Valencia: 0°4'W, changing by 0°7' E per year -->
 
-       <!-- The value of this parameter depends on the GPS data (it should be checked) -->
+       <!-- The value of this parameter depends on the GPS data -->
        <param name="yaw_offset" value="1.5707963"/>
 
-       <!-- If this is true, the altitude is set to 0 in the output odometry message. Defaults
-           to false. -->
-      <param name="zero_altitude" value="false"/>
+       <!-- If this is true, the altitude is set to 0 in the output odometry message  -->
+       <param name="zero_altitude" value="false"/>
 
-      <!-- Publish the transform between utm and world 
-	(frame of the input odometry data, in this case /odometry/filtered_world ) 
+       <!-- Publish the transform between utm and world 
+	(frame of the input odometry data, in this case /odometry/filtered_world) 
 	It is a static transform -->
-      <param name="broadcast_utm_transform" value="true"/>
+       <param name="broadcast_utm_transform" value="true"/>
 
-      <!-- Placeholders for input remapping. Set your topic names as the "to" values.-->
-      <remap from="/gps/fix" to="/fix"/>
-      <remap from="/imu/data" to="/mavros/imu/data"/>
-      <remap from="/odometry/filtered" to="/odometry/filtered_world" />
-
-	<param name="travelled_distance" value="1.0"/>
-	<param name="localOdomTopic" value="/odometry/filtered_odom"/>
+       <!-- Placeholders for input remapping. Set your topic names as the "to" values.-->
+       <remap from="/gps/fix" to="/fix"/>
+       <remap from="/imu/data" to="/mavros/imu/data"/>
+       <remap from="/odometry/filtered" to="/odometry/filtered_world" />
       
       <!-- Placeholders for output remapping.
       <remap from="/odometry/gps" to=""/>
       <remap from="/gps/filtered" to=""/>
       -->
-
     </node>
-
 </launch>
+
+<!-- Another options is to use the navsat_transform_new_node from summit_xl_localization
+	(this node comes commented in the packages -> edit the CMakeLists.txt file to use it)
+	It publishes the GPS odometry only if the robot has moved of a configurable distance.
+	PARAMS:
+	 - travelled_distance: set the distance for GPS publishing 
+	 - localOdomTopic: name of the topic from which get the travelled distance -->

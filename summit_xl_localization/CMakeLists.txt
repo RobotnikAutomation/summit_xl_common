@@ -65,4 +65,5 @@ include_directories(include
 #target_link_libraries(navsat_transform_new_node navsat_transform_new ${catkin_LIBRARIES})
 
 add_executable(rl_utils src/robot_localization_utils.cpp)
+add_dependencies(rl_utils robotnik_msgs_generate_messages_cpp)
 target_link_libraries(rl_utils ${catkin_LIBRARIES})

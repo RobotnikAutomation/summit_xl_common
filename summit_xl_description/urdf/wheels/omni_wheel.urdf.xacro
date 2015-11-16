@@ -3,7 +3,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
   <!-- Wheels -->
-  <property name="wheel_radius" value="0.127" /> 
+  <property name="wheel_radius" value="0.051" /> 
   <property name="wheel_height" value="0.087" />
   <property name="wheel_mass" value="6.5" /> <!-- in kg-->
  

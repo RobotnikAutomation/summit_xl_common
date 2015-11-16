@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(summit_xl_description)
 
-find_package(catkin REQUIRED COMPONENTS roslaunch urdf xacro)
+find_package(catkin REQUIRED COMPONENTS roslaunch urdf xacro robotnik_sensors)
 
 catkin_package(
   CATKIN_DEPENDS urdf xacro

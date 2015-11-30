@@ -72,18 +72,21 @@
 	<!-- SENSORS -->
 
     
-	<xacro:sensor_hokuyo_utm30lx name="hokuyo_base" parent="base_link" min_angle="2.35" max_angle="-2.35">
+  <!-- Hokuyo laser sensors can be parametized with min_angle and max_angle e.g: -->
+  <!--xacro:sensor_hokuyo_utm30lx name="hokuyo_base" parent="base_link" min_angle="2.35" max_angle="-2.35"-->
+    
+	<xacro:sensor_hokuyo_utm30lx name="hokuyo_base" parent="base_link">
 		<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 	</xacro:sensor_hokuyo_utm30lx>
   
 <!--
-	<xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link" min_angle="2.0943" max_angle="-2.0943">
+	<xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link">
 		<origin xyz="-0.1 0.0 0.33" rpy="0 0 0"/>
 	</xacro:sensor_hokuyo_urg04lx>
 -->
 
 <!--
-  <xacro:sensor_hokuyo_ust10lx name="hokuyo_base" parent="base_link" min_angle="2.35" max_angle="-2.35">
+  <xacro:sensor_hokuyo_ust10lx name="hokuyo_base" parent="base_link">
 		<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 	</xacro:sensor_hokuyo_ust10lx>
 -->

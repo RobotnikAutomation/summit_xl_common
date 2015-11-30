@@ -72,14 +72,20 @@
 	<!-- SENSORS -->
 
     
-	<xacro:sensor_hokuyo_utm30lx name="hokuyo" parent="base_link">
+	<xacro:sensor_hokuyo_utm30lx name="hokuyo_base" parent="base_link" min_angle="2.35" max_angle="-2.35">
 		<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 	</xacro:sensor_hokuyo_utm30lx>
   
 <!--
-	<xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link">
+	<xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link" min_angle="2.0943" max_angle="-2.0943">
 		<origin xyz="-0.1 0.0 0.33" rpy="0 0 0"/>
 	</xacro:sensor_hokuyo_urg04lx>
+-->
+
+<!--
+  <xacro:sensor_hokuyo_ust10lx name="hokuyo_base" parent="base_link" min_angle="2.35" max_angle="-2.35">
+		<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
+	</xacro:sensor_hokuyo_ust10lx>
 -->
     
 	<xacro:sensor_axis name="camera" parent="base_link">

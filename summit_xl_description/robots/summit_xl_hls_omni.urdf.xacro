@@ -90,11 +90,11 @@
 
 	<!-- SENSORS -->
 	<xacro:sensor_hokuyo_ust10lx name="hokuyo_front" parent="base_link">
-		<origin xyz="0.403 -0.256 -0.045" rpy="3.1416 0 -0.7854"/>
+		<origin xyz="0.403 -0.256 0.045" rpy="3.1416 0 -0.7854"/>
 	</xacro:sensor_hokuyo_ust10lx>
 
 	<xacro:sensor_hokuyo_ust10lx name="hokuyo_rear" parent="base_link">
-		<origin xyz="-0.403 0.256 -0.045" rpy="3.1416 0 2.3562"/>
+		<origin xyz="-0.403 0.256 0.025" rpy="3.1416 0 2.3562"/>
 	</xacro:sensor_hokuyo_ust10lx>
 	
 	<xacro:sensor_axis_m5013 name="camera_front" parent="base_link">
@@ -118,12 +118,12 @@
 		<origin xyz="0.438 -0.117 1.375" rpy="0 0 0"/>
     </xacro:pan_tilt>
 
-    <xacro:sensor_asus_xtion_pro name="xtion1" parent="ptu1_link_2">
-		<origin xyz="0.0 0.0 0.033" rpy="0 0 0"/>
+    <xacro:sensor_asus_xtion_pro name="xtion1" parent="ptu1_link_2">		
+		<origin xyz="0.015 0.020 0.045" rpy="0 0 0"/>
     </xacro:sensor_asus_xtion_pro>
 
-    <xacro:sensor_asus_xtion_pro name="xtion2" parent="ptu2_link_2">
-		<origin xyz="0.0 0.0 0.033" rpy="0 0 0"/>
+    <xacro:sensor_asus_xtion_pro name="xtion2" parent="ptu2_link_2">		
+		<origin xyz="0.015 0.020 0.045" rpy="0 0 0"/>
     </xacro:sensor_asus_xtion_pro>
 
      

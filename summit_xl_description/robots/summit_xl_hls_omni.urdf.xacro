@@ -15,7 +15,11 @@
 
 	<!-- Import strucutres, holders -->
 	<xacro:include filename="$(find summit_xl_description)/urdf/structures/structure_hokuyo.urdf.xacro" />
+	<xacro:include filename="$(find summit_xl_description)/urdf/structures/structure_masts.urdf.xacro" />
     
+	<!-- Import pan-tilt unit -->
+	<xacro:include filename="$(find summit_xl_description)/urdf/pan_tilt/pan_tilt.urdf.xacro" />
+
 	<!-- Import all available sensors -->
 	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
 
@@ -61,6 +65,11 @@
        <origin xyz="-0.2225 0.105 0.001" rpy="0 0 3.1416"/>
     </xacro:structure>
 
+    <xacro:structure_masts name="structure_masts" parent="base_link">
+       <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    </xacro:structure_masts>
+
+
     
 	<!-- WHEELS -->
 	<xacro:omni_wheel name="front_right" parent="base_link" reflect="false" hq="true">
@@ -81,11 +90,11 @@
 
 	<!-- SENSORS -->
 	<xacro:sensor_hokuyo_ust10lx name="hokuyo_front" parent="base_link">
-		<origin xyz="0.403 -0.256 -0.050" rpy="3.1416 0 -0.7854"/>
+		<origin xyz="0.403 -0.256 -0.045" rpy="3.1416 0 -0.7854"/>
 	</xacro:sensor_hokuyo_ust10lx>
 
 	<xacro:sensor_hokuyo_ust10lx name="hokuyo_rear" parent="base_link">
-		<origin xyz="-0.403 0.256 -0.050" rpy="3.1416 0 2.3562"/>
+		<origin xyz="-0.403 0.256 -0.045" rpy="3.1416 0 2.3562"/>
 	</xacro:sensor_hokuyo_ust10lx>
 	
 	<xacro:sensor_axis_m5013 name="camera_front" parent="base_link">
@@ -99,7 +108,25 @@
 	<xacro:sensor_imu name="imu" parent="base_link">
 		<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 	</xacro:sensor_imu>
-  
+
+	<!-- PAN TILT UNITS -->
+    <xacro:pan_tilt name="ptu1" parent="base_link" hq="true">
+		<origin xyz="0.438 0.113 0.675" rpy="0 0 0"/>
+    </xacro:pan_tilt>
+
+    <xacro:pan_tilt name="ptu2" parent="base_link" hq="true">
+		<origin xyz="0.438 -0.117 1.375" rpy="0 0 0"/>
+    </xacro:pan_tilt>
+
+    <xacro:sensor_asus_xtion_pro name="xtion1" parent="ptu1_link_2">
+		<origin xyz="0.0 0.0 0.033" rpy="0 0 0"/>
+    </xacro:sensor_asus_xtion_pro>
+
+    <xacro:sensor_asus_xtion_pro name="xtion2" parent="ptu2_link_2">
+		<origin xyz="0.0 0.0 0.033" rpy="0 0 0"/>
+    </xacro:sensor_asus_xtion_pro>
+
+     
 <!-- xacro:sensor_gps name="gps" parent="base_link">
 		<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
 	</xacro:sensor_gps -->

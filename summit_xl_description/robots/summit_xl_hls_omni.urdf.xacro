@@ -89,14 +89,18 @@
 	</xacro:omni_wheel>
 
 	<!-- SENSORS -->
-	<xacro:sensor_hokuyo_ust10lx name="hokuyo_front" parent="base_link">
+	<!-- xacro:sensor_hokuyo_ust10lx name="hokuyo_front" parent="base_link">
 		<origin xyz="0.403 -0.256 0.045" rpy="3.1416 0 -0.7854"/>
-	</xacro:sensor_hokuyo_ust10lx>
+	</xacro:sensor_hokuyo_ust10lx -->
 
 	<xacro:sensor_hokuyo_ust10lx name="hokuyo_rear" parent="base_link">
-		<origin xyz="-0.403 0.256 0.025" rpy="3.1416 0 2.3562"/>
+		<origin xyz="-0.403 0.256 -0.045" rpy="3.1416 0 2.3562"/>
 	</xacro:sensor_hokuyo_ust10lx>
 	
+	<xacro:sensor_hokuyo_ust10lx name="hokuyo_front" parent="base_link">
+		<origin xyz="0.403 -0.256 -0.045" rpy="3.1416 0 -0.7854"/>
+	</xacro:sensor_hokuyo_ust10lx>
+
 	<xacro:sensor_axis_m5013 name="camera_front" parent="base_link">
 		<origin xyz="0.370 -0.234 0.148" rpy="0 0 0"/>
 	</xacro:sensor_axis_m5013>

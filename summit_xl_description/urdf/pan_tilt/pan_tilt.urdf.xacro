@@ -145,6 +145,19 @@
 	</joint>
 
 
+    <transmission name="j1_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="${name}_joint_1">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+     </joint>     
+     <actuator name="j1_motor">
+	    <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>${j1_mechanical_reduction}</mechanicalReduction>
+		<motorTorqueConstant>${j1_motor_torque_constant}</motorTorqueConstant>
+	 </actuator>	 
+    </transmission>
+
+
     <!-- LINK S2 Fixed -->
 	<link name="${name}_link_s2">
 		<inertial>
@@ -227,6 +240,17 @@
 	</joint>
 
 
+    <transmission name="j2_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="${name}_joint_2">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+     </joint>     
+     <actuator name="j2_motor">
+	    <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>${j2_mechanical_reduction}</mechanicalReduction>
+		<motorTorqueConstant>${j2_motor_torque_constant}</motorTorqueConstant>
+	 </actuator>	 
+    </transmission>
       
   </xacro:macro>
 

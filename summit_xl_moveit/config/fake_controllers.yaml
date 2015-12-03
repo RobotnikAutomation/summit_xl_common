@@ -1,0 +1,9 @@
+controller_list:
+  - name: fake_ptu1_controller
+    joints:
+      - ptu1_joint_1
+      - ptu1_joint_2
+  - name: fake_ptu2_controller
+    joints:
+      - ptu2_joint_1
+      - ptu2_joint_2

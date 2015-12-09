@@ -27,8 +27,8 @@
   <!-- CHECK NEXT Line, it was working in sim, w simulation default = false -->
   <remap if="$(arg simulation)" from="/joint_states" to="/summit_xl/joint_states" />
   
-  <!-- TODO set correct topic for ptu joint states -->
-  <remap unless="$(arg simulation)" from="/joint_states" to="/out/joint_state" />
+  <!-- topic for ptu joint states -->
+  <remap unless="$(arg simulation)" from="/joint_states" to="/joint_states" />
   
   <!-- Planning Functionality -->
   <include ns="move_group" file="$(find summit_xl_moveit)/launch/planning_pipeline.launch.xml">

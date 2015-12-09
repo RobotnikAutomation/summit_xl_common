@@ -139,7 +139,7 @@
 			rpy="0.0 0.0 0.0" />
 		<parent link="${name}_link_base" />	
 		<child link="${name}_link_1" />
-		<axis xyz="0 0 -1" />
+		<axis xyz="0 0 1" />
 		<limit effort="${joint_effort_limit}" velocity="${joint_velocity_limit}" upper="${j1_upper_limit}" lower="${j1_lower_limit}"/>
 		<dynamics damping="${joint_damping}" friction="${joint_friction}"/>
 	</joint>
@@ -234,7 +234,7 @@
 			rpy="0.0 0.0 0.0" />
 		<parent link="${name}_link_1" />	
 		<child link="${name}_link_2" />
-		<axis xyz="0 1 0" />
+		<axis xyz="0 -1 0" />
 		<limit effort="${joint_effort_limit}" velocity="${joint_velocity_limit}" upper="${j2_upper_limit}" lower="${j2_lower_limit}"/>
 		<dynamics damping="${joint_damping}" friction="${joint_friction}"/>
 	</joint>

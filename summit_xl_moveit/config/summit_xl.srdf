@@ -28,11 +28,11 @@
     </group_state>
     <group_state name="front_down_ptu1" group="ptu1">
         <joint name="ptu1_joint_1" value="0" />
-        <joint name="ptu1_joint_2" value="0" />
+        <joint name="ptu1_joint_2" value="-1" />
     </group_state>
     <group_state name="front_down_ptu2" group="ptu2">
         <joint name="ptu2_joint_1" value="0" />
-        <joint name="ptu2_joint_2" value="1" />
+        <joint name="ptu2_joint_2" value="-1" />
     </group_state>
     <group_state name="left_ptu1" group="ptu1">
         <joint name="ptu1_joint_1" value="-1.5708" />

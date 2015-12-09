@@ -15,8 +15,10 @@
 
   <xacro:property name="j1_lower_limit" value="-3.13"/> 
   <xacro:property name="j1_upper_limit" value="3.13"/> 
-  <xacro:property name="j2_lower_limit" value="-1.5708"/> 
-  <xacro:property name="j2_upper_limit" value="1.5708"/> 
+  <!-- xacro:property name="j2_lower_limit" value="-1.5708"/> 
+  <xacro:property name="j2_upper_limit" value="1.5708"/--> 
+  <xacro:property name="j2_lower_limit" value="-1.60"/>
+  <xacro:property name="j2_upper_limit" value="1.60"/>
   
   <xacro:property name="joint_effort_limit" value="2.0"/>
   <xacro:property name="joint_velocity_limit" value="2.9217"/>	

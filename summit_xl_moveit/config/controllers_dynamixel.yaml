@@ -1,0 +1,10 @@
+controller_list:
+  - name: /ptu_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: true
+    joints:
+      - ptu1_joint_1
+      - ptu1_joint_2
+      - ptu2_joint_1
+      - ptu2_joint_2

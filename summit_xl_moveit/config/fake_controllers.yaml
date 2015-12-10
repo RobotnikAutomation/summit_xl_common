@@ -7,3 +7,9 @@ controller_list:
     joints:
       - ptu2_joint_1
       - ptu2_joint_2
+  - name: fake_ptu_controller
+    joints:
+      - ptu1_joint_1
+      - ptu1_joint_2
+      - ptu2_joint_1
+      - ptu2_joint_2

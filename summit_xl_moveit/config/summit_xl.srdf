@@ -17,6 +17,12 @@
         <joint name="ptu2_joint_1" />
         <joint name="ptu2_joint_2" />
     </group>
+    <group name="ptu">
+        <joint name="ptu1_joint_1" />
+        <joint name="ptu1_joint_2" />
+        <joint name="ptu2_joint_1" />
+        <joint name="ptu2_joint_2" />
+    </group>
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
     <group_state name="zero_ptu1" group="ptu1">
         <joint name="ptu1_joint_1" value="0" />
@@ -49,6 +55,42 @@
     <group_state name="right_ptu2" group="ptu2">
         <joint name="ptu2_joint_1" value="1.5708" />
         <joint name="ptu2_joint_2" value="0" />
+    </group_state>
+    <group_state name="zero" group="ptu">
+        <joint name="ptu1_joint_1" value="0" />
+        <joint name="ptu1_joint_2" value="0" />
+        <joint name="ptu2_joint_1" value="0" />
+        <joint name="ptu2_joint_2" value="0" />
+    </group_state>
+    <group_state name="left" group="ptu">
+        <joint name="ptu1_joint_1" value="1.57" />
+        <joint name="ptu1_joint_2" value="0" />
+        <joint name="ptu2_joint_1" value="1.57" />
+        <joint name="ptu2_joint_2" value="0" />
+    </group_state>
+    <group_state name="right" group="ptu">
+        <joint name="ptu1_joint_1" value="-1.57" />
+        <joint name="ptu1_joint_2" value="0" />
+        <joint name="ptu2_joint_1" value="-1.57" />
+        <joint name="ptu2_joint_2" value="0" />
+    </group_state>
+    <group_state name="right_down" group="ptu">
+        <joint name="ptu1_joint_1" value="-1.57" />
+        <joint name="ptu1_joint_2" value="-1" />
+        <joint name="ptu2_joint_1" value="-1.57" />
+        <joint name="ptu2_joint_2" value="-1" />
+    </group_state>
+    <group_state name="left_down" group="ptu">
+        <joint name="ptu1_joint_1" value="1.57" />
+        <joint name="ptu1_joint_2" value="-1" />
+        <joint name="ptu2_joint_1" value="1.57" />
+        <joint name="ptu2_joint_2" value="-1" />
+    </group_state>
+    <group_state name="front_down" group="ptu">
+        <joint name="ptu1_joint_1" value="0" />
+        <joint name="ptu1_joint_2" value="-1" />
+        <joint name="ptu2_joint_1" value="0" />
+        <joint name="ptu2_joint_2" value="-1" />
     </group_state>
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="virtual_joint" type="planar" parent_frame="odom" child_link="base_footprint" />

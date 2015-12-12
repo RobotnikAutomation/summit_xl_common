@@ -10,7 +10,8 @@ TrajectoryPlannerROS:   # params info in http://wiki.ros.org/base_local_planner
   min_vel_theta: -1.0
   min_in_place_rotational_vel: 0.2
   escape_vel: -0.1
-  holonomic_robot: false
+#  holonomic_robot: false
+  holonomic_robot: true
   y_vels: [-0.3, -0.1, 0.1, 0.3]
 
   #	Goal Tolerance Parameters

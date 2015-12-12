@@ -5,5 +5,11 @@ footprint: [[0.36, -0.3], [0.36, 0.3], [-0.36,0.3], [-0.36, -0.3]]
 inflation_radius: 0.05
 
 obstacle_layer:
-  observation_sources: hokuyo_laser
-  hokuyo_laser: {sensor_frame: hokuyo_base_laser_link, data_type: LaserScan, topic: hokuyo_base/scan, marking: true, clearing: true}
+  observation_sources: hokuyo_laser  
+  hokuyo_laser: {sensor_frame: base_link, data_type: LaserScan, topic: scan_multi, marking: true, clearing: true}
+#  hokuyo_laser: {sensor_frame: hokuyo_front_laser_link, data_type: LaserScan, topic: /hokuyo_front/scan, marking: true, clearing: true}
+#  hokuyo_laser: {sensor_frame: hokuyo_base_laser_link, data_type: LaserScan, topic: hokuyo_base/scan, marking: true, clearing: true}
+
+
+
+

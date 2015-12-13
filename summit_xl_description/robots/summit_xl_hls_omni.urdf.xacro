@@ -122,11 +122,11 @@
 		<origin xyz="0.438 -0.117 1.375" rpy="0 0 0"/>
     </xacro:pan_tilt>
 
-    <xacro:sensor_asus_xtion_pro name="xtion1" parent="ptu1_link_2">		
+    <xacro:sensor_asus_xtion_pro name="ptu1" parent="ptu1_link_2">		
 		<origin xyz="0.015 0.020 0.045" rpy="0 0 0"/>
     </xacro:sensor_asus_xtion_pro>
 
-    <xacro:sensor_asus_xtion_pro name="xtion2" parent="ptu2_link_2">		
+    <xacro:sensor_asus_xtion_pro name="ptu2" parent="ptu2_link_2">		
 		<origin xyz="0.015 0.020 0.045" rpy="0 0 0"/>
     </xacro:sensor_asus_xtion_pro>
 

@@ -19,8 +19,12 @@
     <!-- node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom_combined base_footprint 100" / -->
   <node if="$(arg simulation)" pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_1" args="0 0 0 0 0 0 odom odom_combined 100" />
 
+  <!-- TODO !!! as a function of param or publish joint states of ptu in the same namespace-->
+  <!-- only in simulation -->   
+  <remap if="$(arg simulation)" from="/joint_states" to="/summit_xl/joint_states"/>
+  
   <!-- Given the published joint states, publish tf for the robot links -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen"/>
 
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
   <include file="$(find summit_xl_moveit)/launch/move_group_rtc.launch">

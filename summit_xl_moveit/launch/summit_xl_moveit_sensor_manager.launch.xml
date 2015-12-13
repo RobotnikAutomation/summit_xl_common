@@ -1,3 +1,8 @@
 <launch>
+	<param name="octomap_frame" type="string" value="world" />
+	<param name="octomap_resolution" type="double" value="0.2" />
+
+    <rosparam command="load" file="$(find summit_xl_moveit)/config/sensors_xtion_sim.yaml" />
 
 </launch>
+

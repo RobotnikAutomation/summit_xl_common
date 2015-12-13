@@ -105,11 +105,13 @@
     <disable_collisions link1="back_left_wheel" link2="hokuyo_front_laser_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="hokuyo_rear_laser_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="imu_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="ptu2_link_base" reason="Never" />
@@ -118,8 +120,6 @@
     <disable_collisions link1="back_left_wheel" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="back_left_wheel" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="back_left_wheel" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="base_footprint" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="base_link" reason="Adjacent" />
     <disable_collisions link1="back_right_wheel" link2="camera_front_link" reason="Never" />
@@ -129,11 +129,13 @@
     <disable_collisions link1="back_right_wheel" link2="hokuyo_front_laser_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="hokuyo_rear_laser_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="imu_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="ptu2_link_base" reason="Never" />
@@ -142,8 +144,6 @@
     <disable_collisions link1="back_right_wheel" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="back_right_wheel" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="back_right_wheel" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="base_link" reason="Adjacent" />
     <disable_collisions link1="base_footprint" link2="camera_front_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="camera_rear_link" reason="Never" />
@@ -152,11 +152,13 @@
     <disable_collisions link1="base_footprint" link2="hokuyo_front_laser_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="hokuyo_rear_laser_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="imu_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="base_footprint" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="base_footprint" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="base_footprint" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="base_footprint" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="base_footprint" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="base_footprint" link2="ptu2_link_base" reason="Never" />
@@ -165,8 +167,6 @@
     <disable_collisions link1="base_footprint" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="base_footprint" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="base_footprint" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="base_link" link2="camera_front_link" reason="Adjacent" />
     <disable_collisions link1="base_link" link2="camera_rear_link" reason="Adjacent" />
     <disable_collisions link1="base_link" link2="front_left_wheel" reason="Adjacent" />
@@ -174,11 +174,13 @@
     <disable_collisions link1="base_link" link2="hokuyo_front_laser_link" reason="Adjacent" />
     <disable_collisions link1="base_link" link2="hokuyo_rear_laser_link" reason="Adjacent" />
     <disable_collisions link1="base_link" link2="imu_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="base_link" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="base_link" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="base_link" link2="ptu1_link_base" reason="Adjacent" />
     <disable_collisions link1="base_link" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="base_link" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="base_link" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="base_link" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="base_link" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="base_link" link2="ptu2_link_base" reason="Adjacent" />
@@ -187,19 +189,19 @@
     <disable_collisions link1="base_link" link2="structure_hokuyo_front_link" reason="Adjacent" />
     <disable_collisions link1="base_link" link2="structure_hokuyo_rear_link" reason="Adjacent" />
     <disable_collisions link1="base_link" link2="structure_masts_link" reason="Adjacent" />
-    <disable_collisions link1="base_link" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="base_link" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="camera_rear_link" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="front_left_wheel" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="front_right_wheel" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="hokuyo_front_laser_link" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="hokuyo_rear_laser_link" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="camera_front_link" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="camera_front_link" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="ptu2_link_base" reason="Never" />
@@ -208,18 +210,18 @@
     <disable_collisions link1="camera_front_link" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="camera_front_link" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="camera_front_link" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="camera_front_link" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="front_left_wheel" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="front_right_wheel" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="hokuyo_front_laser_link" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="hokuyo_rear_laser_link" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="camera_rear_link" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="camera_rear_link" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="ptu2_link_base" reason="Never" />
@@ -228,17 +230,17 @@
     <disable_collisions link1="camera_rear_link" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="camera_rear_link" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="camera_rear_link" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="camera_rear_link" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="front_right_wheel" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="hokuyo_front_laser_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="hokuyo_rear_laser_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="imu_link" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="ptu2_link_base" reason="Never" />
@@ -247,16 +249,16 @@
     <disable_collisions link1="front_left_wheel" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="front_left_wheel" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="front_left_wheel" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="hokuyo_front_laser_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="hokuyo_rear_laser_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="imu_link" reason="Never" />
+    <disable_collisions link1="front_right_wheel" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="front_right_wheel" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="ptu2_link_base" reason="Never" />
@@ -265,15 +267,15 @@
     <disable_collisions link1="front_right_wheel" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="front_right_wheel" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="front_right_wheel" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="hokuyo_rear_laser_link" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="hokuyo_front_laser_link" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="hokuyo_front_laser_link" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="ptu2_link_base" reason="Never" />
@@ -282,14 +284,14 @@
     <disable_collisions link1="hokuyo_front_laser_link" link2="structure_hokuyo_front_link" reason="Default" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="hokuyo_front_laser_link" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="hokuyo_front_laser_link" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="hokuyo_front_laser_link" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="hokuyo_rear_laser_link" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="hokuyo_rear_laser_link" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="ptu2_link_base" reason="Never" />
@@ -298,13 +300,13 @@
     <disable_collisions link1="hokuyo_rear_laser_link" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="structure_hokuyo_rear_link" reason="Default" />
     <disable_collisions link1="hokuyo_rear_laser_link" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="hokuyo_rear_laser_link" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="hokuyo_rear_laser_link" link2="xtion2_cam_link" reason="Never" />
+    <disable_collisions link1="imu_link" link2="ptu1_cam_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="ptu1_link_1" reason="Never" />
     <disable_collisions link1="imu_link" link2="ptu1_link_2" reason="Never" />
     <disable_collisions link1="imu_link" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="imu_link" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="imu_link" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="imu_link" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="imu_link" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="imu_link" link2="ptu2_link_base" reason="Never" />
@@ -313,12 +315,22 @@
     <disable_collisions link1="imu_link" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="imu_link" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="imu_link" link2="xtion2_cam_link" reason="Never" />
+    <disable_collisions link1="ptu1_cam_link" link2="ptu1_link_2" reason="Adjacent" />
+    <disable_collisions link1="ptu1_cam_link" link2="ptu1_link_s2" reason="Default" />
+    <disable_collisions link1="ptu1_cam_link" link2="ptu2_cam_link" reason="Never" />
+    <disable_collisions link1="ptu1_cam_link" link2="ptu2_link_1" reason="Never" />
+    <disable_collisions link1="ptu1_cam_link" link2="ptu2_link_2" reason="Never" />
+    <disable_collisions link1="ptu1_cam_link" link2="ptu2_link_base" reason="Never" />
+    <disable_collisions link1="ptu1_cam_link" link2="ptu2_link_s1" reason="Never" />
+    <disable_collisions link1="ptu1_cam_link" link2="ptu2_link_s2" reason="Never" />
+    <disable_collisions link1="ptu1_cam_link" link2="structure_hokuyo_front_link" reason="Never" />
+    <disable_collisions link1="ptu1_cam_link" link2="structure_hokuyo_rear_link" reason="Never" />
+    <disable_collisions link1="ptu1_cam_link" link2="structure_masts_link" reason="Never" />
     <disable_collisions link1="ptu1_link_1" link2="ptu1_link_2" reason="Adjacent" />
     <disable_collisions link1="ptu1_link_1" link2="ptu1_link_base" reason="Adjacent" />
     <disable_collisions link1="ptu1_link_1" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="ptu1_link_1" link2="ptu1_link_s2" reason="Adjacent" />
+    <disable_collisions link1="ptu1_link_1" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="ptu1_link_1" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="ptu1_link_1" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="ptu1_link_1" link2="ptu2_link_base" reason="Never" />
@@ -327,10 +339,10 @@
     <disable_collisions link1="ptu1_link_1" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="ptu1_link_1" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="ptu1_link_1" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="ptu1_link_1" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="ptu1_link_2" link2="ptu1_link_base" reason="Never" />
     <disable_collisions link1="ptu1_link_2" link2="ptu1_link_s1" reason="Never" />
     <disable_collisions link1="ptu1_link_2" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="ptu1_link_2" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="ptu1_link_2" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="ptu1_link_2" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="ptu1_link_2" link2="ptu2_link_base" reason="Never" />
@@ -339,10 +351,9 @@
     <disable_collisions link1="ptu1_link_2" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="ptu1_link_2" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="ptu1_link_2" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="ptu1_link_2" link2="xtion1_cam_link" reason="Adjacent" />
-    <disable_collisions link1="ptu1_link_2" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="ptu1_link_base" link2="ptu1_link_s1" reason="Adjacent" />
     <disable_collisions link1="ptu1_link_base" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="ptu1_link_base" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="ptu1_link_base" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="ptu1_link_base" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="ptu1_link_base" link2="ptu2_link_base" reason="Never" />
@@ -351,8 +362,8 @@
     <disable_collisions link1="ptu1_link_base" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="ptu1_link_base" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="ptu1_link_base" link2="structure_masts_link" reason="Default" />
-    <disable_collisions link1="ptu1_link_base" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="ptu1_link_s1" link2="ptu1_link_s2" reason="Never" />
+    <disable_collisions link1="ptu1_link_s1" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="ptu1_link_s1" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="ptu1_link_s1" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="ptu1_link_s1" link2="ptu2_link_base" reason="Never" />
@@ -361,7 +372,7 @@
     <disable_collisions link1="ptu1_link_s1" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="ptu1_link_s1" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="ptu1_link_s1" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="ptu1_link_s1" link2="xtion2_cam_link" reason="Never" />
+    <disable_collisions link1="ptu1_link_s2" link2="ptu2_cam_link" reason="Never" />
     <disable_collisions link1="ptu1_link_s2" link2="ptu2_link_1" reason="Never" />
     <disable_collisions link1="ptu1_link_s2" link2="ptu2_link_2" reason="Never" />
     <disable_collisions link1="ptu1_link_s2" link2="ptu2_link_base" reason="Never" />
@@ -370,8 +381,11 @@
     <disable_collisions link1="ptu1_link_s2" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="ptu1_link_s2" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="ptu1_link_s2" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="ptu1_link_s2" link2="xtion1_cam_link" reason="Default" />
-    <disable_collisions link1="ptu1_link_s2" link2="xtion2_cam_link" reason="Never" />
+    <disable_collisions link1="ptu2_cam_link" link2="ptu2_link_2" reason="Adjacent" />
+    <disable_collisions link1="ptu2_cam_link" link2="ptu2_link_s2" reason="Default" />
+    <disable_collisions link1="ptu2_cam_link" link2="structure_hokuyo_front_link" reason="Never" />
+    <disable_collisions link1="ptu2_cam_link" link2="structure_hokuyo_rear_link" reason="Never" />
+    <disable_collisions link1="ptu2_cam_link" link2="structure_masts_link" reason="Never" />
     <disable_collisions link1="ptu2_link_1" link2="ptu2_link_2" reason="Adjacent" />
     <disable_collisions link1="ptu2_link_1" link2="ptu2_link_base" reason="Adjacent" />
     <disable_collisions link1="ptu2_link_1" link2="ptu2_link_s1" reason="Never" />
@@ -379,39 +393,25 @@
     <disable_collisions link1="ptu2_link_1" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="ptu2_link_1" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="ptu2_link_1" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="ptu2_link_1" link2="xtion1_cam_link" reason="Never" />
     <disable_collisions link1="ptu2_link_2" link2="ptu2_link_base" reason="Never" />
     <disable_collisions link1="ptu2_link_2" link2="ptu2_link_s1" reason="Never" />
     <disable_collisions link1="ptu2_link_2" link2="ptu2_link_s2" reason="Never" />
     <disable_collisions link1="ptu2_link_2" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="ptu2_link_2" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="ptu2_link_2" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="ptu2_link_2" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="ptu2_link_2" link2="xtion2_cam_link" reason="Adjacent" />
     <disable_collisions link1="ptu2_link_base" link2="ptu2_link_s1" reason="Adjacent" />
     <disable_collisions link1="ptu2_link_base" link2="ptu2_link_s2" reason="Never" />
     <disable_collisions link1="ptu2_link_base" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="ptu2_link_base" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="ptu2_link_base" link2="structure_masts_link" reason="Default" />
-    <disable_collisions link1="ptu2_link_base" link2="xtion1_cam_link" reason="Never" />
     <disable_collisions link1="ptu2_link_s1" link2="ptu2_link_s2" reason="Never" />
     <disable_collisions link1="ptu2_link_s1" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="ptu2_link_s1" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="ptu2_link_s1" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="ptu2_link_s1" link2="xtion1_cam_link" reason="Never" />
     <disable_collisions link1="ptu2_link_s2" link2="structure_hokuyo_front_link" reason="Never" />
     <disable_collisions link1="ptu2_link_s2" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="ptu2_link_s2" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="ptu2_link_s2" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="ptu2_link_s2" link2="xtion2_cam_link" reason="Default" />
     <disable_collisions link1="structure_hokuyo_front_link" link2="structure_hokuyo_rear_link" reason="Never" />
     <disable_collisions link1="structure_hokuyo_front_link" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="structure_hokuyo_front_link" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="structure_hokuyo_front_link" link2="xtion2_cam_link" reason="Never" />
     <disable_collisions link1="structure_hokuyo_rear_link" link2="structure_masts_link" reason="Never" />
-    <disable_collisions link1="structure_hokuyo_rear_link" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="structure_hokuyo_rear_link" link2="xtion2_cam_link" reason="Never" />
-    <disable_collisions link1="structure_masts_link" link2="xtion1_cam_link" reason="Never" />
-    <disable_collisions link1="structure_masts_link" link2="xtion2_cam_link" reason="Never" />
-    <disable_collisions link1="xtion1_cam_link" link2="xtion2_cam_link" reason="Never" />
 </robot>

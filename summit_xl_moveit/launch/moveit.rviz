@@ -77,6 +77,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          camera_front_depth_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           camera_front_link:
             Alpha: 1
             Show Axes: false
@@ -87,6 +91,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
           camera_front_tilt_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          camera_rear_depth_optical_frame:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -128,6 +136,27 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          ptu1_cam_depth_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu1_cam_depth_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu1_cam_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          ptu1_cam_rgb_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu1_cam_rgb_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           ptu1_link_1:
             Alpha: 1
             Show Axes: false
@@ -153,6 +182,27 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          ptu2_cam_depth_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu2_cam_depth_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu2_cam_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          ptu2_cam_rgb_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu2_cam_rgb_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           ptu2_link_1:
             Alpha: 1
             Show Axes: false
@@ -193,48 +243,6 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          xtion1_cam_depth_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion1_cam_depth_optical_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion1_cam_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          xtion1_cam_rgb_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion1_cam_rgb_optical_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion2_cam_depth_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion2_cam_depth_optical_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion2_cam_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          xtion2_cam_rgb_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion2_cam_rgb_optical_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
         Loop Animation: false
         Robot Alpha: 0.5
         Show Robot Collision: false
@@ -255,7 +263,7 @@ Visualization Manager:
         Goal State Color: 250; 128; 0
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
-        Planning Group: ptu1
+        Planning Group: ptu
         Query Goal State: true
         Query Start State: false
         Show Workspace: false
@@ -298,6 +306,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          camera_front_depth_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           camera_front_link:
             Alpha: 1
             Show Axes: false
@@ -308,6 +320,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
           camera_front_tilt_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          camera_rear_depth_optical_frame:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -349,6 +365,27 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          ptu1_cam_depth_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu1_cam_depth_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu1_cam_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          ptu1_cam_rgb_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu1_cam_rgb_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           ptu1_link_1:
             Alpha: 1
             Show Axes: false
@@ -374,6 +411,27 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          ptu2_cam_depth_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu2_cam_depth_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu2_cam_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          ptu2_cam_rgb_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          ptu2_cam_rgb_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           ptu2_link_1:
             Alpha: 1
             Show Axes: false
@@ -414,48 +472,6 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          xtion1_cam_depth_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion1_cam_depth_optical_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion1_cam_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          xtion1_cam_rgb_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion1_cam_rgb_optical_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion2_cam_depth_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion2_cam_depth_optical_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion2_cam_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          xtion2_cam_rgb_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          xtion2_cam_rgb_optical_frame:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
         Robot Alpha: 0.5
         Show Robot Collision: false
         Show Robot Visual: true
@@ -475,7 +491,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.27031
+      Distance: 3.22322
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -487,10 +503,10 @@ Visualization Manager:
         Z: -3.72528e-07
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.594797
+      Pitch: 0.514797
       Target Frame: base_footprint
       Value: XYOrbit (rviz)
-      Yaw: 5.90812
+      Yaw: 5.73812
     Saved: ~
 Window Geometry:
   Displays:

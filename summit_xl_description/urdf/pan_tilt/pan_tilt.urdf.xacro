@@ -150,7 +150,8 @@
     <transmission name="j1_trans">
 	 <type>transmission_interface/SimpleTransmission</type>
      <joint name="${name}_joint_1">
-        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <!-- hardwareInterface>EffortJointInterface</hardwareInterface -->
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
      </joint>     
      <actuator name="j1_motor">
 	    <hardwareInterface>EffortJointInterface</hardwareInterface>
@@ -245,7 +246,8 @@
     <transmission name="j2_trans">
 	 <type>transmission_interface/SimpleTransmission</type>
      <joint name="${name}_joint_2">
-        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <!-- hardwareInterface>EffortJointInterface</hardwareInterface -->
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
      </joint>     
      <actuator name="j2_motor">
 	    <hardwareInterface>EffortJointInterface</hardwareInterface>

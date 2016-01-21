@@ -26,10 +26,14 @@
 	It is a static transform -->
        <param name="broadcast_utm_transform" value="true"/>
 
+	   <!-- For debug -->
+	   <!-- param name="publish_filtered_gps" value="true"/ -->
+
        <!-- Placeholders for input remapping. Set your topic names as the "to" values.-->
        <remap from="/gps/fix" to="/fix"/>
        <remap from="/imu/data" to="/mavros/imu/data"/>
-       <remap from="/odometry/filtered" to="/odometry/filtered_world" />
+       <!-- remap from="/odometry/filtered" to="/odometry/filtered_world" / -->
+       <remap from="/odometry/filtered" to="/odom" />
       
       <!-- Placeholders for output remapping.
       <remap from="/odometry/gps" to=""/>

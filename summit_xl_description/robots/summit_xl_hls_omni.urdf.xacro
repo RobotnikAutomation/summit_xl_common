@@ -102,11 +102,18 @@
 	</xacro:sensor_hokuyo_ust10lx>
 
 	<xacro:sensor_axis_m5013 name="camera_front" parent="base_link">
-		<origin xyz="0.370 -0.234 0.148" rpy="0 0 0"/>
+<!--
+		<origin xyz="0.370 -0.234 0.148" rpy="0 0 -0.2837"/>
+-->
+		<!-- modified axis position to correct ar_marker error -->
+		<origin xyz="0.370 -0.180 0.148" rpy="0 0 -0.2837"/>
 	</xacro:sensor_axis_m5013>
 
 	<xacro:sensor_axis_m5013 name="camera_rear" parent="base_link">
+<!--
 		<origin xyz="-0.370 0.234 0.148" rpy="0 0 3.1416"/>
+-->
+		<origin xyz="-0.370 0.234 0.148" rpy="0 0 2.8578"/>
 	</xacro:sensor_axis_m5013>
   
 	<xacro:sensor_imu name="imu" parent="base_link">

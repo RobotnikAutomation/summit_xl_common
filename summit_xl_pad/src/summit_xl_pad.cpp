@@ -169,7 +169,7 @@ class SummitXLPad
 	
 	//! Joint state subscriber (this kind of controller works in position)
 	ros::Subscriber joint_state_sub_;
-	
+
 	//! Robot Joint States
     sensor_msgs::JointState joint_state_;
     // bool bReadState_;
@@ -182,6 +182,7 @@ class SummitXLPad
     //! PTU axes positions
     double ptu1_pan_, ptu1_tilt_, ptu2_pan_, ptu2_tilt_;   
     double ptu1_pan_command_, ptu1_tilt_command_, ptu2_pan_command_, ptu2_tilt_command_;   
+    double delta_angle_;
 };
 
 
@@ -235,17 +236,21 @@ SummitXLPad::SummitXLPad():
 	nh_.param("pan_increment", pan_increment_, 1);
 	nh_.param("tilt_increment",tilt_increment_, 1);
 	nh_.param("zoom_increment", zoom_increment_, 1);
+        nh_.param("delta_angle", delta_angle_, 0.15);
 	// PTU RGBD CONF
 	nh_.param<std::string>("ptu1_pan_cmd", ptu1_pan_cmd, "/ptu1_pan_controller/command");
 	nh_.param<std::string>("ptu1_tilt_cmd", ptu1_tilt_cmd, "/ptu1_tilt_controller/command");
 	nh_.param<std::string>("ptu2_pan_cmd", ptu2_pan_cmd, "/ptu2_pan_controller/command");
 	nh_.param<std::string>("ptu2_tilt_cmd", ptu2_tilt_cmd, "/ptu2_tilt_controller/command");
 
-    nh_.param<std::string>("joint_ptu1_pan", joint_ptu1_pan_, "joint_ptu1_pan");
-    nh_.param<std::string>("joint_ptu1_tilt", joint_ptu1_tilt_, "joint_ptu1_tilt");
-    nh_.param<std::string>("joint_ptu2_pan", joint_ptu2_pan_, "joint_ptu2_pan");
-    nh_.param<std::string>("joint_ptu2_tilt", joint_ptu2_tilt_, "joint_ptu2_tilt");
-	
+        // nh.param<std::string>("/ptu1_pan_controller/state
+
+
+        nh_.param<std::string>("joint_ptu1_pan", joint_ptu1_pan_, "ptu1_joint_1");
+        nh_.param<std::string>("joint_ptu1_tilt", joint_ptu1_tilt_, "ptu1_joint_2");
+        nh_.param<std::string>("joint_ptu2_pan", joint_ptu2_pan_, "ptu2_joint_1");
+        nh_.param<std::string>("joint_ptu2_tilt", joint_ptu2_tilt_, "ptu2_joint_2");
+
 
 	// KINEMATIC MODE 
 	nh_.param("button_kinematic_mode", button_kinematic_mode_, button_kinematic_mode_);
@@ -297,8 +302,8 @@ SummitXLPad::SummitXLPad():
 	// Advertise ptu command topics
 	ptu1_pan_pub_ = nh_.advertise<std_msgs::Float64>( ptu1_pan_cmd, 1 );
 	ptu1_tilt_pub_ = nh_.advertise<std_msgs::Float64>( ptu1_tilt_cmd, 1 );
-	ptu2_pan_pub_ = nh_.advertise<std_msgs::Float64>( ptu1_pan_cmd, 1 );
-	ptu2_tilt_pub_ = nh_.advertise<std_msgs::Float64>( ptu1_tilt_cmd, 1 );
+	ptu2_pan_pub_ = nh_.advertise<std_msgs::Float64>( ptu2_pan_cmd, 1 );
+	ptu2_tilt_pub_ = nh_.advertise<std_msgs::Float64>( ptu2_tilt_cmd, 1 );
 
 	
 	// Diagnostics
@@ -317,26 +322,18 @@ SummitXLPad::SummitXLPad():
 	last_command_ = true;
 	
 	// Subscribe to joint states topic
-    joint_state_sub_ = nh_.subscribe<sensor_msgs::JointState>("/summit_xl/joint_states", 1, &SummitXLPad::jointStateCallback, this);
+    joint_state_sub_ = nh_.subscribe<sensor_msgs::JointState>("/joint_states", 1, &SummitXLPad::jointStateCallback, this);
+
+    //joint_state_sub_ = nh_.subscribe<sensor_msgs::JointState>("/joint_states", 1, &SummitXLPad::jointStateCallback, this);
+
+
+
     // bReadState_= false;
     ptu1_pan_ = 0.0; ptu1_tilt_ = 0.0; ptu2_pan_ = 0.0; ptu2_tilt_ = 0.0;
     ptu1_pan_command_ = 0.0; ptu1_tilt_command_ = 0.0; ptu2_pan_command_ = 0.0; ptu2_tilt_command_ = 0.0; 
     bPtuOK_ = false;    
 }
 
-/*
-bool SummitXLPad::Starting()
-{
- if (bReadState_) {
-    vector<string> joint_names = joint_state_.name;
-    ptu1_pan_ = find (joint_names.begin(),joint_names.end(), string(joint_ptu1_pan_)) - joint_names.begin();
-    ptu1_tilt_ = find (joint_names.begin(),joint_names.end(), string(joint_ptu1_tilt_)) - joint_names.begin();
-    ptu2_pan_ = find (joint_names.begin(),joint_names.end(), string(joint_ptu2_pan_)) - joint_names.begin();
-    ptu2_tilt_ = find (joint_names.begin(),joint_names.end(), string(joint_ptu2_tilt_)) - joint_names.begin();
-    return true;
-	}
-  return false;
-}*/
 
 /*
  *	\brief Updates the diagnostic component. Diagnostics
@@ -348,25 +345,31 @@ void SummitXLPad::Update(){
 
 // Topic command
 void SummitXLPad::jointStateCallback(const sensor_msgs::JointStateConstPtr& msg)
-{	
+{
+  /*	
   joint_state_ = *msg;
-  // bReadState_ = true;
+  bool bPtu1 = false;
+  bool bPtu2 = false;
 
-  std::vector<std::string> joint_names = joint_state_.name;
-  int ptu1p=-1; int ptu1t=-1; int ptu2p=-1;int ptu2t=-1;
-  ptu1p = find (joint_names.begin(),joint_names.end(), std::string(joint_ptu1_pan_)) - joint_names.begin();
-  ptu1t = find (joint_names.begin(),joint_names.end(), std::string(joint_ptu1_tilt_)) - joint_names.begin();
-  ptu2p = find (joint_names.begin(),joint_names.end(), std::string(joint_ptu2_pan_)) - joint_names.begin();
-  ptu2t = find (joint_names.begin(),joint_names.end(), std::string(joint_ptu2_tilt_)) - joint_names.begin();
-  if ((ptu1p!=-1) && (ptu1t!=-1) && (ptu2p!=-1) && (ptu2t!=-1)) bPtuOK_ = true;
+  if (std::find(joint_state_.name.begin(), joint_state_.name.end(), std::string(joint_ptu1_pan_)) != joint_state_.name.end())
+      bPtu1 = true;
+
+  if (std::find(joint_state_.name.begin(), joint_state_.name.end(), std::string(joint_ptu2_pan_)) != joint_state_.name.end())
+      bPtu2 = true;
+
+  if ((bPtu1==true) || (bPtu2==true)) bPtuOK_ = true;
   else bPtuOK_ = false;
   
-  if (bPtuOK_) {
-	ptu1_pan_ = joint_state_.position[ptu1p]; 
-	ptu1_tilt_ = joint_state_.position[ptu1t];  
-	ptu2_pan_ = joint_state_.position[ptu2p]; 
-	ptu2_tilt_ = joint_state_.position[ptu2t];  
+  if (bPtu1) {
+	ptu1_pan_ = joint_state_.position[0]; 
+	ptu1_tilt_ = joint_state_.position[1];  
+        }
+  
+  if (bPtu2) {
+	ptu2_pan_ = joint_state_.position[0]; 
+	ptu2_tilt_ = joint_state_.position[1];  
 	}
+  */
 }
 
 void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
@@ -574,16 +577,18 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		  // TILT-MOVEMENTS (RELATIVE POS)
 		  if (joy->buttons[ptz_tilt_up_] == 1) {			
 		    if(!bRegisteredButtonEvent[ptz_tilt_up_]){
-			  // Left PTU	
-			  if (joy->buttons[button_output_2_] == 1) {
-				 ptu1_tilt_command_ = ptu1_tilt_ + 0.1;
+			  // Left PTU = 1	
+			  if (joy->buttons[button_output_1_] == 1) {
+				 // ptu1_tilt_command_ = ptu1_tilt_ + 0.1;
+                                 ptu1_tilt_command_ = ptu1_tilt_command_ + delta_angle_;
 				 if (ptu1_tilt_command_ > TILT_MAX) ptu1_tilt_command_ = TILT_MAX;
 				 ptuEvent = true;
 			     }
-			  // Right PTU	
-			  else if (joy->buttons[button_output_1_] == 1) {
-				 ptu2_tilt_command_ = ptu2_tilt_ + 0.1;
-				 if (ptu2_tilt_command_ < TILT_MAX) ptu2_tilt_command_ = TILT_MAX;
+			  // Right PTU = 2
+			  else if (joy->buttons[button_output_2_] == 1) {
+				 // ptu2_tilt_command_ = ptu2_tilt_ + 0.1;
+                                 ptu2_tilt_command_ = ptu2_tilt_command_ + delta_angle_;
+				 if (ptu2_tilt_command_ > TILT_MAX) ptu2_tilt_command_ = TILT_MAX;
 				 ptuEvent = true;
 		         }
 			  else {  
@@ -600,14 +605,16 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		  if (joy->buttons[ptz_tilt_down_] == 1) {
 		    if(!bRegisteredButtonEvent[ptz_tilt_down_]){
 			  // Left PTU	
-			  if (joy->buttons[button_output_2_] == 1) {
-				 ptu1_tilt_command_ = ptu1_tilt_ - 0.1;
+			  if (joy->buttons[button_output_1_] == 1) {
+				 // ptu1_tilt_command_ = ptu1_tilt_ - 0.1;
+                                 ptu1_tilt_command_ = ptu1_tilt_command_ - delta_angle_;
 				 if (ptu1_tilt_command_ < TILT_MIN) ptu1_tilt_command_ = TILT_MIN;
 				 ptuEvent = true;
 			     }
 			  // Right PTU	
-			  else if (joy->buttons[button_output_1_] == 1) {
-				 ptu2_tilt_command_ = ptu2_tilt_ - 0.1;
+			  else if (joy->buttons[button_output_2_] == 1) {
+				 // ptu2_tilt_command_ = ptu2_tilt_ - 0.1;
+                                 ptu2_tilt_command_ = ptu2_tilt_command_ - delta_angle_;
 				 if (ptu2_tilt_command_ < TILT_MIN) ptu2_tilt_command_ = TILT_MIN;
 				 ptuEvent = true;
 		         }
@@ -626,15 +633,17 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		  if (joy->buttons[ptz_pan_left_] == 1) {			
 		    if(!bRegisteredButtonEvent[ptz_pan_left_]){
 			  // Left PTU	
-			  if (joy->buttons[button_output_2_] == 1) {
-				 ptu1_pan_command_ = ptu1_pan_ - 0.1;
-				 if (ptu1_pan_command_ < PAN_MIN) ptu1_pan_command_ = PAN_MIN;
+			  if (joy->buttons[button_output_1_] == 1) {
+				 // ptu1_pan_command_ = ptu1_pan_ - 0.1;
+                                 ptu1_pan_command_ = ptu1_pan_command_ + delta_angle_;
+				 if (ptu1_pan_command_ > PAN_MAX) ptu1_pan_command_ = PAN_MAX;
 				 ptuEvent = true;
 			     }
 			  // Right PTU	
-			  else if (joy->buttons[button_output_1_] == 1) {
-				 ptu2_pan_command_ = ptu2_pan_ - 0.1;
-				 if (ptu2_pan_command_ < PAN_MIN) ptu2_pan_command_ = PAN_MIN;
+			  else if (joy->buttons[button_output_2_] == 1) {
+				 // ptu2_pan_command_ = ptu2_pan_ - 0.1;
+                                 ptu2_pan_command_ = ptu2_pan_command_ + delta_angle_;
+				 if (ptu2_pan_command_ > PAN_MAX) ptu2_pan_command_ = PAN_MAX;
 				 ptuEvent = true;
 		         }
 			  else {
@@ -650,15 +659,17 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		  
 		  if (joy->buttons[ptz_pan_right_] == 1) {
 		    if(!bRegisteredButtonEvent[ptz_pan_right_]){
-			  if (joy->buttons[button_output_2_] == 1) {
-				 ptu1_pan_command_ = ptu1_pan_ + 0.1;
-				 if (ptu1_pan_command_ > PAN_MAX) ptu1_pan_command_ = PAN_MAX;
+			  if (joy->buttons[button_output_1_] == 1) {
+				 // ptu1_pan_command_ = ptu1_pan_ + 0.1;
+                                 ptu1_pan_command_ = ptu1_pan_command_ - delta_angle_;
+				 if (ptu1_pan_command_ < PAN_MIN) ptu1_pan_command_ = PAN_MIN;
 				 ptuEvent = true;
 			     }
 			  // Right PTU	
-			  else if (joy->buttons[button_output_1_] == 1) {
-				 ptu2_pan_command_ = ptu2_pan_ + 0.1;
-				 if (ptu2_pan_command_ > PAN_MAX) ptu2_pan_command_ = PAN_MAX;
+			  else if (joy->buttons[button_output_2_] == 1) {                                 
+				 // ptu2_pan_command_ = ptu2_pan_ + 0.1;
+                                 ptu2_pan_command_ = ptu2_pan_command_ - delta_angle_;
+				 if (ptu2_pan_command_ < PAN_MIN) ptu2_pan_command_ = PAN_MIN;
 				 ptuEvent = true;
 		         }
 		      else {		      
@@ -724,8 +735,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 	sus_joy_freq->tick();	// Ticks the reception of joy events
 
     // Commands for the PTUs
-    if (bPtuOK_) {
-	   if (ptuEvent) {
+   if (ptuEvent) {
 		  std_msgs::Float64 msg1, msg2, msg3, msg4;
 		  msg1.data = ptu1_pan_command_;
 		  msg2.data = ptu1_tilt_command_;
@@ -734,9 +744,14 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		  ptu1_pan_pub_.publish(msg1);
 		  ptu1_tilt_pub_.publish(msg2);
 		  ptu2_pan_pub_.publish(msg3);
-		  ptu2_tilt_pub_.publish(msg4);		  
+		  ptu2_tilt_pub_.publish(msg4);
+                  /*
+                  ROS_INFO("1p:%5.2f %5.2f 1t:%5.2f %5.2f 2p:%5.2f %5.2f 2t:%5.2f %5.2f", 
+                             ptu1_pan_, ptu1_pan_command_, 
+                             ptu1_tilt_, ptu1_tilt_command_,
+                             ptu2_pan_, ptu2_pan_command_,
+                             ptu2_tilt_, ptu2_tilt_command_); */
 	      }
-	   }
     
     // Publish 
 	// Only publishes if it's enabled
@@ -765,7 +780,8 @@ int main(int argc, char** argv)
 	ros::init(argc, argv, "summit_xl_pad");
 	SummitXLPad summit_xl_pad;
 
-	ros::Rate r(50.0);
+  	// ros::Rate r(200.0);  // 200 for reading different joint_states topic sources
+        ros::Rate r(50.0);
 
 	while( ros::ok() ){
 		// UPDATING DIAGNOSTICS

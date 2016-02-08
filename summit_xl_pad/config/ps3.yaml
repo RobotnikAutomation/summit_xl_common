@@ -27,3 +27,4 @@ button_kinematic_mode: 9
 cmd_service_set_mode: /summit_xl_controller/set_mode
 cmd_service_home:  /summit_xl_controller/home
 joystick_dead_zone: "true"  #useful for x-wam
+delta_angle: 0.15

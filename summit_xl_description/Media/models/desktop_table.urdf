@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<robot name="desktop_table"
+       xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+       xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+       xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+       xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+       xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics">
+
+  <link name="table_base">
+    <inertial>
+      <mass value="25.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0"  ixz="0"
+               iyy="1" iyz="0"
+               izz="1" />
+    </inertial> 
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="1.80 0.81 0.03" />
+      </geometry>
+    </visual> 
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="1.80 0.81 0.03" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="table_base">
+    <material>Gazebo/Wood</material>
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <joint name="left_leg_joint" type="fixed" >
+    <parent link="table_base" />
+    <origin xyz="-0.885 0.0 -0.38" rpy="0 0 0" />
+    <child link="left_leg_link" />
+  </joint> 
+
+  <link name="left_leg_link">
+    <inertial>
+      <mass value="5.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0"  ixz="0"
+               iyy="1" iyz="0"
+               izz="1" />
+    </inertial> 
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.03 0.81 0.73" />
+      </geometry>
+    </visual> 
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.03 0.81 0.73" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="left_leg_link">
+    <material>Gazebo/Grey</material>
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <joint name="right_leg_joint" type="fixed" >
+    <parent link="table_base" />
+    <origin xyz="0.885 0.0 -0.38" rpy="0 0 0" />
+    <child link="right_leg_link" />
+  </joint> 
+
+  <link name="right_leg_link">
+    <inertial>
+      <mass value="5.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0"  ixz="0"
+               iyy="1" iyz="0"
+               izz="1" />
+    </inertial> 
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.03 0.81 0.73" />
+      </geometry>
+    </visual> 
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.03 0.81 0.73" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="right_leg_link">
+    <material>Gazebo/Grey</material>
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <joint name="base_support_joint" type="fixed" >
+    <parent link="table_base" />
+    <origin xyz="0.0 0.15 -0.19" rpy="0 0 0" />
+    <child link="base_support_link" />
+  </joint> 
+
+  <link name="base_support_link">
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="1" ixy="0"  ixz="0"
+               iyy="1" iyz="0"
+               izz="1" />
+    </inertial> 
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="1.8 0.03 0.34" />
+      </geometry>
+    </visual> 
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="1.8 0.03 0.34" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="base_support_link">
+    <material>Gazebo/Grey</material>
+    <mu1>50.0</mu1>
+    <mu2>50.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  
+</robot>
+

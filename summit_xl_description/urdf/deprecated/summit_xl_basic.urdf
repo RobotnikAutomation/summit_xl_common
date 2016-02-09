@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+<robot name="summit_xl">
+
+  <!-- BASE FOOTPRINT -->
+
+  <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin,
+             navigation stack depends on this frame -->
+  <link name="base_footprint">
+      <inertial>
+          <mass value="0.0001" />
+          <origin xyz="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                         iyy="0.0001" iyz="0.0" 
+                         izz="0.0001" />
+      </inertial>
+
+      <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+             <box size="0.001 0.001 0.001" />
+          </geometry>
+      </visual>
+
+      <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <box size="0.001 0.001 0.001" />
+         </geometry>
+     </collision>
+  </link>
+
+  <gazebo reference="base_footprint">
+    <material>Gazebo/Green</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <joint name="base_footprint_joint" type="fixed">
+     <!--NB: While you would think this would make it go up, it is oddly reversed.
+      This moves the joint to 0,0,0 where we want it for rviz, etc. -->
+     <origin xyz="0 0 0.050" rpy="0 0 0" />
+     <!-- origin xyz="0 0 0.150" rpy="0 0 0" / -->
+     <!-- origin xyz="0 0 -0.050" rpy="0 0 0" /-->
+     <parent link="base_footprint"/>
+     <child link="base_link" />
+  </joint>
+
+
+  <!-- BASE_LINK (RED) -->
+  <link name="base_link">
+    <inertial>
+      <mass value="25.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="1.391" ixy="0.004"  ixz="0.0"  iyy="6.853"  iyz="0.0"  izz="6.125" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+	 <mesh filename="package://summit_xl_description/meshes/summit_xl_chassis_cam1.stl"/>
+       </geometry>
+    </visual>
+    <collision>
+       <!-- origin xyz="0 0 0.06" rpy="0 0 0 " / -->
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+         <mesh filename="package://summit_xl_description/meshes/summit_xl_chassis_cam1.stl"/>
+	 <box size = "0.750 0.4 0.3"/>
+       </geometry>
+    </collision>     
+  </link>
+  <gazebo reference="base_link">
+    <material>Gazebo/Red</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+
+  <!-- BACK LEFT WHEEL (GREY) -->
+  <link name="back_left_wheel">
+    <inertial>
+      <mass value="1.250" />
+      <origin xyz="0 0 0" /> 
+      <inertia  ixx="0.0109375" ixy="0.0"  ixz="0.0"  iyy="0.021125"  iyz="0.0"  izz="0.0109375" />
+      <!--inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/-->
+      <!--inertia  ixx="0.00584" ixy="0.0"  ixz="0.0"  iyy="0.00584"  iyz="0.0"  izz="0.01072"/-->
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	 <mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.stl" scale="1.0 1.0 1.0"/>
+         <!-- cylinder radius="0.125" length="0.1"/ -->
+       </geometry>
+	<material name="grey">
+		<color rgba="0.5 0.5 0.5 1"/>
+      	</material>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+	 <mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.stl" scale="1.0 1.0 1.0"/>
+         <!-- cylinder radius="0.125" length="0.1"/ -->
+       </geometry>
+    </collision>
+  </link>
+  <gazebo reference="back_left_wheel">
+    <mu1 value="100.0"/> <!-- 2.0 -->
+    <mu2 value="100.0"/> <!-- 0.5 -->
+    <fdir1 value="1 0 0"/>
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <joint name="joint_back_left_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_left_wheel"/>
+    <origin xyz="-0.223 0.154 0" rpy="0 0 0" /> 
+    <axis xyz="0 1 0" rpy="0 0 0" />
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="joint_blw_trans" type="pr2_mechanism_model/SimpleTransmission">
+     <actuator name="joint_blw_motor" />
+     <joint name="joint_back_left_wheel" />
+     <mechanicalReduction>1</mechanicalReduction>
+     <motorTorqueConstant>1</motorTorqueConstant>
+  </transmission>
+
+
+  <!-- BACK RIGHT WHEEL (GREY) -->
+  <link name="back_right_wheel">
+    <inertial>
+      <mass value="1.250" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.0109375" ixy="0.0"  ixz="0.0"  iyy="0.021125"  iyz="0.0"  izz="0.0109375" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	 <mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.stl" scale="1.0 1.0 1.0"/>
+         <!-- cylinder radius="0.125" length="0.1"/ -->
+       </geometry>
+	<material name="grey">
+		<color rgba="0.5 0.5 0.5 1"/>
+      	</material>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>        
+	 <mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.stl" scale="1.0 1.0 1.0"/>
+         <!-- cylinder radius="0.125" length="0.1"/ -->
+       </geometry>
+    </collision>
+  </link>
+  <gazebo reference="back_right_wheel">
+    <mu1 value="100.0"/> <!-- 2.0 -->
+    <mu2 value="100.0"/> <!-- 0.5 -->
+    <fdir1 value="1 0 0"/>
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <joint name="joint_back_right_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_right_wheel"/>
+    <origin xyz="-0.223 -0.154 0" rpy="0 0 3.1416" />
+    <axis xyz="0 1 0" />
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="joint_brw_trans" type="pr2_mechanism_model/SimpleTransmission">
+     <actuator name="joint_brw_motor" />
+     <joint name="joint_back_right_wheel" />
+     <mechanicalReduction>1</mechanicalReduction>
+     <motorTorqueConstant>1</motorTorqueConstant>
+  </transmission>
+
+
+  <!-- FRONT LEFT WHEEL (GREY) -->
+  <link name="front_left_wheel">
+    <inertial>
+      <mass value="1.250" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.0109375" ixy="0.0"  ixz="0.0"  iyy="0.021125"  iyz="0.0"  izz="0.0109375" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	 <mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.stl" scale="1.0 1.0 1.0"/>
+         <!-- cylinder radius="0.125" length="0.1"/ -->
+       </geometry>
+	<material name="grey">
+		<color rgba="0.5 0.5 0.5 1"/>
+      	</material>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	 <mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.stl" scale="1.0 1.0 1.0"/>
+         <!-- cylinder radius="0.125" length="0.1"/ -->
+       </geometry>
+    </collision>
+  </link>
+  <gazebo reference="front_left_wheel">
+    <mu1 value="100.0"/> <!-- 2.0 -->
+    <mu2 value="100.0"/> <!-- 0.5 -->
+    <fdir1 value="1 0 0"/>
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <joint name="joint_front_left_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_left_wheel"/>
+    <origin xyz="0.223 0.154 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="joint_flw_trans" type="pr2_mechanism_model/SimpleTransmission">
+     <actuator name="joint_flw_motor" />
+     <joint name="joint_front_left_wheel" />
+     <mechanicalReduction>1</mechanicalReduction>
+     <motorTorqueConstant>1</motorTorqueConstant>
+  </transmission>
+
+
+  <!-- FRONT RIGHT WHEEL (GREY) -->
+  <link name="front_right_wheel">
+    <inertial>
+      <mass value="1.250" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.0109375" ixy="0.0"  ixz="0.0"  iyy="0.021125"  iyz="0.0"  izz="0.0109375" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	 <mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.stl" scale="1.0 1.0 1.0"/>
+         <!-- cylinder radius="0.125" length="0.1"/ -->
+       </geometry>
+	<material name="grey">
+		<color rgba="0.5 0.5 0.5 1"/>
+      	</material>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	 <mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.stl" scale="1.0 1.0 1.0"/>
+         <!-- cylinder radius="0.125" length="0.1"/ -->
+       </geometry>
+    </collision>
+  </link>
+  <gazebo reference="front_right_wheel">
+    <mu1 value="100.0"/> <!-- 2.0 -->
+    <mu2 value="100.0"/> <!-- 0.5 -->
+    <fdir1 value="1 0 0"/>
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <joint name="joint_front_right_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_right_wheel"/>
+    <origin xyz="0.223 -0.154 0" rpy="0 0 3.1416" />
+    <axis xyz="0 1 0" />
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="joint_frw_trans" type="pr2_mechanism_model/SimpleTransmission">
+     <actuator name="joint_frw_motor" />
+     <joint name="joint_front_right_wheel" />
+     <mechanicalReduction>1</mechanicalReduction>
+     <motorTorqueConstant>1</motorTorqueConstant>
+  </transmission>
+
+
+  <!-- HOKUYO SENSOR -->
+
+  <joint name="hokuyo_laser_joint" type="fixed">
+     <axis xyz="0 1 0" />
+     <!-- FRONT MOUNT --> 
+     <!-- origin xyz="0.29 0 0.1"/ -->
+     <!-- TOP MOUNT -->
+     <origin xyz="0.0 0.0 0.35"/>
+     <parent link="base_link"/>
+     <child link="hokuyo_laser_link"/>
+  </joint>
+  <link name="hokuyo_laser_link" type="laser">
+     <inertial>
+       <mass value="0.001" />
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001" />
+    </inertial>
+  </link>
+
+  <!-- This adds a visual box to allow us to see the Hokuyo in rviz/gazebo -->
+  <joint name="hokuyo_laser_box_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="hokuyo_laser_link" />
+    <child link="hokuyo_laser_box_link"/>
+  </joint>
+  <link name="hokuyo_laser_box_link">
+    <inertial>
+      <mass value="0.01" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001"  ixy="0.0"  ixz="0.0"
+               iyy="0.001"  iyz="0.0"
+               izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!--box size="0.05 0.05 0.1" /-->
+	<mesh filename= "package://summit_xl_description/meshes/hok_tilt.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.1" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="hokuyo_laser_box_link">
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+
+  <!-- Other controllers (GPS) -->
+  <!-- gazebo>
+      <controller:hector_gazebo_ros_gps name="novatel_gps_sim" plugin="libhector_gazebo_ros_gps.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>4.0</updateRate>
+        <bodyName>base_footprint</bodyName>
+        <topicName>fix</topicName>
+        <velocityTopicName>fix_velocity</velocityTopicName>
+        <referenceLatitude>39.49367690072</referenceLatitude>
+        <referenceLongitude>-0.37668404560</referenceLongitude>
+        <referenceHeading>90.0</referenceHeading>
+        <referenceAltitude>0.0</referenceAltitude>
+        <drift>2.0 2.0 2.0</drift>         
+        <gaussianNoise>1.0 1.0 1.0</gaussianNoise>
+        <velocityDrift>0.3 0.3 0.3</velocityDrift>
+        <velocityGaussianNoise>0.2 0.2 0.2</velocityGaussianNoise>
+      </controller:hector_gazebo_ros_gps>
+   </gazebo -->
+
+
+<!-- 
+updateRate (double): the update rate of the sensor in milliseconds
+robotNamespace (string): namespace prefix for topic names
+bodyName (string, required): name of the body the GNSS receiver is attached to
+frameId (string): frame_id included in the message headers (defaults to empty)
+topicName (string): fix output topic (defaults to fix)
+velocityTopicName (string): velocity output topic (defaults to fix_velocity)
+referenceLatitude (double): latitude of the reference point in degrees north (defaults to 49.9)
+referenceLongitude (double): longitude of the reference point in degrees east (defaults to 8.9)
+referenceHeading (double): geographic heading of gazebo frame's x axis in degrees (defaults to 0.0)
+referenceAltitude (double): altitude (height above WGS84 ellipsoid) of the reference point in meters (defaults to 0.0)
+status (int8): status flag in the fix message (defaults to STATUS_FIX, see sensor_msgs/NavSatStatus)
+service (uint16): service flag in the fix message (defaults to SERVICE_GPS, see sensor_msgs/NavSatStatus)
+offset (Vector3): a constant position offset in meters given in gazebo coordinates
+drift (Vector3): standard deviation of the position drift error
+Note: The current velocity error is added to the position drift in each update step. Even if this parameter is zero, the velocity error is also reflected in the position.
+driftFrequency (Vector3): mean frequency of the position drift
+gaussianNoise (Vector3): standard deviation of the additive Gaussian noise added to the position
+velocityOffset (Vector3): constant velocity offset in meters/seconds given in gazebo coordinates
+velocityDrift (Vector3): standard deviation of the velocity error
+velocityDriftFrequency (Vector3): mean frequency of the velocity drift
+velocityGaussianNoise (Vector3): standard deviation of the additive Gaussian noise added to the velocity
+-->
+
+  <!-- IMU SENSOR -->
+
+  <joint name="imu_joint" type="fixed">
+      <axis xyz="1 0 0"/> <!-- 0 1 0 -->
+      <origin xyz="0 0 0.2825"/>
+      <parent link="base_link"/>
+      <child link="imu_link"/>
+  </joint>
+
+
+  <link name="imu_link">
+      <inertial>
+        <mass value="0.001"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+      </inertial>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size=".001 .001 .001"/>
+        </geometry>
+      </collision>
+  </link>
+
+  <!-- Gazebo controllers -->
+  <!-- gazebo>
+     <controller:gazebo_ros_controller_manager name="gazebo_ros_controller_manager" plugin="/opt/ros/fuerte/stacks/pr2_simulator/pr2_gazebo_plugins/lib/libgazebo_ros_controller_manager.so">
+       <alwaysOn>true</alwaysOn>
+       <updateRate>1000.0</updateRate>
+       <interface:audio name="gazebo_ros_controller_manager_dummy_iface" />
+     </controller:gazebo_ros_controller_manager>
+  </gazebo -->
+
+  <!-- Other controlleers (HOKUYO SENSOR) -->
+
+  <!-- gazebo reference = "hokuyo_laser_link">
+    <sensor:ray name="hokuyo_laser">
+       <rayCount>640</rayCount>
+       <rangeCount>640</rangeCount>
+       <laserCount>1</laserCount>
+
+       <origin>0.0 0.0 0.0</origin>
+       <displayRays>fan</displayRays>
+
+       <minAngle>-120.0</minAngle>
+       <maxAngle>120.0</maxAngle>
+     
+       <minRange>0.05</minRange>
+       <maxRange>30.0</maxRange>
+       <resRange>0.001</resRange>
+       <updateRate>10.0</updateRate>
+       <plugin name="gazebo_ros_hokuyo_laser_controller" plugin="libgazebo_ros_laser.so">
+         <gaussianNoise>0.005</gaussianNoise>
+         <alwaysOn>true</alwaysOn>
+         <updateRate>10.0</updateRate>
+         <topicName>hokuyo_laser_topic</topicName>
+         <frameName>hokuyo_laser_link</frameName>
+         <interface:laser name="gazebo_ros_hokuyo_laser_iface" />
+       </plugin>
+    </sensor:ray>
+   </gazebo -->
+
+   <!-- Other controllers (IMU SENSOR) -->
+
+  
+  <!-- gazebo>
+    <controller:gazebo_ros_imu name="imu_controller" plugin="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50.0</updateRate> 
+      <bodyName>imu_link</bodyName>
+      <topicName>imu_data</topicName>
+      <gaussianNoise>2.89e-08</gaussianNoise>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+      <interface:position name="imu_position"/>
+    </controller:gazebo_ros_imu>
+  </gazebo -->
+
+</robot>
+

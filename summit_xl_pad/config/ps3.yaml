@@ -11,8 +11,8 @@ button_speed_down: 14
 button_dead_man: 11
 button_output_1: 15
 button_output_2: 13
-output_1: 1 
-output_2: 2
+output_1: 11
+output_2: 12
 button_ptz_tilt_up: 4
 button_ptz_tilt_down: 6
 button_ptz_pan_right: 5
@@ -27,3 +27,4 @@ button_kinematic_mode: 9
 cmd_service_set_mode: /summit_xl_controller/set_mode
 cmd_service_home:  /summit_xl_controller/home
 joystick_dead_zone: "true"  #useful for x-wam
+cmd_service_io: /summit_xl_controller/write_digital_output

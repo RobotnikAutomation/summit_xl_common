@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<robot>
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin name="ros_control" filename="libgazebo_ros_control.so">
+       <robotNamespace>/summit_xl</robotNamespace>
+       <controlPeriod>0.003</controlPeriod>
+	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="base_footprint">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  
+  <gazebo reference="base_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="back_left_wheel">
+    <mu1 value="4.0"/> <!-- 2.0 -->
+    <mu2 value="1.0"/> <!-- 0.5 -->
+    <fdir1 value="1 0 0"/>
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <gazebo reference="back_right_wheel">
+    <mu1 value="4.0"/> <!-- 2.0 -->
+    <mu2 value="1.0"/> <!-- 0.5 -->
+    <fdir1 value="1 0 0"/>
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <gazebo reference="front_left_wheel">
+    <mu1 value="4.0"/> <!-- 2.0 -->
+    <mu2 value="1.0"/> <!-- 0.5 -->
+    <fdir1 value="1 0 0"/>
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <gazebo reference="front_right_wheel">
+    <mu1 value="4.0"/> <!-- 2.0 -->
+    <mu2 value="1.0"/> <!-- 0.5 -->
+    <fdir1 value="1 0 0"/>
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <!-- gazebo reference="gps_antenna_link" -->
+  <gazebo reference="gps_link">
+    <material>Gazebo/White</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <!-- camera -->
+  <gazebo reference="camera_tilt_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Red</material>
+  
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.  
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>/summit_xl/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_tilt_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo> 
+
+  <!-- hokuyo -->
+  <gazebo reference="hokuyo_laser_link">
+    <!-- sensor type="gpu_ray" name="head_hokuyo_sensor" -->
+    <sensor type="ray" name="head_hokuyo_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>30</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>1.570796</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <!-- plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so" -->
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+        <topicName>/scan</topicName>
+        <frameName>hokuyo_laser_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  
+  <gazebo>
+    <plugin name="ros_imu" filename="libgazebo_ros_imu.so">
+       <robotNamespace>/summit_xl</robotNamespace>
+       <topicName>imu_data</topicName>
+		<bodyName>imu_link </bodyName>
+		<serviceName>/imu_service</serviceName>
+        <gaussianNoise>0.001</gaussianNoise>		
+    </plugin>
+  </gazebo>
+
+
+ <!--(FOTONIC 3D CAMERA)-->
+  <gazebo reference="kinect_depth_frame">
+    <sensor type="depth" name="fotonic">
+      <update_rate>30.0</update_rate>
+      <camera name="fotonic">
+        <horizontal_fov>1.221730476</horizontal_fov>  <!-- 70 deg -->
+        <image>
+          <!-- width>800</width -->  <!-- 160 -->
+          <!-- height>600</height --> <!-- 120 -->
+          <width>160</width>  <!-- 160 -->
+          <height>120</height> <!-- 120 -->
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>7.0</far>         <!-- outdoor down to 3m depending on luminosity -->
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      
+      <plugin name="kinect_depth_optical_frame_controller" filename="libgazebo_ros_openni_kinect.so">
+		<baseline>0.2</baseline>
+		<alwaysOn>true</alwaysOn>
+		<updateRate>1.0</updateRate>
+		<cameraName>fotonic_3dcamera</cameraName>
+		<imageTopicName>/fotonic_3dcamera/image_raw</imageTopicName>
+		<cameraInfoTopicName>/fotonic/depth/camera_info</cameraInfoTopicName>
+		<depthImageTopicName>/fotonic/depth/image_raw</depthImageTopicName>
+		<depthImageInfoTopicName>/fotonic_3dcamera/depth/camera_info</depthImageInfoTopicName>
+		<depthImageCameraInfoTopicName>/fotonic_3dcamera/camera_info</depthImageCameraInfoTopicName>
+		<pointCloudTopicName>/fotonic_3dcamera/depth/points</pointCloudTopicName>
+		<frameName>kinect_depth_optical_frame</frameName>
+		<pointCloudCutoff>0.5</pointCloudCutoff>
+		<distortionK1>0</distortionK1>
+		<distortionK2>0</distortionK2>
+		<distortionK3>0</distortionK3>
+		<distortionT1>0</distortionT1>
+		<distortionT2>0</distortionT2>
+		<CxPrime>0</CxPrime>
+		<Cx>0</Cx>
+		<Cy>0</Cy>
+		<focalLength>0</focalLength>
+		<hackBaseline>0</hackBaseline>
+	  </plugin>      
+    </sensor>
+  </gazebo>
+
+
+   <!-- Other controllers (GPS) -->
+  <!-- gazebo>
+      <controller:hector_gazebo_ros_gps name="novatel_gps_sim" plugin="libhector_gazebo_ros_gps.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>4.0</updateRate>
+        <bodyName>base_footprint</bodyName>
+        <topicName>fix</topicName>
+        <velocityTopicName>fix_velocity</velocityTopicName>
+        <drift>5.0 5.0 5.0</drift>
+        <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
+        <velocityDrift>0 0 0</velocityDrift>
+        <velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>
+      </controller:hector_gazebo_ros_gps>
+   </gazebo -->
+   
+  <!-- Other controllers (FOTONIC 3D CAMERA) -->
+  <!-- gazebo reference="kinect_depth_frame">
+    <sensor:camera name="camera">
+      <imageFormat>R8G8B8</imageFormat>
+      <imageSize>160 120</imageSize>
+      <hfov>60</hfov>
+      <nearClip>0.05</nearClip>
+      <farClip>7</farClip>
+      <updateRate>20</updateRate>
+      <baseline>0.1</baseline>
+      <controller:gazebo_ros_openni_kinect name="kinect_camera_controller" plugin="libgazebo_ros_openni_kinect.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>20</updateRate>
+        <imageTopicName>/fotonic_3dcamera/image_raw</imageTopicName>
+        <pointCloudTopicName>/fotonic_3dcamera/depth/points</pointCloudTopicName>
+        <cameraInfoTopicName>/fotonic_3dcamera/camera_info</cameraInfoTopicName>
+	<frameName>kinect_depth_optical_frame</frameName>
+        <distortion_k1>0.0</distortion_k1>
+        <distortion_k2>0.0</distortion_k2>
+        <distortion_k3>0.0</distortion_k3>
+        <distortion_t1>0.0</distortion_t1>
+        <distortion_t2>0.0</distortion_t2>
+      </controller:gazebo_ros_openni_kinect>
+    </sensor:camera>
+  </gazebo -->
+
+  
+</robot>

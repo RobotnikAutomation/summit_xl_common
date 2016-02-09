@@ -5,7 +5,8 @@
 #include <robotnik_msgs/set_odometry.h>  //! To reset both the ekf_localization_node and the summit_xl_controller node
 #include <mavros_msgs/CommandLong.h>     //! To calibrate PIXHAWK sensors
 #include <robot_localization/SetPose.h>
-#include <std_srvs/Trigger.h>
+//#include <std_srvs/Trigger.h>
+#include <std_srvs/Empty.h>
 
 #include <mavros_msgs/CommandLong.h>
 
@@ -33,10 +34,10 @@ public:
   void imuCallback (const sensor_msgs::ImuConstPtr& msg);
   bool resetOdomCallback(robotnik_msgs::set_odometry::Request &req, robotnik_msgs::set_odometry::Response &resp);
 
-  bool calGyroCallback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &resp);
-  bool calAccCallback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &resp);
-  bool calMagCallback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &resp);
-  bool calOffCallback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &resp);
+  bool calGyroCallback(std_srvs::Empty::Request &req, std_srvs::Empty::Response &resp);
+  bool calAccCallback(std_srvs::Empty::Request &req, std_srvs::Empty::Response &resp);
+  bool calMagCallback(std_srvs::Empty::Request &req, std_srvs::Empty::Response &resp);
+  bool calOffCallback(std_srvs::Empty::Request &req, std_srvs::Empty::Response &resp);
   
 private:
   ros::NodeHandle nh_;
@@ -93,7 +94,7 @@ LocalizationUtils::LocalizationUtils(ros::NodeHandle nh): nh_(nh), private_nh_("
   reset_odom_=nh_.advertiseService("/reset_odometry",&LocalizationUtils::resetOdomCallback,this);
 }
 
-bool LocalizationUtils::calGyroCallback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &resp){
+bool LocalizationUtils::calGyroCallback(std_srvs::Empty::Request &req, std_srvs::Empty::Response &resp){
 
   mavros_msgs::CommandLong::Request req_mavros;
   mavros_msgs::CommandLong::Response resp_mavros;
@@ -110,14 +111,15 @@ bool LocalizationUtils::calGyroCallback(std_srvs::Trigger::Request &req, std_srv
 
   bool success_odom=mavcmd_client_.call(req_mavros,resp_mavros);
 
-  resp.success=resp_mavros.success;
+  // resp.success=resp_mavros.success;
+
   //resp_mavros.result is the raw result returned by COMMAND_ACK
   //TODO save resp_mavros.result in resp.message (conversion from unsigned string to int)
   
   return true;
 }
 
-bool LocalizationUtils::calAccCallback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &resp){
+bool LocalizationUtils::calAccCallback(std_srvs::Empty::Request &req, std_srvs::Empty::Response &resp){
   
   mavros_msgs::CommandLong::Request req_mavros;
   mavros_msgs::CommandLong::Response resp_mavros;
@@ -134,11 +136,11 @@ bool LocalizationUtils::calAccCallback(std_srvs::Trigger::Request &req, std_srvs
 
   bool success_odom=mavcmd_client_.call(req_mavros,resp_mavros);
 
-  resp.success=resp_mavros.success;
+  // resp.success=resp_mavros.success;
   return true;
 }
 
-bool LocalizationUtils::calMagCallback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &resp){
+bool LocalizationUtils::calMagCallback(std_srvs::Empty::Request &req, std_srvs::Empty::Response &resp){
   
   mavros_msgs::CommandLong::Request req_mavros;
   mavros_msgs::CommandLong::Response resp_mavros;
@@ -155,11 +157,11 @@ bool LocalizationUtils::calMagCallback(std_srvs::Trigger::Request &req, std_srvs
 
   bool success_odom=mavcmd_client_.call(req_mavros,resp_mavros);
 
-  resp.success=resp_mavros.success; 
+  // resp.success=resp_mavros.success; 
   return true;
 }
 
-bool LocalizationUtils::calOffCallback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &resp){
+bool LocalizationUtils::calOffCallback(std_srvs::Empty::Request &req, std_srvs::Empty::Response &resp){
   
   mavros_msgs::CommandLong::Request req_mavros;
   mavros_msgs::CommandLong::Response resp_mavros;
@@ -176,7 +178,7 @@ bool LocalizationUtils::calOffCallback(std_srvs::Trigger::Request &req, std_srvs
 
   bool success_odom=mavcmd_client_.call(req_mavros,resp_mavros);
 
-  resp.success=resp_mavros.success; 
+  //resp.success=resp_mavros.success; 
   return true;
 }
 

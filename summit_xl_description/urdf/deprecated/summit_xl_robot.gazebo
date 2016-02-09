@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<robot>
+<gazebo reference="base_footprint">
+  <material>Gazebo/Green</material>
+  <gravity>true</gravity>
+</gazebo>
+
+<gazebo reference="base_link">
+  <material>Gazebo/Red</material>
+  <gravity>true</gravity>
+</gazebo>
+
+<gazebo reference="back_left_wheel">
+  <mu1 value="100.0"/> <!-- 2.0 -->
+  <mu2 value="100.0"/> <!-- 0.5 -->
+  <fdir1 value="1 0 0"/>
+  <material>Gazebo/Grey</material>
+  <gravity>true</gravity>
+</gazebo>
+
+<gazebo reference="back_right_wheel">
+  <mu1 value="100.0"/> <!-- 2.0 -->
+  <mu2 value="100.0"/> <!-- 0.5 -->
+  <fdir1 value="1 0 0"/>
+  <material>Gazebo/Grey</material>
+  <gravity>true</gravity>
+</gazebo>
+
+<gazebo reference="front_left_wheel">
+  <mu1 value="100.0"/> <!-- 2.0 -->
+  <mu2 value="100.0"/> <!-- 0.5 -->
+  <fdir1 value="1 0 0"/>
+  <material>Gazebo/Grey</material>
+  <gravity>true</gravity>
+</gazebo>
+
+<gazebo reference="front_right_wheel">
+  <mu1 value="100.0"/> <!-- 2.0 -->
+  <mu2 value="100.0"/> <!-- 0.5 -->
+  <fdir1 value="1 0 0"/>
+  <material>Gazebo/Grey</material>
+  <gravity>true</gravity>
+</gazebo>
+
+<gazebo reference="hokuyo_laser_box_link">
+  <material>Gazebo/Grey</material>
+  <gravity>true</gravity>
+</gazebo>
+
+</robot>

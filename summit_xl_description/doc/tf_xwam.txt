@@ -1,0 +1,6 @@
+
+
+SR1_xwam - origin
+SR1_xwam -> SR4_xwam (261.25, 0, -37.5)
+SR1_xwam -> SR10_xwam (261.25, 0, z_var)
+SR10_xwam -> SR5_xwam coincident (rotations y-axis)

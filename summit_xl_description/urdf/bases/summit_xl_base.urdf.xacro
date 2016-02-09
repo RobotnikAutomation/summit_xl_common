@@ -2,7 +2,7 @@
 <robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
 
   
-  <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
+	<xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
 
   <xacro:macro name="summit_xl_base" params="name publish_bf hq">
 
@@ -19,6 +19,14 @@
              <box size="0.001 0.001 0.001" />
           </geometry>
       </visual>
+<!--
+      <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <box size="0.001 0.001 0.001" />
+          </geometry>
+      </collision>
+-->
     </link>
 
     <joint name="base_footprint_joint" type="fixed">
@@ -58,6 +66,54 @@
        </geometry>
     </collision>     
   </link>
+
+  <!-- COVERS AND SUSPENSIONS -->
+<!--
+  <xacro:if value="${hq}">
+  <joint name="covers_joint" type="fixed">
+     <origin xyz="0 0 0" rpy="0 0 0" />
+     <parent link="base_link"/>
+     <child link="covers_link" />
+  </joint>
+   
+  <link name="covers_link">
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+	     <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_covers.stl"/>
+       </geometry>
+       <material name="silver">
+         <color rgba="0.6 0.6 0.6 1"/>
+       </material>
+    </visual>      
+  </link>
+  </xacro:if>
+-->
+  
+  
+  <!-- LOGOS -->
+<!--
+  <joint name="logos_joint" type="fixed">
+     <origin xyz="0 0 0" rpy="0 0 0" />
+     <parent link="base_link"/>
+     <child link="logos_link" />
+  </joint>
+-->
+  
+  
+<!--
+  <link name="logos_link">
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+	     <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_logos.stl" scale="1.001 1.001 1.001"/> 
+       </geometry>
+       <material name="red">
+         <color rgba="0.8 0.1 0.1 1"/>
+       </material>
+    </visual>      
+  </link>
+-->
 
 
   </xacro:macro>

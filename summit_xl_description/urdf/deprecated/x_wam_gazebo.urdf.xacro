@@ -1,0 +1,701 @@
+<?xml version="1.0"?>
+<robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find summit_xl_description)/urdf/x_wam.gazebo" />
+
+  <!-- Constants for robot dimensions -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <!-- xacro:property name="wheel_offset_x" value="0.261" / -->    <!-- x,y,z in base_footprint CS -->
+  <xacro:property name="wheel_offset_x" value="0.285" />    <!-- x,y,z in base_footprint CS -->
+  <xacro:property name="wheel_offset_y" value="0.285" /> 
+  <xacro:property name="wheel_offset_z" value="0.069" />  
+  <xacro:property name="steer_joint_damping" value="2.0" />
+  <xacro:property name="steer_joint_friction" value="1.0" />
+  <xacro:property name="steer_joint_effort_limit" value="5.0" />
+  <xacro:property name="steer_joint_velocity_limit" value="5.0" />
+  <xacro:property name="steer_mechanical_reduction" value="100.0"/>
+  
+  <xacro:property name="wheel_joint_damping" value="1.0" />
+  <xacro:property name="wheel_joint_friction" value="100.0" />
+  <xacro:property name="wheel_joint_effort_limit" value="100.0" />
+  <xacro:property name="wheel_joint_velocity_limit" value="0.1" />
+  <xacro:property name="wheel_mechanical_reduction" value="15.0" />
+
+  <!-- WAM Parameters -->
+  <xacro:property name="joint_damping" value="100.0" />
+  <xacro:property name="joint_friction" value="0.0" />
+  <xacro:property name="joint_effort_limit" value="30.0" />
+  <xacro:property name="joint_velocity_limit" value="2.0" />
+  <xacro:property name="mechanical_reduction" value="1.0" />
+
+  <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <!-- link name="world"/>
+
+  <joint name="fwf" type="planar">
+    <parent link="world"/>
+    <child link="base_footprint"/>
+  </joint -->
+
+  <!-- BASE FOOTPRINT -->
+  <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin,
+             navigation stack depends on this frame -->
+  <link name="base_footprint">
+      <!-- inertial>
+          <mass value="0.0001" />
+          <origin xyz="0 0 0" />
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                         iyy="0.0001" iyz="0.0" 
+                         izz="0.0001" />
+      </inertial -->
+
+      <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+             <box size="0.001 0.001 0.001" />
+          </geometry>
+      </visual>
+
+      <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <box size="0.001 0.001 0.001" />
+         </geometry>
+     </collision>
+  </link>
+
+  <joint name="base_footprint_joint" type="fixed">
+     <!--NB: While you would think this would make it go up, it is oddly reversed.
+      This moves the joint to 0,0,0 where we want it for rviz, etc. -->
+     <!-- origin xyz="0 0 0.075" rpy="0 0 0" / -->
+     <origin xyz="0 0 0.150" rpy="0 0 0" />
+     <parent link="base_footprint"/>
+     <child link="base_link" />
+  </joint>
+
+
+  <!-- BASE_LINK (RED) -->
+  <link name="base_link">
+    <!-- inertial>
+      <mass value="20.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.2185" ixy="0.0"  ixz="-0.001"  iyy="0.33677"  iyz="0.0"  izz="0.20511" />
+    </inertial -->
+
+    <inertial>
+      <mass value="40.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+	   <mesh filename="package://summit_xl_description/meshes/x_wam/chassis_xwam_down.dae"/>
+       </geometry>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+       <mesh filename="package://summit_xl_description/meshes/x_wam/chassis_xwam_down.dae"/>
+       </geometry>
+    </collision>     
+  </link>
+
+
+
+  <!-- **************************** --> 
+  <!-- WHEEL 1                      --> 
+  <!-- FRONT RIGHT WHEEL - STEERING -->
+  <!-- **************************** --> 
+  <link name="front_right_steer_link">
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+    </inertial>
+    <visual>
+       <!-- visual origin is defined w.r.t. link local coordinate system -->
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+         <cylinder radius="0.015" length="0.025"/>
+       </geometry>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+         <cylinder radius="0.015" length="0.025"/>
+       </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_front_right_steer" type="continuous"> <!-- revolute -->
+    <parent link="base_link"/>
+    <child link="front_right_steer_link"/>
+    <origin xyz="${wheel_offset_x} -${wheel_offset_y} -${wheel_offset_z}" rpy="0 0 0" />
+    <axis xyz="0 0 1" rpy="0 0 0"/>
+    <limit effort="${steer_joint_effort_limit}" velocity="${steer_joint_velocity_limit}"/> <!-- lower="-1.570796327" upper="1.570796327"/ -->
+    <joint_properties damping="${steer_joint_damping}" friction="{steer_joint_friction}"/>
+  </joint>
+
+  <transmission name="joint_frw_steer_trans">
+     <type>transmission_interface/SimpleTransmission</type>
+     <joint name="joint_front_right_steer" />
+	 <actuator name="joint_frw_steer_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>${steer_mechanical_reduction}</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
+    </actuator>
+  </transmission>
+
+
+  <!-- **************************** --> 
+  <!-- WHEEL 1                      --> 
+  <!-- FRONT RIGHT WHEEL - TRACTION -->
+  <!-- **************************** --> 
+  <link name="front_right_wheel">
+    <inertial>
+      <mass value="1.250" />
+      <origin xyz="0 0 0" />   
+      <inertia  ixx="0.0109375" ixy="0.0"  ixz="0.0"  iyy="0.021125"  iyz="0.0"  izz="0.0109375" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	 <!-- mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.dae" scale="1.0 1.0 1.0"/ -->
+         <sphere radius="0.127"/> 
+       </geometry>
+	<material name="grey">
+	  <color rgba="0.5 0.5 0.5 1"/>
+      	</material>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	 <!-- mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.dae" scale="1.0 1.0 1.0"/ -->
+         <sphere radius="0.127"/>
+       </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_front_right_wheel" type="continuous">
+    <parent link="front_right_steer_link"/>
+    <child link="front_right_wheel"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit effort="${wheel_joint_effort_limit}" velocity="${wheel_joint_velocity_limit}"/> 
+    <joint_properties damping="${wheel_joint_damping}" friction="{wheel_joint_friction}"/>
+  </joint>
+
+  <transmission name="joint_frw_trans">
+     <type>transmission_interface/SimpleTransmission</type>
+     <joint name="joint_front_right_wheel" />
+     <actuator name="joint_frw_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>${wheel_mechanical_reduction}</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
+    </actuator>
+  </transmission>
+
+
+  <!-- **************************** --> 
+  <!-- WHEEL 2                      --> 
+  <!-- FRONT LEFT WHEEL  - STEERING -->
+  <!-- **************************** --> 
+  <link name="front_left_steer_link">
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+    </inertial>
+    <visual>
+       <!-- visual origin is defined w.r.t. link local coordinate system -->
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+         <cylinder radius="0.015" length="0.025"/>
+       </geometry>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+         <cylinder radius="0.015" length="0.025"/>
+       </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_front_left_steer" type="continuous"> 
+    <parent link="base_link"/>
+    <child link="front_left_steer_link"/>
+    <origin xyz="${wheel_offset_x} ${wheel_offset_y} -${wheel_offset_z}" rpy="0 0 0" />
+    <axis xyz="0 0 1" rpy="0 0 0"/>
+    <limit effort="${steer_joint_effort_limit}" velocity="${steer_joint_velocity_limit}"/> <!-- lower="-1.570796327" upper="1.570796327"/ -->
+    <joint_properties damping="${steer_joint_damping}" friction="{steer_joint_friction}"/>
+  </joint>
+
+  <transmission name="joint_flw_steer_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="joint_front_left_steer" />
+     <actuator name="joint_flw_steer_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>${steer_mechanical_reduction}</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
+    </actuator>
+  </transmission>
+
+
+  <!-- **************************** --> 
+  <!-- WHEEL 2                      --> 
+  <!-- FRONT LEFT WHEEL  - TRACTION -->
+  <!-- **************************** --> 
+  <link name="front_left_wheel">
+    <inertial>
+      <mass value="1.250" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.0109375" ixy="0.0"  ixz="0.0"  iyy="0.021125"  iyz="0.0"  izz="0.0109375" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	     <!-- mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.dae" scale="1.0 1.0 1.0"/ -->
+         <sphere radius="0.127"/>  
+       </geometry>
+	   <material name="grey">
+		<color rgba="0.5 0.5 0.5 1"/>
+       </material>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	    <!-- mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.dae" scale="1.0 1.0 1.0"/ -->
+	    <sphere radius="0.127"/>
+       </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_front_left_wheel" type="continuous">
+    <parent link="front_left_steer_link"/>
+    <child link="front_left_wheel"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="${wheel_joint_effort_limit}" velocity="${wheel_joint_velocity_limit}"/> 
+    <joint_properties damping="${wheel_joint_damping}" friction="{wheel_joint_friction}"/>
+  </joint>
+
+  <transmission name="joint_flw_trans">
+     <type>transmission_interface/SimpleTransmission</type>
+     <joint name="joint_front_left_wheel" />
+     <actuator name="joint_flw_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>${wheel_mechanical_reduction}</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
+    </actuator>
+  </transmission>
+
+  <!-- **************************** --> 
+  <!-- WHEEL 3                      --> 
+  <!-- BACK LEFT WHEEL  - STEERING -->
+  <!-- **************************** --> 
+  <link name="back_left_steer_link">
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+    </inertial>
+    <visual>
+       <!-- visual origin is defined w.r.t. link local coordinate system -->
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+         <cylinder radius="0.015" length="0.025"/>
+       </geometry>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+         <cylinder radius="0.015" length="0.025"/>
+       </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_back_left_steer" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_left_steer_link"/>
+    <origin xyz="-${wheel_offset_x} ${wheel_offset_y} -${wheel_offset_z}" rpy="0 0 0" />
+    <axis xyz="0 0 1" rpy="0 0 0"/>
+    <limit effort="${steer_joint_effort_limit}" velocity="${steer_joint_velocity_limit}"/> <!-- lower="-1.570796327" upper="1.570796327"/ -->
+    <joint_properties damping="${steer_joint_damping}" friction="{steer_joint_friction}"/>
+  </joint>
+
+  <transmission name="joint_blw_steer_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="joint_back_left_steer" />
+     <actuator name="joint_blw_steer_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>${steer_mechanical_reduction}</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
+	 </actuator>
+  </transmission>
+
+  <!-- **************************** --> 
+  <!-- WHEEL 3                      --> 
+  <!-- BACK LEFT WHEEL  - TRACTION  -->
+  <!-- **************************** --> 
+  <link name="back_left_wheel">
+    <inertial>
+      <mass value="1.250" />
+      <origin xyz="0 0 0" /> 
+      <inertia  ixx="0.0109375" ixy="0.0"  ixz="0.0"  iyy="0.021125"  iyz="0.0"  izz="0.0109375" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	 <sphere radius="0.127"/>
+	 <!-- mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.dae" scale="1.0 1.0 1.0"/ -->
+       </geometry>
+	<material name="grey">
+		<color rgba="0.5 0.5 0.5 1"/>
+      	</material>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+	 <sphere radius="0.127"/>
+	 <!-- mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.dae" scale="1.0 1.0 1.0"/ -->
+       </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_back_left_wheel" type="continuous">
+    <parent link="back_left_steer_link"/>
+    <child link="back_left_wheel"/>
+    <origin xyz="0 0 0" rpy="0 0 0" /> 
+    <axis xyz="0 1 0" rpy="0 0 0" />
+    <limit effort="${wheel_joint_effort_limit}" velocity="${wheel_joint_velocity_limit}"/> 
+    <joint_properties damping="${wheel_joint_damping}" friction="{wheel_joint_friction}"/>
+  </joint>
+
+  <transmission name="joint_blw_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="joint_back_left_wheel" />
+		<actuator name="joint_blw_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>${wheel_mechanical_reduction}</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
+	 </actuator>
+  </transmission>
+
+
+  <!-- **************************** --> 
+  <!-- WHEEL 4                      --> 
+  <!-- BACK RIGHT WHEEL  - STEERING -->
+  <!-- **************************** --> 
+  <link name="back_right_steer_link">
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+    </inertial>
+    <visual>
+       <!-- visual origin is defined w.r.t. link local coordinate system -->
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+         <cylinder radius="0.015" length="0.025"/>
+       </geometry>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+         <cylinder radius="0.015" length="0.025"/>
+       </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_back_right_steer" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_right_steer_link"/>
+    <origin xyz="-${wheel_offset_x} -${wheel_offset_y} -${wheel_offset_z}" rpy="0 0 0" />
+    <axis xyz="0 0 1" rpy="0 0 0"/>
+    <limit effort="${steer_joint_effort_limit}" velocity="${steer_joint_velocity_limit}"/> <!-- lower="-1.570796327" upper="1.570796327"/ -->
+    <joint_properties damping="${steer_joint_damping}" friction="{steer_joint_friction}"/>
+  </joint>
+
+  <transmission name="joint_brw_steer_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="joint_back_right_steer" />
+     <actuator name="joint_brw_steer_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>${steer_mechanical_reduction}</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
+	 </actuator>
+  </transmission>
+
+
+  <!-- **************************** --> 
+  <!-- WHEEL 4                      --> 
+  <!-- BACK RIGHT WHEEL  - TRACTION -->
+  <!-- **************************** --> 
+  <link name="back_right_wheel">
+    <inertial>
+      <mass value="1.250" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.0109375" ixy="0.0"  ixz="0.0"  iyy="0.021125"  iyz="0.0"  izz="0.0109375" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	     <sphere radius="0.127"/>
+	     <!-- mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.dae" scale="1.0 1.0 1.0"/ -->
+       </geometry>
+	<material name="grey">
+	 <color rgba="0.5 0.5 0.5 1"/>
+      	</material>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0" /> 
+       <geometry>
+	 <sphere radius="0.127"/>
+	 <!-- mesh filename="package://summit_xl_description/meshes/summit_xl_wheel.dae" scale="1.0 1.0 1.0"/ -->
+       </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_back_right_wheel" type="continuous">
+    <parent link="back_right_steer_link"/>
+    <child link="back_right_wheel"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit effort="${wheel_joint_effort_limit}" velocity="${wheel_joint_velocity_limit}"/> 
+    <joint_properties damping="${wheel_joint_damping}" friction="{wheel_joint_friction}"/>
+  </joint>
+
+  <transmission name="joint_brw_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="joint_back_right_wheel" />
+     <actuator name="joint_brw_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>${wheel_mechanical_reduction}</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
+	 </actuator>
+  </transmission>
+
+
+
+  <!-- IMU SENSOR -->
+  <joint name="imu_joint" type="fixed">
+      <axis xyz="1 0 0"/> <!-- 0 1 0 -->
+      <origin xyz="0 0 0.2825"/>
+      <parent link="base_link"/>
+      <child link="imu_link"/>
+  </joint>
+
+
+  <link name="imu_link">
+      <inertial>
+        <mass value="0.001"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+      </inertial>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size=".001 .001 .001"/>
+        </geometry>
+      </collision>
+  </link>
+
+  <!-- ***************************** --> 
+  <!-- SCISSOR MECHANISM PART 1      --> 
+  <!-- ***************************** --> 
+  <!-- link name="scissor_bars1_link">
+    <inertial>
+      <mass value="6.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.2185" ixy="0.0"  ixz="-0.001"  iyy="0.33677"  iyz="0.0"  izz="0.20511" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+	   <mesh filename="package://summit_xl_description/meshes/x_wam/scissor_bars_1.dae"/>
+       </geometry>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+       <mesh filename="package://summit_xl_description/meshes/x_wam/scissor_bars_1.dae"/>
+       </geometry>
+    </collision>     
+  </link>
+
+  <joint name="scissor_bars1_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="scissor_bars1_link"/>
+    <origin xyz="0.261 0.0 -0.038" rpy="0.0 -3.1416 0.0" />
+    <axis xyz="0 1 0" />
+    <limit effort="300" velocity="1"/ -->   <!-- lower="-3.1416" upper="-2.28"/ -->
+    <!-- dynamics damping="1.0" friction="0.1"/>
+  </joint -->
+  <!-- mimic joint="scissor_prismatic_joint" multiplier="1.72" offset="-3.14" / -->
+  
+    
+  <!-- ***************************** --> 
+  <!-- ROVER PART - UP SCISSOR MECH  --> 
+  <!-- ***************************** --> 
+  <link name="rover_link">
+    <inertial>
+      <mass value="20.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.2185" ixy="0.0"  ixz="-0.001"  iyy="0.33677"  iyz="0.0"  izz="0.20511" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+	   <mesh filename="package://summit_xl_description/meshes/x_wam/chassis_xwam_up.dae"/>
+       </geometry>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+       <mesh filename="package://summit_xl_description/meshes/x_wam/chassis_xwam_up.dae"/>
+       </geometry>
+    </collision>     
+  </link>
+
+  <joint name="scissor_prismatic_joint" type="prismatic">
+    <parent link="base_link"/>
+    <child link="rover_link"/>
+    <limit effort="1000.0" velocity="0.25" lower="0.0" upper="0.500"/>
+    <origin rpy="0 0 0" xyz="0.261 0 -0.038"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <transmission name="joint_scissor_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="scissor_prismatic_joint" />
+     <actuator name="scissor_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>100.0</mechanicalReduction>
+	 </actuator>
+  </transmission>
+
+  <!-- ******************************************** --> 
+  <!-- HOKUYO SENSOR - ATTACHED TO ROVER PART - UP  --> 
+  <!-- ******************************************** -->   
+  <joint name="hokuyo_laser_joint" type="fixed">
+     <axis xyz="0 1 0" />
+     <origin xyz="0.075 0 0.02" rpy="3.1416 0.0 0.0"/>
+     <parent link="rover_link"/>
+     <child link="hokuyo_laser_link"/>
+  </joint>
+  <link name="hokuyo_laser_link" type="laser">
+     <inertial>
+       <mass value="0.001" />
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001" />
+    </inertial>
+  </link>
+
+  <!-- This adds a visual box to allow us to see the Hokuyo in rviz/gazebo -->
+  <joint name="hokuyo_laser_box_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="hokuyo_laser_link" />
+    <child link="hokuyo_laser_box_link"/>
+  </joint>
+  <link name="hokuyo_laser_box_link">
+    <inertial>
+      <mass value="0.01" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001"  ixy="0.0"  ixz="0.0"
+               iyy="0.001"  iyz="0.0"
+               izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!--box size="0.05 0.05 0.1" /-->
+	<mesh filename="package://summit_xl_description/meshes/hokuyo-utm30-lx.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.1" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <!-- ***************************** --> 
+  <!-- SCISSOR MECHANISM PART 2      --> 
+  <!-- ***************************** --> 
+  <!-- link name="scissor_bars2_link">
+    <inertial>
+      <mass value="3.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.2185" ixy="0.0"  ixz="-0.001"  iyy="0.33677"  iyz="0.0"  izz="0.20511" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+	   <mesh filename="package://summit_xl_description/meshes/x_wam/scissor_bars_2.dae"/>
+       </geometry>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+       <mesh filename="package://summit_xl_description/meshes/x_wam/scissor_bars_2.dae"/>
+       </geometry>
+    </collision>     
+  </link>
+  <joint name="scissor_bars2_joint" type="continuous">
+    <parent link="rover_link"/>
+    <child link="scissor_bars2_link"/>
+    <origin xyz="0.0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit effort="300" velocity="1"/ -->  <!-- lower="-0.86" upper="0.0" / -->
+    <!-- dynamics damping="0.1" friction="0.1"/>
+  </joint>
+  <transmission name="scissor_bars2_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="scissor_bars2_joint" />
+     <actuator name="scissor_bars2_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>0.001</mechanicalReduction>
+        <motorTorqueConstant>0.001</motorTorqueConstant>
+	 </actuator>
+  </transmission -->
+
+
+  <!-- AXIS PTZ CAMERA -->
+  <joint name="camera_joint" type="fixed">
+     <axis xyz="0 1 0" />
+     <!-- FRONT MOUNT -->
+     <origin xyz="0.3 0.0 0.25"/>
+     <parent link="base_link"/>
+     <child link="camera_link"/>
+  </joint>
+  <link name="camera_link">
+     <inertial>
+       <mass value="0.001" />
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001" />
+    </inertial>
+  </link>
+
+  <!-- Import Barrett WAM robot xacro file description -->
+  <xacro:include filename="$(find wam_description)/urdf/wam_arm.urdf.xacro" />
+  <!-- xacro:include filename="$(find wam_description)/urdf/wam_arm_hand.urdf.xacro" / -->
+
+  <joint name="base_footprint_wam_joint" type="fixed">
+     <origin xyz="-0.220 0 0.410" rpy="0 0 0" />
+     <parent link="rover_link"/>
+     <child link="wam_base_link"/>
+     <!-- axis xyz="0 0 0" / -->
+  </joint>  
+  
+</robot>
+

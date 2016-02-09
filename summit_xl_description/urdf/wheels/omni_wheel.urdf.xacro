@@ -3,8 +3,8 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
   <!-- Wheels -->
-  <property name="wheel_radius" value="0.127" /> 
-  <property name="wheel_height" value="0.087" />
+  <property name="wheel_radius" value="0.117" /> 
+  <property name="wheel_height" value="0.14" />
   <property name="wheel_mass" value="6.5" /> <!-- in kg-->
  
  
@@ -39,7 +39,7 @@
             <geometry>     
               <mesh filename="package://summit_xl_description/meshes/wheels/omni_wheel_2.dae" />
             </geometry>			  
-		  s</xacro:unless>	  
+					</xacro:unless>	  
         </xacro:if>
        
         <xacro:unless value="${hq}">
@@ -85,21 +85,21 @@
     <!-- Transmission is important to link the joints and the controller (see summit_xl_control/config/summit_xl_control.yaml)-->
     <transmission name="${name}_wheel_joint_trans">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="joint_${name}_wheel" >
-         <hardwareInterface>EffortJointInterface</hardwareInterface>
-      </joint>              
+      <joint name="joint_${name}_wheel" />
       <actuator name="${name}_wheel_joint_motor">
-         <mechanicalReduction>1</mechanicalReduction>
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>
     
     <gazebo reference="${name}_wheel">
-		<mu1 value="1.0"/>
-		<mu2 value="1.0"/>
+		<mu1 value="5.0"/>
+		<mu2 value="0.5"/>
 		<kp value="10000000.0" />
 		<kd value="1.0" />
 		<fdir1 value="1 0 0"/>
-        <turnGravityOff>false</turnGravityOff>
+      <material>Gazebo/Grey</material>
+      <turnGravityOff>false</turnGravityOff>
     </gazebo>
  
   </xacro:macro>

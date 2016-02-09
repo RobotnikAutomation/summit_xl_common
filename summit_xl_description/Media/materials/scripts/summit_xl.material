@@ -1,0 +1,27 @@
+material SummitXL/Logo
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture RobotnikLogo.jpg
+      }
+    }
+  }
+}
+
+material SummitXL/Map
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture robotnik.png
+      }
+    }
+  }
+}

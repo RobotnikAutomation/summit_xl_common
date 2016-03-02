@@ -121,6 +121,8 @@
 	</xacro:sensor_imu>
 
 	<!-- PAN TILT UNITS -->
+<!-- Original, edited to solve ptu1vsptu2 exchange and parent _link_2 not existing
+
     <xacro:pan_tilt name="ptu1" parent="base_link" hq="true">
 		<origin xyz="0.438 0.113 0.675" rpy="0 0 0"/>
     </xacro:pan_tilt>
@@ -135,6 +137,23 @@
 
     <xacro:sensor_asus_xtion_pro name="ptu2" parent="ptu2_link_2">		
 		<origin xyz="0.015 0.020 0.045" rpy="0 0 0"/>
+    </xacro:sensor_asus_xtion_pro>
+-->
+    <xacro:pan_tilt name="ptu2" parent="base_link" hq="true">
+                <origin xyz="0.438 0.113 0.675" rpy="0 0 0"/>
+    </xacro:pan_tilt>
+
+    <xacro:pan_tilt name="ptu1" parent="base_link" hq="true">
+                <origin xyz="0.438 -0.117 1.375" rpy="0 0 0"/>
+    </xacro:pan_tilt>
+
+
+    <xacro:sensor_asus_xtion_pro name="ptu1" parent="ptu1_link_2">
+                <origin xyz="0.015 0.020 0.045" rpy="0 0 0"/>
+    </xacro:sensor_asus_xtion_pro>
+
+    <xacro:sensor_asus_xtion_pro name="ptu2" parent="ptu2_link_2">
+                <origin xyz="0.015 0.020 0.045" rpy="0 0 0"/>
     </xacro:sensor_asus_xtion_pro>
 
      

@@ -64,9 +64,9 @@
 #define AXIS_PTZ_PAN_LEFT  2
 #define AXIS_PTZ_PAN_RIGHT  3
 
-#define PAN_MIN    -1.5708
+#define PAN_MIN    -3.13
 #define TILT_MIN   -1.5708
-#define PAN_MAX    1.5708
+#define PAN_MAX    3.13
 #define TILT_MAX   1.5708
 
     

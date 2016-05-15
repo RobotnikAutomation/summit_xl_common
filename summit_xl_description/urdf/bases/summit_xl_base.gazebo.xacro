@@ -49,6 +49,23 @@
 	  </gazebo>
   </xacro:macro>
 
+  <xacro:macro name="ros_force_based_move" params="broadcastOdomTF">
+	  <gazebo>
+		 <plugin name="ros_force_based_move" filename="libgazebo_ros_force_based_move.so">
+			 <robotNamespace>/summit_xl</robotNamespace>
+			 <commandTopic>/summit_xl_control/cmd_vel</commandTopic>  
+			 <odometryTopic>/summit_xl/odom</odometryTopic>
+	         <odometryFrame>odom</odometryFrame>
+			 <yaw_velocity_p_gain>10000.0</yaw_velocity_p_gain>
+			 <x_velocity_p_gain>10000.0</x_velocity_p_gain>
+			 <y_velocity_p_gain>10000.0</y_velocity_p_gain>
+			 <robotBaseFrame>base_footprint</robotBaseFrame>
+			 <odometryRate>20.0</odometryRate>
+			 <publishOdometryTf>${broadcastOdomTF}</publishOdometryTf>
+		 </plugin>
+	  </gazebo>
+  </xacro:macro>
+
   <gazebo reference="base_footprint">
     <material>Gazebo/Green</material>
   </gazebo>

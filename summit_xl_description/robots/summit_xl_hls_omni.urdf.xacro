@@ -116,9 +116,14 @@
 		<origin xyz="-0.370 0.234 0.148" rpy="0 0 2.8578"/>
 	</xacro:sensor_axis_m5013>
   
-	<xacro:sensor_imu name="imu" parent="base_link">
+	<!-- xacro:sensor_imu name="imu" parent="base_link">
 		<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
-	</xacro:sensor_imu>
+	</xacro:sensor_imu -->
+
+	<!-- Imu with hector plugin -->
+	<xacro:sensor_imu_hector name="imu" parent="base_link">
+		<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
+	</xacro:sensor_imu_hector>
 
 	<!-- PAN TILT UNITS -->
 <!-- Original, edited to solve ptu1vsptu2 exchange and parent _link_2 not existing

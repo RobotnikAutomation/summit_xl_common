@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Throttle the voxel grid that is being published for rviz -->
+<!--
+  <node ns="move_base/local_costmap" name="voxel_grid_throttle" pkg="topic_tools" type="throttle" args="messages voxel_grid 3.0 voxel_grid_throttled" output="screen"/>  
+-->
+
+  <!--- Run AMCL -->
+  <include file="$(find summit_xl_navigation)/launch/amcl.launch" />
+  <remap from="cmd_vel" to="/move_base/cmd_vel" />
+
+  <!-- for moving -->
+  <!-- Run move_base -->
+ <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+	<remap from="scan" to="/scan_multi"/>
+	<remap from="cmd_vel" to="/move_base/cmd_vel" />	
+	<remap from="odom" to="odom" />
+
+	<!-- move_base params -->
+  	<rosparam file="$(find summit_xl_navigation)/config/diff_drive/costmap_common_params.yaml" command="load" ns="global_costmap" />
+  	<rosparam file="$(find summit_xl_navigation)/config/diff_drive/costmap_common_params.yaml" command="load" ns="local_costmap" />
+  	<rosparam file="$(find summit_xl_navigation)/config/diff_drive/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/config/diff_drive/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/config/diff_drive/teb_local_planner_params.yaml" command="load" />
+    
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <param name="planner_frequency" value="1.0" />
+    <param name="planner_patience" value="5.0" />
+
+	<param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+	<param name="controller_frequency" value="5.0" />
+    <param name="controller_patience" value="15.0" />    
+  </node> 
+    
+ <!-- Rviz 
+ <node pkg="rviz" type="rviz" name="rviz" args="-d $(find vinbot_move_base)/config_rviz/move_base_local.rviz"/> 
+  <include file="$(find robotnik_mb_planner)/launch/movebase_marker.launch"/>   
+  <include file="$(find robotnik_mb_planner)/launch/movebase_planner.launch"/> -->
+
+</launch> 
+
+
+

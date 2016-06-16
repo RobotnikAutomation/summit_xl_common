@@ -19,6 +19,8 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <run_depend>summit_xl_description</run_depend>
+  <run_depend>summit_xl_localization</run_depend>
+  <run_depend>summit_xl_navigation</run_depend>
   <run_depend>summit_xl_pad</run_depend>
 
   <export>

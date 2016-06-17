@@ -14,7 +14,7 @@
   <author email="jarino@robotnik.es">Jorge Ariño</author>
   <author email="dcarbonell@robotnik.es">Dani Carbonell</author>
 
-  <maintainer email="info@robotnik.es">Robotnik</maintainer>
+  <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
   
   <buildtool_depend>catkin</buildtool_depend>
 

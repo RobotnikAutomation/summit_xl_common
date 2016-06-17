@@ -27,7 +27,6 @@ find_package(Eigen REQUIRED)
 
 catkin_package(
   INCLUDE_DIRS include
-  # LIBRARIES filter_base ekf
   CATKIN_DEPENDS
     robot_localization
     roscpp
@@ -52,17 +51,6 @@ catkin_package(
 include_directories(include   
 		    ${catkin_INCLUDE_DIRS}
 		    ${Eigen_INCLUDE_DIRS})
-
-# Library definition
-#add_library(navsat_transform_new src/navsat_transform_new.cpp)
-# Dependencies
-#add_dependencies(navsat_transform_new robot_localization_gencpp)
-# Executables
-#add_executable(navsat_transform_new_node src/navsat_transform_new_node.cpp)
-
-# Linking
-#target_link_libraries(navsat_transform_new filter_utilities ros_filter_utilities ${catkin_LIBRARIES})
-#target_link_libraries(navsat_transform_new_node navsat_transform_new ${catkin_LIBRARIES})
 
 add_executable(rl_utils src/robot_localization_utils.cpp)
 add_dependencies(rl_utils robotnik_msgs_generate_messages_cpp)

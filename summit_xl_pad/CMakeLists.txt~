@@ -44,6 +44,6 @@ target_link_libraries(summit_xl_pad
  )
 
 install(
-  TARGETS summit_xl_pad
+  TARGETS summit_xl_pad_node
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

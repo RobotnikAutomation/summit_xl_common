@@ -5,7 +5,7 @@
   <description>The summit_xl_localization package</description>
 
   <maintainer email="egambaro@robotnik.es">Elena Gambaro</maintainer>
-  <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
+
   <url type="website">http://ros.org/wiki/summit_xl_localization</url>
   <url type="repository">https://github.com/RobotnikAutomation/summit_xl_common.git</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_common/issues</url>

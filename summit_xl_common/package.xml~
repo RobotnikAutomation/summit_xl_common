@@ -7,7 +7,6 @@
   <license>BSD</license>
 
   <url type="website">http://ros.org/wiki/summit_xl_common</url>
-  <url type="repository">https://github.com/RobotnikAutomation/summit_xl_common.git</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_common/issues</url>
 
   <author email="rguzman@robotnik.es">Roberto Guzmán</author>

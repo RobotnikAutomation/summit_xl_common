@@ -69,6 +69,6 @@ add_dependencies(rl_utils robotnik_msgs_generate_messages_cpp)
 target_link_libraries(rl_utils ${catkin_LIBRARIES})
 
 install(
-  TARGETS rl_utils
+  TARGETS summit_xl_localization
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

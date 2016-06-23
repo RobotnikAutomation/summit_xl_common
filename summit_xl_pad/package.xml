@@ -4,7 +4,6 @@
   <version>1.0.0</version>
   
   <description>The summit_xl_pad package allows to control the summit_xl product range (summit_xl, summit_xl_omni, x_wam) teleoperation  </description>
-  <author email="rguzman@robotnik.es">Dani Carbonell</author>
   <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
   <maintainer email="rnavarro@robotnik.es">Roman Navarro</maintainer>
 

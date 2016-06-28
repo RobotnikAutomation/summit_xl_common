@@ -2,8 +2,8 @@
 Changelog for package summit_xl_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2016-06-28)
+------------------
 * indigo-1.0.0
 * added move_base_nomap.launch
 * created maps folder

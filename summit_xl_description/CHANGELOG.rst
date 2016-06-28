@@ -2,8 +2,8 @@
 Changelog for package summit_xl_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2016-06-28)
+------------------
 * indigo-1.0.0
 * added plugin option ros_force_based_move from hector_plugins
 * added urdf and meshes of extended arms (ext) version

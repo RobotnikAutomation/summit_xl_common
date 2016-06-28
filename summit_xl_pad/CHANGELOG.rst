@@ -2,8 +2,8 @@
 Changelog for package summit_xl_pad
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2016-06-28)
+------------------
 * indigo-1.0.0
 * updated topic of axis camera
 * Bug fixed

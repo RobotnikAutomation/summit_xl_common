@@ -2,8 +2,8 @@
 Changelog for package summit_xl_common
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2016-06-28)
+------------------
 * indigo-1.0.0
 * Merge branch 'indigo-devel' of https://github.com/RobotnikAutomation/summit_xl_common into indigo-devel
   Conflicts:

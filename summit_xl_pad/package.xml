@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>summit_xl_pad</name>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   
   <description>The summit_xl_pad package allows to control the summit_xl product range (summit_xl, summit_xl_omni, x_wam) teleoperation  </description>
   <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>

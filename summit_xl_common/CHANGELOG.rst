@@ -4,6 +4,8 @@ Changelog for package summit_xl_common
 
 Forthcoming
 -----------
+* added dependency
+* Contributors: carlos3dx
 
 1.0.3 (2016-06-29)
 ------------------

@@ -2,6 +2,9 @@
 Changelog for package summit_xl_pad
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.3 (2016-06-29)
 ------------------
 * Deleted nav_msgs dependency

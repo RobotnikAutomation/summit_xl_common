@@ -2,8 +2,8 @@
 Changelog for package summit_xl_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.5 (2016-07-05)
+------------------
 * Added directory to CMakeLists
 * Contributors: carlos3dx
 

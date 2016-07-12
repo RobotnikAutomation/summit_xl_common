@@ -2,6 +2,11 @@
 Changelog for package summit_xl_pad
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.8 (2016-07-12)
+------------------
+* removed twist_mux dependency
+* Contributors: carlos3dx
+
 1.0.7 (2016-07-12)
 ------------------
 * updated changelog

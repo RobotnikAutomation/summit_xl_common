@@ -28,6 +28,5 @@
   <run_depend>geometry_msgs</run_depend>
   <run_depend>message_runtime</run_depend>
   <run_depend>diagnostic_updater</run_depend>
-  <run_depend>twist_mux</run_depend>
 
 </package>

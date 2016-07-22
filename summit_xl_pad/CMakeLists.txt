@@ -3,7 +3,6 @@ project(summit_xl_pad)
 
 find_package(catkin REQUIRED COMPONENTS 
     message_generation
-    nav_msgs 
     robotnik_msgs
     roscpp 
     sensor_msgs 

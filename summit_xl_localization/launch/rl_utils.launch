@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>  
+   <node pkg="summit_xl_localization" type="rl_utils" name="rl_utils"/> 
+
+</launch>

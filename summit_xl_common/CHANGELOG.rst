@@ -2,6 +2,9 @@
 Changelog for package summit_xl_common
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.1.0 (2016-08-24)
 ------------------
 

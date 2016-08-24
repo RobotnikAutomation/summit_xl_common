@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>summit_xl_localization</name>
-  <version>1.0.8</version>
+  <version>1.0.9</version>
   <description>The summit_xl_localization package</description>
 
   <maintainer email="egambaro@robotnik.es">Elena Gambaro</maintainer>

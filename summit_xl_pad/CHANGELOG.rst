@@ -2,8 +2,8 @@
 Changelog for package summit_xl_pad
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.9 (2016-08-24)
+------------------
 * Adding install rules
 * Contributors: Jorge Arino
 

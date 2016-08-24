@@ -2,6 +2,11 @@
 Changelog for package summit_xl_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* description: added orbbec camera to the frontal robot area
+* Contributors: RomanRobotnik
+
 1.0.8 (2016-07-12)
 ------------------
 

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>  
-      
+
      <node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 -0.1 0.40 0 0 0 1 base_footprint fcu 50"/> 
 
      <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
@@ -16,24 +16,24 @@
       <param name="base_link_frame" value="base_footprint"/>
       <param name="world_frame" value="odom"/>
 
-      <param name="odom0" value="/odom"/>
-      <param name="imu0" value="/imu/data"/>
+      <param name="odom0" value="/summit_xl/odom_robot_control"/> <!-- previously: /odom -->
+      <param name="imu0" value="/imu_data"/>        <!-- previously: /imu/data -->
 
-      <rosparam param="odom0_config">[true, true, false,
-                                      false, false, true,
-                                      true,  false, false,
-                                      false, false, true,
+      <rosparam param="odom0_config">[false, false, false,
+                                      false, false, false,
+                                      true,  true, false,
+                                      false, false, false,
                                       false, false, false]</rosparam>
 
       <!-- Be careful when setting the z-orientation value to true because you are going to fuse orientation data 
 	coming from an attitude estimatior which is more likely to use a (slow-response) compass -->	
       <rosparam param="imu0_config">[false, false, false,
-                                     false, false, false, 
+                                     false, false, true, 
                                      false, false, false,
-                                     true, true, true,
-                                     false, false, false]</rosparam>
+                                     false, false, true,
+                                     true, false, false]</rosparam>
 
-      <param name="odom0_differential" value="true"/>
+      <param name="odom0_differential" value="false"/>
       <param name="imu0_differential" value="false" />
 
       <param name="odom0_relative" value="false"/>
@@ -42,7 +42,7 @@
       <param name="imu0_relative" value="true"/>
     
       <param name="imu0_remove_gravitational_acceleration" type="bool" value="true"/>
-      <param name="print_diagnostics" value="false"/>
+      <param name="print_diagnostics" value="true"/>
    </node>
 
 </launch>

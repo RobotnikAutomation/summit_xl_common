@@ -10,31 +10,27 @@
 	   <!-- param name="magnetic_declination_radians" value="0.001164"/ --> 
        <!-- Value for Valencia: 0°4'W, changing by 0°7' E per year -->
        <!-- Value for Lisbon: -2º 40'W = -2.66º  -->
-       <param name="magnetic_declination_radians" value="-0.046425758"/>
+       <param name="magnetic_declination_radians" value="0.0"/> <!-- not needed in simulation imu provides relative orientation to the initial orientation -->
 
        <!-- The value of this parameter depends on the GPS data (it should be checked) -->
-       <!--  param name="yaw_offset" value="1.5707963"/ -->
-       <param name="yaw_offset" value="0.0" />
+       <param name="yaw_offset" value="0"/> <!-- not needed in simulation if imu provides relative orientation to the initial orientation -->
+       <param name="use_odometry_yaw" value="false" /> <!-- if false, take yaw from imu. if true, from odom -->
 
        <!-- If this is true, the altitude is set to 0 in the output odometry message. Defaults
            to false. -->
-      <!-- param name="zero_altitude" value="false"/ -->
-      <param name="zero_altitude" value="true" />
+		<param name="zero_altitude" value="false" />
 
        <!-- Publish the transform between utm and world 
 	(frame of the input odometry data, in this case /odometry/filtered_world) 
 	It is a static transform -->
        <param name="broadcast_utm_transform" value="true"/>
+       <param name="publish_filtered_gps" value="true" />
 
        <!-- Placeholders for input remapping. Set your topic names as the "to" values.-->
-       <remap from="/gps/fix" to="/fix"/>
-       <remap from="/imu/data" to="/mavros/imu/data"/>
+       <remap from="/gps/fix" to="/mavros/gps/fix"/> <!-- previously: /fix -->
+       <remap from="/imu/data" to="/imu_data"/> <!-- previously: /mavros/imu/data -->
        <remap from="/odometry/filtered" to="/odometry/filtered_world" />
-      
-      <!-- Placeholders for output remapping.
-      <remap from="/odometry/gps" to=""/>
-      <remap from="/gps/filtered" to=""/>
-      -->
+    
     </node>
 </launch>
 

@@ -2,6 +2,11 @@
 Changelog for package summit_xl_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.9 (2016-08-24)
+------------------
+* Deleting unused files
+* Contributors: Jorge Arino
+
 1.0.8 (2016-07-12)
 ------------------
 

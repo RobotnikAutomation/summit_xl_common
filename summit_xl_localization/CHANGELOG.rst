@@ -2,6 +2,13 @@
 Changelog for package summit_xl_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.9 (2016-08-24)
+------------------
+* Adding install rules
+* Deleting unused files
+* Added rl_utils.launch
+* Contributors: Jorge Arino, summit
+
 1.0.8 (2016-07-12)
 ------------------
 

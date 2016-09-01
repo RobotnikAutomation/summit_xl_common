@@ -2,54 +2,84 @@
 <launch>
 
  <!-- ekf_loc2 fuses all surces of data (imu, odometry and gps odom). Publish the tf from world frame to base_footprintt -->
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc2" clear_params="true" output="screen">
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc_world" clear_params="true" output="screen">
       <remap from="odometry/filtered" to="/odometry/filtered_world" />
 
       <!-- GPS update frequency: 10 Hz-->
-      <param name="frequency" value="10"/>
+      <param name="frequency" value="30"/>
       <param name="sensor_timeout" value="0.1"/>
 
       <param name="two_d_mode" value="true"/>
 
-      <param name="map_frame" value="world"/>
       <param name="odom_frame" value="odom"/>
       <param name="base_link_frame" value="base_footprint"/>
+      <!-- if robot_localization is performing local fusing, ie is calculating the odometry, :
+        world_frame and map_frame MUST BE set to the same frame
+      -->
+      <param name="map_frame" value="world"/>
       <param name="world_frame" value="world"/>
 
-      <param name="odom0" value="/odom"/>
-      <param name="imu0" value="/mavros/imu/data"/>
-
-      <rosparam param="odom0_config">[true, true, false,
-                                      false, false, true,
-                                      true,  false, false,
-                                      false, false, true,
-                                      false, false, false]</rosparam>
-
-      <rosparam param="imu0_config">[false, false, false,
-                                     false, false, false,
-                                     false, false, false,
-                                     true, true, true,
-                                     false, false, false]</rosparam>
-
-      <param name="odom0_differential" value="true"/>
-      <param name="imu0_differential" value="false"/>
-
-      <param name="odom0_relative" value="false"/>
-      <param name="imu0_relative" value="false"/>
-
-      <!-- GPS odometry (from navsat_transform_node) -->
+      <!-- use the previously fused odometry, which integrates already the robot odometry and imu -->
+      <param name="odom0" value="/odometry/filtered_odom"/>
+      <!--<param name="imu0" value="/imu_data"/> -->     
+      
+      <!-- use the "gps odom" from navsat_transform_node, which has the position in the odom frame -->
       <param name="odom1" value="odometry/gps"/>
-      <rosparam param="odom1_config">[true, true, true,
+
+
+      <!-- from odom, use all values, except for acceleration -->
+      <rosparam param="odom0_config">[true, true, true,
+                                      true, true, true,
+                                      true,  true, true,
+                                      true, true, true,
+                                      false, false, false]</rosparam>
+
+      <!-- from gps, use only position -->
+      <rosparam param="odom1_config">[true, true, false,
                                       false, false, false,
                                       false, false, false,
                                       false, false, false,
                                       false, false, false]</rosparam>
-                                                                                                                                                                                                                                                         
+
+      <!--<rosparam param="imu0_config">[false, false, false,-->
+                                     <!--false, false, false,-->
+                                     <!--false, false, false,-->
+                                     <!--false, false, false,-->
+                                     <!--false, false, false]</rosparam>-->
+
+      <!-- odom0_differential must be true, because we are taking the absolute position from gps -->
+      <param name="odom0_differential" value="true"/>
+      <!-- <param name="imu0_differential" value="false"/> -->
+      <!-- odom1_differential must be false, because it has absolute position -->
       <param name="odom1_differential" value="false"/>
+      
+      <!-- odom0_relative could be true -->
+      <param name="odom0_relative" value="false"/>
+      <!--<param name="imu0_relative" value="false"/>-->
+
+      <!-- odom1_relative MUST BE false, because we want absolute positions -->
       <param name="odom1_relative" value="false"/>
 
-      <param name="imu0_remove_gravitational_acceleration" value="true"/>
-      <param name="print_diagnostics" value="false"/>
+      <!-- <param name="imu0_remove_gravitational_acceleration" value="true"/> -->
+      <param name="print_diagnostics" value="true"/>
+
+      <!-- process covariance matrix, could be improved -->
+      <rosparam param="process_noise_covariance">[0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.000001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.00, 0.06, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.00, 0.0, 0.025, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.00, 0.0, 0.0, 0.025, 0.0, 0.0, 0.0, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.00, 0.0, 0.0, 0.0, 0.05, 0.0, 0.0, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.00, 0.0, 0.0, 0.0, 0.0, 0.002, 0.0, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.00, 0.0, 0.0, 0.0, 0.0, 0.0, 0.002, 0.0,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.00, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.004,0.0, 0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.00, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4,0.0, 0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.00, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4,0.0,
+                                                  0.0, 0.0, 0.0, 0.0, 0.00, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4]
+      </rosparam>
    </node>
 
 </launch>

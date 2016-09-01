@@ -56,9 +56,31 @@ add_executable(rl_utils src/robot_localization_utils.cpp)
 add_dependencies(rl_utils robotnik_msgs_generate_messages_cpp)
 target_link_libraries(rl_utils ${catkin_LIBRARIES})
 
+# Library definition
+add_library(navsat_transform_new src/navsat_transform_new.cpp)
+# Dependencies
+add_dependencies(navsat_transform_new robot_localization_gencpp)
+
+# Executables
+add_executable(navsat_transform_new_node src/navsat_transform_new_node.cpp)
+
+# Linking
+target_link_libraries(navsat_transform_new ${catkin_LIBRARIES})
+target_link_libraries(navsat_transform_new_node navsat_transform_new ${catkin_LIBRARIES})
+
 install(
   TARGETS rl_utils
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(
+  TARGETS navsat_transform_new_node
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(
+  TARGETS navsat_transform_new
+  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
 
 install(

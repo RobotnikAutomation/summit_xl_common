@@ -8,6 +8,11 @@ Changelog for package summit_xl_pad
 1.1.0 (2016-08-24)
 ------------------
 
+1.0.9 (2016-08-24)
+------------------
+* Adding install rules
+* Contributors: Jorge Arino
+
 1.0.8 (2016-07-12)
 ------------------
 * removed twist_mux dependency

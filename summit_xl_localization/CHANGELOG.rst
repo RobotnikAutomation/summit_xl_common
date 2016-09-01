@@ -2,8 +2,8 @@
 Changelog for package summit_xl_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.2 (2016-09-01)
+------------------
 * fixed merge conflicts
 * summit_xl_localization: commented robot_localization launch files
 * summit_xl_localization: updated robot_localization launch files

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>summit_xl_description</name>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <description> URDF description of the Summit XL and Summit XL HL and omni versions </description>
 
   <url type="website">http://ros.org/wiki/summit_xl_description</url>

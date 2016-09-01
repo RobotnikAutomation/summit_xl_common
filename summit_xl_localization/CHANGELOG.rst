@@ -2,8 +2,8 @@
 Changelog for package summit_xl_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.10 (2016-09-01)
+-------------------
 * summit_xl_localization: commented robot_localization launch files
 * summit_xl_localization: updated robot_localization launch files
 * summit_xl_localization: added navsat_transform_new to CMakeLists.txt

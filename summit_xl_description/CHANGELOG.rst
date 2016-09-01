@@ -2,6 +2,15 @@
 Changelog for package summit_xl_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Changed xacro.py to xacro, added --inorder option and modified xmlns:xacro
+* summit_xl_description: updated xacro to match jade tag syntax
+* summit_xl_description: changed gazebo imu plugin to hector
+* 1.0.9
+* updated changelog
+* Contributors: Marc Bosch-Jorge, carlos3dx
+
 1.0.9 (2016-08-24)
 ------------------
 * description: added orbbec camera to the frontal robot area

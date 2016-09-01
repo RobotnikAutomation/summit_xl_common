@@ -2,6 +2,13 @@
 Changelog for package summit_xl_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* fixed merge conflicts
+* 1.0.9
+* updated changelog
+* Contributors: Marc Bosch-Jorge, carlos3dx
+
 1.1.1 (2016-08-24)
 ------------------
 

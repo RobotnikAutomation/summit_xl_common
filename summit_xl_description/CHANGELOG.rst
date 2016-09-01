@@ -2,6 +2,16 @@
 Changelog for package summit_xl_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* fixed merge conflicts
+* Changed xacro.py to xacro, added --inorder option and modified xmlns:xacro
+* summit_xl_description: updated xacro to match jade tag syntax
+* summit_xl_description: changed gazebo imu plugin to hector
+* 1.0.9
+* updated changelog
+* Contributors: Marc Bosch-Jorge, carlos3dx
+
 1.1.1 (2016-08-24)
 ------------------
 

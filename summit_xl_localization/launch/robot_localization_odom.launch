@@ -21,8 +21,8 @@
       <param name="world_frame" value="odom"/>
       <!-- <param name="map_frame" value="map"> --> 
 
-      <param name="odom0" value="/summit_xl/odom_robot_control"/> <!-- previously: /odom -->
-      <param name="imu0" value="/imu_data"/>        <!-- previously: /imu/data -->
+      <param name="odom0" value="/odom"/> <!-- previously: /odom -->
+      <param name="imu0" value="/imu/data"/>        <!-- previously: /imu/data -->
 
       <!-- from summit odom, we only take vx and vy. even if the robot is differential (cannot strafe, vy != 0) is good to fuse vy -->
       <rosparam param="odom0_config">[false, false, false,

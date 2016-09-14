@@ -24,7 +24,7 @@
       <!--<param name="imu0" value="/imu_data"/> -->     
       
       <!-- use the "gps odom" from navsat_transform_node, which has the position in the odom frame -->
-      <param name="odom1" value="odometry/gps"/>
+      <param name="odom1" value="/odometry/gps"/>
 
 
       <!-- from odom, use all values, except for acceleration -->

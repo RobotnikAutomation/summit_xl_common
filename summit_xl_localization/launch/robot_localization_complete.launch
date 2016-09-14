@@ -4,7 +4,7 @@
   <!-- roslaunch arguments -->
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
-
+  <arg name="wait_for_datum" default="false" />
   <!-- Transform from odom to base_footprint (IMU and odometry) -->
   <include file="$(find summit_xl_localization)/launch/robot_localization_odom.launch" />
 
@@ -12,6 +12,8 @@
   <include file="$(find summit_xl_localization)/launch/robot_localization_world.launch" />
 
   <!-- Get GPS odometry -->
-  <include file="$(find summit_xl_localization)/launch/navsat_transform_node.launch" />
+  <include file="$(find summit_xl_localization)/launch/navsat_transform_node.launch">
+	<arg name="wait_for_datum" value="$(arg wait_for_datum)" />
+  </include>
 
 </launch>

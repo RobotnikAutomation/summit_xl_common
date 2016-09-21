@@ -3,8 +3,10 @@ raytrace_range: 3.0
 
 footprint: [[0.35, -0.3], [0.35, 0.3], [-0.35,0.3], [-0.35, -0.3]]
 
+publish_frequency: 1.0
+
 inflation_layer:
-  inflation_radius: 0.35
+  inflation_radius: 0.5
 
 obstacle_layer:
   observation_sources: hokuyo_laser

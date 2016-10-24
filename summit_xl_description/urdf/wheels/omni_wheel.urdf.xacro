@@ -10,8 +10,8 @@
  
   <xacro:macro name="cylinder_inertia" params="m r h">
     <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
-              iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
-              izz="${m*r*r/2}" /> 
+              iyy="${m*r*r/2}" iyz = "0"
+              izz="${m*(3*r*r+h*h)/12}" /> 
   </xacro:macro>
  
   <xacro:macro name="omni_wheel" params="name parent *origin reflect hq">
@@ -39,7 +39,7 @@
             <geometry>     
               <mesh filename="package://summit_xl_description/meshes/wheels/omni_wheel_2.dae" />
             </geometry>			  
-		  s</xacro:unless>	  
+		  </xacro:unless>	  
         </xacro:if>
        
         <xacro:unless value="${hq}">
@@ -86,7 +86,7 @@
     <transmission name="${name}_wheel_joint_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="joint_${name}_wheel" >
-         <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
       </joint>              
       <actuator name="${name}_wheel_joint_motor">
          <mechanicalReduction>1</mechanicalReduction>

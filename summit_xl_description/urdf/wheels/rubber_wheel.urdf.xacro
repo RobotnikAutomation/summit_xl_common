@@ -3,15 +3,15 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
   <!-- Wheels -->
-  <xacro:property name="wheel_radius" value="0.117" /> 
-  <xacro:property name="wheel_height" value="0.14" />
+  <xacro:property name="wheel_radius" value="0.125" /> 
+  <xacro:property name="wheel_height" value="0.14" /> <!-- really is the wheel width -->
   <xacro:property name="wheel_mass" value="6.5" /> <!-- in kg-->
  
  
   <xacro:macro name="cylinder_inertia" params="m r h">
     <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
-              iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
-              izz="${m*r*r/2}" /> 
+              iyy="${m*r*r/2}" iyz = "0"
+              izz="${m*(3*r*r+h*h)/12}" /> 
   </xacro:macro>
  
   <xacro:macro name="rubber_wheel" params="name parent *origin reflect hq">
@@ -67,7 +67,7 @@
     <transmission name="${name}_wheel_joint_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="joint_${name}_wheel">
-		<hardwareInterface>EffortJointInterface</hardwareInterface>
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
       </joint>
       <actuator name="${name}_wheel_joint_motor">
         <mechanicalReduction>1</mechanicalReduction>

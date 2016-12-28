@@ -19,3 +19,7 @@ button_ptz_tilt_down: 1
 button_ptz_pan_right: 3
 button_ptz_pan_left: 2
 button_kinematic_mode: 11
+button_home: 14
+pad_type: xbox360
+button_ptz_zoom_wide: 10
+button_ptz_zoom_tele: 8

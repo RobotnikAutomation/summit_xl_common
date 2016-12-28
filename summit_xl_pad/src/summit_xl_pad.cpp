@@ -307,7 +307,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}else{
 			bRegisteredButtonEvent[speed_down_button_] = false;
 		 }
-		 
+		//ROS_ERROR("SummitXLPad::padCallback: Passed SPEED DOWN button %d", speed_down_button_);
 		if (joy->buttons[speed_up_button_] == 1){
 			if(!bRegisteredButtonEvent[speed_up_button_])
 				if(current_vel < 0.9){
@@ -323,12 +323,14 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}else{
 			bRegisteredButtonEvent[speed_up_button_] = false;
 		}
-		
+		//ROS_ERROR("SummitXLPad::padCallback: Passed SPEED UP button %d", speed_up_button_);
 		
 		
 		
 		vel.linear.x = current_vel*l_scale_*joy->axes[linear_x_];
 		vel.linear.y = current_vel*l_scale_*joy->axes[linear_y_];
+		
+		//ROS_ERROR("SummitXLPad::padCallback: Passed linear axes");
 		
 		if(joystick_dead_zone_=="true")
 		{
@@ -368,7 +370,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			vel.linear.z = current_vel*l_scale_z_*joy->axes[linear_z_];
 		}
 		
-		
+		//ROS_ERROR("SummitXLPad::padCallback: Passed joystick deadzone ifelse");
 		
 		
 
@@ -408,6 +410,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			bRegisteredButtonEvent[button_output_2_] = false;
 		}
 		 
+		//ROS_ERROR("SummitXLPad::padCallback: Passed LIGHTS");
 
 		// HOMING SERVICE 
 		if (joy->buttons[button_home_] == 1) {
@@ -430,7 +433,9 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		else {
 			bRegisteredButtonEvent[button_home_]=false;
 		}
-
+		
+		//ROS_ERROR("SummitXLPad::padCallback: Passed HOME BUTTON");
+		
 		// SPHERECAM
 		ptz.pan = ptz.tilt = ptz.zoom = 0.0;
 		ptz.relative = true;
@@ -479,6 +484,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			}
 		
 		}else{
+		  //ROS_ERROR("SummitXLPad::padCallback: INSIDE ELSE PTZ PAD_TYPE");
 		  // TILT-MOVEMENTS (RELATIVE POS)
 		  if (joy->buttons[ptz_tilt_up_] == 1) {		
 		    if(!bRegisteredButtonEvent[ptz_tilt_up_]){
@@ -566,7 +572,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			bRegisteredButtonEvent[button_kinematic_mode_] = false;			
 		}
 
-
+		//ROS_ERROR("SummitXLPad::padCallback: Passed SPHERE CAM and KINEMATIC MODE");
 
 	}
    	else {

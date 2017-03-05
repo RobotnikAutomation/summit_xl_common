@@ -71,9 +71,9 @@
       </joint>
       <actuator name="${name}_wheel_joint_motor">
         <mechanicalReduction>1</mechanicalReduction>
+        <motorTorqueConstant>20</motorTorqueConstant>
       </actuator>
      </transmission>
-
 
     <gazebo reference="${name}_wheel">
 			<mu1 value="1.0"/>

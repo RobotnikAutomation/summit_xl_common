@@ -2,7 +2,8 @@
 <launch>
 
 <!-- Run the map server -->
-<node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/rbk_warehouse/rbk_warehouse.yaml"/>
+<!-- node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/rbk_warehouse/rbk_warehouse.yaml"/ -->
+<node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/map1/map1.yaml"/>
 
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
 

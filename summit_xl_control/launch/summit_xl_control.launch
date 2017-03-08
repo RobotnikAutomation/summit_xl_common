@@ -15,9 +15,9 @@
 
   <!-- once the joint_state is published, run the robot_state_publisher, the namespace has to be adapted --> 
   <!-- convert joint states to TF transforms for rviz, etc -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+  <!-- node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
-  </node>
+  </node -->
 
 
   <node pkg="twist_mux" type="twist_mux" name="twist_mux">

@@ -29,7 +29,7 @@ summit_xl_control:
     # Wheel separation and diameter. These are both optional.
     # diff_drive_controller will attempt to read either one or both from the
     # URDF if not specified as a parameter - real #0.566 for skid - 0.8 
-    wheel_separation : 0.8
+    wheel_separation : 1.2
     wheel_radius : 0.110
 
     # Wheel separation and radius multipliers

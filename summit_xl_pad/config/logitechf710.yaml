@@ -8,7 +8,7 @@ num_of_buttons: 11
 #MOVEMENT
 axis_linear_x: 1
 axis_linear_y: 0
-axis_angular: 2
+axis_angular: 3
 #FOR SUMMITX
 axis_linear_z: 5
 scale_linear_z: 20.0

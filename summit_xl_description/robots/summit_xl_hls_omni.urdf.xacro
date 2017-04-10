@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
 
+	<!-- Version 1.0 -->
+	
 	<!-- ***************** -->
 	<!-- Imported elements -->
 	<!-- ***************** -->
@@ -36,6 +38,8 @@
 	<!-- Flag to select the high or low quality model -->
 	<xacro:property name="hq" value="true" />
 	
+	 
+	 
 	<!-- *************** -->
 	<!-- Robots Elements -->
 	<!-- *************** -->
@@ -53,13 +57,6 @@
   
   
     <!-- HOLDERS, STRUCTURES -->
-    <xacro:structure name="structure_hokuyo_front" parent="base_link">
-       <origin xyz="0.2225 -0.105 0.001" rpy="0 0 0"/>
-    </xacro:structure>
-
-    <xacro:structure name="structure_hokuyo_rear" parent="base_link">
-       <origin xyz="-0.2225 0.105 0.001" rpy="0 0 3.1416"/>
-    </xacro:structure>
 
     
 	<!-- WHEELS -->
@@ -81,25 +78,29 @@
 
 	<!-- SENSORS -->
 	<xacro:sensor_hokuyo_ust10lx name="hokuyo_front" parent="base_link">
-		<origin xyz="0.403 -0.256 -0.050" rpy="3.1416 0 -0.7854"/>
+		<origin xyz="0.377 -0.20957 0.2024" rpy="0 0 ${-PI/4.0}"/>
 	</xacro:sensor_hokuyo_ust10lx>
 
 	<xacro:sensor_hokuyo_ust10lx name="hokuyo_rear" parent="base_link">
-		<origin xyz="-0.403 0.256 -0.050" rpy="3.1416 0 2.3562"/>
+		<origin xyz="-0.377 0.20957 0.2024" rpy="0 0 ${3.0*PI/4.0}"/>
 	</xacro:sensor_hokuyo_ust10lx>
 	
-	<xacro:sensor_axis_m5013 name="camera_front" parent="base_link">
-		<origin xyz="0.370 -0.234 0.148" rpy="0 0 0"/>
+	<!--xacro:sensor_axis_m5013 name="camera_front" parent="base_link">
+		<origin xyz="0.370 0.234 0.148" rpy="0 0 0"/>
 	</xacro:sensor_axis_m5013>
 
 	<xacro:sensor_axis_m5013 name="camera_rear" parent="base_link">
-		<origin xyz="-0.370 0.234 0.148" rpy="0 0 3.1416"/>
+		<origin xyz="-0.370 -0.234 0.148" rpy="0 0 3.1416"/>
 	</xacro:sensor_axis_m5013>
   
 	<xacro:sensor_imu name="imu" parent="base_link">
 		<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
-	</xacro:sensor_imu>
+	</xacro:sensor_imu-->
   
+	<xacro:sensor_orbbec_astra name="orbbec_astra" parent="base_link">
+		<origin xyz="0.324 0.012 0.230" rpy="0 0 0"/>
+	</xacro:sensor_orbbec_astra>
+	
 <!-- xacro:sensor_gps name="gps" parent="base_link">
 		<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
 	</xacro:sensor_gps -->

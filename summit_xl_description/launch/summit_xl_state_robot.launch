@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   
-  <arg name="robot_model"  default=""  doc="Different robot versions: ('')"/>
+  <arg name="robot_model"  default=""  doc="Different robot versions: ('' '_jr2' '_hls_omni')"/>
 
   <arg name="urdf_file" default="$(find xacro)/xacro '$(find summit_xl_description)/robots/summit_xl$(arg robot_model).urdf.xacro' --inorder" />
   <param name="robot_description" command="$(arg urdf_file)" />

@@ -15,11 +15,11 @@
 	
 	<xacro:property name="front_laser_offset_x" value="0.3410"/>   
 	<xacro:property name="front_laser_offset_y" value="-0.2122"/>    
-	<xacro:property name="front_laser_offset_z" value="0.175"/>
+	<xacro:property name="front_laser_offset_z" value="0.170"/>
 	
 	<xacro:property name="rear_laser_offset_x" value="-0.3410"/>   
 	<xacro:property name="rear_laser_offset_y" value="0.2122"/>    
-	<xacro:property name="rear_laser_offset_z" value="0.175"/>
+	<xacro:property name="rear_laser_offset_z" value="0.170"/>
 	
 	<!-- xacro:property name="front_camera_offset_x" value="0.348"/>   
 	<xacro:property name="front_camera_offset_y" value="0.0"/>    

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="motion_type" default="diff" />
+
+  <!--- Run AMCL -->
+  <!--include file="$(find summit_xl_navigation)/launch/amcl.launch">
+	<arg name="motion_type" value="$(arg motion_type)"/>
+  </include-->
+  
+  <!-- Run move_base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find summit_xl_navigation)/config/move_base_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find summit_xl_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find summit_xl_navigation)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/config/global_costmap_params_map.yaml" command="load" />
+    <param name="global_costmap/static_layer/map_topic" value="/map" /> <!-- fix just in case we loaded the two_maps -->
+    <rosparam file="$(find summit_xl_navigation)/config/teb_local_planner_$(arg motion_type)_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/config/global_planner_params.yaml" command="load" />
+  </node>
+  
+</launch>

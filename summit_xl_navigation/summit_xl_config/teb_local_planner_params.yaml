@@ -1,11 +1,8 @@
-# teb_local_planner params for Summit XL holonomic configuration
-# Holonomic movement requires teb_local_planner v0.6.0
-
 base_local_planner: teb_local_planner/TebLocalPlannerROS
 
 TebLocalPlannerROS:
   odom_topic: odom
-  map_frame: /odom
+  map_frame: /summit_xl_odom
      
   # Trajectory
    
@@ -20,14 +17,12 @@ TebLocalPlannerROS:
           
   max_vel_x: 0.5
   max_vel_x_backwards: 0.15
-  max_vel_theta: 0.5
-  acc_lim_x: 0.5
-  acc_lim_theta: 0.5
+  max_vel_theta: 0.2
+  acc_lim_x: 0.2
+  acc_lim_theta: 0.2
   min_turning_radius: 0.0
   wheelbase: 0.0
   cmd_angle_instead_rotvel: false
-  max_vel_y: 0.5
-  acc_lim_y: 0.5
   footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
     type: "circular"
     radius: 0.25 # for type "circular"
@@ -72,8 +67,8 @@ TebLocalPlannerROS:
   weight_max_vel_theta: 1
   weight_acc_lim_x: 1
   weight_acc_lim_theta: 1
-  weight_kinematics_nh: 3
-  weight_kinematics_forward_drive: 3
+  weight_kinematics_nh: 1000
+  weight_kinematics_forward_drive: 10
   weight_kinematics_turning_radius: 1
   weight_optimaltime: 1
   weight_obstacle: 50

@@ -11,4 +11,4 @@ inflation_layer:
 obstacle_layer:
   observation_sources: hokuyo_laser
 #  hokuyo_laser: {sensor_frame: hokuyo_base_laser_link, data_type: LaserScan, topic: hokuyo_base/scan, marking: true, clearing: true}
-  hokuyo_laser: {sensor_frame: hokuyo_base_link, data_type: LaserScan, topic: hokuyo_base/scan, marking: true, clearing: true}
+  hokuyo_laser: {sensor_frame: summit_xl_hokuyo_base_link, data_type: LaserScan, topic: hokuyo_base/scan, marking: true, clearing: true}

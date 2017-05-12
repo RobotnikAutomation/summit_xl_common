@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="namespace" default=""/>
+  <!--arg name="namespace" default=""/-->
  <!-- joy node -->
   <node pkg="joy" type="joy_node" name="ps3_joy" output="screen" respawn="true">
     <param name="dev" type="string" value="/dev/input/js0" />
@@ -14,6 +14,5 @@
   <param name="cmd_topic_ptz" value="axis_camera/ptz_command" type="string"/>
   <rosparam command="load" file="$(find summit_xl_pad)/config/ps3.yaml" />
   <node name="summit_xl_pad" pkg="summit_xl_pad" type="summit_xl_pad" output="screen"/>
-  
 </launch>
 

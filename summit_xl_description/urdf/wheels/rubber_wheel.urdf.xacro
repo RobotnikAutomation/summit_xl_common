@@ -67,7 +67,7 @@
     <transmission name="${name}_wheel_joint_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${name}_wheel_joint">
-        <hardwareInterface>VelocityJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       </joint>
       <actuator name="${name}_wheel_joint_motor">
         <mechanicalReduction>1</mechanicalReduction>

@@ -17,7 +17,7 @@
 	<!-- Import all available sensors -->
 	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
   
-    <xacro:property name="PI" value="3.1415926535897931"/>
+	<xacro:property name="PI" value="3.1415926535897931"/>
 	  
 	<!-- Wheel parameters -->
 	<xacro:property name="wheel_offset_x" value="0.229" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
@@ -26,9 +26,11 @@
 
 	<!-- Flag to select the high or low quality model -->
 	<xacro:property name="hq" value="true" />
-	<xacro:arg name="prefix" default="summit_xl"/>
+	<xacro:arg name="prefix_topic" default=""/>
+	<xacro:arg name="prefix_frame" default="summit_xl"/>
+
 		
-    <xacro:macro name="summit_xl_multi" params="prefix publish_bf hq">
+    	<xacro:macro name="summit_xl_multi" params="prefix_frame prefix_topic publish_bf hq">
 
 		<!-- *************** -->
 		<!-- Robots Elements -->
@@ -37,38 +39,44 @@
 		<!-- Here we create the robot elements using the xacro:macros imported at the beggining of this file -->
 
 		<!-- Summit XL base -->
-		<xacro:summit_xl_base prefix="$(arg prefix)" publish_bf="true" hq="${hq}" />
-	  
-		<xacro:rubber_wheel name="$(arg prefix)front_right" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
+		<xacro:summit_xl_base prefix_frame="$(arg prefix_frame)" prefix_topic="$(arg prefix_topic)" publish_bf="true" hq="${hq}" />
+
+		<xacro:rubber_wheel name="$(arg prefix_frame)front_right" parent="$(arg prefix_frame)base_link" reflect="false" hq="${hq}">
 			<origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 		</xacro:rubber_wheel>
 	  
-		<xacro:rubber_wheel name="$(arg prefix)front_left" parent="$(arg prefix)base_link" reflect="true" hq="${hq}">
+		<xacro:rubber_wheel name="$(arg prefix_frame)front_left" parent="$(arg prefix_frame)base_link" reflect="true" hq="${hq}">
 			<origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 		</xacro:rubber_wheel>
 	  
-		<xacro:rubber_wheel name="$(arg prefix)back_left" parent="$(arg prefix)base_link" reflect="true" hq="${hq}">
+		<xacro:rubber_wheel name="$(arg prefix_frame)back_left" parent="$(arg prefix_frame)base_link" reflect="true" hq="${hq}">
 			<origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 		</xacro:rubber_wheel>
 	  
-		<xacro:rubber_wheel name="$(arg prefix)back_right" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
+		<xacro:rubber_wheel name="$(arg prefix_frame)back_right" parent="$(arg prefix_frame)base_link" reflect="false" hq="${hq}">
 			<origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 		</xacro:rubber_wheel>
   
-		<xacro:sensor_imu_hector name="$(arg prefix)imu" parent="$(arg prefix)base_link" >
+		<xacro:sensor_imu_hector prefix_frame="$(arg prefix_frame)imu" parent="$(arg prefix_frame)base_link" prefix_topic="$(arg prefix_topic)" >
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu_hector>
 		
-		<xacro:sensor_hokuyo_ust10lx name="$(arg prefix)hokuyo_base" parent="$(arg prefix)base_link">
+		<xacro:sensor_hokuyo_ust10lx parent="$(arg prefix_frame)base_link" prefix_frame="$(arg prefix_frame)hokuyo_base" prefix_topic="$(arg prefix_topic)">
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 		</xacro:sensor_hokuyo_ust10lx>
+
+		<!--xacro:sensor_hokuyo_ust10lx name="$(arg prefix_frame)hokuyo_base" parent="$(arg prefix_frame)base_link" prefix_frame="$(arg prefix_frame)" prefix_topic="$(arg prefix_topic)">
+                        <origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
+                </xacro:sensor_hokuyo_ust10lx-->
 	
+
 		<!-- Gazebo ros control pluggins -->
-		<xacro:ros_control prefix="$(arg prefix)"/>
+		<xacro:ros_control prefix_topic="$(arg prefix_topic)" prefix_frame="$(arg prefix_frame)"/>
 		
    </xacro:macro>
 
-   <xacro:summit_xl_multi prefix="$(arg prefix)" publish_bf="true" hq="true"/>
+   <xacro:summit_xl_multi prefix_frame="$(arg prefix_frame)" prefix_topic="$(arg prefix_topic)" publish_bf="true" hq="true"/>
+
 	
 </robot>
 

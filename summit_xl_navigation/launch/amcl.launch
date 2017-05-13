@@ -3,15 +3,16 @@
 
 <!-- Run the map server -->
 <!-- node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/rbk_warehouse/rbk_warehouse.yaml"/ -->
-<node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/map1/map1.yaml"/>
+<!-- node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/map1/map1.yaml"/ -->
+<node name="map_server" pkg="map_server" type="map_server" args="/home/summit/maps/robotnik.yaml"/>
 
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
 
   <!-- remap from="scan" to="scan" / -->
-  <remap from="scan" to="/hokuyo_base/scan" />
-  <remap from="cmd_vel" to="/summit_xl_controller/cmd_vel"/>
+  <remap from="scan" to="scan" />
+  <!-- remap from="cmd_vel" to="/summit_xl_controller/cmd_vel"/ -->
   <!-- remap from="scan" to="hokuyo_laser_topic" / -->
-  <!-- remap from="cmd_vel" to="summit_xl_controller/cmd_vel" / -->
+  <remap from="cmd_vel" to="/summit_xl_control/cmd_vel" />
 
   <!-- Publish scans from best pose at a max of 10 Hz -->
   <param name="odom_model_type" value="diff"/>

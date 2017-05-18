@@ -2,6 +2,7 @@
 <robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
   
   <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
+  <xacro:include filename="$(find summit_xl_description)/urdf/materials.xacro" />
 
   <xacro:macro name="summit_xl_jr2_base" params="name publish_bf hq">
 
@@ -37,25 +38,57 @@
        <origin xyz="0 0 0" rpy="0 0 0" />
        <xacro:if value="${hq}">
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/jr2/summit_xl_jr2.stl"/>	                                                     
+	     <mesh filename="package://summit_xl_description/meshes/bases/jr2/summit_xl_jr2_frames.stl"/>	                                                     
        </geometry>
        </xacro:if>
        <xacro:unless value="${hq}">
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/jr2/summit_xl_jr2.dae"/>
+	     <mesh filename="package://summit_xl_description/meshes/bases/jr2/summit_xl_jr2_frames.dae"/>
        </geometry>
        </xacro:unless>
-       <material name="darkgrey">
-         <color rgba="0.1 0.1 0.1 1"/>
-       </material>
+       <material name="black_jr2"/>
     </visual>  
     <collision>
        <origin xyz="0 0 0" rpy="0 0 0 " />
        <geometry>
-         <mesh filename="package://summit_xl_description/meshes/bases/jr2/summit_xl_jr2.dae"/>
+         <mesh filename="package://summit_xl_description/meshes/bases/jr2/summit_xl_jr2_frames.dae"/>
        </geometry>
     </collision>     
   </link>
+
+  <link name="link_plates">
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <xacro:if value="${hq}">
+       <geometry>
+	     <mesh filename="package://summit_xl_description/meshes/bases/jr2/summit_xl_jr2_plates.stl"/>	                                                     
+       </geometry>
+       </xacro:if>
+       <xacro:unless value="${hq}">
+       <geometry>
+	     <mesh filename="package://summit_xl_description/meshes/bases/jr2/summit_xl_jr2_plates.dae"/>
+       </geometry>
+       </xacro:unless>
+       <material name="orange_jr2"/>
+    </visual>  
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+         <mesh filename="package://summit_xl_description/meshes/bases/jr2/summit_xl_jr2_plates.dae"/>
+       </geometry>
+    </collision>     
+  </link>
+
+  <joint name="joint_base_plates" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" /> 
+    <parent link="base_link"/>
+    <child link="link_plates" />
+  </joint>    
 
   </xacro:macro>
 </robot>

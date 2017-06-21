@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <launch>
-  <master auto="start"/>
-
   <remap from="cmd_vel" to="/move_base/cmd_vel" />
   
   <!-- Run move_base -->
@@ -11,7 +9,7 @@
     <rosparam file="$(find summit_xl_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find summit_xl_navigation)/config/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find summit_xl_navigation)/config/global_costmap_params_no_map.yaml" command="load" />
-    <rosparam file="$(find summit_xl_navigation)/config/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/config/teb_local_planner_params.yaml" command="load" />
   </node>
   
 </launch>

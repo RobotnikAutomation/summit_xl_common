@@ -39,42 +39,49 @@
  - localOdomTopic: name of the topic from which get the travelled distance -->
 
 <launch>
+    <arg name="wait_for_datum" default="false" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
     <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
-       <!-- If your IMU does not account for magnetic declination -->
-       <!-- Now magnetic declination is not internally set in the IMU (it can be set during the calibration) -->
-	   <!-- param name="magnetic_declination_radians" value="0.001164"/ --> 
-       <!-- Value for Valencia: 0°4'W, changing by 0°7' E per year -->
-       <!-- Value for Lisbon: -2º 40'W = -2.66º  -->
-       <!-- magnetic declination is used to correct the difference between the magnetic north and the true north, which is s
-       usually, imus provide an orientation based on a magnetometer, so magnetic declination must be added as an offset to the orientation value.
-       if an imu (although not likely) provides the orientation wrt the true north, this parameter MUST BE 0
-       in simulation, the orientation provided by the imu is likely to be provided relative to the initial position, so this parameter MUST BE 0 in that case.
-       in which case the imu would be "aligned" with the axis
-       -->
-       <param name="magnetic_declination_radians" value="0.0"/> 
+        <!-- If your IMU does not account for magnetic declination -->
+        <!-- Now magnetic declination is not internally set in the IMU (it can be set during the calibration) -->
+	<!-- param name="magnetic_declination_radians" value="0.001164"/ --> 
+        <!-- Value for Valencia: -0.06'W = -0.00147198 rads -->
+        <!-- Value for Lisbon: -2.40'W = -2.66 rads -->
+        <!-- magnetic declination is used to correct the difference between the magnetic north and the true north, which is s
+        usually, imus provide an orientation based on a magnetometer, so magnetic declination must be added as an offset to the orientation value.
+        if an imu (although not likely) provides the orientation wrt the true north, this parameter MUST BE 0
+        in simulation, the orientation provided by the imu is likely to be provided relative to the initial position, so this parameter MUST BE 0 in that case.
+        in which case the imu would be "aligned" with the axis
+        -->
+        <param name="magnetic_declination_radians" value="0.0"/> 
 
-       <!-- yaw_offset: an offset that can be added to correct the orientation, so it is aligned as robot_localization expects, which at this time (30/8/2016) is ENU (x facing east, y facing north)
-       if the imu absolute orientation is 0 when facing north, this value MUST BE PI/2
-       if the imu absolute orientation is 0 when facing east, this value MUST BE 0
-       in simulation, we can leave this value to 0, and asume that the robot would be facing east on it's initial position -->
-       <param name="yaw_offset" value="0"/>
+        <!-- yaw_offset: an offset that can be added to correct the orientation, so it is aligned as robot_localization expects, which at this time (30/8/2016) is ENU (x facing east, y facing north)
+        if the imu absolute orientation is 0 when facing north, this value MUST BE PI/2
+        if the imu absolute orientation is 0 when facing east, this value MUST BE 0
+        in simulation, we can leave this value to 0, and asume that the robot would be facing east on it's initial position -->
+        <param name="yaw_offset" value="0"/>
+        <!-- so, imu.yaw + magnetic_declination + yaw_offset MUST BE 0 when the robot is facing east. set the values and the sign according to that -->
 
-       <param name="use_odometry_yaw" value="false" /> <!-- if false, take yaw from imu. if true, from odom -->
+        <param name="use_odometry_yaw" value="false" /> <!-- if false, take yaw from imu. if true, from odom -->
+        <param name="wait_for_datum" value="$(arg wait_for_datum)" />
+        <!-- If this is true, the altitude is set to 0 in the output odometry message. Defaults
+            to false. -->
+        <param name="zero_altitude" value="true" />
 
-       <!-- If this is true, the altitude is set to 0 in the output odometry message. Defaults
-           to false. -->
-		<param name="zero_altitude" value="true" />
-
-       <!-- Publish the transform between utm and world 
+        <!-- Publish the transform between utm and world 
 	(frame of the input odometry data, in this case /odometry/filtered_world) 
 	It is a static transform -->
-       <param name="broadcast_utm_transform" value="true"/>
-       <param name="publish_filtered_gps" value="true" />
+        <param name="broadcast_utm_transform" value="true"/>
+        <param name="publish_filtered_gps" value="true" />
 
-       <!-- Placeholders for input remapping. Set your topic names as the "to" values.-->
-       <remap from="/gps/fix" to="/mavros/gps/fix"/> <!-- used to compute the absolute position in utm coordinates --> 
-       <remap from="/odometry/filtered" to="/odometry/filtered_world" /> <!-- used to get the current odometry --> 
-       <remap from="/imu/data" to="/imu_data"/>      <!-- used to get the initial absolute orientation, after it gets it, the node UNSUBSCRIBES from the topic -->
+        <!-- Placeholders for input remapping. Set your topic names as the "to" values.-->
+        <!-- remap from="/gps/fix" to="/mavros/gps/fix"/--> <!-- used to compute the absolute position in utm coordinates --> 
+        <!-- remap from="/gps/fix" to="/ublox_gps/fix" / -->
+	    
+        <!-- Used to get the current odometry 
+             It should be the output of the 'world' instance of robot_localization -->
+        <remap from="/odometry/filtered" to="/odometry/filtered_world" /> 
+       
+        <!-- remap from="/imu/data" to="/imu/data"/ -->      <!-- used to get the initial absolute orientation, after it gets it, the node UNSUBSCRIBES from the topic -->
     
     </node>
 </launch>

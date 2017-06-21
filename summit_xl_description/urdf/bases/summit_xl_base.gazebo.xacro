@@ -6,6 +6,7 @@
   <xacro:macro name="ros_control">
     <gazebo>
       <plugin name="ros_control" filename="libgazebo_ros_control.so">
+        <!--<robotNamespace>/summit_xl</robotNamespace>-->
         <robotNamespace>/summit_xl</robotNamespace>
         <robotParam>robot_description</robotParam>
         <controlPeriod>0.001</controlPeriod>
@@ -18,7 +19,7 @@
 	<xacro:macro name="skid_steering" params="broadcastOdomTF">
     <gazebo>
       <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-			<robotNamespace>/summit_xl</robotNamespace>
+			<!--<robotNamespace>/summit_xl</robotNamespace>-->
 		    <updateRate>100.0</updateRate>
 		    <leftFrontJoint>joint_front_left_wheel</leftFrontJoint>  
 		    <rightFrontJoint>joint_front_right_wheel</rightFrontJoint>
@@ -41,7 +42,7 @@
 		<gazebo>
 	    <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
 	      <commandTopic>/summit_xl_control/cmd_vel</commandTopic>  
-	      <odometryTopic>/summit_xl/odom</odometryTopic>
+	      <odometryTopic>/odom</odometryTopic>
 	      <odometryFrame>odom</odometryFrame>
 	      <odometryRate>20.0</odometryRate>
 	      <robotBaseFrame>base_footprint</robotBaseFrame>
@@ -52,7 +53,7 @@
   <xacro:macro name="ros_force_based_move" params="broadcastOdomTF">
 	  <gazebo>
 		 <plugin name="ros_force_based_move" filename="libgazebo_ros_force_based_move.so">
-			 <robotNamespace>/summit_xl</robotNamespace>
+			 <!--<robotNamespace>/summit_xl</robotNamespace>-->
 			 <commandTopic>/summit_xl_control/cmd_vel</commandTopic>  
 			 <odometryTopic>/summit_xl/odom</odometryTopic>
 	         <odometryFrame>odom</odometryFrame>

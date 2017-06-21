@@ -1,0 +1,25 @@
+#Under construction
+
+#Important: use xboxdrv --trigger-as-button --dpad-as-button  --silent
+
+num_of_buttons: 17
+axis_linear: 1
+axis_angular: 2
+scale_linear: 1.0
+scale_angular: 2.0
+button_speed_up: 7
+button_speed_down: 4
+button_dead_man: 9
+button_output_1: 6
+button_output_2: 5
+output_1: 0
+output_2: 2
+button_ptz_tilt_up: 0
+button_ptz_tilt_down: 1
+button_ptz_pan_right: 3
+button_ptz_pan_left: 2
+button_kinematic_mode: 11
+button_home: 14
+pad_type: xbox360
+button_ptz_zoom_wide: 10
+button_ptz_zoom_tele: 8

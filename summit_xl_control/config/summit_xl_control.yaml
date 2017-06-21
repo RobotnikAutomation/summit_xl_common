@@ -39,7 +39,7 @@ summit_xl_control:
   odom_topic: '/summit_xl_control/odom'
   wheel_base: 0.569
   track_width: 0.543
-  wheel_diameter: 0.174
+  wheel_diameter: 0.220
   cmd_watchdog_duration: 0.2
   imu_watchdog_duration: 0.1
   imu_topic: /imu/data

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>summit_xl_navigation</name>
-  <version>1.0.10</version>
+  <version>1.1.2</version>
   <description> Navigation launch and config files for Summit XL robot. </description>
 
   <url type="website">http://ros.org/wiki/summit_xl_navigation</url>
@@ -18,9 +18,6 @@
   
   <run_depend>navigation</run_depend>
   <run_depend>gmapping</run_depend>
-  <run_depend>amcl</run_depend>
-  <run_depend>move_base</run_depend>
-  <run_depend>teb_local_planner</run_depend>
   
 </package>
 

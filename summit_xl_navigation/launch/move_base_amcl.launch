@@ -3,10 +3,13 @@
 
   <!--arg name="namespace" default="summit_xl"/-->
   <arg name="prefix_frame" default="summit_xl"/>
+  <arg name="motion_type" default="diff" />
+
   <!--- Run AMCL -->
   <include file="$(find summit_xl_navigation)/launch/amcl.launch" >
 	<arg name="prefix_frame" value="$(arg prefix_frame)"/>
-   <!--remap from="scan" to="$(arg namespace)hokuyo_base/scan"/-->	
+	<arg name="motion_type" value="$(arg motion_type)"/>
+  <!--remap from="scan" to="$(arg namespace)hokuyo_base/scan"/-->	
   </include>
   <!--remap from="cmd_vel" to="move_base/cmd_vel" /--> 
  
@@ -23,6 +26,7 @@
     <param name="controller_frequency" value="5.0" />
     <param name="controller_patience" value="15.0" /> 
     <remap from="cmd_vel" to="~cmd_vel" /> 
+  
   </node>
   
 </launch>

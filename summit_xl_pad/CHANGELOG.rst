@@ -2,11 +2,18 @@
 Changelog for package summit_xl_pad
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.10 (2016-09-01)
--------------------
+1.1.2 (2016-09-01)
+------------------
+* fixed merge conflicts
 * 1.0.9
 * updated changelog
-* Contributors: carlos3dx
+* Contributors: Marc Bosch-Jorge, carlos3dx
+
+1.1.1 (2016-08-24)
+------------------
+
+1.1.0 (2016-08-24)
+------------------
 
 1.0.9 (2016-08-24)
 ------------------

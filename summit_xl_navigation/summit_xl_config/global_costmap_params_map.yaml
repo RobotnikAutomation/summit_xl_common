@@ -1,6 +1,18 @@
 global_costmap:
-  global_frame: /map
-  robot_base_frame: /summit_xl_base_footprint
+  global_frame: map
+  robot_base_frame: base_footprint
   update_frequency: 5.0
+  publish_frequency: 0.2 # send each 5.0 seconds
   static_map: true
-  
+  always_send_full_costmap: false
+  resolution: 0.05
+
+  inflation_layer:
+    inflation_radius: 1.0
+    cost_scaling_factor: 1.0
+
+
+  footprint: [[0.9, -9.0], [0.9, 0.9], [-0.9,0.9], [-0.9, -0.9]]
+
+  obstacle_range: 4
+  raytrace_range: 30.0

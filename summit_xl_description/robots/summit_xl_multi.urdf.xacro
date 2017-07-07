@@ -61,7 +61,7 @@
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu_hector>
 		
-		<xacro:sensor_hokuyo_ust10lx parent="$(arg prefix_frame)base_link" prefix_frame="$(arg prefix_frame)hokuyo_base" prefix_topic="$(arg prefix_topic)">
+		<xacro:sensor_hokuyo_ust10lx name="hokuyo_base" parent="$(arg prefix_frame)base_link" prefix_frame="$(arg prefix_frame)" prefix_topic="$(arg prefix_topic)">
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 		</xacro:sensor_hokuyo_ust10lx>
 

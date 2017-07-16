@@ -39,12 +39,12 @@
        <origin xyz="0 0 0" rpy="0 0 0" />
        <xacro:if value="${hq}">
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/hls/summit_xl_hls.stl"/>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/lateral_plates.stl"/>
        </geometry>
        </xacro:if>
        <xacro:unless value="${hq}">
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/hls/summit_xl_hls.dae"/>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/lateral_plates.dae"/>
        </geometry>
        </xacro:unless>
        <material name="darkgrey">
@@ -54,15 +54,123 @@
     <collision>
        <origin xyz="0 0 0" rpy="0 0 0 " />
        <geometry>
-         <mesh filename="package://summit_xl_description/meshes/bases/hls/summit_xl_hls.dae"/>
+         <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/lateral_plates.dae"/>
        </geometry>
     </collision>     
   </link>
 
-   <!-- DOCKING CONTACT -->
+  <joint name="base_back_plate_joint" type="fixed">
+     <origin xyz="0 0 0" rpy="0 0 0" /> 
+     <parent link="base_link"/>
+     <child link="back_plate_link" />
+  </joint>    
 
-    <link name="base_docking_contact">
-    </link>
+  <link name="back_plate_link">
+    <inertial>
+      <mass value="5.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.139" ixy="0.004"  ixz="0.0"  iyy="0.685"  iyz="0.0"  izz="0.613" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <xacro:if value="${hq}">
+       <geometry>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/back_plate.stl"/>
+       </geometry>
+       </xacro:if>
+       <xacro:unless value="${hq}">
+       <geometry>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/back_plate.dae"/>
+       </geometry>
+       </xacro:unless>
+       <material name="darkgrey">
+         <color rgba="0.1 0.1 0.1 1"/>
+       </material>
+    </visual>  
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+         <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/back_plate.dae"/>
+       </geometry>
+    </collision>     
+  </link>
+
+  <joint name="base_chassis_box_joint" type="fixed">
+     <origin xyz="0 0 0.043" rpy="0 0 0" /> 
+     <parent link="base_link"/>
+     <child link="chassis_box_link" />
+  </joint>    
+
+  <!-- Chassis box -->
+  <link name="chassis_box_link">
+    <inertial>
+      <mass value="5.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.139" ixy="0.004"  ixz="0.0"  iyy="0.685"  iyz="0.0"  izz="0.613" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <xacro:if value="${hq}">
+       <geometry>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chassis_box.stl"/>
+       </geometry>
+       </xacro:if>
+       <xacro:unless value="${hq}">
+       <geometry>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chassis_box.dae"/>
+       </geometry>
+       </xacro:unless>
+       <material name="darkgrey">
+         <color rgba="0.1 0.1 0.1 1"/>
+       </material>
+    </visual>  
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+         <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chassis_box.dae"/>
+       </geometry>
+    </collision>     
+  </link>
+
+  <joint name="base_top_plate_joint" type="fixed">
+     <origin xyz="0 0 0.288" rpy="0 0 0" /> 
+     <parent link="base_link"/>
+     <child link="top_plate_link" />
+  </joint>    
+
+  <link name="top_plate_link">
+    <inertial>
+      <mass value="5.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.139" ixy="0.004"  ixz="0.0"  iyy="0.685"  iyz="0.0"  izz="0.613" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <xacro:if value="${hq}">
+       <geometry>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/top_plate.stl"/>
+       </geometry>
+       </xacro:if>
+       <xacro:unless value="${hq}">
+       <geometry>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/top_plate.dae"/>
+       </geometry>
+       </xacro:unless>
+       <material name="darkgrey">
+         <color rgba="0.1 0.1 0.1 1"/>
+       </material>
+    </visual>  
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+         <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/top_plate.dae"/>
+       </geometry>
+    </collision>     
+  </link>
+
+  <!-- DOCKING CONTACT -->
+  <link name="base_docking_contact">
+  </link>
 
     <joint name="base_docking_joint" type="fixed">
       <origin xyz="0.30 0 0.09" rpy="0 0 0" /> 

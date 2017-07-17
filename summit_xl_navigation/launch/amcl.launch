@@ -1,23 +1,20 @@
 <?xml version="1.0"?>
 <launch>
-
-<arg name="prefix_frame" default=""/>
-<arg name="motion_type" default="diff" />
-
-<!-- Run the map server -->
-<node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/rbk_warehouse/rbk_warehouse.yaml"/>
-<!--node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/map1/map1.yaml"/-->
-
+	
+<arg name="prefix" default=""/>
+<arg name="x_init_pose" default="0"/>
+<arg name="y_init_pose" default="0"/>
+<arg name="z_init_pose" default="0"/>
+	  
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
-  <!-- remap from="scan" to="scan" / -->
-  <!--remap from="scan" to="hokuyo_base/scan" /-->
-  <remap from="scan" to="hokuyo_base/scan"/>
-  <remap from="cmd_vel" to="/summit_xl_controller/cmd_vel"/>
-  <!-- remap from="scan" to="hokuyo_laser_topic" / -->
-  <!-- remap from="cmd_vel" to="summit_xl_controller/cmd_vel" / -->
 
+
+  <!-- remap from="scan" to="hokuyo_laser_topic" / -->
+  <!--remap from="cmd_vel" to="summit_xl_sim_control/cmd_vel" /-->
+  <remap from="map" to="/map"/>
   <!-- Publish scans from best pose at a max of 10 Hz -->
-  <param name="odom_model_type" value="$(arg motion_type)"/>
+  <param name="use_map_topic" value="true"/>
+  <param name="odom_model_type" value="diff"/>
   <param name="odom_alpha5" value="0.1"/>
   <param name="transform_tolerance" value="0.2" />
   <param name="gui_publish_rate" value="10.0"/>
@@ -43,19 +40,18 @@
   <param name="laser_likelihood_max_dist" value="2.0"/>
   <param name="update_min_d" value="0.2"/>
   <param name="update_min_a" value="0.5"/>
-  <param name="odom_frame_id" value="$(arg prefix_frame)odom"/>
-  <param name="base_frame_id" value="$(arg prefix_frame)base_footprint"/>
-  <param name="global_frame_id" value="map"/>
+  <param name="odom_frame_id" value="$(arg prefix)odom"/>
+  <param name="base_frame_id" value="$(arg prefix)base_footprint"/>
+  <param name="global_frame_id" value="/map"/>
   <param name="resample_interval" value="1"/>
   <param name="transform_tolerance" value="0.1"/>
   <param name="recovery_alpha_slow" value="0.0"/>
   <param name="recovery_alpha_fast" value="0.0"/>
 
-  <param name="initial_pose_x" value ="0.0"/>
-  <param name="initial_pose_y" value ="0.0"/>
+  <param name="initial_pose_x" value ="$(arg x_init_pose)"/>
+  <param name="initial_pose_y" value ="$(arg y_init_pose)"/>
+  <param name="initial_pose_z" value ="$(arg z_init_pose)"/>
   <param name="initial_pose_a" value ="0.0"/>
 
-
 </node>
-
 </launch>

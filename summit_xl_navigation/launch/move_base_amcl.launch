@@ -1,31 +1,34 @@
 <?xml version="1.0"?>
 <launch>
-
-  <!--arg name="namespace" default="summit_xl"/-->
-  <arg name="prefix_frame" default="summit_xl"/>
-  <arg name="motion_type" default="diff" />
+	
+  <arg name="prefix" default="summit_xl"/> 
+  <arg name="x_init_pose" default="0"/>
+  <arg name="y_init_pose" default="0"/>
+  <arg name="z_init_pose" default="0"/>
 
   <!--- Run AMCL -->
   <include file="$(find summit_xl_navigation)/launch/amcl.launch" >
-	<arg name="prefix_frame" value="$(arg prefix_frame)"/>
-	<arg name="motion_type" value="$(arg motion_type)"/>
-  <!--remap from="scan" to="$(arg namespace)hokuyo_base/scan"/-->	
+	  <arg name="prefix" value="$(arg prefix)"/>
+	  <arg name="x_init_pose" value="$(arg x_init_pose)"/>
+      <arg name="y_init_pose" value="$(arg y_init_pose)"/>
+      <arg name="z_init_pose" value="$(arg z_init_pose)"/>
   </include>
-  <!--remap from="cmd_vel" to="move_base/cmd_vel" /--> 
  
   <!-- Run move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find summit_xl_navigation)/$(arg prefix_frame)config/move_base_params.yaml" command="load" />
-    <rosparam file="$(find summit_xl_navigation)/$(arg prefix_frame)config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find summit_xl_navigation)/$(arg prefix_frame)config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find summit_xl_navigation)/$(arg prefix_frame)config/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find summit_xl_navigation)/$(arg prefix_frame)config/global_costmap_params_map.yaml" command="load" />
-    <rosparam file="$(find summit_xl_navigation)/$(arg prefix_frame)config/teb_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/$(arg prefix)config/move_base_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/$(arg prefix)config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find summit_xl_navigation)/$(arg prefix)config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find summit_xl_navigation)/$(arg prefix)config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/$(arg prefix)config/global_costmap_params_map.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/$(arg prefix)config/teb_local_planner_params.yaml" command="load" />
 
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
     <param name="controller_frequency" value="5.0" />
     <param name="controller_patience" value="15.0" /> 
-    <remap from="cmd_vel" to="~cmd_vel" /> 
+     <remap from="cmd_vel" to="summit_xl_sim_control/cmd_vel" /> 
+    <remap from="odom" to="summit_xl_sim_control/odom" />    
+    <remap from="map" to="/map"/>
   
   </node>
   

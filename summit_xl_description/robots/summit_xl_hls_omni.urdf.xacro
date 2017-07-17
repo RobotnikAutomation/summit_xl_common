@@ -57,7 +57,7 @@
 	<xacro:include filename="$(find summit_xl_description)/urdf/wheels/omni_wheel.urdf.xacro" />
 
 	<!-- Import strucutres, holders -->
-	<xacro:include filename="$(find summit_xl_description)/urdf/structures/structure_hokuyo.urdf.xacro" />
+	<xacro:include filename="$(find summit_xl_description)/urdf/structures/structure_hokuyo_ust.urdf.xacro" />
     
 	<!-- Import all available sensors -->
 	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
@@ -95,7 +95,15 @@
 	<xacro:omni_wheel name="back_right" parent="base_link" reflect="true" hq="true">
 		<origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 	</xacro:omni_wheel>
-
+  
+	<!-- Structures -->
+	<xacro:structure_ust name="structure_front" parent="base_link">
+		<origin xyz="0.303 -0.160 0.155" rpy="0 0 0" />
+	</xacro:structure_ust>
+	<xacro:structure_ust name="structure_rear" parent="base_link">
+		<origin xyz="-0.303 0.160 0.155" rpy="0 0 ${PI}" />
+	</xacro:structure_ust>
+    
 	<!-- SENSORS -->
 	<xacro:sensor_hokuyo_ust10lx name="laser_front" parent="base_link">
 		<origin xyz="${front_laser_offset_x} ${front_laser_offset_y} ${front_laser_offset_z}" rpy="0 0 ${-PI/4.0}"/>

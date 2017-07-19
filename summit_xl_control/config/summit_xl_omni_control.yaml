@@ -1,0 +1,23 @@
+joint_blw_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: joint_back_left_wheel
+joint_brw_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: joint_back_right_wheel
+joint_frw_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: joint_front_right_wheel
+joint_flw_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: joint_front_left_wheel
+
+joint_pan_position_controller:
+  type: position_controllers/JointPositionController
+  joint: joint_camera_pan
+joint_tilt_position_controller:
+  type: position_controllers/JointPositionController
+  joint: joint_camera_tilt
+
+joint_read_state_controller:
+  type: joint_state_controller/JointStateController 
+  publish_rate: 100.0

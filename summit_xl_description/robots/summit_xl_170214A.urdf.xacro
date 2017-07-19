@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+
+	<!-- Version 1.0 -->
+	<!-- ***************** -->
+	<!-- Global parameters -->
+	<!-- ***************** -->
+  
+	<xacro:property name="PI" value="3.1415926535897931"/>
+
+	<!-- Wheel parameters -->
+	<xacro:property name="wheel_offset_x" value="0.2225" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="wheel_offset_y" value="0.2045" />    
+	<xacro:property name="wheel_offset_z" value="0.0" />
+	
+	<xacro:property name="front_laser_offset_x" value="0.410"/>   
+	<xacro:property name="front_laser_offset_y" value="-0.222"/>    
+	<xacro:property name="front_laser_offset_z" value="0.083"/>
+	
+	<xacro:property name="rear_laser_offset_x" value="-0.377"/>   
+	<xacro:property name="rear_laser_offset_y" value="0.20957"/>    
+	<xacro:property name="rear_laser_offset_z" value="0.2024"/>
+	
+	<xacro:property name="front_camera_offset_x" value="0.308"/>   
+	<xacro:property name="front_camera_offset_y" value="0.141"/>    
+	<xacro:property name="front_camera_offset_z" value="0.195"/>
+	
+	<xacro:property name="rear_camera_offset_x" value="-0.308"/>   
+	<xacro:property name="rear_camera_offset_y" value="-0.141"/>    
+	<xacro:property name="rear_camera_offset_z" value="0.195"/>
+	
+	<xacro:property name="imu_offset_x" value="0.25"/>   
+	<xacro:property name="imu_offset_y" value="-0.15"/>    
+	<xacro:property name="imu_offset_z" value="0.18"/>
+	
+	<xacro:property name="front_rgbd_camera_offset_x" value="0.324"/>  <!-- 328 --> 
+	<xacro:property name="front_rgbd_camera_offset_y" value="0.012"/>    
+	<xacro:property name="front_rgbd_camera_offset_z" value="0.230"/>  <!-- 214 -->
+	
+	<xacro:property name="gps_offset_x" value="-0.365"/>   
+	<xacro:property name="gps_offset_y" value="-0.167"/>    
+	<xacro:property name="gps_offset_z" value="0.302"/>
+
+        <xacro:property name="base_arm_x" value="0.175"/>
+        <xacro:property name="base_arm_y" value="0.0"/>
+        <xacro:property name="base_arm_z" value="0.303"/>
+	  
+	<!-- Flag to select the high or low quality model -->
+	<xacro:property name="hq" value="true" />
+	
+	<!-- ***************** -->
+	<!-- Imported elements -->
+	<!-- ***************** -->
+	
+	<!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
+
+	<!-- Import summit XL base elements -->
+	<xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_hls_base.urdf.xacro" />
+  
+	<!-- Import summit XL wheels -->
+	<xacro:include filename="$(find summit_xl_description)/urdf/wheels/omni_wheel.urdf.xacro" />
+
+	<!-- Import strucutres, holders -->
+	<!-- xacro:include filename="$(find summit_xl_description)/urdf/structures/structure_hokuyo.urdf.xacro" / -->
+    
+	<!-- Import all available sensors -->
+	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+
+	<!-- Import bumblebee2 from the point_grey_bumblebee2 ros package (source) --> 
+        <xacro:include filename="$(find pointgrey_camera_description)/urdf/pointgrey_bumblebee2.urdf.xacro" />
+
+    
+    <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+
+	<!-- *************** -->
+	<!-- Robots Elements -->
+	<!-- *************** -->
+
+	<!-- Here we create the robot elements using the xacro:macros imported at the beggining of this file -->
+	
+	<!-- Summit XL base -->
+	<xacro:summit_xl_hls_base name="summit_xl" publish_bf="true" hq="${hq}"/>
+
+	<!-- Gazebo ros control pluggins -->
+	<xacro:ros_control/>
+
+	<!-- Gazebo omni steering plugin -->
+	<xacro:omni_steering/>
+  
+    
+	<!-- WHEELS -->
+	<xacro:omni_wheel name="front_right" parent="base_link" reflect="false" hq="true">
+		<origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+	</xacro:omni_wheel>
+  
+	<xacro:omni_wheel name="front_left" parent="base_link" reflect="true" hq="true">
+		<origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+	</xacro:omni_wheel>
+  
+	<xacro:omni_wheel name="back_left" parent="base_link" reflect="false" hq="true">
+		<origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+	</xacro:omni_wheel>
+  
+	<xacro:omni_wheel name="back_right" parent="base_link" reflect="true" hq="true">
+		<origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+	</xacro:omni_wheel>
+
+	<!-- SENSORS -->
+        <xacro:sensor_sick_s300 name="laser_front" parent="base_link">
+                <origin xyz="${front_laser_offset_x} ${front_laser_offset_y} ${front_laser_offset_z}" rpy="0 0 ${-PI/4.0}"/>
+        </xacro:sensor_sick_s300>
+
+	<!-- xacro:sensor_hokuyo_ust10lx name="laser_rear" parent="base_link">
+		<origin xyz="${rear_laser_offset_x} ${rear_laser_offset_y} ${rear_laser_offset_z}" rpy="0 0 ${3.0*PI/4.0}"/>
+	</xacro:sensor_hokuyo_ust10lx -->
+	
+	<!-- xacro:sensor_axis_m5013 name="camera_front" parent="base_link">
+		<origin xyz="${front_camera_offset_x} ${front_camera_offset_y} ${front_camera_offset_z}" rpy="${-PI/2} 0 0"/>
+	</xacro:sensor_axis_m5013 -->
+
+	<!-- xacro:sensor_axis_m5013 name="camera_rear" parent="base_link">
+		<origin xyz="${rear_camera_offset_x} ${rear_camera_offset_y} ${rear_camera_offset_z}" rpy="${-PI/2} 0 ${PI}"/>
+	</xacro:sensor_axis_m5013 -->
+  
+	<xacro:sensor_imu name="imu" parent="base_link">
+		<origin xyz="${imu_offset_x} ${imu_offset_y} ${imu_offset_z}" rpy="0 0 0"/>
+	</xacro:sensor_imu>
+  
+	<!-- xacro:sensor_orbbec_astra name="rgbd_front" parent="base_link">
+		<origin xyz="${front_rgbd_camera_offset_x} ${front_rgbd_camera_offset_y} ${front_rgbd_camera_offset_z}" rpy="0 0 0"/>
+	</xacro:sensor_orbbec_astra -->
+	
+	<!-- xacro:sensor_gps name="gps" parent="base_link">
+		<origin xyz="${gps_offset_x} ${gps_offset_y} ${gps_offset_z}" rpy="0 0 0"/>
+	</xacro:sensor_gps -->
+    
+        <xacro:BB2-08S2C-38 frame="bumblebee2" name="bumblebee2" />
+          <joint name="world_camera_joint" type="fixed">
+               <origin xyz="0.325 0 0.210" rpy="0 0 0" />
+               <parent link="base_link" />
+          <child link="bumblebee2" />
+        </joint>
+
+     <xacro:ur5_robot prefix="arm_" joint_limited="true">		
+     </xacro:ur5_robot>
+
+     <joint name="arm_base_joint" type="fixed">
+          <origin xyz="0.175 0 0.303" rpy="0 0 0" />
+          <parent link="base_link" />
+          <child link="arm_base_link" />
+     </joint>
+
+       
+</robot>
+

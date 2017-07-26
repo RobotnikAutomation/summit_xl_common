@@ -5,11 +5,17 @@
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="wait_for_datum" default="false" />
+  <arg name="prefix" default="summit_xl_a_"/>
+  
   <!-- Transform from odom to base_footprint (IMU and odometry) -->
-  <include file="$(find summit_xl_localization)/launch/robot_localization_odom.launch" />
+  <include file="$(find summit_xl_localization)/launch/robot_localization_odom.launch">
+	  <arg name="prefix" value="$(arg prefix)"/>
+  </include>
 
   <!-- Transform from world to odom (IMU, odometry and GPS) -->
-  <include file="$(find summit_xl_localization)/launch/robot_localization_world.launch" />
+  <include file="$(find summit_xl_localization)/launch/robot_localization_world.launch">
+	  <arg name="prefix" value="$(arg prefix)"/>
+  </include>
 
   <!-- Get GPS odometry -->
   <include file="$(find summit_xl_localization)/launch/navsat_transform_node.launch">

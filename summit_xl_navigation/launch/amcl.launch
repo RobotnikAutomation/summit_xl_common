@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 	
-<arg name="prefix" default=""/>
+<arg name="prefix" default="summit_xl"/>
 <arg name="x_init_pose" default="0"/>
 <arg name="y_init_pose" default="0"/>
 <arg name="z_init_pose" default="0"/>
@@ -10,7 +10,7 @@
 
 
   <!-- remap from="scan" to="hokuyo_laser_topic" / -->
-  <!--remap from="cmd_vel" to="summit_xl_sim_control/cmd_vel" /-->
+  <!--remap from="cmd_vel" to="summit_xl_control/cmd_vel" /-->
   <remap from="map" to="/map"/>
   <!-- Publish scans from best pose at a max of 10 Hz -->
   <param name="use_map_topic" value="true"/>

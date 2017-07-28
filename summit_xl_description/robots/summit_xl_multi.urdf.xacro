@@ -27,7 +27,7 @@
 	<!-- Flag to select the high or low quality model -->
 	<xacro:property name="hq" value="true" />
 
-	<xacro:arg name="prefix" default="summit_xl"/>
+	<xacro:arg name="prefix" default="summit_xl_"/>
 
 		
     <xacro:macro name="summit_xl_multi" params="prefix publish_bf hq">

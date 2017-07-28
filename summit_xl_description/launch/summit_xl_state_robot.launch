@@ -1,14 +1,17 @@
 <?xml version="1.0"?>
 <launch>
   
+  <arg name="prefix" default="summit_xl"/>
   <arg name="robot_model"  default=""  doc="Different robot versions: ('')"/>
   
-
-  <arg name="urdf_file" default="$(find xacro)/xacro '$(find summit_xl_description)/robots/summit_xl$(arg robot_model).urdf.xacro' --inorder" />
+  <!-- Load the URDF into ROS parameter server -->
+  <arg name="urdf_file" default="$(find xacro)/xacro '$(find summit_xl_description)/robots/summit_xl$(arg robot_model).urdf.xacro' prefix:=$(arg prefix) --inorder" />
   <param name="robot_description" command="$(arg urdf_file)" />
 
 
   <!-- Combine joint values -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+	<remap from="/joint_states" to="joint_states"/>
+  </node>
   
 </launch>

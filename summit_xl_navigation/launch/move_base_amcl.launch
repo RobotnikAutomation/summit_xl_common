@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 	
-  <arg name="prefix" default="summit_xl"/> 
+  <arg name="prefix" default="summit_xl_"/> 
   <arg name="x_init_pose" default="0"/>
   <arg name="y_init_pose" default="0"/>
   <arg name="z_init_pose" default="0"/>

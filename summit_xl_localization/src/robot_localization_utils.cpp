@@ -70,10 +70,10 @@ private:
 LocalizationUtils::LocalizationUtils(ros::NodeHandle nh): nh_(nh), private_nh_("~"), 
 				    			  in_motion_(false), angular_vel_(0.0)
 {
-  private_nh_.param<string>("odom_topic", odom_topic_, "/odom");
-  private_nh_.param<string>("imu_topic", imu_topic_, "/mavros/imu/data");
+  private_nh_.param<string>("odom_topic", odom_topic_, "odom");
+  private_nh_.param<string>("imu_topic", imu_topic_, "mavros/imu/data");
   private_nh_.param<string>("dynamic_imu_covariance", dynamic_imu_covariance_, "false");
-  private_nh_.param<string>("imu_outpur_topic", imu_output_topic_, "/mavros/imu/data_adapted");
+  private_nh_.param<string>("imu_outpur_topic", imu_output_topic_, "mavros/imu/data_adapted");
 
   if (dynamic_imu_covariance_ == "true"){
 	ROS_INFO("[LocalizationUtils]: using dynamic Imu covariance");
@@ -82,15 +82,15 @@ LocalizationUtils::LocalizationUtils(ros::NodeHandle nh): nh_(nh), private_nh_("
   	imu_pub_=nh_.advertise<sensor_msgs::Imu>(imu_output_topic_,10);
   }
 
-  mavcmd_client_=nh_.serviceClient<mavros_msgs::CommandLong>("/mavros/cmd/command");
+  mavcmd_client_=nh_.serviceClient<mavros_msgs::CommandLong>("mavros/cmd/command");
   calib_gyro_srv_= nh_.advertiseService("calibrate_imu_gyro", &LocalizationUtils::calGyroCallback, this);
   calib_acc_srv_= nh_.advertiseService("calibrate_imu_acc", &LocalizationUtils::calAccCallback, this);
   calib_mag_srv_= nh_.advertiseService("calibrate_imu_mag", &LocalizationUtils::calMagCallback, this);
   calib_off_srv_= nh_.advertiseService("calibrate_imu_off", &LocalizationUtils::calOffCallback, this);
   
-  set_odometry_ = nh_.serviceClient<robotnik_msgs::set_odometry>("/set_odometry");
-  set_pose_ = nh_.serviceClient<robot_localization::SetPose>("/set_pose");
-  reset_odom_=nh_.advertiseService("/reset_odometry",&LocalizationUtils::resetOdomCallback,this);
+  set_odometry_ = nh_.serviceClient<robotnik_msgs::set_odometry>("set_odometry");
+  set_pose_ = nh_.serviceClient<robot_localization::SetPose>("set_pose");
+  reset_odom_=nh_.advertiseService("reset_odometry",&LocalizationUtils::resetOdomCallback,this);
 }
 
 bool LocalizationUtils::calGyroCallback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &resp){

@@ -106,7 +106,7 @@
 	</xacro:omni_wheel>
 
 	<!-- SENSORS -->
-        <xacro:sensor_sick_s300 name="laser_front" parent="base_link">
+        <xacro:sensor_sick_s300 name="front_laser" parent="base_link">
                 <origin xyz="${front_laser_offset_x} ${front_laser_offset_y} ${front_laser_offset_z}" rpy="0 0 ${-PI/4.0}"/>
         </xacro:sensor_sick_s300>
 

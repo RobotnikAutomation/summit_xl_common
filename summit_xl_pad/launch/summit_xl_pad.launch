@@ -1,18 +1,31 @@
 <?xml version="1.0"?>
 <launch>
-  <!--arg name="namespace" default=""/-->
+  
+ <arg name="joy_dev" default="/dev/input/js_base"/>
+ <arg name="autorepeat_rate" default="0.0"/>
+ <arg name="pad_model" default="ps4"/>
+ <arg name="cmd_topic_vel" default="pad_teleop/cmd_vel"/>
+ <arg name="cmd_service_set_mode" default="summit_xl_controller/set_mode"/>
+ <arg name="cmd_topic_ptz" default="front_ptz_camera/front_ptz_camera/ptz_command"/>
+ <arg name="cmd_service_io" default="modbus_io/write_digital_output"/>
+
  <!-- joy node -->
-  <node pkg="joy" type="joy_node" name="ps3_joy" output="screen" respawn="true">
-    <param name="dev" type="string" value="/dev/input/js0" />
+  <node pkg="joy" type="joy_node" name="joy" output="screen" respawn="true">
+    <param name="dev" type="string" value="$(arg joy_dev)" />
     <param name="deadzone" value="0.12" />
     <param name="autorepeat_rate" value="10.0" type="double" />
   </node>
   
   <!-- Parameters -->
-  <param name="cmd_topic_vel" value="/pad_teleop/cmd_vel" type="string"/>
-  <param name="cmd_service_io" value="/modbus_io/write_digital_output" type="string"/>
-  <param name="cmd_topic_ptz" value="/axis_camera/ptz_command" type="string"/>
-  <rosparam command="load" file="$(find summit_xl_pad)/config/ps4.yaml" />
-  <node name="summit_xl_pad" pkg="summit_xl_pad" type="summit_xl_pad" output="screen"/>
+  
+  <node name="summit_xl_pad" pkg="summit_xl_pad" type="summit_xl_pad" output="screen">
+	<param name="cmd_topic_vel" value="$(arg cmd_topic_vel)" type="string"/>
+	<param name="cmd_service_io" value="$(arg cmd_service_io)" type="string"/>
+	<param name="cmd_topic_ptz" value="$(arg cmd_topic_ptz)" type="string"/>
+	<param name="cmd_service_set_mode" value="$(arg cmd_service_set_mode)" type="string"/>
+	<param name="cmd_service_home" value="home" type="string"/>
+	<rosparam command="load" file="$(find summit_xl_pad)/config/$(arg pad_model).yaml" />
+  </node>	  
+  
 </launch>
 

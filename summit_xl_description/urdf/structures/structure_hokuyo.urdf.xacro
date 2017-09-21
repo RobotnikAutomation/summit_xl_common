@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="structure" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
 		
-  <xacro:macro name="structure" params="prefix parent *origin">
+  <xacro:macro name="structure_laser" params="prefix parent *origin">
     	 
 	  <joint name="${prefix}_joint" type="fixed">
 	    <axis xyz="0 1 0"/>

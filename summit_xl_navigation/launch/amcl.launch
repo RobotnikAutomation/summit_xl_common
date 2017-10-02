@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 	
-<arg name="prefix" default="summit_xl"/>
+<arg name="prefix" default="summit_xl_"/>
 <arg name="x_init_pose" default="0"/>
 <arg name="y_init_pose" default="0"/>
 <arg name="z_init_pose" default="0"/>
@@ -11,9 +11,9 @@
 
   <!-- remap from="scan" to="hokuyo_laser_topic" / -->
   <!--remap from="cmd_vel" to="summit_xl_control/cmd_vel" /-->
-  <remap from="map" to="/map"/>
+  <!--remap from="map" to="/map"/-->
   <!-- Publish scans from best pose at a max of 10 Hz -->
-  <param name="use_map_topic" value="true"/>
+  <param name="use_map_topic" value="false"/>
   <param name="odom_model_type" value="diff"/>
   <param name="odom_alpha5" value="0.1"/>
   <param name="transform_tolerance" value="0.2" />
@@ -42,7 +42,7 @@
   <param name="update_min_a" value="0.5"/>
   <param name="odom_frame_id" value="$(arg prefix)odom"/>
   <param name="base_frame_id" value="$(arg prefix)base_footprint"/>
-  <param name="global_frame_id" value="/map"/>
+  <param name="global_frame_id" value="$(arg prefix)map"/>
   <param name="resample_interval" value="1"/>
   <param name="transform_tolerance" value="0.1"/>
   <param name="recovery_alpha_slow" value="0.0"/>

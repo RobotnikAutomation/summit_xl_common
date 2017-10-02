@@ -1,0 +1,6 @@
+global_costmap:
+  global_frame: /summit_xl_map
+  robot_base_frame: /summit_xl_base_footprint
+  update_frequency: 5.0
+  static_map: true
+  

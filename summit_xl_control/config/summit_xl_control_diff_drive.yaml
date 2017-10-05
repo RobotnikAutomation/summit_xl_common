@@ -47,6 +47,8 @@ summit_xl_control:
 
     # Base frame_id
     base_frame_id: base_footprint #default: base_link
+    # publish_tf? default true
+    enable_odom_tf: false
 
     # Velocity and acceleration limits
     # Whenever a min_* is unspecified, default to -max_*

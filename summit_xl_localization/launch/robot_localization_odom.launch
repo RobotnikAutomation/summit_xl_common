@@ -40,7 +40,7 @@
                                      true, false, false]</rosparam>
 
       <!-- if two or more sources provide absolute pose (position + orientation), the _differential parametet MUST BE TRUE for ALL of them except for ONE --> 
-      <param name="odom0_differential" value="false"/>
+      <param name="odom0_differential" value="true"/>
       <param name="imu0_differential" value="false" />
 
       <!-- if the _relative parameter is set to TRUE, the initial state is the origin for both position and orientation -->

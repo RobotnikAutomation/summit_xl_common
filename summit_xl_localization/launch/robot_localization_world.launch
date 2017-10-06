@@ -2,7 +2,7 @@
 <launch>
 
  <!-- ekf_loc2 fuses all surces of data (imu, odometry and gps odom). Publish the tf from world frame to base_footprintt -->
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc_world" clear_params="true" output="screen">
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc_world" clear_params="true">
       <remap from="odometry/filtered" to="/odometry/filtered_world" />
 
       <!-- GPS update frequency: 10 Hz-->

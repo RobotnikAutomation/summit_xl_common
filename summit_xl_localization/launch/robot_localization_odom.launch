@@ -4,7 +4,7 @@
      <node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 -0.1 0.40 0 0 0 1 base_footprint fcu 50"/> 
 
      <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
-   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc_odom" clear_params="true" output="screen">      
+   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc_odom" clear_params="true">      
       <remap from="odometry/filtered" to="odometry/filtered_odom" />
 
       <param name="frequency" value="45"/>

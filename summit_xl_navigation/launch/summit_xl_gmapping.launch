@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="scan_topic" value="scan"/>
     <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-      <!-- simulation remap from="scan" to="/hokuyo_laser_topic"/ -->
       <!-- real -->
       <!-- remap from="scan" to="/scan_filtered"/ -->
-      <remap from="scan" to ="/front_laser/scan"/>
+      <remap from="scan" to ="$(arg scan_topic)"/>
       <!-- param name="map_udpate_interval" value="5.0"/ -->
       <param name="map_udpate_interval" value="2.0"/>
       <param name="maxUrange" value="16.0"/>

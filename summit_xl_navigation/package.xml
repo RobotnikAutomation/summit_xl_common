@@ -10,7 +10,7 @@
 
   <author email="rguzman@robotnik.es">Roberto Guzmán</author>  
 
-  <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
+  <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
  
   <license>BSD</license>
   
@@ -21,7 +21,7 @@
   <run_depend>amcl</run_depend>
   <run_depend>move_base</run_depend>
   <run_depend>teb_local_planner</run_depend>
-  
+  <run_depend>global_planner</run_depend>
 </package>
 
 

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+        <!-- maps inside the folder summit_xl_navigation/maps -->
+	<arg name="map_file" default="map1/map1.yaml"/>
+	<!-- Run the map server -->
+	<!-- node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/rbk_warehouse/rbk_warehouse.yaml"/ -->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/$(arg map_file)"/>
+
+</launch>

@@ -85,7 +85,7 @@
     <!-- Transmission is important to link the joints and the controller (see summit_xl_control/config/summit_xl_control.yaml)-->
     <transmission name="${name}_wheel_joint_trans">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="joint_${name}_wheel" >
+      <joint name="${name}_wheel_joint" >
         <hardwareInterface>VelocityJointInterface</hardwareInterface>
       </joint>              
       <actuator name="${name}_wheel_joint_motor">

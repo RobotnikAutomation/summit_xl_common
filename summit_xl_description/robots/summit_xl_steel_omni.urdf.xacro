@@ -74,13 +74,13 @@
 		<origin xyz="-0.373 0.210 0.205" rpy="0 0 2.3562"/>
 	</xacro:sensor_hokuyo_ust10lx>
 	
-	<!-- xacro:sensor_axis_m5013 name="camera_front" parent="base_link">
-		<origin xyz="0.370 -0.234 0.148" rpy="0 0 0"/>
+	<xacro:sensor_axis_m5013 name="camera_front" parent="base_link">
+		<origin xyz="0.308 0.140 0.195" rpy="0 0 0"/>
 	</xacro:sensor_axis_m5013>
 
 	<xacro:sensor_axis_m5013 name="camera_rear" parent="base_link">
-		<origin xyz="-0.370 0.234 0.148" rpy="0 0 3.1416"/>
-	</xacro:sensor_axis_m5013 -->
+		<origin xyz="-0.308 -0.140 0.195" rpy="0 0 3.1416"/>
+	</xacro:sensor_axis_m5013>
   
 	<xacro:sensor_imu name="imu" parent="base_link">
 		<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>

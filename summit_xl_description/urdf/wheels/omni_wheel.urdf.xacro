@@ -17,7 +17,7 @@
   <xacro:macro name="omni_wheel" params="name parent *origin reflect hq">
   
   
-    <joint name="joint_${name}_wheel" type="continuous">
+    <joint name="${name}_wheel_joint" type="continuous">
       <parent link="${parent}"/>
       <child link="${name}_wheel"/>
       <xacro:insert_block name="origin" />

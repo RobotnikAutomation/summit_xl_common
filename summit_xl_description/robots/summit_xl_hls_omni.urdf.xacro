@@ -46,7 +46,7 @@
     <xacro:summit_xl_hls_base name="summit_xl" publish_bf="true" hq="${hq}"/>
   
     <!-- Gazebo ros control pluggins -->
-    <xacro:ros_control/>
+	<xacro:ros_control prefix=""/>
   
     <!-- Gazebo omni steering plugin -->
     <xacro:omni_steering/>
@@ -80,11 +80,11 @@
 	</xacro:omni_wheel>
 
 	<!-- SENSORS -->
-	<xacro:sensor_hokuyo_ust10lx name="hokuyo_front" parent="base_link">
+	<xacro:sensor_hokuyo_ust10lx name="laser_front" parent="base_link">
 		<origin xyz="0.403 -0.256 -0.050" rpy="3.1416 0 -0.7854"/>
 	</xacro:sensor_hokuyo_ust10lx>
 
-	<xacro:sensor_hokuyo_ust10lx name="hokuyo_rear" parent="base_link">
+	<xacro:sensor_hokuyo_ust10lx name="laser_rear" parent="base_link">
 		<origin xyz="-0.403 0.256 -0.050" rpy="3.1416 0 2.3562"/>
 	</xacro:sensor_hokuyo_ust10lx>
 	
@@ -116,6 +116,5 @@
 	</xacro:sensor_fotonic>  
 -->
   
-
 </robot>
 

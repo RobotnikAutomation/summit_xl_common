@@ -37,8 +37,20 @@
       </plugin>
     </gazebo>
   </xacro:macro>
-  
-  <xacro:macro name="omni_steering">
+
+  <xacro:macro name="omni_steering" params="prefix">
+		<gazebo>
+	    <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
+	      <commandTopic>${prefix}/summit_xl_control/cmd_vel</commandTopic>  
+	      <odometryTopic>${prefix}/odom</odometryTopic>
+	      <odometryFrame>${prefix}odom</odometryFrame>
+	      <odometryRate>20.0</odometryRate>
+	      <robotBaseFrame>${prefix}base_footprint</robotBaseFrame>
+	    </plugin>
+	  </gazebo>
+  </xacro:macro>
+    
+  <!-- xacro:macro name="omni_steering">
 		<gazebo>
 	    <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
 	      <commandTopic>/summit_xl_control/cmd_vel</commandTopic>  
@@ -48,7 +60,7 @@
 	      <robotBaseFrame>base_footprint</robotBaseFrame>
 	    </plugin>
 	  </gazebo>
-  </xacro:macro>
+  </xacro:macro -->
 
   <xacro:macro name="ros_force_based_move" params="broadcastOdomTF">
 	  <gazebo>

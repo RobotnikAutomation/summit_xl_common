@@ -26,7 +26,7 @@
   
   
 	<!-- Wheel parameters -->
-	<xacro:property name="wheel_offset_x" value="0.2225" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="wheel_offset_x" value="0.223" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
 	<xacro:property name="wheel_offset_y" value="0.205" />    
 	<xacro:property name="wheel_offset_z" value="0.0" />
 
@@ -39,14 +39,14 @@
 
 	<!-- Here we create the robot elements using the xacro:macros imported at the beggining of this file -->
 	
-	<!-- Summit XL base -->
-    <xacro:summit_xl_steel_base name="summit_xl" publish_bf="true" hq="${hq}"/>
+	<!-- Summit XL base -->	
+    <xacro:summit_xl_steel_base name="" publish_bf="true" hq="${hq}"/>
   
     <!-- Gazebo ros control pluggins -->
 	<xacro:ros_control prefix=""/>
   
     <!-- Gazebo omni steering plugin -->
-    <xacro:omni_steering/>
+    <xacro:omni_steering prefix=""/>
     
 	<!-- WHEELS -->
 	<xacro:omni_wheel name="front_right" parent="base_link" reflect="false" hq="true">

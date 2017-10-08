@@ -12,7 +12,7 @@
   
   <!-- BASE FOOTPRINT -->
   <xacro:if value="${publish_bf}">
-    <link name="base_footprint">
+    <link name="${name}base_footprint">
       <visual>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
@@ -21,15 +21,15 @@
       </visual>
     </link>
 
-    <joint name="base_footprint_joint" type="fixed">
+    <joint name="${name}base_footprint_joint" type="fixed">
       <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" /> <!-- ${wheel_radius} property must be defined inside wheel description -->
-      <parent link="base_footprint"/>
-      <child link="base_link" />
+      <parent link="${name}base_footprint"/>
+      <child link="${name}base_link" />
     </joint>    
   </xacro:if>
 
   <!-- BASE_LINK -->
-  <link name="base_link">
+  <link name="${name}base_link">
     <inertial>
       <mass value="25.0" />
       <origin xyz="0 0 0" />
@@ -61,13 +61,13 @@
 
    <!-- DOCKING CONTACT -->
 
-    <link name="base_docking_contact">
+    <link name="${name}base_docking_contact">
     </link>
 
-    <joint name="base_docking_joint" type="fixed">
+    <joint name="${name}base_docking_joint" type="fixed">
       <origin xyz="0.30 0 0.09" rpy="0 0 0" /> 
-      <parent link="base_link"/>
-      <child link="base_docking_contact" />
+      <parent link="${name}base_link"/>
+      <child link="${name}base_docking_contact" />
     </joint>    
 
   </xacro:macro>

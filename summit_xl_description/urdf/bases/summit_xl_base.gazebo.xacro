@@ -21,10 +21,10 @@
       <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
 			<!--<robotNamespace>/summit_xl</robotNamespace>-->
 		    <updateRate>100.0</updateRate>
-		    <leftFrontJoint>joint_front_left_wheel</leftFrontJoint>  
-		    <rightFrontJoint>joint_front_right_wheel</rightFrontJoint>
-		    <leftRearJoint>joint_back_left_wheel</leftRearJoint>
-		    <rightRearJoint>joint_back_right_wheel</rightRearJoint>
+		    <leftFrontJoint>front_left_wheel_joint</leftFrontJoint>  
+		    <rightFrontJoint>front_right_wheel_joint</rightFrontJoint>
+		    <leftRearJoint>back_left_wheel_joint</leftRearJoint>
+		    <rightRearJoint>back_right_wheel_joint</rightRearJoint>
 		    <!-- wheelSeparation>0.566</wheelSeparation --> <!-- real parameter value -->
 		    <wheelSeparation>1.5</wheelSeparation> <!-- works a bit better in Gazebo -->
 		    <wheelDiameter>0.234</wheelDiameter>

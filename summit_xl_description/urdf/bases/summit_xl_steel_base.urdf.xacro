@@ -4,7 +4,7 @@
   
   <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
 
-  <xacro:macro name="summit_xl_hls_base" params="name publish_bf hq">
+  <xacro:macro name="summit_xl_steel_base" params="name publish_bf hq">
 
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
@@ -39,12 +39,12 @@
        <origin xyz="0 0 0" rpy="0 0 0" />
        <xacro:if value="${hq}">
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chasis_box.stl"/>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chassis_box.stl"/>
        </geometry>
        </xacro:if>
        <xacro:unless value="${hq}">
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chasis.dae"/>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chassis_box.dae"/>
        </geometry>
        </xacro:unless>
        <material name="darkgrey">
@@ -54,7 +54,7 @@
     <collision>
        <origin xyz="0 0 0" rpy="0 0 0 " />
        <geometry>
-         <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chasis.dae"/>
+         <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chassis_box.dae"/>
        </geometry>
     </collision>     
   </link>

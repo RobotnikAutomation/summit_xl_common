@@ -4,8 +4,7 @@
 
 	<!-- ***************** -->
 	<!-- Imported elements -->
-	<!-- ***************** -->
-	
+	<!-- ***************** -->	
 	<!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
 
 	<!-- Import summit XL base elements -->
@@ -16,8 +15,6 @@
     
 	<!-- Import all available sensors -->
 	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
-  
-  
   
 	<!-- ***************** -->
 	<!-- Global parameters -->
@@ -95,9 +92,9 @@
 		<origin xyz="0.19 0 0.17" rpy="0 ${-75*PI/180} 0"/>
 	</xacro:sensor_axis-->
   
-	<!--xacro:sensor_imu_hector name="imu" parent="base_link" >
+	<xacro:sensor_imu_hector name="imu" parent="base_link" >
 		<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
-	</xacro:sensor_imu_hector-->
+	</xacro:sensor_imu_hector>
   
 	<!--xacro:sensor_gps name="gps" parent="base_link">
 		<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>

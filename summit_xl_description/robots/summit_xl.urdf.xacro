@@ -62,7 +62,7 @@
 		</xacro:sensor_imu_hector>
 		
 		<!-- 2d laser -->
-		<!--xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_scan="front_laser">
+		<!--xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 		</xacro:sensor_hokuyo_ust10lx-->
 		<!-- ptz camera -->
@@ -70,7 +70,7 @@
 			<origin xyz="0.19 0 0.26" rpy="0 ${15*PI/180} 0"/>		
 		</xacro:sensor_axis-->
 	    <!-- RGBD -->
-	    <!--xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)base_link">
+	    <!--xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)base_link" prefix_topic="front_rgbd_camera">
 			<origin xyz="0.324 0.012 0.172" rpy="0 0 0"/> 
 		</xacro:sensor_orbbec_astra--> 
 	    <!-- GPS -->

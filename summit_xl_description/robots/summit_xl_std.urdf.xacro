@@ -61,7 +61,7 @@
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu_hector>
 		<!-- 2d laser -->
-		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link">
+		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_scan="front_laser">
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 		</xacro:sensor_hokuyo_ust10lx>
 		<!-- ptz camera -->

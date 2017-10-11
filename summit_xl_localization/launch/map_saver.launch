@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+        <!-- maps inside the folder summit_xl_navigation/maps -->
+	<arg name="map_name" default="map"/>
+	<arg name="map_topic" default="map"/>
+	<!-- Run the map server -->
+	<node name="map_saver_node" pkg="map_server" type="map_saver" args="-f $(find summit_xl_localization)/maps/$(arg map_name)">
+		<remap from="map" to="$(arg map_topic)"/>
+	</node>
+
+</launch>

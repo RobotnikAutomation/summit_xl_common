@@ -3,6 +3,7 @@
   <!-- skid, omni, steel_skid, steel_omni, diffdrive -->
   <!-- diffdrive has been tested only in simulation -->
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
+  <arg name="cmd_vel" default="summit_xl_control/cmd_vel"/>
 
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
@@ -18,8 +19,13 @@
 
   <node pkg="twist_mux" type="twist_mux" name="twist_mux">
     <rosparam command="load" file="$(find summit_xl_control)/config/twist_mux.yaml" />
-    <remap from="cmd_vel_out" to="summit_xl_control/cmd_vel" />
+    <remap from="cmd_vel_out" to="$(arg cmd_vel)" />
   </node>
+  <node pkg="twist_mux" type="twist_marker" name="twist_marker">
+    <remap from="twist"  to="$(arg cmd_vel)"/>
+    <remap from="marker" to="twist_marker"/>
+  </node>
+
   
 </launch>
 

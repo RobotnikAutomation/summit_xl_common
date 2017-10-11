@@ -5,13 +5,16 @@
 <arg name="x_init_pose" default="0"/>
 <arg name="y_init_pose" default="0"/>
 <arg name="z_init_pose" default="0"/>
+<arg name="scan_topic" default="front_laser/scan"/>
+<arg name="map_topic" default="map"/>
+<arg name="global_frame" default="$(arg prefix)map"/> 
+<arg name="odom_frame" default="$(arg prefix)odom"/> 
+<arg name="base_frame" default="$(arg prefix)base_footprint"/>
 	  
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
-
-
-  <!-- remap from="scan" to="hokuyo_laser_topic" / -->
-  <!--remap from="cmd_vel" to="summit_xl_control/cmd_vel" /-->
-  <!--remap from="map" to="/map"/-->
+  <remap from="scan" to="$(arg scan_topic)"/>
+  <remap from="map" to="$(arg map_topic)"/>
+  
   <!-- Publish scans from best pose at a max of 10 Hz -->
   <param name="use_map_topic" value="false"/>
   <param name="odom_model_type" value="diff"/>
@@ -40,9 +43,9 @@
   <param name="laser_likelihood_max_dist" value="2.0"/>
   <param name="update_min_d" value="0.2"/>
   <param name="update_min_a" value="0.5"/>
-  <param name="odom_frame_id" value="$(arg prefix)odom"/>
-  <param name="base_frame_id" value="$(arg prefix)base_footprint"/>
-  <param name="global_frame_id" value="$(arg prefix)map"/>
+  <param name="odom_frame_id" value="$(arg odom_frame)"/>
+  <param name="base_frame_id" value="$(arg base_frame)"/>
+  <param name="global_frame_id" value="$(arg global_frame)"/>
   <param name="resample_interval" value="1"/>
   <param name="transform_tolerance" value="0.1"/>
   <param name="recovery_alpha_slow" value="0.0"/>
@@ -54,4 +57,5 @@
   <param name="initial_pose_a" value ="0.0"/>
 
 </node>
+
 </launch>

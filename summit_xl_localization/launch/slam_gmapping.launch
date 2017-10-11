@@ -7,7 +7,7 @@
 	<arg name="odom_frame" default="$(arg prefix)odom"/> 
 	<arg name="base_frame" default="$(arg prefix)base_link"/> 
 	
-    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
       <remap from="scan" to ="$(arg scan_topic)"/>
       <!-- param name="map_udpate_interval" value="5.0"/ -->
       <param name="map_frame" value="$(arg map_frame)"/>

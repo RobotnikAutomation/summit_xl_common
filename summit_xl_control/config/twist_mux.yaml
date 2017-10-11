@@ -2,11 +2,13 @@ topics:
 - name    : pad
   topic   : pad_teleop/cmd_vel
   timeout : 0.5
-  priority: 10
+  priority: 100
+
 - name    : move_base
   topic   : move_base/cmd_vel
   timeout : 0.5
-  priority: 2
+  priority: 50
+
 - name    : external
   topic   : cmd_vel
   timeout : 0.5

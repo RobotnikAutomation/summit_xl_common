@@ -38,31 +38,31 @@
     </gazebo>
   </xacro:macro>
   
-  <xacro:macro name="omni_steering" params="prefix">
+  <xacro:macro name="omni_steering" params="prefix publish_tf">
 		<gazebo>
 	    <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
 	      <commandTopic>summit_xl_control/cmd_vel</commandTopic>  
-	      <odometryTopic>odom</odometryTopic>
+	      <odometryTopic>summit_xl_control/odom</odometryTopic>
 	      <odometryFrame>${prefix}odom</odometryFrame>
-	      <odometryRate>20.0</odometryRate>
+	      <odometryRate>50.0</odometryRate>
 	      <robotBaseFrame>${prefix}base_footprint</robotBaseFrame>
+	      <publishTF>${publish_tf}</publishTF>
 	    </plugin>
 	  </gazebo>
   </xacro:macro>
 
-  <xacro:macro name="ros_force_based_move" params="broadcastOdomTF prefix">
+  <xacro:macro name="ros_force_based_move" params="publish_tf prefix">
 	  <gazebo>
 		 <plugin name="ros_force_based_move" filename="libgazebo_ros_force_based_move.so">
-			 <!--<robotNamespace>/summit_xl</robotNamespace>-->
 			 <commandTopic>summit_xl_control/cmd_vel</commandTopic>  
-			 <odometryTopic>summit_xl/odom</odometryTopic>
-	         <odometryFrame>odom</odometryFrame>
+			 <odometryTopic>summit_xl_control/odom</odometryTopic>
+	         <odometryFrame>${prefix}odom</odometryFrame>
 			 <yaw_velocity_p_gain>10000.0</yaw_velocity_p_gain>
 			 <x_velocity_p_gain>10000.0</x_velocity_p_gain>
 			 <y_velocity_p_gain>10000.0</y_velocity_p_gain>
 			 <robotBaseFrame>${prefix}base_footprint</robotBaseFrame>
-			 <odometryRate>20.0</odometryRate>
-			 <publishOdometryTf>${broadcastOdomTF}</publishOdometryTf>
+			 <odometryRate>50.0</odometryRate>
+			 <publishOdometryTf>${publish_tf}</publishOdometryTf>
 		 </plugin>
 	  </gazebo>
   </xacro:macro>

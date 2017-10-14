@@ -58,15 +58,11 @@
 		<xacro:sensor_imu_hector name="$(arg prefix)imu" parent="$(arg prefix)base_link" >
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu_hector>
-		
-		<xacro:sensor_hokuyo_ust10lx name="laser_front" parent="base_link">
-			<origin xyz="0.373 -0.210 0.205" rpy="0 0 -0.7854"/>		
-		</xacro:sensor_hokuyo_ust10lx>
 
-		<xacro:sensor_hokuyo_ust10lx name="laser_rear" parent="base_link">
-			<origin xyz="-0.373 0.210 0.205" rpy="0 0 2.3562"/>
+		<xacro:sensor_hokuyo_ust10lx name="$(arg prefix)laser_front" parent="$(arg prefix)base_link">
+			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 		</xacro:sensor_hokuyo_ust10lx>
-	
+			
 		<!-- Gazebo ros control pluggins -->
 		<xacro:ros_control prefix="$(arg prefix)"/>
 		

@@ -60,6 +60,7 @@
         in simulation, we can leave this value to 0, and asume that the robot would be facing east on it's initial position -->
         <param name="yaw_offset" value="0"/>
         <!-- so, imu.yaw + magnetic_declination + yaw_offset MUST BE 0 when the robot is facing east. set the values and the sign according to that -->
+        <!-- param name="yaw_offset" value="1.5707963"/ -->
 
         <param name="use_odometry_yaw" value="false" /> <!-- if false, take yaw from imu. if true, from odom -->
         <param name="wait_for_datum" value="$(arg wait_for_datum)" />

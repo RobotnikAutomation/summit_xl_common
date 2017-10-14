@@ -11,6 +11,10 @@
       <param name="sensor_timeout" value="0.1"/>
 
       <param name="two_d_mode" type="bool" value="true"/>
+           
+	  <!-- Defaults to "robot_localization_debug.txt" if unspecified. Please specify the full path. -->
+	  <!-- param name="debug_out_file" value="/path/to/debug/file.txt"/ -->
+
       
       <param name="odom_frame" value="odom"/>
       <param name="base_link_frame" value="base_footprint"/>
@@ -31,24 +35,39 @@
                                       false, false, false,
                                       false, false, false]</rosparam>
 
-      <!-- Be careful when setting the z-orientation value to true because you are going to fuse orientation data 
-	coming from an attitude estimatior which is more likely to use a (slow-response) compass -->	
-      <rosparam param="imu0_config">[false, false, false,
-                                     false, false, true, 
-                                     false, false, false,
-                                     false, false, true,
-                                     true, false, false]</rosparam>
+      <!--  If you have high-frequency data or are running with a low frequency parameter value, then you may want to increase
+         the size of the subscription queue so that more measurements are fused. -->
+	  <param name="odom0_queue_size" value="5"/>
+
+      <!--  [ADVANCED] Large messages in ROS can exhibit strange behavior when they arrive at a high frequency. This is a result
+      of Nagle's algorithm. This option tells the ROS subscriber to use the tcpNoDelay option, which disables Nagle's algorithm. -->
+      <param name="odom0_nodelay" value="false" />
 
       <!-- if two or more sources provide absolute pose (position + orientation), the _differential parametet MUST BE TRUE for ALL of them except for ONE --> 
       <param name="odom0_differential" value="false"/>
-      <param name="imu0_differential" value="false" />
 
       <!-- if the _relative parameter is set to TRUE, the initial state is the origin for both position and orientation -->
       <param name="odom0_relative" value="false"/>
+
+      <!-- Be careful when setting the z-orientation value to true because you are going to fuse orientation data 
+	coming from an attitude estimatior which is more likely to use a (slow-response) compass -->	
+      <!-- in sim was also working with yaw' set to true -->
+      <rosparam param="imu0_config">[false, false, false,
+                                     false, false, true, 
+                                     false, false, false,
+                                     false, false, false,
+                                     true, false, false]</rosparam>
+
+      <param name="imu0_differential" value="false" />
+
       <!-- Set to false when fusing an absolute orientation estimation (e.g. coming from an attitude 
-	estimator which using a magnetic compass)-->
+	     estimator which using a magnetic compass)-->
       <param name="imu0_relative" value="true"/>
-    
+      
+      <param name="imu0_queue_size" value="8" />
+     
+      <!-- some IMUs automatically remove acceleration due to gravity, and others don't. If yours doesn't, please set 
+        this to true, and *make sure* your data conforms to REP-103, specifically, that the data is in ENU frame. -->
       <param name="imu0_remove_gravitational_acceleration" type="bool" value="true"/>
       <param name="print_diagnostics" value="false"/>
    </node>

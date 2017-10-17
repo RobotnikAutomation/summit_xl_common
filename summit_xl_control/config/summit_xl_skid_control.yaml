@@ -14,14 +14,19 @@ joint_flw_velocity_controller:
 summit_xl_control:
   type: summit_xl_controller/SummitXLController
   joint:
-    summit_xl_front_right_wheel_joint:
-        max_speed: 27.27 # rad/s
-    summit_xl_front_left_wheel_joint:
-        max_speed: 27.27 # rad/s
-    summit_xl_back_right_wheel_joint:
-        max_speed: 27.27 # rad/s
-    summit_xl_back_left_wheel_joint:
-        max_speed: 27.27 # rad/s
+  joint:
+    front_right_wheel_joint:
+      name: summit_xl_front_right_wheel_joint
+      max_speed: 27.27 # rad/s
+    front_left_wheel_joint:
+      name: summit_xl_front_left_wheel_joint
+      max_speed: 27.27 # rad/s
+    back_right_wheel_joint:
+      name: summit_xl_back_right_wheel_joint
+      max_speed: 27.27 # rad/s
+    back_left_wheel_joint:
+      name: summit_xl_back_left_wheel_joint
+      max_speed: 27.27 # rad/s
   linear_speed_limit: 1.5 # m/s
   linear_acceleration_limit: 3 # m/s^2
   angular_speed_limit: 3 # rad/s

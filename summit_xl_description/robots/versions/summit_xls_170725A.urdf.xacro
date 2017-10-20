@@ -92,40 +92,15 @@
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu_hector>
 		
-		
-		<!-- Structures -->
-		<!--xacro:structure_laser prefix="$(arg prefix)front_laser_structure" parent="$(arg prefix)base_link">
-			<origin xyz="0.303 -0.160 0.155" rpy="0 0 0" />
-		</xacro:structure_laser>
-		<xacro:structure_laser prefix="$(arg prefix)rear_laser_structure" parent="$(arg prefix)base_link">
-			<origin xyz="-0.303 0.160 0.155" rpy="0 0 ${PI}" />
-		</xacro:structure_laser-->
-    
 		<!-- SENSORS -->
-		<!--xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">
+		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">
 			<origin xyz="${front_laser_offset_x} ${front_laser_offset_y} ${front_laser_offset_z}" rpy="0 0 ${-PI/4.0}"/>
-		</xacro:sensor_hokuyo_ust10lx-->
+		</xacro:sensor_hokuyo_ust10lx>
 
-		<!--xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)rear_laser" parent="$(arg prefix)base_link" prefix_topic="rear_laser">
+		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)rear_laser" parent="$(arg prefix)base_link" prefix_topic="rear_laser">
 			<origin xyz="${rear_laser_offset_x} ${rear_laser_offset_y} ${rear_laser_offset_z}" rpy="0 0 ${3.0*PI/4.0}"/>
-		</xacro:sensor_hokuyo_ust10lx-->
-		
-		<!--xacro:sensor_axis_m5013 prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
-			<origin xyz="${front_ptz_camera_offset_x} ${front_ptz_camera_offset_y} ${front_ptz_camera_offset_z}" rpy="${-PI/2} 0 0"/>
-		</xacro:sensor_axis_m5013-->
+		</xacro:sensor_hokuyo_ust10lx>
 
-		<!--xacro:sensor_axis_m5013 prefix="$(arg prefix)rear_ptz_camera" parent="$(arg prefix)base_link">
-			<origin xyz="${rear_ptz_camera_offset_x} ${rear_ptz_camera_offset_y} ${rear_ptz_camera_offset_z}" rpy="${-PI/2} 0 ${PI}"/>
-		</xacro:sensor_axis_m5013-->
-
-	  
-		<!--xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)base_link" prefix_topic="front_rgbd_camera">
-			<origin xyz="${front_rgbd_camera_offset_x} ${front_rgbd_camera_offset_y} ${front_rgbd_camera_offset_z}" rpy="0 0 0"/>
-		</xacro:sensor_orbbec_astra-->
-		
-		<!--xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link">
-			<origin xyz="${gps_offset_x} ${gps_offset_y} ${gps_offset_z}" rpy="0 0 0"/>
-		</xacro:sensor_gps-->
 	
    </xacro:macro>
    

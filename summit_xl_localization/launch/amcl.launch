@@ -10,6 +10,7 @@
 <arg name="global_frame" default="$(arg prefix)map"/> 
 <arg name="odom_frame" default="$(arg prefix)odom"/> 
 <arg name="base_frame" default="$(arg prefix)base_footprint"/>
+<arg name="odom_model_type" default="diff"/> <!-- omni -->
 	  
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
   <remap from="scan" to="$(arg scan_topic)"/>
@@ -17,7 +18,7 @@
   
   <!-- Publish scans from best pose at a max of 10 Hz -->
   <param name="use_map_topic" value="false"/>
-  <param name="odom_model_type" value="diff"/>
+  <param name="odom_model_type" value="$(arg odom_model_type)"/>
   <param name="odom_alpha5" value="0.1"/>
   <param name="transform_tolerance" value="0.2" />
   <param name="gui_publish_rate" value="10.0"/>

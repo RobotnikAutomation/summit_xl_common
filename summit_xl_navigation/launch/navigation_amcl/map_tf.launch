@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+   <node pkg="tf" type="static_transform_publisher" name="map_2_summit_xl_a_tf" args="0.0 0.0 0.0 0.0 0.0 0.0
+          /map /summit_xl_a_map  100"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="map_2_summit_xl_b_tf" args="0.0 0.0 0.0 0.0 0.0 0.0
+          /map /summit_xl_b_map  100"/>
+
+</launch>
+

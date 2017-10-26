@@ -13,7 +13,7 @@
 	  
 	<node pkg="amcl" type="amcl" name="amcl" output="screen">
 	  
-	  <remap from="scan" to="/$(arg id_robot)laser_front/scan"/>
+	  <remap from="scan" to="/$(arg prefix)laser_front/scan"/>
 	  <!--remap from="cmd_vel" to="cmd_vel" /-->
 	  <!--remap from="map" to="map"/-->
 	  <!-- Publish scans from best pose at a max of 10 Hz -->

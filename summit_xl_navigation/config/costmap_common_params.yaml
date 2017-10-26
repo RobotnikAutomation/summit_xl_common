@@ -9,6 +9,6 @@ inflation_layer:
   inflation_radius: 0.5
 
 obstacle_layer:
-  observation_sources: hokuyo_laser
+  observation_sources: base_laser_front
 #  hokuyo_laser: {sensor_frame: hokuyo_base_laser_link, data_type: LaserScan, topic: hokuyo_base/scan, marking: true, clearing: true}
-  hokuyo_laser: {sensor_frame: hokuyo_base_link, data_type: LaserScan, topic: hokuyo_base/scan, marking: true, clearing: true}
+  base_laser_front: {sensor_frame: laser_front_link, data_type: LaserScan, topic: laser_front/scan, marking: true, clearing: true}

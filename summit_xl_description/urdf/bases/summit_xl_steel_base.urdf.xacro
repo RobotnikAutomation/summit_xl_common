@@ -39,12 +39,12 @@
        <origin xyz="0 0 0" rpy="0 0 0" />
        <xacro:if value="${hq}">
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chassis_box.stl"/>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chassis_box.dae"/>
        </geometry>
        </xacro:if>
        <xacro:unless value="${hq}">
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chassis_box.dae"/>
+	     <mesh filename="package://summit_xl_description/meshes/bases/hls/v2017/chassis_box.stl"/>
        </geometry>
        </xacro:unless>
        <material name="darkgrey">

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find summit_xl_navigation)/launch/navigation_amcl/move_base_amcl.launch">
+    <arg name="id_robot" value="summit_xl_a_"/>
+    <arg name="load_map" value="map1/map1.yaml"/>
+  </include>
+
+  <include file="$(find summit_xl_navigation)/launch/navigation_amcl/move_base_amcl.launch">
+    <arg name="id_robot" value="summit_xl_b_"/>
+    <arg name="load_map" value="map1/map1.yaml"/>
+  </include>
+ 
+  <include file="$(find summit_xl_navigation)/launch/navigation_amcl/map_tf.launch"/>
+
+</launch>

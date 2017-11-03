@@ -6,6 +6,13 @@
 <arg name="x_init_pose" default="0"/>
 <arg name="y_init_pose" default="0"/>
 <arg name="z_init_pose" default="0"/>
+<arg name="odom_model_type" default="diff"/>
+
+<!-- param name="odom_alpha1" value="0.005"/>
+<param name="odom_alpha2" value="0.005"/>
+<param name="odom_alpha3" value="0.010"/>
+<param name="odom_alpha4" value="0.005"/>
+<param name="odom_alpha5" value="0.003"/ -->
 
 <group ns="$(arg id_robot)">
 	  
@@ -18,7 +25,8 @@
 	  <!--remap from="map" to="map"/-->
 	  <!-- Publish scans from best pose at a max of 10 Hz -->
 	  <param name="use_map_topic" value="false"/>
-	  <param name="odom_model_type" value="diff"/>
+	  <param name="odom_model_type" value="$(arg odom_model_type)"/>	  
+	  
 	  <param name="odom_alpha5" value="0.1"/>
 	  <param name="transform_tolerance" value="0.2" />
 	  <param name="gui_publish_rate" value="10.0"/>

@@ -23,7 +23,10 @@
         <rosparam file="$(find summit_xl_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
         <rosparam file="$(find summit_xl_navigation)/config/local_costmap_params.yaml" command="load" />
         <rosparam file="$(find summit_xl_navigation)/config/global_costmap_params_map.yaml" command="load" />
-        <rosparam file="$(find summit_xl_navigation)/config/teb_local_planner_params.yaml" command="load" />
+        <!-- configuration file for teb - differential -->
+        <!-- rosparam file="$(find summit_xl_navigation)/config/teb_local_planner_params.yaml" command="load" / -->
+        <!-- configuration file for teb - omni -->
+        <rosparam file="$(find summit_xl_navigation)/config/teb_local_planner_omni.yaml" command="load" />
         
         <!-- reset frame_id parameters using user input data -->
 	    <param name="global_costmap/obstacle_layer/base_laser_front/sensor_frame" value="$(arg prefix)laser_front_link"/>
@@ -53,6 +56,7 @@
         <arg name="x_init_pose" value="$(arg x_init_pose)"/>
         <arg name="y_init_pose" value="$(arg y_init_pose)"/>
         <arg name="z_init_pose" value="$(arg z_init_pose)"/>
+        <arg name="odom_model_type" value="omni"/>
   </include>
   
 </launch>

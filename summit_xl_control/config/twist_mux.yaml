@@ -9,6 +9,11 @@ topics:
   timeout : 0.5
   priority: 50
 
+- name    : docker
+  topic   : docker/cmd_vel
+  timeout : 0.5
+  priority: 50
+
 - name    : external
   topic   : cmd_vel
   timeout : 0.5

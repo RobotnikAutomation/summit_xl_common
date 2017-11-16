@@ -8,6 +8,6 @@ catkin_package( CATKIN_DEPENDS )
 include_directories(${catkin_INCLUDE_DIRS})
 
 install(
-  DIRECTORY launch config maps
+  DIRECTORY launch config
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )

@@ -29,8 +29,8 @@
 		    <wheelDiameter>0.234</wheelDiameter>
 		    <robotBaseFrame>${prefix}base_footprint</robotBaseFrame>
 		    <torque>50</torque>
-		    <commandTopic>summit_xl_control/cmd_vel</commandTopic>
-		    <odometryTopic>odom</odometryTopic>
+		    <commandTopic>robotnik_base_control/cmd_vel</commandTopic>
+		    <odometryTopic>robotnik_base_control/odom</odometryTopic>
 		    <!--odometryFrame>/odom</odometryFrame-->
 		    <odometryFrame>${prefix}odom</odometryFrame>
 		    <broadcastTF>${broadcastOdomTF}</broadcastTF>
@@ -41,8 +41,8 @@
   <xacro:macro name="omni_steering" params="prefix publish_tf">
 		<gazebo>
 	    <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
-	      <commandTopic>summit_xl_control/cmd_vel</commandTopic>  
-	      <odometryTopic>summit_xl_control/odom</odometryTopic>
+	      <commandTopic>robotnik_base_control/cmd_vel</commandTopic>  
+	      <odometryTopic>robotnik_base_control/odom</odometryTopic>
 	      <odometryFrame>${prefix}odom</odometryFrame>
 	      <odometryRate>50.0</odometryRate>
 	      <robotBaseFrame>${prefix}base_footprint</robotBaseFrame>
@@ -54,8 +54,8 @@
   <xacro:macro name="ros_force_based_move" params="publish_tf prefix">
 	  <gazebo>
 		 <plugin name="ros_force_based_move" filename="libgazebo_ros_force_based_move.so">
-			 <commandTopic>summit_xl_control/cmd_vel</commandTopic>  
-			 <odometryTopic>summit_xl_control/odom</odometryTopic>
+			 <commandTopic>robotnik_base_control/cmd_vel</commandTopic>  
+			 <odometryTopic>robotnik_base_control/odom</odometryTopic>
 	         <odometryFrame>${prefix}odom</odometryFrame>
 			 <yaw_velocity_p_gain>10000.0</yaw_velocity_p_gain>
 			 <x_velocity_p_gain>10000.0</x_velocity_p_gain>

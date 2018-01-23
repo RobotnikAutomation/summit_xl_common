@@ -11,9 +11,8 @@ joint_flw_velocity_controller:
   type: velocity_controllers/JointVelocityController
   joint: summit_xl_front_left_wheel_joint
 
-summit_xl_control:
+robotnik_base_control:
   type: summit_xl_controller/SummitXLController
-  joint:
   joint:
     front_right_wheel_joint:
       name: summit_xl_front_right_wheel_joint
@@ -34,7 +33,7 @@ summit_xl_control:
   odom_frame: summit_xl_odom
   robot_base_frame: summit_xl_base_footprint
   odom_broadcast_tf: true
-  odom_topic: 'summit_xl_control/odom'
+  odom_topic: 'robotnik_base_control/odom'
   wheel_base: 0.458
   track_width: 0.462
   wheel_diameter: 0.220
@@ -42,7 +41,7 @@ summit_xl_control:
   imu_watchdog_duration: 0.1
   imu_topic: imu/data
   odom_publish_frequency: 100
-  cmd_vel        : 'summit_xl_control/cmd_vel'
+  cmd_vel        : 'robotnik_base_control/cmd_vel'
   kinematic_mode : 'skid'
   motion_odometry: true
   in_motion_timer: 2.0

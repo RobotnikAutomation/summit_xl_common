@@ -14,7 +14,7 @@ def listener():
 
     rospy.init_node('quat_to_rpy', anonymous=True)
 
-    rospy.Subscriber("summit_xl_control/odom", Odometry, callback)
+    rospy.Subscriber("robotnik_base_control/odom", Odometry, callback)
                       
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

@@ -3,7 +3,7 @@
   <!-- TEB LOCAL PLANNER -->	
   <arg name="prefix" default="summit_xl_"/> 
   <arg name="cmd_vel_topic" default="move_base/cmd_vel"/> <!-- using twist mux -->
-  <arg name="odom_topic" default="summit_xl_control/odom"/> 
+  <arg name="odom_topic" default="robotnik_base_control/odom"/> 
   <arg name="global_frame" default="$(arg prefix)map"/> 
   <arg name="odom_frame" default="$(arg prefix)odom"/> 
   <arg name="base_frame" default="$(arg prefix)base_footprint"/>

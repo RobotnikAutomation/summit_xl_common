@@ -33,6 +33,10 @@
     <!-- Simulation - Load joint controller configurations from YAML file to parameter server -->
   <group if="$(arg sim)">	  	  
 	  <rosparam file="$(find summit_xl_control)/config/$(arg prefix)control.yaml" command="load"/>  
+	  
+	  <!-- if robot_localization node is launched the controller must not publish the odom tf-->
+	  <param if="$(arg launch_robot_localization)" name="robotnik_base_control/enable_odom_tf" value="false"/>	 
+	  
 	   <!-- load the planar ros controllers by urdf -->
 	  <node if="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
 		output="screen" args="		  
@@ -48,8 +52,7 @@
 		  --shutdown-timeout 1
 		  ">
 	  </node>	  
-	  <!-- if robot_localization node is launched the controller must not publish the odom tf-->
-	  <param if="$(arg launch_robot_localization)" name="robotnik_base_control/enable_odom_tf" value="false"/>
+
   </group>
   
 

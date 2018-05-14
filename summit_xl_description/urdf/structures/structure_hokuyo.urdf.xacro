@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
-<robot name="structure" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="structure" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
 		
-  <xacro:macro name="structure" params="name parent *origin">
+  <xacro:macro name="structure_laser" params="prefix parent *origin">
     	 
-	  <joint name="${name}_joint" type="fixed">
+	  <joint name="${prefix}_joint" type="fixed">
 	    <axis xyz="0 1 0"/>
 	    <xacro:insert_block name="origin"/>
 	    <parent link="${parent}"/>
-	    <child link="${name}_link"/>
+	    <child link="${prefix}_link"/>
 	  </joint>
 	
-	  <link name="${name}_link">
+	  <link name="${prefix}_link">
 	    <inertial>
 	      <mass value="0.001"/>
 	      <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -33,7 +33,7 @@
 	    </collision>
 	  </link>
       
-	  <gazebo reference="${name}_link">
+	  <gazebo reference="${prefix}_link">
 	    <material>Gazebo/White</material>
 	    <gravity>true</gravity>
 	  </gazebo>

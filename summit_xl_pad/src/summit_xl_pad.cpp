@@ -78,6 +78,7 @@ class SummitXLPad
 	private:
 	void padCallback(const sensor_msgs::Joy::ConstPtr& joy);
 	ros::NodeHandle nh_;
+	ros::NodeHandle pnh_;
 
 	int linear_x_, linear_y_, linear_z_, angular_;
 	double l_scale_, a_scale_, l_scale_z_; 
@@ -145,11 +146,13 @@ class SummitXLPad
 	//! Client of the sound play service
 	//  sound_play::SoundClient sc;
 	//! Pan & tilt increment (degrees)
-	int pan_increment_, tilt_increment_;
+	double pan_increment_, tilt_increment_;
 	//! Zoom increment (steps)
 	int zoom_increment_;
 	//! Add a dead zone to the joystick that controls scissor and robot rotation (only useful for xWam) 
 	std::string joystick_dead_zone_;
+	//! Flag to enable the ptz control via axes
+	bool ptz_control_by_axes_;
 };
 
 
@@ -157,58 +160,59 @@ SummitXLPad::SummitXLPad():
   linear_x_(1),
   linear_y_(0),
   angular_(2),
-  linear_z_(3)
+  linear_z_(3),
+  pnh_("~")
 {
 	current_vel = 0.1;
 
 	//JOYSTICK PAD TYPE
-	nh_.param<std::string>("pad_type",pad_type_,"ps3");
+	pnh_.param<std::string>("pad_type",pad_type_,"ps3");
 	// 
-	nh_.param("num_of_buttons", num_of_buttons_, DEFAULT_NUM_OF_BUTTONS);
+	pnh_.param("num_of_buttons", num_of_buttons_, DEFAULT_NUM_OF_BUTTONS);
 	// MOTION CONF
-	nh_.param("axis_linear_x", linear_x_, DEFAULT_AXIS_LINEAR_X);
-  	nh_.param("axis_linear_y", linear_y_, DEFAULT_AXIS_LINEAR_Y);
-	nh_.param("axis_linear_z", linear_z_, DEFAULT_AXIS_LINEAR_Z);
-	nh_.param("axis_angular", angular_, DEFAULT_AXIS_ANGULAR);
-	nh_.param("scale_angular", a_scale_, DEFAULT_SCALE_ANGULAR);
-	nh_.param("scale_linear", l_scale_, DEFAULT_SCALE_LINEAR);
-	nh_.param("scale_linear_z", l_scale_z_, DEFAULT_SCALE_LINEAR_Z);
-	nh_.param("cmd_topic_vel", cmd_topic_vel_, cmd_topic_vel_);
-	nh_.param("button_dead_man", dead_man_button_, dead_man_button_);
-	nh_.param("button_speed_up", speed_up_button_, speed_up_button_);  //4 Thrustmaster
-	nh_.param("button_speed_down", speed_down_button_, speed_down_button_); //5 Thrustmaster
-	nh_.param<std::string>("joystick_dead_zone", joystick_dead_zone_, "true");
+	pnh_.param("axis_linear_x", linear_x_, DEFAULT_AXIS_LINEAR_X);
+  	pnh_.param("axis_linear_y", linear_y_, DEFAULT_AXIS_LINEAR_Y);
+	pnh_.param("axis_linear_z", linear_z_, DEFAULT_AXIS_LINEAR_Z);
+	pnh_.param("axis_angular", angular_, DEFAULT_AXIS_ANGULAR);
+	pnh_.param("scale_angular", a_scale_, DEFAULT_SCALE_ANGULAR);
+	pnh_.param("scale_linear", l_scale_, DEFAULT_SCALE_LINEAR);
+	pnh_.param("scale_linear_z", l_scale_z_, DEFAULT_SCALE_LINEAR_Z);
+	pnh_.param("cmd_topic_vel", cmd_topic_vel_, cmd_topic_vel_);
+	pnh_.param("button_dead_man", dead_man_button_, dead_man_button_);
+	pnh_.param("button_speed_up", speed_up_button_, speed_up_button_);  //4 Thrustmaster
+	pnh_.param("button_speed_down", speed_down_button_, speed_down_button_); //5 Thrustmaster
+	pnh_.param<std::string>("joystick_dead_zone", joystick_dead_zone_, "true");
 	
 	// DIGITAL OUTPUTS CONF
-	nh_.param("cmd_service_io", cmd_service_io_, cmd_service_io_);
-	nh_.param("button_output_1", button_output_1_, button_output_1_);
-	nh_.param("button_output_2", button_output_2_, button_output_2_);
-	nh_.param("output_1", output_1_, output_1_);
-	nh_.param("output_2", output_2_, output_2_);
+	pnh_.param("cmd_service_io", cmd_service_io_, cmd_service_io_);
+	pnh_.param("button_output_1", button_output_1_, button_output_1_);
+	pnh_.param("button_output_2", button_output_2_, button_output_2_);
+	pnh_.param("output_1", output_1_, output_1_);
+	pnh_.param("output_2", output_2_, output_2_);
 	// PANTILT-ZOOM CONF
-	nh_.param("cmd_topic_ptz", cmd_topic_ptz_, cmd_topic_ptz_);
-	nh_.param("button_ptz_tilt_up", ptz_tilt_up_, ptz_tilt_up_);
-	nh_.param("button_ptz_tilt_down", ptz_tilt_down_, ptz_tilt_down_);
-	nh_.param("button_ptz_pan_right", ptz_pan_right_, ptz_pan_right_);
-	nh_.param("button_ptz_pan_left", ptz_pan_left_, ptz_pan_left_);
-	nh_.param("button_ptz_zoom_wide", ptz_zoom_wide_, ptz_zoom_wide_);
-	nh_.param("button_ptz_zoom_tele", ptz_zoom_tele_, ptz_zoom_tele_);
-  	nh_.param("button_home", button_home_, button_home_);
-	nh_.param("pan_increment", pan_increment_, 1);
-	nh_.param("tilt_increment",tilt_increment_, 1);
-	nh_.param("zoom_increment", zoom_increment_, 1);
+	pnh_.param("cmd_topic_ptz", cmd_topic_ptz_, cmd_topic_ptz_);
+	pnh_.param("button_ptz_tilt_up", ptz_tilt_up_, ptz_tilt_up_);
+	pnh_.param("button_ptz_tilt_down", ptz_tilt_down_, ptz_tilt_down_);
+	pnh_.param("button_ptz_pan_right", ptz_pan_right_, ptz_pan_right_);
+	pnh_.param("button_ptz_pan_left", ptz_pan_left_, ptz_pan_left_);
+	pnh_.param("button_ptz_zoom_wide", ptz_zoom_wide_, ptz_zoom_wide_);
+	pnh_.param("button_ptz_zoom_tele", ptz_zoom_tele_, ptz_zoom_tele_);
+  	pnh_.param("button_home", button_home_, button_home_);
+	pnh_.param("pan_increment",  pan_increment_, 0.09);
+	pnh_.param("tilt_increment", tilt_increment_, 0.09);
+	pnh_.param("zoom_increment", zoom_increment_, 200);
 
 	// KINEMATIC MODE 
-	nh_.param("button_kinematic_mode", button_kinematic_mode_, button_kinematic_mode_);
-	nh_.param("cmd_service_set_mode", cmd_set_mode_, cmd_set_mode_);
-  nh_.param("cmd_service_home", cmd_home_, cmd_home_);
+	pnh_.param("button_kinematic_mode", button_kinematic_mode_, button_kinematic_mode_);
+	pnh_.param("cmd_service_set_mode", cmd_set_mode_, cmd_set_mode_);
+	pnh_.param("cmd_service_home", cmd_home_, std::string("home"));
 	kinematic_mode_ = 1;
 	
-	ROS_INFO("SummitXLPad num_of_buttons_ = %d", num_of_buttons_);	
+	ROS_INFO("SummitXLPad num_of_buttons_ = %d, zoom = %d, %d", num_of_buttons_, ptz_zoom_wide_, ptz_zoom_tele_);	
 	for(int i = 0; i < num_of_buttons_; i++){
 		bRegisteredButtonEvent[i] = false;
 		ROS_INFO("bREG %d", i);
-		}
+	}
 
 	for(int i = 0; i < 3; i++){
 	  bRegisteredDirectionalArrows[i] = false;
@@ -259,6 +263,10 @@ SummitXLPad::SummitXLPad():
 
 	bEnable = false;	// Communication flag disabled by default
 	last_command_ = true;
+	if(pad_type_=="ps4" || pad_type_=="logitechf710")
+		ptz_control_by_axes_ = true;
+	else
+		ptz_control_by_axes_ = false;
 }
 
 
@@ -328,7 +336,8 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		
 		
 		vel.linear.x = current_vel*l_scale_*joy->axes[linear_x_];
-		vel.linear.y = current_vel*l_scale_*joy->axes[linear_y_];
+		if (kinematic_mode_ == 2) vel.linear.y = current_vel*l_scale_*joy->axes[linear_y_];
+		else vel.linear.y = 0.0;
 		
 		//ROS_ERROR("SummitXLPad::padCallback: Passed linear axes");
 		
@@ -436,13 +445,13 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		
 		//ROS_ERROR("SummitXLPad::padCallback: Passed HOME BUTTON");
 		
-		// SPHERECAM
+		// PTZ
 		ptz.pan = ptz.tilt = ptz.zoom = 0.0;
 		ptz.relative = true;
 
-		if(pad_type_=="ps4" || pad_type_=="logitechf710")
+		if(ptz_control_by_axes_)
 		{
-			if (joy->axes[ptz_tilt_up_] == 1.0) {
+			if (joy->axes[ptz_tilt_up_] == -1.0) {
 				if(!bRegisteredDirectionalArrows[AXIS_PTZ_TILT_UP]){
 					 ptz.tilt = tilt_increment_;
 					 //ROS_INFO("SummitXLPad::padCallback: TILT UP");
@@ -452,7 +461,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			}else{
 				bRegisteredDirectionalArrows[AXIS_PTZ_TILT_UP] = false;
 			}
-			if (joy->axes[ptz_tilt_down_] == -1.0) {
+			if (joy->axes[ptz_tilt_down_] == 1.0) {
 				if(!bRegisteredDirectionalArrows[AXIS_PTZ_TILT_DOWN]){
 					ptz.tilt = -tilt_increment_;
 					//ROS_INFO("SummitXLPad::padCallback: TILT DOWN");
@@ -462,8 +471,8 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			}else{
 				bRegisteredDirectionalArrows[AXIS_PTZ_TILT_DOWN] = false;
 			}
-			if (joy->axes[ptz_pan_left_] == 1.0) {
-				if(!bRegisteredDirectionalArrows[AXIS_PTZ_PAN_LEFT]){
+			if (joy->axes[ptz_pan_left_] == -1.0) {
+				if(!bRegisteredDirectionalArrows[AXIS_PTZ_PAN_LEFT]){				
 					ptz.pan = -pan_increment_;
 					//ROS_INFO("SummitXLPad::padCallback: PAN LEFT");
 					bRegisteredDirectionalArrows[AXIS_PTZ_PAN_LEFT] = true;
@@ -472,7 +481,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			}else{
 				bRegisteredDirectionalArrows[AXIS_PTZ_PAN_LEFT] = false;
 			}
-			if (joy->axes[ptz_pan_right_] == -1.0) {
+			if (joy->axes[ptz_pan_right_] == 1.0) {
 				if(!bRegisteredDirectionalArrows[AXIS_PTZ_PAN_RIGHT]){
 					ptz.pan = pan_increment_;
 					//ROS_INFO("SummitXLPad::padCallback: PAN RIGHT");
@@ -533,7 +542,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}
 
 		// ZOOM Settings (RELATIVE)
-		if (joy->buttons[ptz_zoom_wide_] == 1) {			
+		if (joy->buttons[ptz_zoom_wide_] == 1) {	
 			if(!bRegisteredButtonEvent[ptz_zoom_wide_]){
 				ptz.zoom = -zoom_increment_;
 				//ROS_INFO("SummitXLPad::padCallback: ZOOM WIDe");

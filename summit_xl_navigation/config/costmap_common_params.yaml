@@ -1,16 +1,13 @@
-obstacle_range: 8
-raytrace_range: 30.0
+obstacle_range: 2.5
+raytrace_range: 3.0
 
-footprint: [[0.45, -0.40], [0.45, 0.4], [-0.45,0.4], [-0.45, -0.4]]
+footprint: [[0.35, -0.3], [0.35, 0.3], [-0.35,0.3], [-0.35, -0.3]]
 
 publish_frequency: 1.0
 
 inflation_layer:
-  inflation_radius: 0.7
+  inflation_radius: 0.5
 
 obstacle_layer:
-   observation_sources: merged_laser
-   merged_laser: {data_type: LaserScan, topic: /merged_scan, marking: true, clearing: true}
-   track_unknown_space: true
-   unkown_cost_value: 0.1
-
+  observation_sources: scan
+  scan: {sensor_frame: summit_xl_front_laser_link, data_type: LaserScan, topic: scan, marking: true, clearing: true}

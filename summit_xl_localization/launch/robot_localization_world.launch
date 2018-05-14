@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <launch>
+	
+	  <arg name="prefix" default="summit_xl_"/>
+	 <arg name="global_frame" default="world_frame"/>
 
  <!-- ekf_loc2 fuses all surces of data (imu, odometry and gps odom). Publish the tf from world frame to base_footprintt -->
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc_world" clear_params="true" output="screen">
@@ -11,20 +14,20 @@
 
       <param name="two_d_mode" value="true"/>
 
-      <param name="odom_frame" value="odom"/>
-      <param name="base_link_frame" value="base_footprint"/>
+      <param name="odom_frame" value="$(arg prefix)odom"/>
+      <param name="base_link_frame" value="$(arg prefix)base_footprint"/>
       <!-- if robot_localization is performing local fusing, ie is calculating the odometry, :
         world_frame and map_frame MUST BE set to the same frame
       -->
-      <param name="map_frame" value="world"/>
-      <param name="world_frame" value="world"/>
+      <param name="map_frame" value="$(arg global_frame)"/>
+      <param name="world_frame" value="$(arg global_frame)"/>
 
       <!-- use the previously fused odometry, which integrates already the robot odometry and imu -->
-      <param name="odom0" value="/odometry/filtered_odom"/>
+      <param name="odom0" value="odometry/filtered_odom"/>
       <!--<param name="imu0" value="/imu_data"/> -->     
       
       <!-- use the "gps odom" from navsat_transform_node, which has the position in the odom frame -->
-      <param name="odom1" value="/odometry/gps"/>
+      <param name="odom1" value="odometry/gps"/>
 
 
       <!-- from odom, use all values, except for acceleration -->

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="prefix" default="summit_xl_"/>
+
+    <arg name="marker_size" default="12" />
+    <arg name="max_new_marker_error" default="0.08" />
+    <arg name="max_track_error" default="0.2" />
+    <arg name="cam_image_topic" default="front_rgbd_camera/rgb/image_raw" />
+    <arg name="cam_info_topic" default="front_rgbd_camera/rgb/camera_info" />
+    <arg name="output_frame" default="$(arg prefix)front_rgbd_camera_rgb_optical_frame" />
+
+    <node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen">
+        <param name="marker_size" type="double" value="$(arg marker_size)"/>
+        <param name="max_new_marker_error" type="double" value="$(arg max_new_marker_error)"/>
+        <param name="max_track_error" type="double" value="$(arg max_track_error)"/>
+        <param name="output_frame" type="string" value="$(arg output_frame)"/>
+        <remap from="camera_image" to="$(arg cam_image_topic)"/>
+        <remap from="camera_info" to="$(arg cam_info_topic)"/>
+    </node>
+
+
+    <node name="marker2contact" pkg="tf" type="static_transform_publisher" args="-0.377 0 0 0 0 0 $(arg prefix)docking_station_marker $(arg prefix)docking_station_contact 100" />
+
+    <node name="tf_robotnik_pose_filter" pkg="robotnik_pose_filter" type="tf_pose_filter_node" respawn="false" output="screen">
+        <param name="filter_position_sensitivity"       type="double" value="0.8" />
+        <param name="filter_orientation_sensitivity"    type="double" value="0.2" />
+        <param name="source_frame" type="string" value="$(arg output_frame)" />
+        <param name="target_frame" type="string" value="ar_marker_1" />
+        <param name="filtered_source_frame" type="string" value="$(arg prefix)odom" />
+        <param name="filtered_target_frame" type="string" value="$(arg prefix)docking_station_marker" />
+        <param name="two_d_mode" type="bool" value="false" />
+        <rosparam param="apply_transform">[0.0, 0.0, 0.0, 0.0, 1.5707, 1.5705]</rosparam>
+        <!-- if not set, does not apply a transform. transform is xyz-rpy, 6 parameters. remember that rotation is applied in reverse order (ypr) -->
+    </node>
+
+
+    <node name="docker" pkg="robotnik_docker" type="omni_docker_node" respawn="false" output="screen">
+        <param name="robot_base_frame" type="string" value="$(arg prefix)base_footprint" />
+        
+        <param name="fixed_frame" type="string" value="$(arg prefix)odom" />
+        
+        <param name="omni" type="bool" value="true" />
+
+        <param name="gain_linear_velocity_x" value="1.0" />
+        <param name="gain_linear_velocity_y" value="1.0" />
+        <param name="gain_angular_velocity_z" value="1.0" />
+        
+        <param name="maximum_linear_velocity_x" value="0.1" />
+        <param name="maximum_linear_velocity_y" value="0.1" />
+        <param name="maximum_angular_velocity_z" value="0.35" />
+        
+        <param name="threshold_linear_velocity_x" value="0.002" />
+        <param name="threshold_linear_velocity_y" value="0.002" />
+        <param name="threshold_angular_velocity_z" value="0.05" />
+
+        <param name="initial_maximum_distance_x" value="2.5" />
+        <param name="initial_minimum_distance_x" value="0.1" />
+
+        <param name="initial_maximum_arc" value="0.5" />
+        <param name="initial_maximum_yaw" value="0.5" />
+        
+        <param name="check_robot_is_moving_to_goal" value="true" />
+        <param name="robot_moving_to_goal_delay" value="3" />
+        <param name="robot_moving_to_goal_averaging_time" value="0.5" />
+
+        <!-- remap from="~cmd_vel" to="cmd_vel" / -->
+    </node>
+
+</launch>
+

@@ -4,7 +4,7 @@
   
 	<xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
 
-  <xacro:macro name="summit_xl_hl_base" params="name publish_bf hq">
+  <xacro:macro name="summit_xl_hl_base" params="prefix publish_bf hq">
 
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
@@ -12,7 +12,7 @@
 
   <!-- BASE FOOTPRINT -->
   <xacro:if value="${publish_bf}">
-    <link name="base_footprint">
+    <link name="${prefix}base_footprint">
       <visual>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
@@ -21,15 +21,15 @@
       </visual>
     </link>
 
-    <joint name="base_footprint_joint" type="fixed">
+    <joint name="${prefix}base_footprint_joint" type="fixed">
       <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" /> <!-- ${wheel_radius} property must be defined inside wheel description -->
-      <parent link="base_footprint"/>
-      <child link="base_link" />
+      <parent link="${prefix}base_footprint"/>
+      <child link="${prefix}base_link" />
     </joint>    
   </xacro:if>
 
   <!-- BASE_LINK -->
-  <link name="base_link">
+  <link name="${prefix}base_link">
     <inertial>
       <mass value="25.0" />
       <origin xyz="0 0 0" />

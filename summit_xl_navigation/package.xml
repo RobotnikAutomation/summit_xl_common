@@ -8,18 +8,22 @@
   <url type="repository">https://github.com/RobotnikAutomation/summit_xl_common.git</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_common/issues</url>
 
-  <author email="rguzman@robotnik.es">Roberto Guzmán</author>  
+  <author email="rguzman@robotnik.es">Roberto Guzmán</author>
 
-  <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
- 
+  <maintainer email="asoriano@robotnik.es">Angel Soriano</maintainer>
+  <maintainer email="avillena@robotnik.es">Álvaro Villena</maintainer>
+  <maintainer email="dredo@robotnik.es">David Redó</maintainer>
+  <maintainer email="aarnal@robotnik.es">Alejandro Arnal</maintainer>
+  <maintainer email="mbosch@robotnik.es">Marc Bosch</maintainer>
+  <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
+
   <license>BSD</license>
-  
+
   <buildtool_depend>catkin</buildtool_depend>
-  
+
   <run_depend>navigation</run_depend>
   <run_depend>gmapping</run_depend>
-  
+  <run_depend>teb_local_planner</run_depend>
+  <run_depend>costmap_prohibition_layer</run_depend>
+
 </package>
-
-
-

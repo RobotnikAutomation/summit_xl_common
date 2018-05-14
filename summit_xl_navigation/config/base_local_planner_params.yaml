@@ -35,7 +35,7 @@ TrajectoryPlannerROS:   # params info in http://wiki.ros.org/base_local_planner
   heading_scoring_timestep: 0.1  # default: 0.1
   dwa: false  # default: false
   publish_cost_grid_pc: false
-  global_frame_id: odom
+  global_frame_id: summit_xl_odom
   
   # Oscillation Prevention Parameters
   oscillation_reset_dist: 0.05

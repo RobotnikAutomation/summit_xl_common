@@ -25,7 +25,6 @@
 		output="screen" args="
 		  robotnik_base_control
 		  joint_read_state_controller 
-		  --shutdown-timeout 1
 		  ">
 	  </node>
 	  
@@ -41,7 +40,6 @@
 	  <node if="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
 		output="screen" args="		  
 		  joint_read_state_controller 
-		  --shutdown-timeout 1
 		  ">
 	  </node>
 	  <!-- load the diff ros controllers -->
@@ -49,7 +47,6 @@
 		output="screen" args="	
 		  robotnik_base_control
 		  joint_read_state_controller 
-		  --shutdown-timeout 1
 		  ">
 	  </node>	  
 

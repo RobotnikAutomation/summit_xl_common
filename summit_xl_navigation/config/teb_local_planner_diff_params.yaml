@@ -3,9 +3,9 @@ base_local_planner: teb_local_planner/TebLocalPlannerROS
 TebLocalPlannerROS:
   odom_topic: odom
   map_frame: map
-     
+
   # Trajectory
-   
+
   teb_autosize: True
   dt_ref: 0.3
   dt_hysteresis: 0.1
@@ -22,10 +22,10 @@ TebLocalPlannerROS:
   shrink_horizon_min_duration: 10
 
   # Robot
-          
+
   max_vel_x: 1.2
   max_vel_x_backwards: 0.15
-  max_vel_theta: 0.2
+  max_vel_theta: 0.75
   max_vel_y: 0 # not used, is differential
   acc_lim_y: 0 # not used, is differential
   acc_lim_x: 0.2
@@ -37,27 +37,27 @@ TebLocalPlannerROS:
     #type: "circular"
     #radius: 0.5 # for type "circular"
     type: "line"
-    line_start: [-0.35, 0.0] # for type "line"
-    line_end: [0.35, 0.0] # for type "line"
+    line_start: [-0.0545, 0.0] # for type "line"
+    line_end: [0.0545, 0.0] # for type "line"
     #front_offset: 0.2 # for type "two_circles"
     #front_radius: 0.2 # for type "two_circles"
     #rear_offset: 0.2 # for type "two_circles"
     #rear_radius: 0.2 # for type "two_circles"
     #vertices: [ [0.25, -0.05], [0.18, -0.05], [0.18, -0.18], [-0.19, -0.18], [-0.25, 0], [-0.19, 0.18], [0.18, 0.18], [0.18, 0.05], [0.25, 0.05] ] # for type "polygon"
- 
+
   # GoalTolerance
-     
+
   xy_goal_tolerance: 0.5
-  yaw_goal_tolerance: 3
-  free_goal_vel: True #False
-     
+  yaw_goal_tolerance: 0.5
+  free_goal_vel: False #False
+
   # Obstacles
-     
-  min_obstacle_dist: 0.65 # minimum distance to obstacle: it depends on the footprint_model
+
+  min_obstacle_dist: 0.435 # minimum distance to obstacle: it depends on the footprint_model
   include_costmap_obstacles: True # use the local costmap
   costmap_obstacles_behind_robot_dist: 1.0 # distance at which obstacles behind the robot are taken into account
   obstacle_poses_affected: 30 # unused if legacy_obstacle_association is false
-  inflation_dist: 0.0 # greater than min_obstacle_dist to take effect
+  inflation_dist: 0.7 # greater than min_obstacle_dist to take effect
   legacy_obstacle_association: false
   obstacle_association_force_inclusion_factor: 1.5 # the obstacles that will be taken into account are those closer than min_obstacle_dist*factor, if legacy is false
   obstacle_association_cutoff_factor: 5.0 # the obstacles that are further than min_obstacle_dist * factor will not be taken into account, if legacy is false
@@ -70,9 +70,9 @@ TebLocalPlannerROS:
   costmap_converter_rate: 5
   # costmap_converter/CostmapToLinesDBSRANSAC:
   #    cluster_max_distance: 0.4
- 
+
   # Optimization
-     
+
   no_inner_iterations: 5
   no_outer_iterations: 4
   optimization_activate: True # optimize
@@ -89,13 +89,13 @@ TebLocalPlannerROS:
   weight_kinematics_turning_radius: 1 # prefer turns that respect the min_turning_radius, not used if differential (min_turning_radius = 0)
   weight_optimaltime: 10 # prefer trajectories with less transition time
   weight_obstacle: 50 # prefer trajectories that respect the min_obstacle_dist
-  weight_inflation: 0.1 # prefer trajectories that respect the inflation of the obstacles
+  weight_inflation: 1 # prefer trajectories that respect the inflation of the obstacles
   #weight_dynamic_obstacle: 10 # not in use yet
   weight_viapoint: 1 # prefer trajectories that respect the viapoints in the global path
   weight_adapt_factor: 2 # factor to multiply some weights (currently only weight_obstacle) at each iteration (gives better results than a huge value for the weight)
- 
+
   # Homotopy Class Planner
- 
+
   enable_homotopy_class_planning: False # currently not used
   simple_exploration: False
   enable_multithreading: True
@@ -103,7 +103,7 @@ TebLocalPlannerROS:
   selection_cost_hysteresis: 1.0
   selection_obst_cost_scale: 4.0
   selection_viapoint_cost_scale: 1.0
-  selection_alternative_time_cost: False 
+  selection_alternative_time_cost: False
   roadmap_graph_no_samples: 15
   roadmap_graph_area_width: 6
   h_signature_prescaler: 1.0
@@ -113,5 +113,3 @@ TebLocalPlannerROS:
   roadmap_graph_area_width: 5
   obstacle_keypoint_offset: 0.1
   visualize_hc_graph: False
-
-

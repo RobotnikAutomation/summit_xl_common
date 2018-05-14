@@ -18,7 +18,7 @@
 	<rosparam file="$(find summit_xl_navigation)/config/local_costmap_params.yaml" command="load" />
 	<rosparam file="$(find summit_xl_navigation)/config/global_costmap_params_map.yaml" command="load" />
 	<rosparam if="$(arg omni)" file="$(find summit_xl_navigation)/config/teb_local_planner_omni_params.yaml" command="load" />
-	<rosparam unless="$(arg omni)" file="$(find summit_xl_navigation)/config/teb_local_planner_params.yaml" command="load" />
+	<rosparam unless="$(arg omni)" file="$(find summit_xl_navigation)/config/teb_local_planner_diff_params.yaml" command="load" />
 	<!-- reset frame_id parameters using user input data -->
 	<param name="global_costmap/obstacle_layer/scan/sensor_frame" value="$(arg prefix)front_laser_link"/>
 	<param name="local_costmap/obstacle_layer/scan/sensor_frame" value="$(arg prefix)front_laser_link"/>

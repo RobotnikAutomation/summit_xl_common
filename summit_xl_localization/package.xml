@@ -4,8 +4,13 @@
   <version>1.1.2</version>
   <description>The summit_xl_localization package</description>
 
-  <maintainer email="egambaro@robotnik.es">Elena Gambaro</maintainer>
-  <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
+  <maintainer email="asoriano@robotnik.es">Angel Soriano</maintainer>
+  <maintainer email="avillena@robotnik.es">Álvaro Villena</maintainer>
+  <maintainer email="dredo@robotnik.es">David Redó</maintainer>
+  <maintainer email="aarnal@robotnik.es">Alejandro Arnal</maintainer>
+  <maintainer email="mbosch@robotnik.es">Marc Bosch</maintainer>
+  <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
+
   <url type="website">http://ros.org/wiki/summit_xl_localization</url>
   <url type="repository">https://github.com/RobotnikAutomation/summit_xl_common.git</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_common/issues</url>

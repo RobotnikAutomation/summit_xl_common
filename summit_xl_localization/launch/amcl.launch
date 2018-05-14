@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <launch>
-	
+
 <arg name="prefix" default="summit_xl_"/>
 <arg name="x_init_pose" default="0"/>
 <arg name="y_init_pose" default="0"/>
 <arg name="z_init_pose" default="0"/>
 <arg name="scan_topic" default="front_laser/scan"/>
 <arg name="map_topic" default="map"/>
-<arg name="global_frame" default="$(arg prefix)map"/> 
-<arg name="odom_frame" default="$(arg prefix)odom"/> 
+<arg name="global_frame" default="$(arg prefix)map"/>
+<arg name="odom_frame" default="$(arg prefix)odom"/>
 <arg name="base_frame" default="$(arg prefix)base_footprint"/>
 <arg name="odom_model_type" default="diff"/> <!-- omni -->
-	  
+
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
   <remap from="scan" to="$(arg scan_topic)"/>
   <remap from="map" to="$(arg map_topic)"/>
-  
+
   <!-- Publish scans from best pose at a max of 10 Hz -->
   <param name="use_map_topic" value="false"/>
   <param name="odom_model_type" value="$(arg odom_model_type)"/>

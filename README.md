@@ -19,12 +19,8 @@ Common packages of the Summit XL: URDF description of the Summit XL, Summi XL St
 <br />
 <br />
 <br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+
+
 
 <h1>Packages</h1>
 

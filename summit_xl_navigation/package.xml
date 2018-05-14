@@ -19,5 +19,6 @@
   <run_depend>navigation</run_depend>
   <run_depend>gmapping</run_depend>
   <run_depend>teb_local_planner</run_depend>
+  <run_depend>costmap_prohibition_layer</run_depend>
 
 </package>

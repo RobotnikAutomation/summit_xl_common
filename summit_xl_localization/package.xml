@@ -33,6 +33,10 @@
   <build_depend>tf2_geometry_msgs</build_depend>
   <build_depend>robotnik_msgs</build_depend>
   <build_depend>mavros_msgs</build_depend>
+  <build_depend>gmapping</build_depend>
+  <build_depend>amcl</build_depend>
+  <build_depend>map_server</build_depend>
+
 
   <run_depend>roscpp</run_depend>
   <run_depend>std_msgs</run_depend>
@@ -50,6 +54,9 @@
   <run_depend>message_runtime</run_depend>
   <run_depend>robotnik_msgs</run_depend>
   <run_depend>mavros_msgs</run_depend>
+  <run_depend>gmapping</run_depend>
+  <run_depend>amcl</run_depend>
+  <run_depend>map_server</run_depend>
 
   <test_depend>rostest</test_depend>
   <test_depend>rosbag</test_depend>

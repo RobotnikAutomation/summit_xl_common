@@ -18,6 +18,9 @@ find_package(catkin REQUIRED COMPONENTS
   robotnik_msgs
   mavros_msgs
   robot_localization
+  gmapping
+  map_server
+  amcl
 )
 find_package(Eigen REQUIRED)
 

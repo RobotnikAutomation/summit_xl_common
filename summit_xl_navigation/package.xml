@@ -20,10 +20,12 @@
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>teb_local_planner</build_depend>
+  <build_depend>costmap_prohibition_layer</build_depend>
+  <build_depend>move_base</build_depend>
 
-  <run_depend>navigation</run_depend>
-  <run_depend>gmapping</run_depend>
   <run_depend>teb_local_planner</run_depend>
   <run_depend>costmap_prohibition_layer</run_depend>
+  <run_depend>move_base</run_depend>
 
 </package>

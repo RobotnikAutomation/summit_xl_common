@@ -2,6 +2,57 @@
 Changelog for package summit_xl_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* launch modified to work
+* merging with kinetic-multirobot-devel
+* updating mantainers
+* vrep model and scene updated
+* summit_xl_description: added new version
+* [summit_xl_description] odom topic changed to robotnik_base_control/odom
+* robots: added 170720 versions
+* [summit_xl_description]:launch files modified to work with new robot models
+* [summit_xl_description]:deleted obsolete launch files
+* description: new version 170421A
+* description: version 170725A
+* description: adding topic_prefix in xls urdf
+* description: increasing mass of XL Steel
+* description: using gazebo_planar_move plugin for the omnidrive configuration
+* description: adding prefix_topic for astra camera and 2d laser
+* description: add param scan_prefix to front_laser in summit_xl
+* description: adjusting z value of ptz camera
+* summit_xl_description: adding 170606A models
+* description: adding robot 170123A
+* description: updating steel model to the new configuration in Kinetic
+* added 170518A versiom of robot_description
+* description: new version 170421A - ptz
+* description: new default robots/urdfs
+* description: state_robot.launch param robot_model with new format (whole name/path starting from robots folder)
+* description: setting name of the xacro without prefix 'multi'
+* description: xacro for multi robot renamed as standard one
+* description: removing xacros not migrated to multi robot config
+* summit_xl_description:adding OUR arm support
+* [summit_xl_description]:prefix added to structure hokuyo urdf
+* default prefix updated
+* [summit_xl_description]:prefix added to launch file
+* [summit_xl_description]:client model added
+* xacro updated to multirobot
+* Merge branch 'kinetic-devel' into kinetic-multirobot-devel
+* Merge branch 'indigo-devel-rc' into kinetic-devel
+* Merge branch 'indigo-devel' into indigo-devel-rc
+* added summit_xl_multi.urdf.xacro
+* Merge branch 'indigo-devel-rc' into kinetic-devel
+* summit_xl_description: added robot_model environment variable
+* yaml,launch and xacro modified to multirobot
+* description: HLS omni modifications
+* updated robot models
+* Modifying models to work with several robots
+* removed camera from urdf model
+* added torque constant, probably not in use
+* set namespace of the ros_control plugin
+* summit_xl_description: updated urdf parameters for simulation
+* 1.0.10
+
 1.1.2 (2016-09-01)
 ------------------
 * fixed merge conflicts

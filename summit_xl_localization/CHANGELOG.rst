@@ -2,6 +2,28 @@
 Changelog for package summit_xl_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* localization: adding new dependencies with amcl, map_server & gmapping
+* merging with kinetic-multirobot-devel
+* updating mantainers
+* Add parameters to change navigation and localization mode
+* [summit_xl_localization] odom topic changed to robotnik_base_control/odom
+* localization: adding arg to amcl.launch to use either diff or omni model type
+* localization: updating map_saver.launch to save in home folder by default
+* localization: updating scritpt to save map in current folder
+* localization: tests scripts to print orientation values (odom,imu) as rpy
+* moving amcl,map_server from nav to loc pkg. Creating arguments for most of launch files
+* summit_xl_localization/navigation: changed topics and services to make work rl_utils
+* [summit_xl_localization]:prefix frame added to launch files and frames
+* Merge branch 'kinetic-devel' into kinetic-multirobot-devel
+* Merge branch 'indigo-devel-rc' into kinetic-devel
+* updated odom params for diff_drive_controller and ekf filter config
+* summit_xl_localization: adds script to use current gps position to call datum service
+* summit_xl_localization: adding extra info and fixes indentation
+* summit_xl_localization: added wait_for_datum param
+* 1.0.10
+
 1.1.2 (2016-09-01)
 ------------------
 * fixed merge conflicts

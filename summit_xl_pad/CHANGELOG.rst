@@ -2,6 +2,31 @@
 Changelog for package summit_xl_pad
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* merging with kinetic-multirobot-devel
+* updating mantainers
+* New value of scale_angular
+* prevent to set linear y speed if not in omni mode
+* pad: working with private node handler for params. Few changes in ptz control
+* pad: parametrizing launch file and removing different versions. New config for ps4
+* summit_xl_pad: Changing topic /summit_xl_controller/set_mode to /set_mode
+* Merge branch 'kinetic-devel' into kinetic-multirobot-devel
+* Merge branch 'indigo-devel-rc' into kinetic-devel
+* Merge branch 'indigo-devel' into indigo-devel-rc
+* Merge branch 'indigo-devel-rc' into kinetic-devel
+* corrected ptz buttons for ps4 gamepad
+* yaml,launch and xacro modified to multirobot
+* port paramater to use /dev/PCAN_ROB
+* pad: changes for multi robot
+* updated logitech button config
+* ps4 by default
+* Modified configuration file for xbox360 pad
+* Modified configuration file for xbox360 pad
+* Xbox360 controller in progress
+* File for testing xbox controller
+* MOD: Added logitech flag for f710 logitech pads
+
 1.1.2 (2016-09-01)
 ------------------
 * fixed merge conflicts

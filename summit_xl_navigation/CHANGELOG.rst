@@ -2,6 +2,48 @@
 Changelog for package summit_xl_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* navigation: adding dependencies with move_base & costmap_prohibition_layer
+* merging with kinetic-multirobot-devel
+* updating mantainers
+* Add Steel teb parameters file
+* Update teb config and remove unused files
+* Add costmap_prohibition_layer dependency
+* Add parameters to change navigation and localization mode
+* Added teb_local_planner and costmap_prohibition_layer as Required Components
+* [summit_xl_navigation] odom topic changed to robotnik_base_control/odom
+* Add missing dependencies
+* removed maps subfolder of CMakeLists
+* navigation: added docking launch for steel
+* moving amcl,map_server from nav to loc pkg. Creating arguments for most of launch files
+* navigation: adding default arguments to slam_gmapping launch file
+* move_base_nomap modified to parametrize the params of yaml
+* deleted move_base.launch
+* [summit_xl_navigation]:params of move_base yaml parametrized to work with multirobot
+* summit_xl_localization/navigation: changed topics and services to make work rl_utils
+* [summit_xl_navigation]:added prefix to launch file
+* [summit_xl_navigation]: frame updated with prefix
+* [summit_xl_navigation]:prefix frame added to launch files and frames
+* xacro updated to multirobot
+* Merge branch 'kinetic-devel' into kinetic-multirobot-devel
+* Merge branch 'indigo-devel-rc' into kinetic-devel
+* Merge branch 'indigo-devel' into indigo-devel-rc
+* Merge branch 'indigo-devel-rc' into kinetic-devel
+* summit_xl_navigation map model added
+* yaml,launch and xacro modified to multirobot
+* summit_xl_navigation: corrected docking launch files
+* summit_xl_navigation: added docking launch files
+* updated navigation files
+* corrected map and laser link according to new name in robotnik_sensors
+* summit_xl_navigation: fixes map publish_frequency
+* summit_xl_navigation: adds configuration file for teb_local_planner in holonomic configuration
+* summit_xl_navigation: updating package.xml
+* summit_xl_navigation: using teb_local_planner as default planner
+* summit_xl_navigation: fix inflation_radius
+* Adds rbk_warehouse map
+* 1.0.10
+
 1.1.2 (2016-09-01)
 ------------------
 * fixed merge conflicts

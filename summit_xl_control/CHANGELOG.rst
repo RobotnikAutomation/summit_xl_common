@@ -2,6 +2,32 @@
 Changelog for package summit_xl_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* merging with kinetic-multirobot-devel
+* control: updating mantainers
+* Solved depreciation warnings
+* [summit_xl_control] enable_odom_tf param moved before the load of the controller
+* [summit_xl_control] controllers of sim and real robot
+* Add missing dependencies
+* control: added topic docker/cmd_vel to twist_mux
+* control: enabling setting params for joint names based on robot_id
+* moving amcl,map_server from nav to loc pkg. Creating arguments for most of launch files
+* summit_xl_control: cleaning and parametrizing configuration files to support skid & omni configurations for XL and XL Steel
+* summit_xl_control::prefix added to frames
+* Merge branch 'kinetic-devel' into kinetic-multirobot-devel
+* Merge branch 'indigo-devel-rc' into kinetic-devel
+* summit_xl_control: corrected wheel diameter
+* cmd_watchdog param to 0.2 by default (for logitech)
+* added summit_xl_controller/SummitXLController ros control cfg file
+* updated odom params for diff_drive_controller and ekf filter config
+* changed covariance values in diff_drive_controller
+* updated wheel odometry wheelbase param
+* removed robot_state_publisher, check sim bringup launch
+* changed e-stop topic name to correct one
+* added launch to control each wheel independently
+* updated summit_xl_control to use the diff_drive_controller
+
 1.1.1 (2016-08-24)
 ------------------
 

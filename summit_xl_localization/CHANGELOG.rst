@@ -2,8 +2,8 @@
 Changelog for package summit_xl_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.3 (2018-05-15)
+------------------
 * localization: adding new dependencies with amcl, map_server & gmapping
 * merging with kinetic-multirobot-devel
 * updating mantainers

@@ -2,8 +2,8 @@
 Changelog for package summit_xl_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.3 (2018-05-15)
+------------------
 * navigation: adding dependencies with move_base & costmap_prohibition_layer
 * merging with kinetic-multirobot-devel
 * updating mantainers

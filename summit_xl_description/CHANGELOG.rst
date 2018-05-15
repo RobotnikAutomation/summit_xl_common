@@ -2,8 +2,8 @@
 Changelog for package summit_xl_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.3 (2018-05-15)
+------------------
 * launch modified to work
 * merging with kinetic-multirobot-devel
 * updating mantainers

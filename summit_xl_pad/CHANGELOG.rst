@@ -2,8 +2,8 @@
 Changelog for package summit_xl_pad
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.3 (2018-05-15)
+------------------
 * merging with kinetic-multirobot-devel
 * updating mantainers
 * New value of scale_angular

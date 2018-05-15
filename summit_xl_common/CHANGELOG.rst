@@ -2,8 +2,8 @@
 Changelog for package summit_xl_common
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.3 (2018-05-15)
+------------------
 * merging with kinetic-multirobot-devel
 * Merge branch 'kinetic-devel' into kinetic-multirobot-devel
 * Merge branch 'indigo-devel-rc' into kinetic-devel

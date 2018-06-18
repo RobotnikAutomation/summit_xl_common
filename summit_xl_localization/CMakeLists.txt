@@ -87,6 +87,6 @@ install(
 )
 
 install(
-  DIRECTORY launch
+  DIRECTORY launch maps
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )

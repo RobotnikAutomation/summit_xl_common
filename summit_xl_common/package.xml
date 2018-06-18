@@ -26,6 +26,7 @@
   <run_depend>summit_xl_localization</run_depend>
   <run_depend>summit_xl_navigation</run_depend>
   <run_depend>summit_xl_pad</run_depend>
+  <run_depend>summit_xl_control</run_depend>
 
   <export>
     <metapackage/>

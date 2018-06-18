@@ -106,8 +106,6 @@ class SummitXLPad
 	int button_kinematic_mode_;
 	//! kinematic mode
 	int kinematic_mode_;
-	//! Service to modify the kinematic mode
-	ros::ServiceClient setKinematicMode;  
 	//! Name of the service to change the mode
 	std::string cmd_set_mode_;
 	//! button to start the homing service
@@ -243,10 +241,7 @@ SummitXLPad::SummitXLPad():
 	set_digital_outputs_client_ = nh_.serviceClient<robotnik_msgs::set_digital_output>(cmd_service_io_);
 	bOutput1 = bOutput2 = false;
 
-        // Request service to set kinematic mode 
-	setKinematicMode = nh_.serviceClient<robotnik_msgs::set_mode>(cmd_set_mode_);
-
-        // Request service to start homing
+    // Request service to start homing
 	doHome = nh_.serviceClient<robotnik_msgs::home>(cmd_home_);
 
 	// Diagnostics
@@ -571,10 +566,6 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 				kinematic_mode_ += 1;
 				if (kinematic_mode_ > 2) kinematic_mode_ = 1;
  				ROS_INFO("SummitXLJoy::joyCallback: Kinematic Mode %d ", kinematic_mode_);
-				// Call service 
-				robotnik_msgs::set_mode set_mode_srv;
-				set_mode_srv.request.mode = kinematic_mode_;
-				setKinematicMode.call( set_mode_srv );
 				bRegisteredButtonEvent[button_kinematic_mode_] = true;
 			}
 		}else{

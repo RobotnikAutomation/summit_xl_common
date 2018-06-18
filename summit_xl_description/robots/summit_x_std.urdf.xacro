@@ -71,9 +71,9 @@
 		</xacro:sensor_axis>
 		
 	    <!-- RGBD -->
-	    <xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)upper_base_link" prefix_topic="front_rgbd_camera">
+	    <!--xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)upper_base_link" prefix_topic="front_rgbd_camera">
 			<origin xyz="0.13 0.0 0.1" rpy="0 0 0"/> 
-		</xacro:sensor_orbbec_astra> 
+		</xacro:sensor_orbbec_astra--> 
 	    <!-- GPS -->
 	    <xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)upper_base_link">
 			<origin xyz="-0.32 0.15 0.175" rpy="0 0 0"/>

@@ -2,6 +2,7 @@
 <launch>
   
   <arg name="prefix" default="summit_xl_"/>
+  <arg name="use_joint_state_publisher" default="false"/>
   
   <arg name="robot_model"  default="summit_xl_std.urdf.xacro"  doc="Different robot versions: ('')"/>
   
@@ -10,7 +11,7 @@
   <param name="robot_description" command="$(arg urdf_file)" />
 
   <!-- send fake joint values -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+  <node if="$(arg use_joint_state_publisher)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
     <param name="use_gui" value="TRUE"/>
   </node>
 

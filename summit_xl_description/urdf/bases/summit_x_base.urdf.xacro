@@ -89,6 +89,17 @@
 		<origin rpy="0 0 0" xyz="0.261 0 -0.038"/>
 		<axis xyz="0 0 1"/>
 	</joint>
+	
+	<!-- auxiliar joint that pushes the 'X' -->
+	<link name="${prefix}aux_upper_base_link">   
+	</link>
+	<joint name="${prefix}aux_upper_base_joint" type="prismatic">
+		<parent link="${prefix}base_link"/>
+		<child link="${prefix}aux_upper_base_link"/>
+		<limit effort="100000.0" velocity="1000.0" lower="0.0" upper="0.5"/> <!-- lower="0.1" upper="0.5" -->
+		<origin rpy="0 ${PI/2} 0" xyz="-0.261 -0.15 0.0"/>
+		<axis xyz="0 0 1"/>
+	</joint>
 
 	<transmission name="${prefix}upper_base_joint_trans">
 		<type>transmission_interface/SimpleTransmission</type>
@@ -99,7 +110,15 @@
 		  <mechanicalReduction>1</mechanicalReduction>
 		 </actuator>
 	</transmission>
-
+	<transmission name="${prefix}aux_upper_base_joint_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="${prefix}aux_upper_base_joint">
+		  <hardwareInterface>EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="${prefix}aux_upper_base_motor">
+		  <mechanicalReduction>1</mechanicalReduction>
+		 </actuator>
+	</transmission>
 
   </xacro:macro>
 </robot>

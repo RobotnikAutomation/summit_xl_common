@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <!-- skid, omni, steel_skid, steel_omni, diffdrive -->
+  <!-- skid, omni, steel_skid, steel_omni, diffdrive,x_omni -->
   <!-- diffdrive has been tested only in simulation -->
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
   <arg name="ros_planar_move_plugin" default="false"/>
@@ -17,6 +17,8 @@
 	  <param name="robotnik_base_control/joint/back_right_wheel_joint/name" value="$(arg prefix)back_right_wheel_joint"/>
 	  <param name="robotnik_base_control/joint/front_right_wheel_joint/name" value="$(arg prefix)front_right_wheel_joint"/>
 	  <param name="robotnik_base_control/joint/front_left_wheel_joint/name" value="$(arg prefix)front_left_wheel_joint"/>
+	  <param if="$(eval kinematics == 'x_omni')" name="robotnik_base_control/joint/aux_upper_base_joint/name" value="$(arg prefix)aux_upper_base_joint"/>
+		<param if="$(eval kinematics == 'x_omni')" name="robotnik_base_control/joint/upper_base_joint/name" value="$(arg prefix)upper_base_joint"/>
 	  <param name="robotnik_base_control/odom_frame" value="$(arg prefix)odom"/>
 	  <param name="robotnik_base_control/robot_base_frame" value="$(arg prefix)base_footprint"/>
 	  

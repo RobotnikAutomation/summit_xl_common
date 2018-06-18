@@ -1,0 +1,66 @@
+joint_blw_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: summit_x_back_left_wheel_joint
+joint_brw_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: summit_x_back_right_wheel_joint
+joint_frw_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: summit_x_front_right_wheel_joint
+joint_flw_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: summit_x_front_left_wheel_joint
+joint_aux_upper_position_controller:
+  type: position_controllers/JointPositionController
+  joint: summit_x_aux_upper_joint
+  
+robotnik_base_control:
+  type: summit_x_controller/SummitXController
+  joint:
+    front_right_wheel_joint:
+      name: summit_x_front_right_wheel_joint
+      max_speed: 27.27 # rad/s
+    front_left_wheel_joint:
+      name: summit_x_front_left_wheel_joint
+      max_speed: 27.27 # rad/s
+    back_right_wheel_joint:
+      name: summit_x_back_right_wheel_joint
+      max_speed: 27.27 # rad/s
+    back_left_wheel_joint:
+      name: summit_x_back_left_wheel_joint
+      max_speed: 27.27 # rad/s
+    upper_base_joint:
+      name: summit_x_upper_base_joint
+      max_position: 0.1 # meters
+    aux_upper_base_joint:
+      name: summit_x_aux_upper_base_joint
+      max_position: 0.1 # rad/s
+  linear_speed_limit: 1.5 # m/s
+  linear_acceleration_limit: 3 # m/s^2
+  angular_speed_limit: 3 # rad/s
+  angular_acceleration_limit: 3 # rad/s^2
+  odom_frame: summit_x_odom
+  robot_base_frame: summit_x_base_footprint
+  odom_broadcast_tf: true
+  odom_topic: 'robotnik_base_control/odom'
+  wheel_base: 0.445
+  track_width: 0.415
+  wheel_diameter: 0.25
+  cmd_watchdog_duration: 0.2
+  imu_watchdog_duration: 0.1
+  imu_topic: imu/data
+  odom_publish_frequency: 100
+  cmd_vel        : 'robotnik_base_control/cmd_vel'
+  kinematic_mode : 'omni'
+  motion_odometry: true
+  in_motion_timer: 2.0
+  linear_axis_relation: 3000.0
+  scissor_hypotenuse: 0.571 # (m)
+  scissor_default_height: 0.077 # (m)
+
+joint_read_state_controller:
+  type: joint_state_controller/JointStateController 
+  publish_rate: 100.0
+
+
+

@@ -9,6 +9,7 @@ scale_angular: 3
 scale_linear_z: 20.0 
 button_speed_up: 3
 button_speed_down: 1
+button_bumber_override: 4
 button_dead_man: 5
 button_output_1: 9
 button_output_2: 10

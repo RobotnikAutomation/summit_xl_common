@@ -41,6 +41,7 @@
 #include <unistd.h>
 #include <robotnik_msgs/set_mode.h>
 #include <robotnik_msgs/set_digital_output.h>
+#include <std_srvs/SetBool.h>
 #include <robotnik_msgs/ptz.h>
 #include <robotnik_msgs/home.h>
 #include <diagnostic_updater/diagnostic_updater.h>
@@ -54,6 +55,8 @@
 #define DEFAULT_SCALE_LINEAR		1.0
 #define DEFAULT_SCALE_ANGULAR		2.0
 #define DEFAULT_SCALE_LINEAR_Z      1.0 
+
+#define ITERATIONS_WRITE_MODBUS		2
 
 //Used only with ps4
 #define AXIS_PTZ_TILT_UP  0
@@ -77,9 +80,12 @@ class SummitXLPad
 
 	private:
 	void padCallback(const sensor_msgs::Joy::ConstPtr& joy);
+	int setBumperOverride(bool value);
+	int setManualRelease(bool value);
 	ros::NodeHandle nh_;
 	ros::NodeHandle pnh_;
 
+	int manual_release_true_number_, manual_release_false_number_, bumper_override_false_number_, bumper_override_true_number_;
 	int linear_x_, linear_y_, linear_z_, angular_;
 	double l_scale_, a_scale_, l_scale_z_; 
 	//! It will publish into command velocity (for the robot) and the ptz_state (for the pantilt)
@@ -96,7 +102,7 @@ class SummitXLPad
 	//! Pad type
 	std::string pad_type_;
 	//! Number of the DEADMAN button
-	int dead_man_button_;
+	int dead_man_button_, bumper_override_button_;
 	//! Number of the button for increase or decrease the speed max of the joystick	
 	int speed_up_button_, speed_down_button_;
 	int button_output_1_, button_output_2_;
@@ -106,6 +112,8 @@ class SummitXLPad
 	int button_kinematic_mode_;
 	//! kinematic mode
 	int kinematic_mode_;
+	//! Service to modify the kinematic mode
+	ros::ServiceClient setKinematicMode;  
 	//! Name of the service to change the mode
 	std::string cmd_set_mode_;
 	//! button to start the homing service
@@ -118,7 +126,9 @@ class SummitXLPad
 	int ptz_tilt_up_, ptz_tilt_down_, ptz_pan_right_, ptz_pan_left_;
 	int ptz_zoom_wide_, ptz_zoom_tele_;	
 	//! Service to modify the digital outputs
-	ros::ServiceClient set_digital_outputs_client_;  
+	ros::ServiceClient set_digital_outputs_client_; 
+	//! Service to safety module
+	ros::ServiceClient  set_manual_release_client_, set_bumper_override_client_; 
 	//! Number of buttons of the joystick
 	int num_of_buttons_;
 	//! Pointer to a vector for controlling the event when pushing the buttons
@@ -177,6 +187,7 @@ SummitXLPad::SummitXLPad():
 	pnh_.param("scale_linear_z", l_scale_z_, DEFAULT_SCALE_LINEAR_Z);
 	pnh_.param("cmd_topic_vel", cmd_topic_vel_, cmd_topic_vel_);
 	pnh_.param("button_dead_man", dead_man_button_, dead_man_button_);
+	pnh_.param("button_bumber_override", bumper_override_button_, bumper_override_button_);
 	pnh_.param("button_speed_up", speed_up_button_, speed_up_button_);  //4 Thrustmaster
 	pnh_.param("button_speed_down", speed_down_button_, speed_down_button_); //5 Thrustmaster
 	pnh_.param<std::string>("joystick_dead_zone", joystick_dead_zone_, "true");
@@ -239,9 +250,19 @@ SummitXLPad::SummitXLPad():
 	
  	// Request service to activate / deactivate digital I/O
 	set_digital_outputs_client_ = nh_.serviceClient<robotnik_msgs::set_digital_output>(cmd_service_io_);
+	set_manual_release_client_ = nh_.serviceClient<std_srvs::SetBool>("safety_module/set_manual_release");
+	set_bumper_override_client_ = nh_.serviceClient<std_srvs::SetBool>("safety_module/set_bumper_override");
 	bOutput1 = bOutput2 = false;
 
-    // Request service to start homing
+        // Request service to set kinematic mode 
+	setKinematicMode = nh_.serviceClient<robotnik_msgs::set_mode>(cmd_set_mode_);
+
+	manual_release_false_number_  = 0;
+	manual_release_true_number_   = 0;
+	bumper_override_false_number_ = 0;
+	bumper_override_true_number_  = 0;
+
+        // Request service to start homing
 	doHome = nh_.serviceClient<robotnik_msgs::home>(cmd_home_);
 
 	// Diagnostics
@@ -295,6 +316,31 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
  	if (joy->buttons[dead_man_button_] == 1) {
 		//ROS_ERROR("SummitXLPad::padCallback: DEADMAN button %d", dead_man_button_);
 		//Set the current velocity level
+		
+		// Safety module management
+		manual_release_false_number_  = 0;
+		// MANUAL RELEASE -> 1
+		// write the signal X number of times
+		if(manual_release_true_number_ < ITERATIONS_WRITE_MODBUS){
+			setManualRelease(true);
+			manual_release_true_number_++;
+		}
+
+		// L1 pressed -> Bumper override 1
+		if(joy->buttons[bumper_override_button_] == 1){
+			if(bumper_override_true_number_ < ITERATIONS_WRITE_MODBUS){
+				setBumperOverride(true);
+				bumper_override_true_number_++;
+			}
+			bumper_override_false_number_ = 0;
+		}else{
+			if(bumper_override_false_number_ < ITERATIONS_WRITE_MODBUS){
+				setBumperOverride(false);
+				bumper_override_false_number_++;
+			}
+			bumper_override_true_number_ = 0;
+		}
+
 		if ( joy->buttons[speed_down_button_] == 1 ){
 
 			if(!bRegisteredButtonEvent[speed_down_button_]) 
@@ -566,6 +612,10 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 				kinematic_mode_ += 1;
 				if (kinematic_mode_ > 2) kinematic_mode_ = 1;
  				ROS_INFO("SummitXLJoy::joyCallback: Kinematic Mode %d ", kinematic_mode_);
+				// Call service 
+				robotnik_msgs::set_mode set_mode_srv;
+				set_mode_srv.request.mode = kinematic_mode_;
+				setKinematicMode.call( set_mode_srv );
 				bRegisteredButtonEvent[button_kinematic_mode_] = true;
 			}
 		}else{
@@ -576,6 +626,23 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 	}
    	else {
+		
+		// Safety module management
+		// MANUAL RELEASE -> 0
+		if(manual_release_false_number_ < ITERATIONS_WRITE_MODBUS){
+			setManualRelease(false);
+			manual_release_false_number_++;
+		}
+		
+		if(bumper_override_false_number_ < ITERATIONS_WRITE_MODBUS){
+			setBumperOverride(false);
+			bumper_override_false_number_++;
+		}
+
+		manual_release_true_number_ = 0;
+		bumper_override_true_number_ = 0;
+		
+		
 		vel.angular.x = 0.0;	vel.angular.y = 0.0; vel.angular.z = 0.0;
 		vel.linear.x = 0.0; vel.linear.y = 0.0; vel.linear.z = 0.0;
 	}
@@ -603,6 +670,23 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}
 }
 
+int SummitXLPad::setManualRelease(bool value){
+	std_srvs::SetBool set_bool_msg;
+
+	set_bool_msg.request.data = value;
+	set_manual_release_client_.call(set_bool_msg);
+
+	return 0;
+} 
+
+int SummitXLPad::setBumperOverride(bool value){
+	std_srvs::SetBool set_bool_msg;
+
+	set_bool_msg.request.data = value;
+	set_bumper_override_client_.call(set_bool_msg);
+
+	return 0;
+}
 
 int main(int argc, char** argv)
 {

@@ -25,7 +25,7 @@
 		</node>
 
 
-		<node name="marker2contact" pkg="tf" type="static_transform_publisher" args="-0.38 0.0 0 0 0 0 $(arg prefix)docking_station_marker $(arg prefix)docking_station_contact 100" />
+		<node name="marker2contact" pkg="tf" type="static_transform_publisher" args="-0.370 0.0 0 0 0 0 $(arg prefix)docking_station_marker $(arg prefix)docking_station_contact 100" />
 
 		<node name="tf_robotnik_pose_filter" pkg="robotnik_pose_filter" type="tf_pose_filter_node" respawn="false" output="screen">
 			<param name="filter_position_sensitivity"       type="double" value="0.8" />
@@ -57,16 +57,21 @@
 			<param name="threshold_angular_velocity_z" value="0.05" />
 
 			<param name="initial_maximum_distance_x" value="2.5" />
-			<param name="initial_minimum_distance_x" value="0.2" />
+			<param name="initial_minimum_distance_x" value="0.6" />
 
-			<param name="initial_maximum_arc" value="0.7" />
-			<param name="initial_maximum_yaw" value="1" />
-			<param name="offset_for_heading_adjustment" value="0.5"/>
+			<param name="initial_maximum_arc" value="0.45" />
+			<param name="initial_maximum_yaw" value="0.55" />
+			<param name="offset_for_heading_adjustment" value="0.75"/>
 
 			<!-- remap from="~cmd_vel" to="cmd_vel" / -->
 			<param name="check_robot_is_moving_to_goal" value="true" />
 			<param name="robot_moving_to_goal_delay" value="3" />
-			<param name="robot_moving_to_goal_averaging_time" value="0.5" />
+			<param name="robot_moving_to_goal_averaging_time" value="0.6" />
+
+
+			<param name="goal_threshold_x" value="0.0125"/>
+			<param name="goal_threshold_y" value="0.02"/>
+			<param name="goal_threshold_theta" value="0.08"/>
 
 		</node>
 	</group>

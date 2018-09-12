@@ -3,6 +3,7 @@
   <!-- skid, omni, steel_skid, steel_omni, diffdrive,x_omni -->
   <!-- diffdrive has been tested only in simulation -->
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
+  <arg name="wheel_diameter" default="$(optenv ROBOT_WHEEL_DIAMETER 0.22)"/>
   <arg name="ros_planar_move_plugin" default="false"/>
   <arg name="sim" default="false"/>
   <arg name="cmd_vel" default="robotnik_base_control/cmd_vel"/>
@@ -21,6 +22,7 @@
 		<param if="$(eval kinematics == 'x_omni')" name="robotnik_base_control/joint/upper_base_joint/name" value="$(arg prefix)upper_base_joint"/>
 	  <param name="robotnik_base_control/odom_frame" value="$(arg prefix)odom"/>
 	  <param name="robotnik_base_control/robot_base_frame" value="$(arg prefix)base_footprint"/>
+	  <param name="robotnik_base_control/wheel_diameter" value="$(arg wheel_diameter)"/>
 	  
 	  <!-- load the controllers -->
 	  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"

@@ -12,7 +12,7 @@
   <arg name="has_safety_module" default="false"/>
 
   <!-- Robot - Load joint controller configurations from YAML file to parameter server -->
-  <group unless="$(arg sim)">	  
+  <group unless="$(arg sim)">
 	  <rosparam file="$(find summit_xl_control)/config/summit_xl_$(arg kinematics)_control.yaml" command="load"/>
 	  <param name="robotnik_base_control/joint/back_left_wheel_joint/name" value="$(arg prefix)back_left_wheel_joint"/>
 	  <param name="robotnik_base_control/joint/back_right_wheel_joint/name" value="$(arg prefix)back_right_wheel_joint"/>
@@ -23,39 +23,43 @@
 	  <param name="robotnik_base_control/odom_frame" value="$(arg prefix)odom"/>
 	  <param name="robotnik_base_control/robot_base_frame" value="$(arg prefix)base_footprint"/>
 	  <param name="robotnik_base_control/wheel_diameter" value="$(arg wheel_diameter)"/>
-	  
+
 	  <!-- load the controllers -->
 	  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
 		output="screen" args="
 		  robotnik_base_control
-		  joint_read_state_controller 
+		  joint_read_state_controller
+      joint_pan_position_controller
+      joint_tilt_position_controller
 		  ">
 	  </node>
-	  
+
   </group>
     <!-- Simulation - Load joint controller configurations from YAML file to parameter server -->
-  <group if="$(arg sim)">	  	  
-	  <rosparam file="$(find summit_xl_control)/config/$(arg prefix)control.yaml" command="load"/>  
-	  
+  <group if="$(arg sim)">
+	  <rosparam file="$(find summit_xl_control)/config/$(arg prefix)control.yaml" command="load"/>
+
 	  <!-- if robot_localization node is launched the controller must not publish the odom tf-->
-	  <param if="$(arg launch_robot_localization)" name="robotnik_base_control/enable_odom_tf" value="false"/>	 
-	  
+	  <param if="$(arg launch_robot_localization)" name="robotnik_base_control/enable_odom_tf" value="false"/>
+
 	   <!-- load the planar ros controllers by urdf -->
 	  <node if="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-		output="screen" args="		  
-		  joint_read_state_controller 
+		output="screen" args="
+		  joint_read_state_controller
 		  ">
 	  </node>
 	  <!-- load the diff ros controllers -->
 	  <node unless="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-		output="screen" args="	
+		output="screen" args="
 		  robotnik_base_control
-		  joint_read_state_controller 
+		  joint_read_state_controller
+      joint_pan_position_controller
+      joint_tilt_position_controller
 		  ">
-	  </node>	  
+	  </node>
 
   </group>
-  
+
 
   <node pkg="twist_mux" type="twist_mux" name="twist_mux">
     <rosparam command="load" file="$(find summit_xl_control)/config/twist_mux.yaml" />
@@ -67,6 +71,5 @@
     <remap from="marker" to="twist_marker"/>
   </node>
 
-  
-</launch>
 
+</launch>

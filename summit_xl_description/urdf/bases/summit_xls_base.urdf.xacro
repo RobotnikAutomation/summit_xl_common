@@ -65,7 +65,7 @@
     </link>
 
     <joint name="${prefix}base_docking_joint" type="fixed">
-      <origin xyz="0.30 0 0.09" rpy="0 0 0" /> 
+      <origin xyz="0.35 0 0.09" rpy="0 0 0" /> 
       <parent link="${prefix}base_link"/>
       <child link="${prefix}base_docking_contact" />
     </joint>    

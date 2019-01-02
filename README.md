@@ -4,7 +4,7 @@ Common packages of the Summit XL: URDF description of the Summit XL, Summi XL St
 
 <a href="url"><img src="https://www.roscomponents.com/273-big_default/summit-xl.jpg" align="left" height="275" width="275" ></a>
 
-<a href="url"><img src="https://www.roscomponents.com/279-big_default/summit-xl-steel.jpg" align="left" height="275" width="275" ></a>
+<a href="url"><img src="https://www.roscomponents.com/811-thickbox_default/summit-xl-steel.jpg" align="left" height="275" width="275" ></a>
 <br />
 <br />
 <br />

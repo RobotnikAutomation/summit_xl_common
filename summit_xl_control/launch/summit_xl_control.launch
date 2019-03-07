@@ -29,8 +29,6 @@
 		output="screen" args="
 		  robotnik_base_control
 		  joint_read_state_controller
-      joint_pan_position_controller
-      joint_tilt_position_controller
 		  ">
 	  </node>
 

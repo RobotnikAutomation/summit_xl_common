@@ -2,7 +2,12 @@ cmake_minimum_required(VERSION 2.8.3)
 project(summit_xl_control)
 
 
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED
+    joint_state_controller
+    velocity_controllers
+    twist_mux
+    diff_drive_controller
+)
 
 catkin_package()
 

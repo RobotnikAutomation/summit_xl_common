@@ -22,8 +22,14 @@
   <buildtool_depend>catkin</buildtool_depend>
   
  
-  <run_depend>robot_state_publisher</run_depend>
-  <run_depend>summit_xl_pad</run_depend>
+  <build_depend>joint_state_controller</build_depend>
+  <build_depend>velocity_controllers</build_depend>
+  <build_depend>twist_mux</build_depend>
+  <build_depend>diff_drive_controller</build_depend>
+
+  <run_depend>joint_state_controller</run_depend>  
+  <run_depend>velocity_controllers</run_depend>  
   <run_depend>twist_mux</run_depend>  
+  <run_depend>diff_drive_controller</run_depend>  
 
 </package>

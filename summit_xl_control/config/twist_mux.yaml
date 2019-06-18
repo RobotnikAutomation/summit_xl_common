@@ -26,6 +26,6 @@ topics:
 
 locks:
 - name    : e_stop
-  topic   : summit_xl_hw/emergency_stop
+  topic   : robotnik_base_hw/emergency_stop
   timeout : 0.0    
   priority: 255

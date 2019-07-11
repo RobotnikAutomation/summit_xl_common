@@ -68,12 +68,12 @@
 		
 		<!-- benewake -->
 		<xacro:sensor_benewake_ce30s prefix="$(arg prefix)front_3d_laser" parent="$(arg prefix)base_link">
-			<origin xyz="0.31 0.012 0.142" rpy="0 0 0"/>
+			<origin xyz="0.31392 0.0 0.12675" rpy="0 0 0"/>
 		</xacro:sensor_benewake_ce30s>
 
 		<!-- robosense -->
 		<xacro:sensor_velodyne_vlp16 prefix="$(arg prefix)top_3d_laser" parent="$(arg prefix)base_link" prefix_topic="rs_lidar_16">
-			<origin xyz="-0.1 0.0 0.33" rpy="0 0 0"/>
+			<origin xyz="-0.11808 0.0 0.32409" rpy="0 0 0"/>
 		</xacro:sensor_velodyne_vlp16>
 
 

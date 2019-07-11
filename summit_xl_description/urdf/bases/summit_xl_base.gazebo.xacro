@@ -10,6 +10,7 @@
 		<robotParam>robot_description</robotParam>
         <controlPeriod>0.001</controlPeriod>
 	    <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+		<legacyModeNS>true</legacyModeNS>      
       </plugin>
     </gazebo>
 	</xacro:macro>
@@ -46,7 +47,7 @@
 	      <odometryFrame>${prefix}odom</odometryFrame>
 	      <odometryRate>50.0</odometryRate>
 	      <robotBaseFrame>${prefix}base_footprint</robotBaseFrame>
-	      <publishTF>${publish_tf}</publishTF>
+	      <publishTF>${publish_tf}</publishTF>     
 	    </plugin>
 	  </gazebo>
   </xacro:macro>

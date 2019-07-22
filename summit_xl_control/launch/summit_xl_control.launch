@@ -8,12 +8,13 @@
   <arg name="sim" default="false"/>
   <arg name="cmd_vel" default="robotnik_base_control/cmd_vel"/>
   <arg name="prefix" default="summit_xl_"/>
+  <arg name="robot_model" default="summit_xl"/>
   <arg name="launch_robot_localization" default="false"/>
   <arg name="has_safety_module" default="false"/>
 
   <!-- Robot - Load joint controller configurations from YAML file to parameter server -->
   <group unless="$(arg sim)">
-	  <rosparam file="$(find summit_xl_control)/config/summit_xl_$(arg kinematics)_control.yaml" command="load"/>
+	  <rosparam file="$(find summit_xl_control)/config/$(arg robot_model)_$(arg kinematics)_control.yaml" command="load"/>
 	  <param name="robotnik_base_control/joint/back_left_wheel_joint/name" value="$(arg prefix)back_left_wheel_joint"/>
 	  <param name="robotnik_base_control/joint/back_right_wheel_joint/name" value="$(arg prefix)back_right_wheel_joint"/>
 	  <param name="robotnik_base_control/joint/front_right_wheel_joint/name" value="$(arg prefix)front_right_wheel_joint"/>

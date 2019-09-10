@@ -12,6 +12,8 @@
 	<arg name="front_rgbd_to_scan_topic" default="front_rgbd_camera/point_cloud_scan_filtered"/>
 	<arg name="rear_scan_topic" default="rear_laser/scan"/>
 	<arg name="omni" default="true"/>
+	<arg if="$(arg omni)" name="local_planner_params" default="$(find summit_xl_navigation)/config/eband_local_planner_omni_params.yaml"/>
+	<arg unless="$(arg omni)" name="local_planner_params" default="$(find summit_xl_navigation)/config/eband_local_planner_diff_params.yaml"/>
 
 	<!-- Run move_base -->
 	<node pkg="move_base" type="move_base" respawn="false" name="move_base">
@@ -20,8 +22,7 @@
 		<rosparam file="$(find summit_xl_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
 		<rosparam file="$(find summit_xl_navigation)/config/local_costmap_params.yaml" command="load" />
 		<rosparam file="$(find summit_xl_navigation)/config/global_costmap_params_map.yaml" command="load" />
-		<rosparam if="$(arg omni)" file="$(find summit_xl_navigation)/config/eband_local_planner_omni_params.yaml" command="load" />
-		<rosparam unless="$(arg omni)" file="$(find summit_xl_navigation)/config/eband_local_planner_diff_params.yaml" command="load" />
+		<rosparam file="$(arg local_planner_params)" command="load" />
 		<!-- reset frame_id parameters using user input data -->
 		<param name="global_costmap/obstacle_layer/front_laser/sensor_frame" value="$(arg prefix)front_laser_link"/>
 		<param name="local_costmap/obstacle_layer/front_laser/sensor_frame" value="$(arg prefix)front_laser_link"/>

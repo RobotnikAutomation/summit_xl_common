@@ -2,15 +2,36 @@ local_costmap:
   global_frame: /summit_xl_odom
 #  global_frame: /odom_combined
   robot_base_frame: /summit_xl_base_footprint
-  update_frequency: 5.0
+  update_frequency: 2.0
   static_map: false
   rolling_window: true
-  #width: 6.0
-  #height: 6.0
-  #resolution: 0.01 #0.05
-  width: 8.0 #5
-  height: 8.0 #5
-  resolution: 0.05 #0.05
+  width: 5.0 
+  height: 5.0 
+  resolution: 0.05 
   
   # padding is 0.1 by default, making difficult to pass through narrow places
   footprint_padding: 0.0
+
+  plugins:
+    -
+      name: obstacle_layer
+      type: "costmap_2d::VoxelLayer"
+    -
+      name: rgbd_obstacle_layer
+      type: "costmap_2d::VoxelLayer"
+    - 
+      name: inflation_layer
+      type: "costmap_2d::InflationLayer"
+
+
+#  obstacle_laser_layer:
+#    observation_sources: front_laser
+#    front_laser: 
+#      data_type: LaserScan
+#      topic: front_laser/scan
+#      marking: true
+#      clearing: true
+#      observation_persistence: 0.0
+#    inf_is_valid: true
+#    track_unknown_space: true
+#    footprint_clearing_enabled: true

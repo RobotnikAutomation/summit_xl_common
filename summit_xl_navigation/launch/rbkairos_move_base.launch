@@ -9,6 +9,7 @@
 	<arg name="odom_frame" default="$(arg prefix)odom"/>
 	<arg name="base_frame" default="$(arg prefix)base_footprint"/>
 	<arg name="front_scan_topic" default="front_laser/scan"/>
+	<arg name="front_rgbd_to_scan_topic" default="front_rgbd_camera/point_cloud_scan_filtered"/>
 	<arg name="rear_scan_topic" default="rear_laser/scan"/>
 	<arg name="omni" default="true"/>
 
@@ -30,12 +31,19 @@
 		<param name="local_costmap/obstacle_layer/rear_laser/sensor_frame" value="$(arg prefix)rear_laser_link"/>
 		<param name="global_costmap/obstacle_layer/rear_laser/topic" value="$(arg rear_scan_topic)"/>
 		<param name="local_costmap/obstacle_layer/rear_laser/topic" value="$(arg rear_scan_topic)"/>
+		
+		<param name="global_costmap/rgbd_obstacle_layer/front_rgbd_to_scan/sensor_frame" value="$(arg prefix)front_rgbd_camera_link"/>
+		<param name="local_costmap/rgbd_obstacle_layer/front_rgbd_to_scan/sensor_frame" value="$(arg prefix)front_rgbd_camera_link"/>
+		<param name="global_costmap/rgbd_obstacle_layer/front_rgbd_to_scan/topic" value="$(arg front_rgbd_to_scan_topic)"/>
+		<param name="local_costmap/rgbd_obstacle_layer/front_rgbd_to_scan/topic" value="$(arg front_rgbd_to_scan_topic)"/>
+
+		
 		<param name="local_costmap/global_frame" value="$(arg odom_frame)"/>
 		<param name="local_costmap/robot_base_frame" value="$(arg base_frame)"/>
 		<param name="global_costmap/global_frame" value="$(arg global_frame)"/>
 		<param name="global_costmap/robot_base_frame" value="$(arg base_frame)"/>
 		<param name="TebLocalPlannerROS/map_frame" value="$(arg global_frame)"/>
-		<param name="controller_frequency" value="5.0" />
+		<param name="controller_frequency" value="20.0" />
 		<param name="controller_patience" value="15.0" />
 		<remap from="cmd_vel" to="$(arg cmd_vel_topic)" />
 		<remap from="odom" to="$(arg odom_topic)" />

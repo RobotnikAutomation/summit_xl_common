@@ -8,6 +8,7 @@
 	<arg name="source_topic" default="merge_laser/scan" />
 	<arg name="target_topic" default="merge_laser/cloud_reflector" />
 	<arg name="distance_between_reflectors" default="0.66" />
+	<arg name="distance_marker_and_contact" default="0.325" />
 
 
 	<arg name="prefix" value="$(arg id_robot)_"/>
@@ -35,7 +36,7 @@
 		</node>
 
 
-		<node name="marker2contact" pkg="tf" type="static_transform_publisher" args="-0.370 0.0 0 0 0 0 $(arg prefix)docking_station_marker $(arg prefix)docking_station_contact 100" />
+		<node name="marker2contact" pkg="tf" type="static_transform_publisher" args="-$(arg distance_marker_and_contact) 0.0 0 0 0 0 $(arg prefix)docking_station_marker $(arg prefix)docking_station_contact 100" />
 
 		<node name="tf_robotnik_pose_filter" pkg="robotnik_pose_filter" type="tf_pose_filter_node" respawn="false" output="screen">
 			<param name="filter_position_sensitivity" type="double" value="0.3" />

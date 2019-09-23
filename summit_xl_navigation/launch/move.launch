@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="id_robot" default="robot"/>
+  <arg name="prefix" default="$(arg id_robot)_"/> 
+  
+  <arg name="odom_frame" default="$(arg prefix)odom"/> 
+  <arg name="base_frame" default="$(arg prefix)base_footprint"/>
+  <arg name="has_safety_controller" default="false"/>
+  <arg name="cmd_vel_topic" default="move/cmd_vel"/>
+  <arg name="differential_robot" default="true"/>
+  
+  <node name="move" pkg="robotnik_move" type="move_node" respawn="false" output="screen">
+        <param name="robot_base_frame" type="string" value="$(arg base_frame)" />
+        
+        <param name="fixed_frame" type="string" value="$(arg odom_frame)" />
+        
+        <param name="gain_linear_velocity_x" value="0.5" />
+        <param name="gain_angular_velocity_z" value="2.0" />
+        
+        <param name="maximum_linear_velocity_x" value="0.1" />
+        <param name="maximum_angular_velocity_z" value="0.3" />
+        
+        <param name="threshold_linear_velocity_x" value="0.002" />
+        <param name="threshold_linear_velocity_y" value="0.002" />
+        <param name="threshold_angular_velocity_z" value="0.05" />
+
+        <param name="initial_maximum_distance_x" value="2.5" />
+        <param name="initial_minimum_distance_x" value="0.1" />
+
+        <param name="initial_maximum_arc" value="1" />
+        <param name="initial_maximum_yaw" value="1" />
+        <remap unless="$(arg has_safety_controller)" from="cmd_vel" to="~cmd_vel" /> 
+        <remap if="$(arg has_safety_controller)" from="cmd_vel" to="~cmd_vel_unsafe" /> 
+  
+        <param name="check_robot_is_moving_to_goal" value="false" />
+        <param name="robot_moving_to_goal_delay" value="3" />
+        <param name="robot_moving_to_goal_averaging_time" value="5" />
+	
+        <param name="differential_robot" value="$(arg differential_robot)" />
+    </node>
+</launch>

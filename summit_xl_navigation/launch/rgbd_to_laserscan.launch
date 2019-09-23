@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<arg name="camera" default="front_rgbd_camera" />
+	
+        <arg name="prefix" default="robot_"/>
+        <arg name="target_frame" default="$(arg prefix)front_rgbd_camera_link" />
+	<arg name="max_height" default="1.0"/>
+	<arg name="min_height" default="-0.35"/>
+	<arg name="angle_min" default="-0.52"/>
+	<arg name="angle_max" default="0.52"/>
+	<arg name="range_max" default="5"/>
+
+	
+	<!-- run pointcloud_to_laserscan node -->
+	<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="$(arg camera)_pointcloud_to_laserscan">
+		<remap from="cloud_in" to="$(arg camera)/depth/points"/>
+		<remap from="scan" to="$(arg camera)/point_cloud_scan"/>
+		<param name="target_frame" value="$(arg target_frame)"/>
+		<param name="max_height" value="$(arg max_height)"/>
+		<param name="min_height" value="$(arg min_height)"/>
+		<param name="angle_min" value="$(arg angle_min)"/>
+		<param name="angle_max" value="$(arg angle_max)"/>	
+		<param name="range_max" value="$(arg range_max)"/>		
+		<param name="use_inf" value="true"/>
+		<param name="concurrency_level" value="0"/>
+	</node>
+
+	<node pkg="laser_filters" type="scan_to_scan_filter_chain" name="$(arg camera)_laser_filter">
+		<rosparam command="load" file="$(find summit_xl_navigation)/config/rgbd_to_scan_filter.yaml" />
+		<remap from="scan" to="$(arg camera)/point_cloud_scan"/>
+		<remap from="scan_filtered" to="$(arg camera)/point_cloud_scan_filtered"/>
+	</node>
+	
+
+
+</launch>
+

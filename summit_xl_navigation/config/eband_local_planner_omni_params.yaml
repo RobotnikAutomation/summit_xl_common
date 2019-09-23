@@ -1,0 +1,54 @@
+base_local_planner: eband_local_planner/EBandPlannerROS
+
+EBandPlannerROS:
+
+  # GoalTolerance
+  xy_goal_tolerance: 0.1                            # Distance tolerance for reaching goal pose (default: 0.1)
+  yaw_goal_tolerance: 0.05                           # Orientation tolerance for reaching the desired goal pose (default: 0.05)  
+  rot_stopped_vel: 0.01                             # Angular velocity lower bound that determines if the robot should stop to avoid
+                                                    # limit-cycles or locks (default: 0.01)
+  trans_stopped_vel: 0.01                           # Linear velocity lower bound that determines if the robot should stop to avoid
+                                                    # limit-cycles or locks (default: 0.01)
+
+  # VISUALIZATION PAMETERS 
+  marker_lifetime: 0.5                              # Lifetime of eband visualization markers (default: 0.5)
+
+
+  # ELASTIC BAND PARAMETERS
+  eband_min_relative_overlap: 0.7                   # Min distance that denotes connectivity between consecutive bubbles (default: 0.7) 
+  eband_tiny_bubble_distance: 0.01                  # Bubble geometric bound regarding tiny bubble distance (default: 0.01) 
+  eband_tiny_bubble_expansion: 0.01                 # Bubble geometric bound regarding tiny bubble expansion  (default: 0.01)
+  eband_internal_force_gain: 1.0                    # Force gain of forces between consecutive bubbles that tend to stretch the elastic 
+                                                    # band (default: 1.0) 
+  eband_external_force_gain: 2.0                    # Force gain of forces that tend to move the bubbles away from obstacles 
+                                                    # (default: 2.0)
+  num_iterations_eband_optimization: 3              # Number of iterations for eband optimization  (default: 3) 
+  eband_equilibrium_approx_max_recursion_depth: 4   # Number of iterations for reaching the equilibrium between internal 
+                                                    # and external forces (default: 4) 
+
+  eband_equilibrium_relative_overshoot: 0.75        # Maximum relative equlibrium overshoot (default: 0.75) 
+  eband_significant_force_lower_bound: 0.15         # Minimum magnitude of force that is considered significant and used in 
+                                                    # the calculations (default: 0.15)
+  costmap_weight: 10                                # Costmap weight factor used in the calculation of distance to obstacles (default: 10.0)
+
+
+  # TRAJECTORY CONTROLLER PARAMETERS  
+  max_vel_lin: 0.75                                 # Maximum linear velocity (default: 0.75)
+  max_vel_th: 1.0                                   # Maximum angular velocity (default: 1.0)
+  min_vel_lin: 0.1                                  # Minimum linear velocity (default: 0.1)
+  min_vel_th: 0.0                                   # Minimum angular velocity (default: 0.0)
+  min_in_place_vel_th: 0.0                          # Minimum in-place angular velocity (default: 0.0)
+  in_place_trans_vel: 0.0                           # Minimum in place linear velocity (default: 0.0)
+  k_prop: 4.0                                       # Proportional gain of the PID controller (default: 4.0)
+  k_damp: 3.5                                       # Damping gain of the PID controller (default: 3.5)
+  Ctrl_Rate: 10                                     # Control rate (default: 10.0) 
+  max_acceleration: 0.5                             # Maximum allowable acceleration (default: 0.5)
+  virtual_mass: 0.75                                # Virtual mass (default: 0.75)
+  max_translational_acceleration: 0.5               # Maximum linear acceleration (default: 0.5)
+  max_rotational_acceleration: 1.5                  # Maximum angular acceleration (default: 1.5)
+  rotation_correction_threshold: 0.5                # Rotation correction threshold (default: 0.5)
+  differential_drive: False                         # Denotes whether to use the differential drive mode (default: True)
+  bubble_velocity_multiplier: 2.0                   # Multiplier of bubble radius (default: 2.0)
+  rotation_threshold_multiplier: 1               # Multiplier of rotation threshold (default: 1.0)
+  disallow_hysteresis: False                        # Determines whether to try getting closer to the goal, in case of 
+                                                    # going past the tolerance (default: False)

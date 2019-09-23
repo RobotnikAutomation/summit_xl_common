@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- EBAND LOCAL PLANNER -->
+	<arg name="prefix" default="rbkairos"/>
+	<arg name="cmd_vel_topic" default="move_base/cmd_vel"/>
+	<!-- using twist mux -->
+	<arg name="odom_topic" default="robotnik_base_control/odom"/>
+	<arg name="global_frame" default="$(arg prefix)map"/>
+	<arg name="odom_frame" default="$(arg prefix)odom"/>
+	<arg name="base_frame" default="$(arg prefix)base_footprint"/>
+	<arg name="front_scan_topic" default="front_laser/scan"/>
+	<arg name="front_rgbd_to_scan_topic" default="front_rgbd_camera/point_cloud_scan_filtered"/>
+	<arg name="rear_scan_topic" default="rear_laser/scan"/>
+	<arg name="omni" default="true"/>
+	<arg if="$(arg omni)" name="local_planner_params" default="$(find summit_xl_navigation)/config/eband_local_planner_omni_params.yaml"/>
+	<arg unless="$(arg omni)" name="local_planner_params" default="$(find summit_xl_navigation)/config/eband_local_planner_diff_params.yaml"/>
+
+	<!-- Run move_base -->
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base">
+		<rosparam file="$(find summit_xl_navigation)/config/move_base_params.yaml" command="load" />
+		<rosparam file="$(find summit_xl_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+		<rosparam file="$(find summit_xl_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+		<rosparam file="$(find summit_xl_navigation)/config/local_costmap_params.yaml" command="load" />
+		<rosparam file="$(find summit_xl_navigation)/config/global_costmap_params_map.yaml" command="load" />
+		<rosparam file="$(arg local_planner_params)" command="load" />
+		<!-- reset frame_id parameters using user input data -->
+		<param name="global_costmap/obstacle_layer/front_laser/sensor_frame" value="$(arg prefix)front_laser_link"/>
+		<param name="local_costmap/obstacle_layer/front_laser/sensor_frame" value="$(arg prefix)front_laser_link"/>
+		<param name="global_costmap/obstacle_layer/front_laser/topic" value="$(arg front_scan_topic)"/>
+		<param name="local_costmap/obstacle_layer/front_laser/topic" value="$(arg front_scan_topic)"/>
+		<param name="global_costmap/obstacle_layer/rear_laser/sensor_frame" value="$(arg prefix)rear_laser_link"/>
+		<param name="local_costmap/obstacle_layer/rear_laser/sensor_frame" value="$(arg prefix)rear_laser_link"/>
+		<param name="global_costmap/obstacle_layer/rear_laser/topic" value="$(arg rear_scan_topic)"/>
+		<param name="local_costmap/obstacle_layer/rear_laser/topic" value="$(arg rear_scan_topic)"/>
+		
+		<param name="global_costmap/rgbd_obstacle_layer/front_rgbd_to_scan/sensor_frame" value="$(arg prefix)front_rgbd_camera_link"/>
+		<param name="local_costmap/rgbd_obstacle_layer/front_rgbd_to_scan/sensor_frame" value="$(arg prefix)front_rgbd_camera_link"/>
+		<param name="global_costmap/rgbd_obstacle_layer/front_rgbd_to_scan/topic" value="$(arg front_rgbd_to_scan_topic)"/>
+		<param name="local_costmap/rgbd_obstacle_layer/front_rgbd_to_scan/topic" value="$(arg front_rgbd_to_scan_topic)"/>
+
+		
+		<param name="local_costmap/global_frame" value="$(arg odom_frame)"/>
+		<param name="local_costmap/robot_base_frame" value="$(arg base_frame)"/>
+		<param name="global_costmap/global_frame" value="$(arg global_frame)"/>
+		<param name="global_costmap/robot_base_frame" value="$(arg base_frame)"/>
+		<param name="TebLocalPlannerROS/map_frame" value="$(arg global_frame)"/>
+		<param name="controller_frequency" value="20.0" />
+		<param name="controller_patience" value="15.0" />
+		<remap from="cmd_vel" to="$(arg cmd_vel_topic)" />
+		<remap from="odom" to="$(arg odom_topic)" />
+	</node>
+
+</launch>
+

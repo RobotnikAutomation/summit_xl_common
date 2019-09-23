@@ -33,5 +33,6 @@
   <run_depend>geometry_msgs</run_depend>
   <run_depend>message_runtime</run_depend>
   <run_depend>diagnostic_updater</run_depend>
+  <run_depend>joy</run_depend>
 
 </package>

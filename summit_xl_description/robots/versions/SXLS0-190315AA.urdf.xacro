@@ -67,9 +67,9 @@
 		</xacro:sensor_hokuyo_ust10lx-->
 		
 		<!-- benewake -->
-		<!--xacro:sensor_benewake_ce30s prefix="$(arg prefix)ce30s_lidar" parent="$(arg prefix)base_link" prefix_topic="ce30s_lidar">
-			<origin xyz="0.19 0 0.26" rpy="0 0 -${90*PI/180}"/>
-		</xacro:sensor_benewake_ce30s-->
+		<xacro:sensor_benewake_ce30s prefix="$(arg prefix)front_3d_laser" parent="$(arg prefix)base_link">
+			<origin xyz="0.25049 0 0.24707" rpy="0 0 0"/>
+		</xacro:sensor_benewake_ce30s>
 
 
 		<!-- ptz camera -->

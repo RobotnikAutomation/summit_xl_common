@@ -67,9 +67,14 @@
 		</xacro:sensor_hokuyo_ust10lx-->
 		
 		<!-- benewake -->
-		<!--xacro:sensor_benewake_ce30s prefix="$(arg prefix)ce30s_lidar" parent="$(arg prefix)base_link" prefix_topic="ce30s_lidar">
-			<origin xyz="0.19 0 0.26" rpy="0 0 -${90*PI/180}"/>
-		</xacro:sensor_benewake_ce30s-->
+		<xacro:sensor_benewake_ce30s prefix="$(arg prefix)front_3d_laser" parent="$(arg prefix)base_link">
+			<origin xyz="0.31392 0.0 0.12675" rpy="0 0 0"/>
+		</xacro:sensor_benewake_ce30s>
+
+		<!-- robosense -->
+		<xacro:sensor_velodyne_vlp16 prefix="$(arg prefix)top_3d_laser" parent="$(arg prefix)base_link" prefix_topic="rs_lidar_16">
+			<origin xyz="-0.11808 0.0 0.32409" rpy="0 0 0"/>
+		</xacro:sensor_velodyne_vlp16>
 
 
 		<!-- ptz camera -->

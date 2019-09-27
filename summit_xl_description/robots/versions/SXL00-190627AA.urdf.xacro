@@ -16,6 +16,7 @@
     
 	<!-- Import all available sensors -->
 	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+	<xacro:include filename="$(find summit_xl_description)/urdf/structures/structure_gps.urdf.xacro" />
   
 	<xacro:property name="PI" value="3.1415926535897931"/>
 	  
@@ -29,7 +30,7 @@
 	
 	<xacro:property name="gps_offset_x" value="-0.22"/>   
 	<xacro:property name="gps_offset_y" value="0.0"/>    
-	<xacro:property name="gps_offset_z" value="0.319"/>
+	<xacro:property name="gps_offset_z" value="0.28"/>
 
 	<!-- Flag to select the high or low quality model -->
 	<xacro:property name="hq" value="true" />
@@ -82,8 +83,12 @@
 		</xacro:sensor_orbbec_astra>
 
 		<xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link">
-			<origin xyz="${gps_offset_x} ${gps_offset_y} ${gps_offset_z}" rpy="0 0 0"/>
+			<origin xyz="${gps_offset_x} ${gps_offset_y} 0.65" rpy="0 0 0"/>
 		</xacro:sensor_gps>
+
+		<xacro:structure_mastil_gps prefix="$(arg prefix)_mastil_gps" parent="$(arg prefix)base_link">
+			<origin xyz="${gps_offset_x} ${gps_offset_y} ${gps_offset_z}" rpy="0 0 0"/>
+		</xacro:structure_mastil_gps>
 	
 		
    </xacro:macro>

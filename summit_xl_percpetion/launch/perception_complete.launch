@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
+
+  <!-- Camera locator arguments -->
+  <arg name="run_ar_locator" default="$(optenv ROBOT_RUN_AR_LOCATOR false)"/>
+
+  <!-- Laser locator arguments -->
+  <arg name="run_reflector_locator" default="$(optenv ROBOT_RUN_REFLECTOR_LOCATOR false)"/>
+  <arg name="filter_config_file" default="$(optenv ROBOT_LASER_MODEL_INTENSITY_FILTER default)_intensity_filter"/>
+  <arg name="two_tag_locator_node_name" default="charger_laser_locator"/>
+	<arg name="object_frame" default="charger_laser"/>
+
+  <group ns="$(arg id_robot)">
+
+    <!-- Launch AR locator to detect markers -->
+    <include if="$(arg run_ar_locator)" file="$(find summit_xl_perception)/launch/ar_locator.launch">
+      <arg name="id_robot" value="$(arg id_robot)"/>
+    </include>
+
+    <group if="$(arg run_reflector_locator)">
+      <!-- Intensity filter from scan to cloud -->
+      <include file="$(find summit_xl_perception)/launch/scan_to_cloud.launch">
+        <arg name="id_robot" value="$(arg id_robot)"/>
+        <arg name="filter_config_file" value="$(arg filter_config_file)"/>
+      </include>
+
+      <!-- Launch laser locator to detect charger using reflectors -->
+      <include file="$(find summit_xl_perception)/launch/two_tags_locator.launch">
+        <arg name="id_robot" value="$(arg id_robot)"/>
+        <arg name="two_tag_locator_node_name" value="$(arg two_tag_locator_node_name)"/>
+      	<arg name="object_frame" value="$(arg prefix)$(arg object_frame)"/>
+      </include>
+    </group>
+
+  </group>
+  
+</launch>

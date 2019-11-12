@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="id_robot" default="robot"/>
+  <arg name="prefix" value="$(arg id_robot)_"/>
+  <arg name="camera_locator_node_name" default="camera_locator"/>
+  <arg name="pose_filter_node_name" default="$(arg camera_locator_node_name)_pose_filter"/>
+
+  <arg name="robot_base_frame" default="$(arg prefix)base_link"/>
+  <arg name="fixed_frame" default="$(arg prefix)odom" />
+  <arg name="object_frame" default="$(arg prefix)ar_marker_noisy_"/>
+  <arg name="filter_target_frame" default="$(arg object_frame)([0-9]+)"/>
+  <arg name="filtered_target_frame_prefix" default="$(arg prefix)ar_marker_"/>
+  <arg name="camera_topic_name" default="front_rgbd_camera/rgb/image_raw" />
+  <arg name="camera_info_topic_name" default="front_rgbd_camera/rgb/camera_info" />
+  <arg name="marker_size" default="0.12" />
+
+  <!-- In case we want to use or combine serveral markers size -->
+  <arg name="has_special_markers" default="false" />
+  <arg name="markers_file" default="$(find summit_xl_perception)/config/ar_markers.yaml" />
+
+
+  <node name="$(arg camera_locator_node_name)" pkg="robotnik_locator" type="alvar_locator_node" clear_params="true">
+    <param name="desired_freq" type="double" value="10"/>
+    <!-- frame to which input is transformed -->
+    <param name="robot_base_frame" type="string" value="$(arg robot_base_frame)"/>
+    <!-- frame in which output is published -->
+    <param name="fixed_frame" type="string" value="$(arg fixed_frame)"/>
+    <!-- output frame. if locator is able to provide id, this will be  -->
+    <param name="object_frame" type="string" value="$(arg object_frame)"/>
+    <param name="input_topic_name" type="string" value="$(arg camera_topic_name)"/>
+    <param name="camera_info_topic_name" type="string" value="$(arg camera_info_topic_name)"/>
+    <param name="marker_size" type="double" value="$(arg marker_size)"/>
+    <param name="max_new_marker_error" type="double" value="0.0008"/>
+    <param name="max_track_error" type="double" value="0.002"/>
+    <param name="max_frequency" type="double" value="8"/>
+    <param name="marker_resolution" value="5"/>
+    <param name="marker_margin" value="2"/>
+
+    <rosparam if="$(arg has_special_markers)" command="load" file="$(arg markers_file)" />
+  </node>
+
+  <node name="$(arg pose_filter_node_name)" pkg="robotnik_pose_filter" type="tf_multi_pose_filter_node" clear_params="true">
+    <param name="filter_position_sensitivity"       type="double" value="0.5" />
+    <param name="filter_orientation_sensitivity"    type="double" value="0.1" />
+    <param name="source_frame" type="string" value="$(arg fixed_frame)" />
+    <param name="target_frame" type="string" value="$(arg filter_target_frame)" />
+    <param name="filtered_source_frame" type="string" value="$(arg fixed_frame)" />
+    <param name="filtered_target_frame" type="string" value="$(arg filtered_target_frame_prefix)" />
+    <!-- as now we are getting the position using the laser, we don't need to rotate the transform -->
+    <rosparam param="apply_transform">[0.0, 0.0, 0.0, 0.0, 1.5707, 1.5707]</rosparam>
+    <param name="two_d_mode" type="bool" value="true" />
+  </node>
+
+</launch>

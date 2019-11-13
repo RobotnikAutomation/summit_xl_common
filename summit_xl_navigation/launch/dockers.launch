@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="id_robot" default="robot"/>
+  <arg name="prefix" value="$(arg id_robot)_"/>
+
+  <arg name="docking_qr" default="true"/>
+  <arg name="docking_laser_reflectors" default="false"/>
+
+  <arg name="differential_robot" default="true"/>
+
+  <!-- Docker frames -->
+  <arg name="fixed_frame" default="$(arg prefix)odom"/>
+  <arg name="robot_base_frame" default="$(arg prefix)base_footprint"/>
+  
+  <!-- Camera frames -->
+  <arg name="camera_dock_frame" default="$(arg prefix)docking_station_marker"/>
+  <arg name="camera_contact_dock_frame" default="$(arg prefix)docking_station_marker_contact"/>
+  <arg name="camera_contact_dock_frame_for_base" default="$(arg prefix)docking_station_marker_for_base_frame"/>
+  
+  <!-- Laser frames -->
+  <arg name="laser_dock_frame" default="$(arg prefix)docking_station_laser_filtered"/>
+  <arg name="laser_contact_dock_frame" default="$(arg prefix)docking_station_laser_contact"/>
+  <arg name="laser_contact_dock_frame_for_base" default="$(arg prefix)docking_station_laser_for_base_frame"/>
+
+
+
+  <!-- Static transforms -->
+  <include file="$(find summit_xl_navigation)/launch/tf_publishers.launch">
+    <arg name="camera_dock_frame" value="$(arg camera_dock_frame)"/>
+    <arg name="camera_contact_dock_frame" value="$(arg camera_contact_dock_frame)"/>
+    <arg name="camera_contact_dock_frame_for_base" value="$(arg camera_contact_dock_frame_for_base)"/>
+  
+    <arg name="laser_dock_frame" value="$(arg laser_dock_frame)"/>
+    <arg name="laser_contact_dock_frame" value="$(arg laser_contact_dock_frame)"/>
+    <arg name="laser_contact_dock_frame_for_base" value="$(arg laser_contact_dock_frame_for_base)"/>  
+  </include>
+  
+  <!-- Dockers -->
+  <node name="diff_docker" pkg="robotnik_docker" type="diff_docker_node" respawn="false" output="screen">
+    <param name="robot_base_frame" type="string" value="$(arg robot_base_frame)" />
+    <param name="fixed_frame" type="string" value="$(arg fixed_frame)" />
+    
+    <rosparam command="load" file="$(find summit_xl_navigation)/config/docking/diff_docker.yaml"/>
+    <remap from="cmd_vel" to="docker/cmd_vel"/>
+  </node>
+
+  <node unless="$(arg differential_robot)" name="omni_docker" pkg="robotnik_docker" type="omni_docker_node" respawn="false" output="screen">
+    <param name="robot_base_frame" type="string" value="$(arg robot_base_frame)" />
+    <param name="fixed_frame" type="string" value="$(arg fixed_frame)" />
+    
+    <rosparam command="load" file="$(find summit_xl_navigation)/config/docking/omni_docker.yaml"/>
+    <remap from="cmd_vel" to="docker/cmd_vel"/>
+  </node>
+
+  <node name="pp_docker" pkg="robotnik_docker" type="purepursuit_docker_node" respawn="false" output="screen">
+    <param name="robot_base_frame" type="string" value="$(arg robot_base_frame)" />
+    <param name="fixed_frame" type="string" value="$(arg fixed_frame)" />
+
+    <rosparam command="load" file="$(find summit_xl_navigation)/config/docking/pp_docker.yaml"/>    
+    <remap from="cmd_vel" to="docker/cmd_vel"/>
+  </node>
+
+</launch>

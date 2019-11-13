@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="id_robot" default="robot"/>
+  <arg name="prefix" value="$(arg id_robot)_"/>
+
+  <arg name="docking_qr" default="true"/>
+  <arg name="docking_laser_reflectors" default="false"/>
+
+  <!-- Camera frames -->
+  <arg name="camera_dock_frame" default="$(arg prefix)docking_station_marker"/>
+  <arg name="camera_contact_dock_frame" default="$(arg prefix)docking_station_marker_contact"/>
+  <arg name="camera_contact_dock_frame_for_base" default="$(arg prefix)docking_station_marker_for_base_frame"/>
+  
+  <!-- Laser frames -->
+  <arg name="laser_dock_frame" default="$(arg prefix)docking_station_laser_filtered"/>
+  <arg name="laser_contact_dock_frame" default="$(arg prefix)docking_station_laser_contact"/>
+  <arg name="laser_contact_dock_frame_for_base" default="$(arg prefix)docking_station_laser_for_base_frame"/>
+
+  <group if="$(arg docking_qr)">
+    <node name="tf_publisher_marker2contact" pkg="tf" type="static_transform_publisher" args="-0.370 0.0 0 0 0 0 $(arg camera_dock_frame) $(arg camera_contact_dock_frame) 100" />
+
+    <!-- TODO correct tf_publisher to dock using robot_base_footprint and camera -->
+    <node name="tf_publisher_marker2base" pkg="tf" type="static_transform_publisher" args="-0.370 0.0 0 0 0 0 $(arg camera_dock_frame) $(arg camera_contact_dock_frame_for_base) 100" />
+  </group>
+
+  <group if="$(arg docking_laser_reflectors)">
+    <node name="tf_publisher_laser2contact" pkg="tf" type="static_transform_publisher" args="-0.34 0.0 -0.12 0 0 0 $(arg laser_dock_frame) $(arg laser_contact_dock_frame) 100" />
+
+    <node name="tf_publisher_laser2base" pkg="tf" type="static_transform_publisher" args="-0.641 0.0 -0.12 0 0 0 $(arg laser_dock_frame) $(arg laser_contact_dock_frame_for_base) 100" />
+  </group>
+  
+</launch>

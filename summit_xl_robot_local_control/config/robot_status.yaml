@@ -1,0 +1,29 @@
+type: robot_local_control_components/RobotStatusComponent
+
+desired_freq: 1.0
+odom_topic: robotnik_base_control/odom
+battery_estimator_topic: battery_estimator/data
+base_hw_emergency_stop_topic: robotnik_base_hw/emergency_stop
+elevator_topic: robotnik_base_control/elevator_status
+battery_docking_status_topic: charge_manager/docking_status
+safety_status_topic: safety_module/status
+
+
+battery:
+  offset: 0.62 # measured by driver - measured with tester
+  charging_threshold: 56.5  # Ask for the real threshold
+
+sensors:
+  front_laser:
+    type: robot_local_control_components/LaserComponent
+    desired_freq: 1.0
+    topic: front_laser/scan
+  imu:
+    type: robot_local_control_components/ImuComponent
+    desired_freq: 1.0
+    topic: imu/data
+
+#  camera:
+#    type: robot_local_control_components/CameraComponent
+#    desired_freq: 1.0
+#    topic: front_rgbd_camera/rgb/image_raw

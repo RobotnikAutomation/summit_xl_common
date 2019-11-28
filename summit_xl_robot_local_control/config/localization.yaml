@@ -1,0 +1,18 @@
+type: robot_local_control_components/AmclLocalizationComponent
+##type: XXXLocalizationComponent # not used yet
+##publish_frequency: 2  # hertz, not used yet
+##update_frequency: 2   # hertz, not used yet
+
+desired_freq: 2.0
+use_frame_mapping: false
+
+# amcl_topic is reffered to the global namespace (unless absolute path is used)
+# example: amcl_pose will be resolved to /robot/amcl_pose or /robot_a/amcl_pose
+amcl_topic: amcl_pose
+
+check_laser_projection: false
+
+laser_projection_checker:
+  map_topic: robot_map
+  scan_topic: front_laser/scan
+  scan_match_threshold: 0.5

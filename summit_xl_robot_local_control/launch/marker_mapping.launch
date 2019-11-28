@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="id_robot" default="robot"/>
+  <arg name="fixed_frame_id" default="$(arg id_robot)_map"/>
+  <arg name="base_frame_id" default="$(arg id_robot)_base_footprint"/>
+  <arg name="config_file" default="frames.yaml"/>
+  <arg name="config_folder" default="$(find summit_xl_robot_local_control)/config" />
+
+  <group ns="$(arg id_robot)">
+
+    <!-- Localize the robot in the map based on frames-->
+    <include file="$(find summit_xl_robot_local_control)/launch/frames_mapping.launch">
+      <arg name="id_robot" value="$(arg id_robot)"/>
+      <arg name="frame_id" value="$(arg fixed_frame_id)"/>
+      <arg name="base_frame_id" value="$(arg base_frame_id)"/>
+      <arg name="config_file" value="frames.yaml"/>
+      <arg name="config_folder" value="$(find summit_xl_bringup)/config/localization"/>
+    </include>  
+
+  </group>  
+  
+</launch>

@@ -1,0 +1,2 @@
+type: robot_local_control_components/OperationComponent
+desired_freq: 2.0

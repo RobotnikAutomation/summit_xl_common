@@ -39,7 +39,7 @@ ChargeComponent:
   docker_namespace: pp_docker
   dock_frame: robot_docking_station_laser_filtered
   robot_dock_frame: robot_base_footprint
-  dock_offset_x: -0.60 
+  dock_offset_x: -0.65 
   move_namespace: move
   step_in_distance: 0.05 # Indicates the distance that the robot is going to move in x-axis after the docking. If 0.0 then no move action is done
   set_to_standby: false # If 'true' then the lasers will be in standby after the docking
@@ -49,5 +49,5 @@ UnchargeComponent:
   desired_freq: 5.0
   has_laser_safety: false # determines if the robot has safety_lasers and the safety zone must be changed
   move_namespace: move
-  step_back_distance: 0.1 # Indicates the distance that the robot is going to move backwards. If 0.0 then no rotation action is done
+  step_back_distance: 0.3 # Indicates the distance that the robot is going to move backwards. If 0.0 then no rotation action is done
   rotation: 3.14 # Indicates the rotation that the robot is going to move after moving backwards. If 0.0 then no rotation action is done

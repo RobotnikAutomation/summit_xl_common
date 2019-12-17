@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="id_robot" default="robot"/>
+  <arg name="differential_robot" default="$(optenv ROBOT_DIFFERENTIAL_KINEMATICS false)"/>
+	
+  <!-- Dockers arguments -->
+  <arg name="has_docker" default="$(optenv ROBOT_HAS_DOCKER false)"/>
+  <arg name="run_camera_docker" default="$(optenv ROBOT_DOCKER_RUN_CAMERA true)"/>
+  <arg name="run_laser_docker" default="$(optenv ROBOT_DOCKER_RUN_LASER false)"/>
+  
+  <!-- Move arguments-->
+	
+	<group ns="$(arg id_robot)">
+
+      <include if="$(arg has_docker)" file="$(find summit_xl_navigation)/launch/dockers.launch">
+        <arg name="id_robot" value="$(arg id_robot)"/>
+		    <arg name="docking_qr" value="$(arg run_camera_docker)"/>
+        <arg name="docking_laser_reflectors" value="$(arg run_laser_docker)"/>
+        <arg name="differential_robot" value="$(arg differential_robot)"/>
+      </include>
+    
+      <include file="$(find summit_xl_navigation)/launch/move.launch">
+        <arg name="id_robot" value="$(arg id_robot)"/>
+        <arg name="differential_robot" value="$(arg differential_robot)"/>
+      </include>
+    
+	</group>
+</launch>

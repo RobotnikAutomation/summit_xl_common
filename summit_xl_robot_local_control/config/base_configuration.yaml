@@ -1,0 +1,3 @@
+odom_frame: robot_odom
+base_frame: robot_base_footprint
+global_frame: robot_map

@@ -1,0 +1,37 @@
+gain_linear_velocity_x: 0.5
+gain_linear_velocity_y: 1
+gain_angular_velocity_z: 0.5
+
+maximum_linear_velocity_x: 0.4
+maximum_linear_velocity_y: 0.2
+maximum_angular_velocity_z: 0.7
+
+threshold_linear_velocity_x: 0.002
+threshold_linear_velocity_y: 0.002
+threshold_angular_velocity_z: 0.005
+
+goal_threshold_x: 0.005
+goal_threshold_y: 0.005
+goal_threshold_theta: 0.06
+
+check_initial_limits: true
+initial_maximum_distance_x: 2.5
+initial_maximum_distance_y: 0.0
+initial_minimum_distance_x: 0.5
+initial_minimum_distance_y: 0.0
+
+minimum_relative_linear_velocity_between_robot_and_goal: 0.001
+minimum_relative_angular_velocity_between_robot_and_goal: 0.002
+
+initial_maximum_arc: 0.7
+initial_maximum_yaw: 1
+
+publish_debug_frames: true
+offset_for_heading_adjustment: 0.3
+
+tf_timeout: 0
+free_goal_velocity: false
+
+check_robot_is_moving_to_goal: false
+robot_moving_to_goal_delay: 3
+robot_moving_to_goal_averaging_time: 1.0

@@ -1,0 +1,27 @@
+gain_linear_velocity_x: 0.5 
+gain_linear_velocity_y: 1.0 
+gain_angular_velocity_z: 2.0 
+
+maximum_linear_velocity_x: 0.1 
+maximum_linear_velocity_y: 0.2
+maximum_angular_velocity_z: 0.3 
+
+threshold_linear_velocity_x: 0.002 
+threshold_linear_velocity_y: 0.002 
+threshold_angular_velocity_z: 0.05 
+
+goal_threshold_x: 0.02
+goal_threshold_y: 0.01
+goal_threshold_theta: 0.01 
+
+minimum_relative_linear_velocity_between_robot_and_goal: 0.005
+minimum_relative_angular_velocity_between_robot_and_goal: 0.002
+
+initial_maximum_arc: 1 
+initial_maximum_yaw: 1 
+
+free_goal_velocity: false
+
+check_robot_is_moving_to_goal: false 
+robot_moving_to_goal_delay: 3 
+robot_moving_to_goal_averaging_time: 5 

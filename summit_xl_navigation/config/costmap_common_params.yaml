@@ -5,24 +5,24 @@ publish_frequency: 1.0
 inflation_layer:
   inflation_radius: 0.3
 
-obstacle_layer:
+obstacle_laser_layer:
   obstacle_range: 2.5
   raytrace_range: 5.5
-  observation_sources: front_laser rear_laser front_rgbd_to_scan
+  observation_sources: front_laser rear_laser
   front_laser: 
-    sensor_frame: summit_xl_front_laser_link
+    sensor_frame: robot_front_laser_link
     data_type: LaserScan
     topic: front_laser/scan
     marking: true
     clearing: true
   rear_laser: 
-    sensor_frame: summit_xl_rear_laser_link
+    sensor_frame: robot_rear_laser_link
     data_type: LaserScan
     topic: rear_laser/scan
     marking: true
     clearing: true
 
-rgbd_obstacle_layer:
+obstacle_camera_layer:
   obstacle_range: 2.5
   raytrace_range: 5.5
   observation_sources: front_rgbd_to_scan
@@ -31,5 +31,3 @@ rgbd_obstacle_layer:
     topic: front_rgbd_camera/point_cloud_scan_filtered
     marking: true
     clearing: true
-    observation_persistence: 5.0
-

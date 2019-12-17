@@ -41,7 +41,7 @@ EBandPlannerROS:
   in_place_trans_vel: 0.0                           # Minimum in place linear velocity (default: 0.0)
   k_prop: 4.0                                       # Proportional gain of the PID controller (default: 4.0)
   k_damp: 3.5                                       # Damping gain of the PID controller (default: 3.5)
-  Ctrl_Rate: 10                                     # Control rate (default: 10.0) 
+  Ctrl_Rate: 10.0                                   # Control rate (default: 10.0) 
   max_acceleration: 0.5                             # Maximum allowable acceleration (default: 0.5)
   virtual_mass: 0.75                                # Virtual mass (default: 0.75)
   max_translational_acceleration: 0.5               # Maximum linear acceleration (default: 0.5)

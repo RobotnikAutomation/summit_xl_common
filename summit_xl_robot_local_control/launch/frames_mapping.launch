@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="id_robot" default="rb1_base"/>
+    <arg name="prefix" value="$(arg id_robot)_"/>
+    <arg name="frame_id" default="$(arg prefix)map"/>
+    <arg name="base_frame_id" default="$(arg prefix)base_footprint"/>
+    <arg name="config_file" default="frames.yaml"/>
+    <arg name="config_folder" default="$(find marker_mapping)/config" />
+    <arg name="publish_saved_markers_tf" default="true" />
+    <arg name="load_frames_on_init" default="true" />
+
+    <!-- start the node -->
+    <node pkg="marker_mapping" type="frame_mapping_node.py" name="frame_mapping" respawn="false">
+        <param name="frame_id" value="$(arg frame_id)" type="string"/>
+        <param name="base_frame_id" value="$(arg base_frame_id)" type="string"/>
+        <param name="publish_saved_markers_tf" value="$(arg publish_saved_markers_tf)"/>
+        <param name="load_frames_on_init" value="$(arg load_frames_on_init)"/>
+
+        <param name="folder_path" value="$(arg config_folder)" type="string"/>
+        <param name="config_filename" value="$(arg config_file)" type="string"/>
+
+
+    </node>
+
+</launch>

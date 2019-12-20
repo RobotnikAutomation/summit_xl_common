@@ -28,7 +28,7 @@ initial_maximum_yaw: 1
 publish_debug_frames: true
 offset_for_heading_adjustment: 0.3
 
-tf_timeout: 0
+tf_timeout: 0.5
 free_goal_velocity: false
 
 check_robot_is_moving_to_goal: false

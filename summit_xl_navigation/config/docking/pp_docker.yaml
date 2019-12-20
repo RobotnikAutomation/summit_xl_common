@@ -7,7 +7,7 @@ maximum_linear_velocity_y:  0.2
 maximum_angular_velocity_z:  0.7
 
 minimum_relative_linear_velocity_between_robot_and_goal:  0.01
-minimum_relative_angular_velocity_between_robot_and_goal:  0.02
+minimum_relative_angular_velocity_between_robot_and_goal:  0.0017
 
 check_initial_limits:  false
 initial_maximum_distance_x:  1.0
@@ -21,7 +21,7 @@ initial_maximum_yaw:  0.52
 check_robot_is_moving_to_goal:  true
 robot_moving_to_goal_delay:  30.0
 
-tf_timeout:  0
+tf_timeout:  2.0
 free_goal_velocity:  true
 
 goal_threshold_x:  0.01
@@ -38,5 +38,7 @@ publish_debug_frames:  true
 kr:  0.2
 look_ahead:  0.3
 k_angular_to_linear_factor:  1.05
-pre_dock_point_distance:  -1.0
-free_flight_mode:  true
+pre_dock_point_distance:  -1.5
+free_flight_mode:  false
+tf_update_frequency: 0.5
+tf_update_min_distance: 0.8

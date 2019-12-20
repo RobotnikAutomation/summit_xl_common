@@ -41,13 +41,29 @@ ChargeComponent:
   robot_dock_frame: robot_base_footprint
   dock_offset_x: -0.65 
   move_namespace: move
-  step_in_distance: 0.05 # Indicates the distance that the robot is going to move in x-axis after the docking. If 0.0 then no move action is done
+  step_in_distance: 0.06 # Indicates the distance that the robot is going to move in x-axis after the docking. If 0.0 then no move action is done
   set_to_standby: false # If 'true' then the lasers will be in standby after the docking
+  move:
+    max_velocity:
+      linear_x: 0.015
+      linear_y: 0.015
+      angular_z: 0.1
+  dock:
+    max_velocity:
+      linear_x: 0.1
+      linear_y: 0.1
+      angular_z: 0.1
 
 UnchargeComponent:
   type: robot_local_control_procedures/Uncharge
   desired_freq: 5.0
   has_laser_safety: false # determines if the robot has safety_lasers and the safety zone must be changed
   move_namespace: move
-  step_back_distance: 0.3 # Indicates the distance that the robot is going to move backwards. If 0.0 then no rotation action is done
-  rotation: 3.14 # Indicates the rotation that the robot is going to move after moving backwards. If 0.0 then no rotation action is done
+  step_back_distance: 0.35 # Indicates the distance that the robot is going to move backwards. If 0.0 then no rotation action is done
+  rotation: 0.0 # Indicates the rotation that the robot is going to move after moving backwards. If 0.0 then no rotation action is done
+  move:
+    max_velocity:
+      linear_x: 0.025
+      linear_y: 0.025
+      angular_z: 0.1
+

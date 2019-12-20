@@ -10,7 +10,7 @@
 	<arg name="tag_distance_margin" default="0.1"/>
 	<arg name="min_num_cluster" default="3"/>
 	<arg name="max_num_cluster" default="50"/>
-	<arg name="desired_freq" default="40.0"/>
+	<arg name="desired_freq" default="20.0"/>
 	<arg name="cluster_tolerance" default="0.05"/>
 
 	<arg name="fixed_frame" default="$(arg prefix)odom"/>

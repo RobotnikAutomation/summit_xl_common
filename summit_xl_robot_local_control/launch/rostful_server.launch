@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="host" default="$(optenv ROBOT_ROSTFUL_SERVER_IP) localhost"/>
-  <arg name="port" default="$(optenv ROBOT_ROSTFUL_SERVER_PORT) 8080"/>
+  <arg name="host" default="$(optenv ROBOT_RLC_ROSTFUL_SERVER_IP localhost)"/>
+  <arg name="port" default="$(optenv ROBOT_RLC_ROSTFUL_SERVER_PORT 8080)"/>
+  <arg name="node_name" default="rlc_rostful_server"/>
   <arg name="init_delay" default="1"/>
   <!-- args="- -host $(arg host) -p $(arg port) - -topics /agvs_controller/status - -services /agvs_magnet_navigator/action"/> -->
-  <node pkg="rostful" type="server" name="rostful_server" output="screen" respawn="true" args="--host $(arg host) -p $(arg port)
+  <node pkg="rostful" type="server" name="$(arg node_name)" args="--host $(arg host) -p $(arg port)
       --topics /robot/robot_local_control/state
 
       --services /robot/robot_local_control/NavigationComponent/GoToComponent/query_state
@@ -13,9 +14,12 @@
                  /robot/robot_local_control/NavigationComponent/MoveComponent/query_state
                  /robot/robot_local_control/NavigationComponent/MoveComponent/add
                  /robot/robot_local_control/NavigationComponent/MoveComponent/cancel
-                 /robot/robot_local_control/NavigationComponent/PickComponent/query_state
-                 /robot/robot_local_control/NavigationComponent/PickComponent/add
-                 /robot/robot_local_control/NavigationComponent/PickComponent/cancel">
+                 /robot/robot_local_control/NavigationComponent/ChargeComponent/query_state
+                 /robot/robot_local_control/NavigationComponent/ChargeComponent/add
+                 /robot/robot_local_control/NavigationComponent/ChargeComponent/cancel
+                 /robot/robot_local_control/NavigationComponent/UnchargeComponent/query_state
+                 /robot/robot_local_control/NavigationComponent/UnchargeComponent/add
+                 /robot/robot_local_control/NavigationComponent/UnchargeComponent/cancel">
 
     <param name="init_delay" value="$(arg init_delay)"/>
   </node>

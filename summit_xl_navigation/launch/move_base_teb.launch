@@ -6,10 +6,10 @@
   <!-- Topics argumments -->
   <arg name="cmd_vel_topic" default="move_base/cmd_vel"/>
   <arg name="odom_topic" default="robotnik_base_control/odom"/>
-  <arg name="front_scan_topic" default="front_laser/scan"/>
-  <arg name="rear_scan_topic" default="rear_laser/scan"/>
-  <arg name="front_rgbd_to_scan_topic" default="front_rgbd_camera/point_cloud_scan_filtered"/>
- 
+  <arg name="front_scan_topic" default="$(optenv ROBOT_NAVIGATION_FRONT_2D_SCAN front_laser/scan)"/>
+  <arg name="rear_scan_topic" default="$(optenv ROBOT_NAVIGATION_REAR_2D_SCAN rear_laser/scan)"/>
+  <arg name="front_rgbd_to_scan_topic" default="$(optenv ROBOT_NAVIGATION_FRONT_RGBD_TO_SCAN front_rgbd_camera/point_cloud_scan_filtered)"/> 
+  
   <!-- Frames arguments -->
   <arg name="global_frame" default="$(arg prefix)map"/>
   <arg name="odom_frame" default="$(arg prefix)odom"/>

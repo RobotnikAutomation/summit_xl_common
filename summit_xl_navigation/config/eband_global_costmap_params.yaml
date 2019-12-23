@@ -1,0 +1,21 @@
+global_costmap:
+  global_frame: /robot_map
+  robot_base_frame: /robot_base_footprint
+  update_frequency: 0.5
+  static_map: true
+  
+  plugins:
+    - name: static_map
+      type: "costmap_2d::StaticLayer"
+    - name: obstacle_laser_layer
+      type: "costmap_2d::ObstacleLayer"
+    - name: inflation_layer
+      type: "costmap_2d::InflationLayer"
+
+  static_map:
+      lethal_cost_threshold: 94
+      static_map: true
+      map_topic: map
+      unknown_cost_value: 1
+      trinary_costmap: false
+      use_maximum: false

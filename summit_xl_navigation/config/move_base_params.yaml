@@ -23,7 +23,7 @@ oscillation_timeout: 0.0          # How long in seconds to allow for oscillation
                                   # recovery behaviors
 oscillation_distance: 0.5         # How far in meters the robot must move to be considered not
                                   # to be oscillating
-max_planning_retries: -1          # How many times to allow for planning retries before executing
+max_planning_retries: 10          # How many times to allow for planning retries before executing
                                   # recovery behaviors. A value of -1.0 corresponds to an infinite
                                   # retries.
 

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<arg name="node_name" default="range_filter_node"/>
+	<arg name="config_file" default="scan_filter.yaml"/>
+	<arg name="input_scan" default="front_laser/scan"/>
+	<arg name="output_scan" default="front_laser/filtered_scan"/>
+
+	<node pkg="laser_filters" type="scan_to_scan_filter_chain" name="$(arg node_name)">
+		<rosparam command="load" file="$(find summit_xl_navigation)/config/$(arg config_file)" />
+		<remap from="scan" to="$(arg input_scan)"/>
+		<remap from="scan_filtered" to="$(arg output_scan)"/>
+	</node>
+	
+</launch>
+

@@ -5,6 +5,8 @@ check_sensors_state: false
 check_localization_state: false
 has_safety_laser: false
 safety_laser_mode_allowed: safe
+charge_disable_procedures: true
+uncharge_procedure_name: UnchargeComponent
 
 #components: [GoToComponent, ChargeComponent, UnchargeComponent, MoveComponent]
 components:

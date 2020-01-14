@@ -1,17 +1,17 @@
   joint_pan_position_controller:
     type: velocity_controllers/JointPositionController
-    joint: summit_xl_a_front_ptz_camera_pan_joint
+    joint: robot_front_ptz_camera_pan_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
   joint_tilt_position_controller:
     type: velocity_controllers/JointPositionController
-    joint: summit_xl_a_front_ptz_camera_tilt_joint
+    joint: robot_front_ptz_camera_tilt_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
   robotnik_base_control:
     type        : "diff_drive_controller/DiffDriveController"
-    left_wheel  : ['summit_xl_a_front_left_wheel_joint','summit_xl_a_back_left_wheel_joint']
-    right_wheel : ['summit_xl_a_front_right_wheel_joint','summit_xl_a_back_right_wheel_joint']
+    left_wheel  : ['robot_front_left_wheel_joint','robot_back_left_wheel_joint']
+    right_wheel : ['robot_front_right_wheel_joint','robot_back_right_wheel_joint']
     publish_rate: 50.0
     pose_covariance_diagonal : [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
     twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
@@ -30,8 +30,8 @@
     cmd_vel_timeout: 0.25
 
     # Base frame_id
-    base_frame_id: summit_xl_a_base_footprint
-    odom_frame_id: summit_xl_a_odom
+    base_frame_id: robot_base_footprint
+    odom_frame_id: robot_odom
     enable_odom_tf: true
 
     # Velocity and acceleration limits

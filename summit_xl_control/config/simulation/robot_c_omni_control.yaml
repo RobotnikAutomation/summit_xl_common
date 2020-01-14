@@ -1,0 +1,13 @@
+  joint_pan_position_controller:
+    type: velocity_controllers/JointPositionController
+    joint: robot_c_front_ptz_camera_pan_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  joint_tilt_position_controller:
+    type: velocity_controllers/JointPositionController
+    joint: robot_c_front_ptz_camera_tilt_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  joint_read_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 100.0

@@ -1,15 +1,15 @@
   joint_blw_velocity_controller:
     type: velocity_controllers/JointVelocityController
-    joint: summit_xl_b_back_left_wheel_joint
+    joint: robot_b_back_left_wheel_joint
   joint_brw_velocity_controller:
     type: velocity_controllers/JointVelocityController
-    joint: summit_xl_b_back_right_wheel_joint
+    joint: robot_b_back_right_wheel_joint
   joint_frw_velocity_controller:
     type: velocity_controllers/JointVelocityController
-    joint: summit_xl_b_front_right_wheel_joint
+    joint: robot_b_front_right_wheel_joint
   joint_flw_velocity_controller:
     type: velocity_controllers/JointVelocityController
-    joint: summit_xl_b_front_left_wheel_joint
+    joint: robot_b_front_left_wheel_joint
 
 #joint_pan_position_controller:
 #  type: position_controllers/JointPositionController
@@ -20,9 +20,9 @@
 
   robotnik_base_control:
     type        : "diff_drive_controller/DiffDriveController"
-    left_wheel  : ['summit_xl_b_front_left_wheel_joint','summit_xl_b_back_left_wheel_joint']
-    right_wheel : ['summit_xl_b_front_right_wheel_joint','summit_xl_b_back_right_wheel_joint']
-    publish_rate: 50.0              
+    left_wheel  : ['robot_b_front_left_wheel_joint','robot_b_back_left_wheel_joint']
+    right_wheel : ['robot_b_front_right_wheel_joint','robot_b_back_right_wheel_joint']
+    publish_rate: 50.0
     pose_covariance_diagonal : [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
     twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
 
@@ -40,8 +40,8 @@
     cmd_vel_timeout: 0.25
 
     # Base frame_id
-    base_frame_id: summit_xl_b_base_footprint
-    odom_frame_id: summit_xl_b_odom
+    base_frame_id: robot_b_base_footprint
+    odom_frame_id: robot_b_odom
     enable_odom_tf: true
 
     # Velocity and acceleration limits
@@ -63,8 +63,5 @@
 
 
   joint_read_state_controller:
-    type: joint_state_controller/JointStateController 
+    type: joint_state_controller/JointStateController
     publish_rate: 100.0
-
-
-

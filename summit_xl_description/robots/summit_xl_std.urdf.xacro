@@ -23,7 +23,7 @@
 
 	<!-- Wheel parameters -->
 	<xacro:property name="wheel_offset_x" value="0.229" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
-	<xacro:property name="wheel_offset_y" value="0.234" />
+	<xacro:property name="wheel_offset_y" value="0.235" />
 	<xacro:property name="wheel_offset_z" value="0.0" />
 
 	<!-- Flag to select the high or low quality model -->
@@ -99,7 +99,6 @@
 	    <xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link">
 			<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
 		</xacro:sensor_gps>
-
 
    </xacro:macro>
 

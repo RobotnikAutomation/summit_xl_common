@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-<robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+<robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  
+
   <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
 
   <xacro:macro name="summit_xl_base" params="prefix publish_bf hq">
 
 	  <!-- Robot mechanical and motor parameters -->
 	  <xacro:property name="PI" value="3.1415926535897931"/>
-	  <xacro:property name="wheel_width" value="0.175" />
+	  <xacro:property name="wheel_radius" value="0.11"/>
 
 	  <!-- BASE FOOTPRINT -->
 	  <xacro:if value="${publish_bf}">
@@ -25,7 +25,7 @@
 		  <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" /> <!-- ${wheel_radius} property must be defined inside wheel description -->
 		  <parent link="${prefix}base_footprint"/>
 		  <child link="${prefix}base_link" />
-		</joint>    
+		</joint>
 	  </xacro:if>
 
 	  <!-- BASE_LINK -->
@@ -50,13 +50,13 @@
 		   <material name="darkgrey">
 			 <color rgba="0.1 0.1 0.1 1"/>
 		   </material>
-		</visual>  
+		</visual>
 		<collision>
 		   <origin xyz="0 0 0" rpy="0 0 0 " />
 		   <geometry>
 			 <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_chassis_collision.dae"/>
 		   </geometry>
-		</collision>     
+		</collision>
 	  </link>
 
 		<!-- DOCKING CONTACTS -->
@@ -64,11 +64,10 @@
 			<origin xyz="0.284 0.012 0.068" rpy="0 0 0 " />
 			<parent link="${prefix}base_link"/>
 			<child link="${prefix}base_docking_contact_link" />
-		</joint>    
+		</joint>
 
 		<!-- DOCKING LINK -->
 		<link name="${prefix}base_docking_contact_link" />
 
   </xacro:macro>
 </robot>
-

@@ -37,7 +37,7 @@ robotnik_base_control:
   wheel_base: 0.458
   track_width: 0.462
   wheel_diameter: 0.25
-  cmd_watchdog_duration: 0.2
+  cmd_watchdog_duration: 0.5
   imu_watchdog_duration: 0.1
   imu_topic: imu/data
   odom_publish_frequency: 100

@@ -43,9 +43,9 @@
 	<xacro:property name="rear_ptz_camera_offset_y" value="-0.141"/>
 	<xacro:property name="rear_ptz_camera_offset_z" value="0.195"/>
 
-	<xacro:property name="imu_offset_x" value="0.13"/>
-	<xacro:property name="imu_offset_y" value="-0.273"/>
-	<xacro:property name="imu_offset_z" value="0.066"/>
+	<xacro:property name="imu_offset_x" value="0.127"/>
+	<xacro:property name="imu_offset_y" value="-0.129"/>
+	<xacro:property name="imu_offset_z" value="0.212"/>
 
 	<xacro:property name="front_rgbd_camera_offset_x" value="0.35850"/>
 	<xacro:property name="front_rgbd_camera_offset_y" value="0.0"/>

@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
-<robot name="structure" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
-		
+<robot name="structure" xmlns:xacro="http://wiki.ros.org/xacro">
+
   <xacro:macro name="structure_rear_camera" params="prefix parent *origin">
-    	 
+
 	  <joint name="${prefix}_joint" type="fixed">
 	    <axis xyz="0 1 0"/>
 	    <xacro:insert_block name="origin"/>
 	    <parent link="${parent}"/>
 	    <child link="${prefix}_link"/>
 	  </joint>
-	
+
 	  <link name="${prefix}_link">
 	    <inertial>
 	      <mass value="0.001"/>
@@ -22,7 +22,7 @@
            <color rgba="0.5 0.5 0.5 1"/>
         </material>
 	      <geometry>
-	        <mesh filename="package://summit_xl_description/meshes/structures/structure_rear_axis.stl"/>	        
+	        <mesh filename="package://summit_xl_description/meshes/structures/structure_rear_axis.stl"/>
 	      </geometry>
 	    </visual>
 	    <collision>
@@ -32,15 +32,12 @@
 	      </geometry>
 	    </collision>
 	  </link>
-      
+
 	  <gazebo reference="${prefix}_link">
 	    <material>Gazebo/White</material>
 	    <gravity>true</gravity>
 	  </gazebo>
-      
+
   </xacro:macro>
 
 </robot>
-
-
-

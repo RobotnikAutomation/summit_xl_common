@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <!-- skid, omni, steel_skid, steel_omni, diffdrive,x_omni -->
-  <!-- diffdrive has been tested only in simulation -->
+  <!-- kinematics: skid, omni -->
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
   <arg name="wheel_diameter" default="$(optenv ROBOT_WHEEL_DIAMETER 0.22)"/>
   <arg name="track_width" default="$(optenv ROBOT_TRACK_WIDTH 0.439)"/>
@@ -9,23 +8,20 @@
   <arg name="sim" default="false"/>
   <arg name="cmd_vel" default="robotnik_base_control/cmd_vel"/>
   <arg name="prefix" default="summit_xl_"/>
-  <arg name="robot_model" default="summit_xl"/>
   <arg name="launch_robot_localization" default="false"/>
-  <arg name="has_safety_module" default="false"/>
 
   <!-- Robot - Load joint controller configurations from YAML file to parameter server -->
   <group unless="$(arg sim)">
-	  <rosparam file="$(find summit_xl_control)/config/$(arg robot_model)_$(arg kinematics)_control.yaml" command="load"/>
+	  <rosparam file="$(find summit_xl_control)/config/robot_control.yaml" command="load"/>
 	  <param name="robotnik_base_control/joint/back_left_wheel_joint/name" value="$(arg prefix)back_left_wheel_joint"/>
 	  <param name="robotnik_base_control/joint/back_right_wheel_joint/name" value="$(arg prefix)back_right_wheel_joint"/>
 	  <param name="robotnik_base_control/joint/front_right_wheel_joint/name" value="$(arg prefix)front_right_wheel_joint"/>
 	  <param name="robotnik_base_control/joint/front_left_wheel_joint/name" value="$(arg prefix)front_left_wheel_joint"/>
-	  <param if="$(eval kinematics == 'x_omni')" name="robotnik_base_control/joint/aux_upper_base_joint/name" value="$(arg prefix)aux_upper_base_joint"/>
-		<param if="$(eval kinematics == 'x_omni')" name="robotnik_base_control/joint/upper_base_joint/name" value="$(arg prefix)upper_base_joint"/>
 	  <param name="robotnik_base_control/odom_frame" value="$(arg prefix)odom"/>
 	  <param name="robotnik_base_control/robot_base_frame" value="$(arg prefix)base_footprint"/>
 	  <param name="robotnik_base_control/wheel_diameter" value="$(arg wheel_diameter)"/>
 	  <param name="robotnik_base_control/track_width" value="$(arg track_width)"/>
+	  <param name="robotnik_base_control/kinematic_mode" value="$(arg kinematics)"/>
 	  <!-- load the controllers -->
 	  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
 		output="screen" args="

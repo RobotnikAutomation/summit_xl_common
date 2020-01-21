@@ -80,9 +80,9 @@
   		</xacro:omni_wheel>
     </xacro:if>
         <!-- IMU -->
-		<xacro:sensor_imu_hector prefix="$(arg prefix)imu" parent="$(arg prefix)base_link">
+		<xacro:sensor_imu prefix="$(arg prefix)imu" parent="$(arg prefix)base_link">
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
-		</xacro:sensor_imu_hector>
+		</xacro:sensor_imu>
 		<!-- 2d laser -->
 		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>

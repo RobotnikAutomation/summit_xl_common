@@ -18,13 +18,13 @@
 	<arg name="object_frame" default="$(arg prefix)tag"/>
 	<arg name="filtered_object_frame" default="$(arg object_frame)_filtered"/>
 
-	<arg name="scan_topic_name" default="front_laser/cloud_filtered_scan" />
+	<arg name="input_topic_name" default="front_laser/cloud_filtered_scan" />
 
 	<node pkg="robotnik_locator" type="two_tag_laser_locator_node" name="$(arg two_tag_locator_node_name)" clear_params="true">
 		<param name="robot_base_frame" value="$(arg robot_base_frame)"/>
 		<param name="fixed_frame" value="$(arg fixed_frame)" />
 		<param name="object_frame" value="$(arg object_frame)"/>
-		<param name="scan_topic_name" value="$(arg scan_topic_name)" />
+		<param name="input_topic_name" value="$(arg input_topic_name)" />
 		<param name="min_num_cluster" type="int" value="$(arg min_num_cluster)"/>
 		<param name="max_num_cluster" type="int" value="$(arg max_num_cluster)"/>
 		<param name="cluster_tolerance" value="$(arg cluster_tolerance)"/>

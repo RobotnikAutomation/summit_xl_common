@@ -9,10 +9,13 @@
   <!-- Laser locator arguments -->
   <arg name="run_reflector_locator" default="$(optenv ROBOT_RUN_REFLECTOR_LOCATOR false)"/>
   <arg name="filter_config_file" default="$(optenv ROBOT_LASER_MODEL_INTENSITY_FILTER default)_intensity_filter"/>
+  <arg name="scan_topic" default="$(optenv ROBOT_PERCEPTION_SCAN_TOPIC front_laser/scan)"/>
+  <arg name="camera_topic" default="$(optenv ROBOT_PERCEPTION_CAMERA_TOPIC front_rgbd_camera/rgb/image_raw)" />
+  <arg name="camera_info_topic" default="$(optenv ROBOT_PERCEPTION_CAMERA_INFO_TOPIC front_rgbd_camera/rgb/camera_info)" />
   <arg name="cloud_topic" default="front_laser/cloud_reflector"/>
   <arg name="two_tag_locator_node_name" default="charger_laser_locator"/>
 	<arg name="object_frame" default="$(arg prefix)docking_station_laser"/>
-	
+
   <arg name="docking_station_tag_distance" default="$(optenv ROBOT_DOCKING_STATION_TAG_DISTANCE 0.3)"/>
   <arg name="docking_station_tag_max_distance_detection" default="$(optenv ROBOT_DOCKING_STATION_TAG_MAX_DISTANCE_DETECTION 3.5)"/>
 
@@ -21,12 +24,15 @@
     <!-- Launch AR locator to detect markers -->
     <include if="$(arg run_ar_locator)" file="$(find summit_xl_perception)/launch/ar_locator.launch">
       <arg name="id_robot" value="$(arg id_robot)"/>
+      <arg name="camera_topic_name" value="$(arg camera_topic)" />
+      <arg name="camera_info_topic_name" default="$(arg camera_info_topic)" />
     </include>
 
     <group if="$(arg run_reflector_locator)">
       <!-- Intensity filter from scan to cloud -->
       <include file="$(find summit_xl_perception)/launch/scan_to_cloud.launch">
         <arg name="id_robot" value="$(arg id_robot)"/>
+        <arg name="source_topic" value="$(arg scan_topic)"/>
         <arg name="filter_config_file" value="$(arg filter_config_file)"/>
         <arg name="target_topic" value="$(arg cloud_topic)"/>
         <arg name="target_frame" value="$(arg prefix)odom"/>
@@ -37,12 +43,12 @@
         <arg name="id_robot" value="$(arg id_robot)"/>
         <arg name="two_tag_locator_node_name" value="$(arg two_tag_locator_node_name)"/>
       	<arg name="object_frame" value="$(arg object_frame)"/>
-      	<arg name="scan_topic_name" value="$(arg cloud_topic)"/>
+      	<arg name="input_topic_name" value="$(arg cloud_topic)"/>
         <arg name="tag_distance" value="$(arg docking_station_tag_distance)"/>
         <arg name="tag_max_distance_detection" value="$(arg docking_station_tag_max_distance_detection)"/>
       </include>
     </group>
 
   </group>
-  
+
 </launch>

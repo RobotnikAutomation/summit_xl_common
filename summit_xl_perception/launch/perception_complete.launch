@@ -12,7 +12,7 @@
   <arg name="scan_topic" default="$(optenv ROBOT_PERCEPTION_SCAN_TOPIC front_laser/scan)"/>
   <arg name="camera_topic" default="$(optenv ROBOT_PERCEPTION_CAMERA_TOPIC front_rgbd_camera/rgb/image_raw)" />
   <arg name="camera_info_topic" default="$(optenv ROBOT_PERCEPTION_CAMERA_INFO_TOPIC front_rgbd_camera/rgb/camera_info)" />
-  <arg name="cloud_topic" default="front_laser/cloud_reflector"/>
+  <arg name="cloud_topic" default="perception_filtered_points"/>
   <arg name="two_tag_locator_node_name" default="charger_laser_locator"/>
 	<arg name="object_frame" default="$(arg prefix)docking_station_laser"/>
 

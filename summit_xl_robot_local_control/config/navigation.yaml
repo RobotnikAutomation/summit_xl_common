@@ -39,7 +39,7 @@ ChargeComponent:
   desired_freq: 5.0
   has_laser_safety: true # determines if the robot has safety_lasers and the safety zone must be changed
   docker_namespace: pp_docker
-  dock_frame: robot_docking_station_laser_filtered
+  dock_frame: robot_docking_station_laser_for_base_frame #robot_docking_station_laser_filtered
   laser_mode_at_begining: docking_station
   robot_dock_frame: robot_base_footprint
   dock_offset_x: -0.70
@@ -62,6 +62,7 @@ UnchargeComponent:
   desired_freq: 5.0
   has_laser_safety: true # determines if the robot has safety_lasers and the safety zone must be changed
   move_namespace: move
+  laser_mode_at_finish: standard
   step_back_distance: 0.35 # Indicates the distance that the robot is going to move backwards. If 0.0 then no rotation action is done
   rotation: 0.0 # Indicates the rotation that the robot is going to move after moving backwards. If 0.0 then no rotation action is done
   move:

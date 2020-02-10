@@ -26,10 +26,12 @@
 
   <!-- Static transforms -->
   <include file="$(find summit_xl_navigation)/launch/tf_publishers.launch">
+    <arg name="docking_qr" value="$(arg docking_qr)"/>
     <arg name="camera_dock_frame" value="$(arg camera_dock_frame)"/>
     <arg name="camera_contact_dock_frame" value="$(arg camera_contact_dock_frame)"/>
     <arg name="camera_contact_dock_frame_for_base" value="$(arg camera_contact_dock_frame_for_base)"/>
   
+    <arg name="docking_laser_reflectors" value="$(arg docking_laser_reflectors)"/>
     <arg name="laser_dock_frame" value="$(arg laser_dock_frame)"/>
     <arg name="laser_contact_dock_frame" value="$(arg laser_contact_dock_frame)"/>
     <arg name="laser_contact_dock_frame_for_base" value="$(arg laser_contact_dock_frame_for_base)"/>  

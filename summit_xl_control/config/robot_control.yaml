@@ -27,9 +27,9 @@ robotnik_base_control:
       name: summit_xl_back_left_wheel_joint
       max_speed: 27.27 # rad/s
   linear_speed_limit: 1.5 # m/s
-  linear_acceleration_limit: 0.2 # m/s^2
+  linear_acceleration_limit: 0.6 # m/s^2
   angular_speed_limit: 3 # rad/s
-  angular_acceleration_limit: 0.2 # rad/s^2
+  angular_acceleration_limit: 1.5 # rad/s^2
   odom_frame: summit_xl_odom
   robot_base_frame: summit_xl_base_footprint
   odom_broadcast_tf: true

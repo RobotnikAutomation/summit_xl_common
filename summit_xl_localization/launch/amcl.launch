@@ -10,7 +10,7 @@
 <arg name="global_frame" default="$(arg prefix)map"/>
 <arg name="odom_frame" default="$(arg prefix)odom"/>
 <arg name="base_frame" default="$(arg prefix)base_footprint"/>
-<arg name="odom_model_type" default="diff"/> <!-- omni -->
+<arg name="odom_model_type" default="$(optenv ROBOT_LOCALIZATION_ODOM_MODEL diff)"/> <!-- omni -->
 
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
   <remap from="scan" to="$(arg scan_topic)"/>

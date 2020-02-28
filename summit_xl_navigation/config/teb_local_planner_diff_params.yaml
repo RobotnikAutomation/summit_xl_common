@@ -37,8 +37,8 @@ TebLocalPlannerROS:
     #type: "circular"
     #radius: 0.5 # for type "circular"
     type: "line"
-    line_start: [-0.0545, 0.0] # for type "line"
-    line_end: [0.0545, 0.0] # for type "line"
+    line_start: [-0.035, 0.0] # for type "line"
+    line_end: [0.035, 0.0] # for type "line"
     #front_offset: 0.2 # for type "two_circles"
     #front_radius: 0.2 # for type "two_circles"
     #rear_offset: 0.2 # for type "two_circles"
@@ -53,7 +53,7 @@ TebLocalPlannerROS:
 
   # Obstacles
 
-  min_obstacle_dist: 0.435 # minimum distance to obstacle: it depends on the footprint_model
+  min_obstacle_dist: 0.481 # minimum distance to obstacle: it depends on the footprint_model
   include_costmap_obstacles: True # use the local costmap
   costmap_obstacles_behind_robot_dist: 1.0 # distance at which obstacles behind the robot are taken into account
   obstacle_poses_affected: 30 # unused if legacy_obstacle_association is false

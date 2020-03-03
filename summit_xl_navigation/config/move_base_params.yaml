@@ -1,4 +1,4 @@
-#base_global_planner: "navfn/NavfnROS"
+base_global_planner: global_planner/GlobalPlanner
 
 #max_planning_retries: 10   #How many times to allow for planning retries before executing recovery behaviors. A value of -1.0 corresponds to an infinite retries.
 

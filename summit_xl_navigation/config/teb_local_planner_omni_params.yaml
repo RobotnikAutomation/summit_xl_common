@@ -57,7 +57,7 @@ TebLocalPlannerROS:
   include_costmap_obstacles: True # use the local costmap
   costmap_obstacles_behind_robot_dist: 1.0 # distance at which obstacles behind the robot are taken into account
   obstacle_poses_affected: 30 # unused if legacy_obstacle_association is false
-  inflation_dist: 0.0 # greater than min_obstacle_dist to take effect
+  inflation_dist: 0.7 # greater than min_obstacle_dist to take effect
   legacy_obstacle_association: false
   obstacle_association_force_inclusion_factor: 1.5 # the obstacles that will be taken into account are those closer than min_obstacle_dist*factor, if legacy is false
   obstacle_association_cutoff_factor: 5.0 # the obstacles that are further than min_obstacle_dist * factor will not be taken into account, if legacy is false

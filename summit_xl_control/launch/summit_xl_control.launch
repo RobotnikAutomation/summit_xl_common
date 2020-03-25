@@ -33,7 +33,7 @@
   </group>
     <!-- Simulation - Load joint controller configurations from YAML file to parameter server -->
   <group if="$(arg sim)">
-	  <rosparam file="$(find summit_xl_control)/config/simulation/$(arg prefix)$(arg kinematics)_control.yaml" command="load"/>
+	  <rosparam file="$(find summit_xl_control)/config/simulation/robot_control.yaml" command="load" subst_value="true"/>
 
 	  <!-- if robot_localization node is launched the controller must not publish the odom tf-->
 	  <param if="$(arg launch_robot_localization)" name="robotnik_base_control/enable_odom_tf" value="false"/>

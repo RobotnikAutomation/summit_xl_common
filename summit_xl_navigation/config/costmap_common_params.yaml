@@ -10,15 +10,15 @@ obstacle_laser_layer:
   raytrace_range: 5.5
   observation_sources: front_laser rear_laser
   front_laser: 
-    sensor_frame: robot_front_laser_link
+    sensor_frame: $(arg prefix)front_laser_link
     data_type: LaserScan
-    topic: front_laser/scan
+    topic: $(arg front_scan_topic)
     marking: true
     clearing: true
   rear_laser: 
-    sensor_frame: robot_rear_laser_link
+    sensor_frame: $(arg prefix)rear_laser_link
     data_type: LaserScan
-    topic: rear_laser/scan
+    topic: $(arg rear_scan_topic)
     marking: true
     clearing: true
 
@@ -27,7 +27,8 @@ obstacle_camera_layer:
   raytrace_range: 5.5
   observation_sources: front_rgbd_to_scan
   front_rgbd_to_scan:
+    sensor_frame: $(arg prefix)front_rgbd_camera_link
     data_type: LaserScan
-    topic: front_rgbd_camera/point_cloud_scan_filtered
+    topic: $(arg front_rgbd_to_scan_topic)
     marking: true
     clearing: true

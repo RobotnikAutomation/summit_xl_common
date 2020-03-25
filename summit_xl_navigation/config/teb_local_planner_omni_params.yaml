@@ -1,8 +1,8 @@
 base_local_planner: teb_local_planner/TebLocalPlannerROS
 
 TebLocalPlannerROS:
-  odom_topic: odom
-  map_frame: map
+  odom_topic: $(arg odom_topic)
+  map_frame: $(arg global_frame)
 
   # Trajectory
 

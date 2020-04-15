@@ -10,6 +10,7 @@
   <arg name="run_laser_filters" default="$(optenv ROBOT_RUN_LASER_FILTERS true)"/>
   
   <!-- Move arguments-->
+  <arg name="run_move" default="$(optenv ROBOT_RUN_MOVE true)"/>
 	
 	<group ns="$(arg id_robot)">
 
@@ -20,7 +21,7 @@
         <arg name="differential_robot" value="$(arg differential_robot)"/>
       </include>
     
-      <include file="$(find summit_xl_navigation)/launch/move.launch">
+      <include if="$(arg run_move)" file="$(find summit_xl_navigation)/launch/move.launch">
         <arg name="id_robot" value="$(arg id_robot)"/>
         <arg name="differential_robot" value="$(arg differential_robot)"/>
       </include>

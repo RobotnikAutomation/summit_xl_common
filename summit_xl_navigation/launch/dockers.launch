@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="config_package" default="$(optenv ROBOT_NAVIGATION_CONFIG_PACKAGE summit_xl_navigation)"/>
+  <arg name="config_folder" default="config/docking"/>
+  <arg name="config_path" default="$(eval find(config_package) + '/' + config_folder)"/>
+
   <arg name="id_robot" default="robot"/>
   <arg name="prefix" value="$(arg id_robot)_"/>
 
@@ -42,7 +46,7 @@
     <param name="robot_base_frame" type="string" value="$(arg robot_base_frame)" />
     <param name="fixed_frame" type="string" value="$(arg fixed_frame)" />
     
-    <rosparam command="load" file="$(find summit_xl_navigation)/config/docking/diff_docker.yaml"/>
+    <rosparam command="load" file="$(arg config_path)/diff_docker.yaml"/>
     <remap from="cmd_vel" to="docker/cmd_vel"/>
   </node>
 
@@ -50,7 +54,7 @@
     <param name="robot_base_frame" type="string" value="$(arg robot_base_frame)" />
     <param name="fixed_frame" type="string" value="$(arg fixed_frame)" />
     
-    <rosparam command="load" file="$(find summit_xl_navigation)/config/docking/omni_docker.yaml"/>
+    <rosparam command="load" file="$(arg config_path)/omni_docker.yaml"/>
     <remap from="cmd_vel" to="docker/cmd_vel"/>
   </node>
 
@@ -58,7 +62,7 @@
     <param name="robot_base_frame" type="string" value="$(arg robot_base_frame)" />
     <param name="fixed_frame" type="string" value="$(arg fixed_frame)" />
 
-    <rosparam command="load" file="$(find summit_xl_navigation)/config/docking/pp_docker.yaml"/>    
+    <rosparam command="load" file="$(arg config_path)/pp_docker.yaml"/>    
     <remap from="cmd_vel" to="docker/cmd_vel"/>
   </node>
 

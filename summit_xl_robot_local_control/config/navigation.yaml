@@ -7,6 +7,7 @@ has_safety_laser: false
 safety_laser_mode_allowed: safe
 charge_disable_procedures: true
 uncharge_procedure_name: UnchargeComponent
+goto_procedure_name: GoToComponent
 
 #components: [GoToComponent, ChargeComponent, UnchargeComponent, MoveComponent]
 components:
@@ -33,19 +34,22 @@ MoveComponent:
   type: robot_local_control_procedures/Move
   desired_freq: 5.0
   action_namespace: move
+  move_state_topic: move/state
+  preemptable: false
 
 ChargeComponent:
   type: robot_local_control_procedures/Charge
   desired_freq: 5.0
   has_laser_safety: true # determines if the robot has safety_lasers and the safety zone must be changed
   docker_namespace: pp_docker
+  generic_dock_frame: .*docking_station.*
   dock_frame: robot_docking_station_laser_for_base_frame #robot_docking_station_laser_filtered
   laser_mode_at_begining: docking_station
   robot_dock_frame: robot_base_footprint
   dock_offset_x: -0.70
   move_namespace: move
   step_in_distance: 0.06 # Indicates the distance that the robot is going to move in x-axis after the docking. If 0.0 then no move action is done
-  set_to_standby: false # If 'true' then the lasers will be in standby after the docking
+  set_laser_to_standby: false # If 'true' then the lasers will be in standby after the docking
   move:
     max_velocity:
       linear_x: 0.015
@@ -56,6 +60,7 @@ ChargeComponent:
       linear_x: 0.1
       linear_y: 0.1
       angular_z: 0.1
+  preemptable: false
 
 UnchargeComponent:
   type: robot_local_control_procedures/Uncharge
@@ -70,3 +75,4 @@ UnchargeComponent:
       linear_x: 0.025
       linear_y: 0.025
       angular_z: 0.1
+  preemptable: false

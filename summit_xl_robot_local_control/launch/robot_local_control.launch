@@ -12,6 +12,7 @@
 <arg     if="$(arg debug)" name="launch_prefix" value="terminator -m -x gdb --args" /> <!-- para depurar en la misma maquina -->
 
 <group ns="$(arg id_robot)">
+  
   <node name="robot_local_control" pkg="robot_local_control" type="robot_local_control_node" output="screen" launch-prefix="$(arg launch_prefix)">
     <rosparam file="$(find summit_xl_robot_local_control)/config/base_configuration.yaml" command="load" />
     <param name="odom_frame" value="$(arg prefix)odom" />
@@ -29,7 +30,9 @@
     <rosparam file="$(find summit_xl_robot_local_control)/config/control.yaml" command="load" ns="ControlComponent"/>
     <param name="robot_id" value="$(arg id_robot)" />
   </node>
+
+  <include file="$(find summit_xl_robot_local_control)/launch/frames_mapping.launch"/>
+
 </group>
 
-  <include file="$(find summit_xl_robot_local_control)/launch/marker_mapping.launch"/>
 </launch>

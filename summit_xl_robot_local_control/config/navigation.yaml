@@ -20,8 +20,8 @@ GoToComponent:
   type: robot_local_control_procedures/GoToMoveBase
   desired_freq: 5.0
   action_namespace: move_base
-  global_frame: robot_map
-  base_frame: robot_base_footprint
+  global_frame: $(arg prefix)map
+  base_frame: $(arg prefix)base_footprint
   default_yaw_tolerance: 0.1 # when goal has orientation. if orientation is invalid, goal tolerance is changed to 3.14
   has_safety_laser: true
   yaw_tolerance: 0.1
@@ -41,12 +41,12 @@ ChargeComponent:
   type: robot_local_control_procedures/Charge
   desired_freq: 5.0
   has_laser_safety: true # determines if the robot has safety_lasers and the safety zone must be changed
-  docker_namespace: pp_docker
+  docker_namespace: $(arg charge_docker_namespace)
   generic_dock_frame: .*docking_station.*
   dock_frame: robot_docking_station_laser_for_base_frame #robot_docking_station_laser_filtered
   laser_mode_at_begining: docking_station
   robot_dock_frame: robot_base_footprint
-  dock_offset_x: -0.70
+  dock_offset_x: $(arg charge_dock_offset_x)
   move_namespace: move
   step_in_distance: 0.06 # Indicates the distance that the robot is going to move in x-axis after the docking. If 0.0 then no move action is done
   set_laser_to_standby: false # If 'true' then the lasers will be in standby after the docking

@@ -2,9 +2,9 @@
 <launch>
 
 <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+<arg name="prefix" default="$(arg id_robot)_" />
 <arg name="charge_docker_namespace" default="$(optenv ROBOT_RLC_CHARGE_DOCKER_NAMESPACE pp_docker)"/>
 <arg name="charge_dock_offset_x" default="$(optenv ROBOT_RLC_CHARGE_DOCK_OFFSET_X 0.65)"/>
-<arg name="prefix" default="$(arg id_robot)_" />
 <arg name="global_frame" default="$(arg prefix)map" />
 
 <arg name="debug" default="false" />
@@ -14,21 +14,18 @@
 <group ns="$(arg id_robot)">
   
   <node name="robot_local_control" pkg="robot_local_control" type="robot_local_control_node" output="screen" launch-prefix="$(arg launch_prefix)">
-    <rosparam file="$(find summit_xl_robot_local_control)/config/base_configuration.yaml" command="load" />
-    <param name="odom_frame" value="$(arg prefix)odom" />
-    <param name="base_frame" value="$(arg prefix)base_footprint" />
-    <param name="global_frame" value="$(arg global_frame)" />
-
-    <rosparam file="$(find summit_xl_robot_local_control)/config/robot_status.yaml" command="load" ns="RobotStatusComponent" />
-
-    <rosparam file="$(find summit_xl_robot_local_control)/config/navigation.yaml" command="load" ns="NavigationComponent"/>
-    <param name="NavigationComponent/ChargeComponent/docker_namespace" value="$(arg charge_docker_namespace)" />
-    <param name="NavigationComponent/ChargeComponent/dock_offset_x" value="$(arg charge_dock_offset_x)"/>
-
-    <rosparam file="$(find summit_xl_robot_local_control)/config/localization.yaml" command="load" ns="LocalizationComponent"/>
+    <!-- Base configuration -->
+    <rosparam file="$(find summit_xl_robot_local_control)/config/base_configuration.yaml" command="load" subst_value="true"/>
+    <!-- Robot Status Component-->
+    <rosparam file="$(find summit_xl_robot_local_control)/config/robot_status.yaml" command="load" ns="RobotStatusComponent" subst_value="true"/>
+    <!-- Navigation Component -->
+    <rosparam file="$(find summit_xl_robot_local_control)/config/navigation.yaml" command="load" ns="NavigationComponent" subst_value="true"/>
+    <!-- Localization Component -->
+    <rosparam file="$(find summit_xl_robot_local_control)/config/localization.yaml" command="load" ns="LocalizationComponent" subst_value="true"/>
+    <!-- Operation Component -->
     <rosparam file="$(find summit_xl_robot_local_control)/config/operation.yaml" command="load" ns="OperationComponent"/>
+    <!-- Control Component -->
     <rosparam file="$(find summit_xl_robot_local_control)/config/control.yaml" command="load" ns="ControlComponent"/>
-    <param name="robot_id" value="$(arg id_robot)" />
   </node>
 
   <include file="$(find summit_xl_robot_local_control)/launch/frames_mapping.launch"/>

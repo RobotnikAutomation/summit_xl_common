@@ -10,7 +10,7 @@ frame_mapping_init_pose_service: frame_mapping/init_pose
 # amcl_topic is reffered to the global namespace (unless absolute path is used)
 # example: amcl_pose will be resolved to /robot/amcl_pose or /robot_a/amcl_pose
 amcl_topic: amcl_pose
-amcl_initialpose_topic: initialpose	
+amcl_initialpose_topic: initialpose
 
 use_nomotion_update: true
 nomotion_update_service: request_nomotion_update

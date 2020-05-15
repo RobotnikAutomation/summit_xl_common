@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- General arguments -->
+  <arg name="config_package" default="$(optenv ROBOT_LOCALIZATION_CONFIG_PACKAGE summit_xl_localization)"/>
+  <arg name="config_folder" default="config"/>
+  <arg name="maps_folder" default="maps"/>
+  <arg name="config_path" default="$(eval find(config_package) + '/' + config_folder)"/>
+  <arg name="maps_path" default="$(eval find(config_package) + '/' + maps_folder)"/>
+
+  <arg name="id_robot" default="summit_xl"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
+  <arg name="map_topic" default="map"/>
+
+  <!-- Map server arguments -->
+  <arg name="map_file" default="map1/map1.yaml"/>
+  <arg name="frame_id" default="$(arg prefix)map"/>
+  
+  <!-- AMCL arguments-->
+  <arg name="x_init_pose" default="0"/>
+  <arg name="y_init_pose" default="0"/>
+  <arg name="z_init_pose" default="0"/>
+  <arg name="scan_topic" default="$(optenv ROBOT_LOCALIZATION_SCAN_TOPIC front_laser/scan)"/>
+  <arg name="global_frame" default="$(arg prefix)map"/>
+  <arg name="odom_frame" default="$(arg prefix)odom"/>
+  <arg name="base_frame" default="$(arg prefix)base_footprint"/>
+  <arg name="odom_model_type" default="$(optenv ROBOT_LOCALIZATION_ODOM_MODEL diff)"/> <!-- omni -->
+
+  <group ns="$(arg id_robot)">
+    
+    <include file="$(find summit_xl_localization)/launch/map_server.launch">
+      <arg name="maps_path" value="$(arg maps_path)"/>
+      <arg name="prefix" value="$(arg prefix)"/>
+      <arg name="map_file" value="$(arg map_file)"/>
+      <arg name="map_topic" value="$(arg map_topic)"/>
+    </include>
+
+    <include file="$(find summit_xl_localization)/launch/amcl.launch">
+      <arg name="config_path" value="$(arg config_path)"/>
+      <arg name="prefix" value="$(arg prefix)"/>
+      <arg name="scan_topic" value="$(arg scan_topic)"/>
+      <arg name="map_topic" value="$(arg map_topic)"/>
+      <arg name="odom_model_type" value="$(arg odom_model_type)"/>
+      <arg name="x_init_pose" value ="$(arg x_init_pose)"/>
+      <arg name="y_init_pose" value ="$(arg y_init_pose)"/>
+      <arg name="z_init_pose" value ="$(arg z_init_pose)"/>
+    </include>
+  </group>
+
+</launch>

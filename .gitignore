@@ -1,1 +1,10 @@
 *~
+
+# Ignore pyc files
+*.pyc
+
+# Ignore vscode folder
+.vscode/
+
+# Ignore temporal files from .deb generation
+*.ddeb

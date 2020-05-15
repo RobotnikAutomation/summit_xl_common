@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg robot_id)_"/>
+
   <!-- kinematics: skid, omni -->
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
   <arg name="wheel_diameter" default="$(optenv ROBOT_WHEEL_DIAMETER 0.22)"/>
@@ -7,7 +10,6 @@
   <arg name="ros_planar_move_plugin" default="false"/>
   <arg name="sim" default="false"/>
   <arg name="cmd_vel" default="robotnik_base_control/cmd_vel"/>
-  <arg name="prefix" default="summit_xl_"/>
   <arg name="launch_robot_localization" default="false"/>
 
   <!-- Robot - Load joint controller configurations from YAML file to parameter server -->
@@ -33,7 +35,7 @@
   </group>
     <!-- Simulation - Load joint controller configurations from YAML file to parameter server -->
   <group if="$(arg sim)">
-	  <rosparam file="$(find summit_xl_control)/config/simulation/$(arg prefix)$(arg kinematics)_control.yaml" command="load"/>
+	  <rosparam file="$(find summit_xl_control)/config/simulation/robot_control.yaml" command="load" subst_value="true"/>
 
 	  <!-- if robot_localization node is launched the controller must not publish the odom tf-->
 	  <param if="$(arg launch_robot_localization)" name="robotnik_base_control/enable_odom_tf" value="false"/>
@@ -42,15 +44,18 @@
 	  <node if="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
 		output="screen" args="
 		  joint_read_state_controller
+		  joint_pan_position_controller
+      	  joint_tilt_position_controller
 		  ">
 	  </node>
-	  <!-- load the diff ros controllers -->
+	  
+	  <!-- load the robotnik_base_control ros controllers -->
 	  <node unless="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
 		output="screen" args="
 		  robotnik_base_control
 		  joint_read_state_controller
-      joint_pan_position_controller
-      joint_tilt_position_controller
+      	  joint_pan_position_controller
+      	  joint_tilt_position_controller
 		  ">
 	  </node>
 

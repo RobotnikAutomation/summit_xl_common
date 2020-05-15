@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="config_package" default="$(optenv ROBOT_NAVIGATION_CONFIG_PACKAGE summit_xl_navigation)"/>
+  <arg name="config_folder" default="config"/>
+  <arg name="config_path" default="$(eval find(config_package) + '/' + config_folder)"/>
 
   <arg name="id_robot" default="robot"/>
   <arg name="prefix" default="$(arg id_robot)_"/> 
@@ -15,7 +18,7 @@
     <param name="robot_base_frame" type="string" value="$(arg base_frame)" />
     <param name="fixed_frame" type="string" value="$(arg odom_frame)" />
     
-    <rosparam command="load" file="$(find summit_xl_navigation)/config/move.yaml"/>
+    <rosparam command="load" file="$(arg config_path)/move.yaml"/>
     
     <remap unless="$(arg has_safety_controller)" from="cmd_vel" to="~cmd_vel" /> 
     <remap if="$(arg has_safety_controller)" from="cmd_vel" to="~cmd_vel_unsafe" /> 

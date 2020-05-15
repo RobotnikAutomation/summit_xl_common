@@ -7,7 +7,8 @@ base_hw_emergency_stop_topic: robotnik_base_hw/emergency_stop
 elevator_topic: robotnik_base_control/elevator_status
 battery_docking_status_topic: charge_manager/docking_status
 safety_status_topic: safety_module/status
-
+has_elevator: false
+has_safety_module: false
 
 battery:
   offset: 0.62 # measured by driver - measured with tester

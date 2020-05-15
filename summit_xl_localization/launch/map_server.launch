@@ -1,13 +1,18 @@
 <?xml version="1.0"?>
 <launch>
-        <!-- maps inside the folder summit_xl_navigation/maps -->
+	<arg name="config_package" default="$(optenv ROBOT_LOCALIZATION_CONFIG_PACKAGE summit_xl_localization)"/>
+	<arg name="maps_folder" default="maps"/>
+	<arg name="maps_path" default="$(eval find(config_package) + '/' + maps_folder)"/>
+
 	<arg name="map_file" default="map1/map1.yaml"/>
 	<arg name="prefix" default="summit_xl_"/>
 	<arg name="frame_id" default="$(arg prefix)map"/>
+	<arg name="map_topic" default="map"/>
 
 	<!-- Run the map server -->
-	<node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_localization)/maps/$(arg map_file)">
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg maps_path)/$(arg map_file)">
 		<param name="frame_id" value="$(arg frame_id)"/>
+		<remap from="map" to="$(arg map_topic)"/>
 	</node>
 
 </launch>

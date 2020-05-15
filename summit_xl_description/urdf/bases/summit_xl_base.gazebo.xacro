@@ -51,6 +51,20 @@
 	  </gazebo>
   </xacro:macro>
 
+  	<xacro:macro name="skid_steering" params="prefix publish_tf">
+		<gazebo>
+			<plugin name="skid_steering" filename="libgazebo_ros_planar_move.so">
+			<commandTopic>robotnik_base_control/cmd_vel</commandTopic>
+			<odometryTopic>robotnik_base_control/odom</odometryTopic>
+			<odometryFrame>${prefix}odom</odometryFrame>
+			<odometryRate>50.0</odometryRate>
+			<robotBaseFrame>${prefix}base_footprint</robotBaseFrame>
+			<publishTF>${publish_tf}</publishTF>
+			<enableYAxis>false</enableYAxis>
+			</plugin>
+		</gazebo>
+  	</xacro:macro>
+
   <xacro:macro name="ros_force_based_move" params="publish_tf prefix">
 	  <gazebo>
 		 <plugin name="ros_force_based_move" filename="libgazebo_ros_force_based_move.so">

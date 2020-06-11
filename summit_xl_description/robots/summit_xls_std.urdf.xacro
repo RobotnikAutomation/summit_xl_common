@@ -60,6 +60,7 @@
 
 	<xacro:arg name="prefix" default="summit_xl_"/>
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
+	<xacro:arg name="gpu" default="false"/>
 
 
     <xacro:macro name="summit_xl" params="prefix publish_bf hq">
@@ -95,10 +96,10 @@
 
 
 		<!-- SENSORS -->
-		<xacro:sensor_sick_s300 prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">
+		<xacro:sensor_sick_s300 prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
 			<origin xyz="${front_laser_offset_x} ${front_laser_offset_y} ${front_laser_offset_z}" rpy="0 ${-PI} ${3/4*PI}" />
 		</xacro:sensor_sick_s300>
-		<xacro:sensor_sick_s300 prefix="$(arg prefix)rear_laser" parent="$(arg prefix)base_link" prefix_topic="rear_laser">
+		<xacro:sensor_sick_s300 prefix="$(arg prefix)rear_laser" parent="$(arg prefix)base_link" prefix_topic="rear_laser" gpu="$(arg gpu)">
 			<origin xyz="${rear_laser_offset_x} ${rear_laser_offset_y} ${rear_laser_offset_z}" rpy="0 ${-PI} ${-1/4*PI}" />
 		</xacro:sensor_sick_s300>
 

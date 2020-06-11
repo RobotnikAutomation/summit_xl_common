@@ -32,6 +32,8 @@
 	<xacro:arg name="prefix" default="summit_xl_"/>
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
 	<xacro:arg name="omni_wheels" default="false"/>
+	<xacro:arg name="gpu" default="false"/>
+
 
 
     <xacro:macro name="summit_xl" params="prefix publish_bf hq">
@@ -84,19 +86,19 @@
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu>
 		<!-- 2d laser -->
-		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser">
+		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 		</xacro:sensor_hokuyo_ust10lx>
 		<!-- ptz camera -->
 		<xacro:sensor_axis prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
 			<origin xyz="0.19 0 0.26" rpy="0 ${15*PI/180} 0"/>
 		</xacro:sensor_axis>
-	    <!-- RGBD -->
-	    <xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)base_link" prefix_topic="front_rgbd_camera">
+	  <!-- RGBD -->
+	  <xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)base_link" prefix_topic="front_rgbd_camera">
 			<origin xyz="0.324 0.012 0.172" rpy="0 0 0"/>
 		</xacro:sensor_orbbec_astra>
-	    <!-- GPS -->
-	    <xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link">
+	  <!-- GPS -->
+	  <xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link">
 			<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
 		</xacro:sensor_gps>
 

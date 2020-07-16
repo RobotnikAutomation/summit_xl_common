@@ -16,7 +16,6 @@
 
   <xacro:macro name="omni_wheel" params="prefix parent *origin reflect hq">
 
-
     <joint name="${prefix}_wheel_joint" type="continuous">
       <parent link="${parent}"/>
       <child link="${prefix}_wheel_link"/>
@@ -58,7 +57,7 @@
 				<origin xyz="0 0 0" rpy="${PI/2} 0 0" />
         <geometry>
 
-          <sphere radius="${omni_wheel_radius}" />
+          <!--sphere radius="${omni_wheel_radius}" /-->
 
 <!--
           <xacro:if value="${reflect}">
@@ -68,7 +67,7 @@
               <mesh filename="package://summit_xl_description/meshes/wheels/omni_wheel_2.dae" />
 					</xacro:unless>
 -->
-					<!--cylinder length="${omni_wheel_height}" radius="${omni_wheel_radius}" /-->
+					<cylinder length="${omni_wheel_height}" radius="${omni_wheel_radius}" />
         </geometry>
       </collision>
 
@@ -78,9 +77,6 @@
         <cylinder_inertia  m="${omni_wheel_mass}" r="${omni_wheel_radius}" h="${omni_wheel_height}" />
       </inertial>
     </link>
-
-
-
 
     <!-- Transmission is important to link the joints and the controller (see summit_xl_control/config/summit_xl_control.yaml)-->
     <transmission name="${prefix}_wheel_joint_trans">
@@ -94,8 +90,8 @@
     </transmission>
 
     <gazebo reference="${prefix}_wheel_link">
-		<mu1 value="1.0"/>
-		<mu2 value="1.0"/>
+		<mu1 value="0.0"/>
+		<mu2 value="0.0"/>
 		<kp value="10000000.0" />
 		<kd value="1.0" />
 		<fdir1 value="1 0 0"/>

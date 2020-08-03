@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<robot name="rocker" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Import wheels -->
+  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" />
+	
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <!-- Rocker support parameters -->
+  <xacro:property name="rocker_support_mass" value="10" /> <!-- in kg-->
+
+  <xacro:macro name="cylinder_inertia" params="m r h">
+    <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+              iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
+              izz="${m*r*r/2}" /> 
+  </xacro:macro>
+ 
+  <xacro:macro name="rocker" params="prefix parent *origin hq reflect">
+	 
+	<joint name="${prefix}_rsupport_joint" type="revolute">
+      <parent link="${parent}"/>
+      <child link="${prefix}rsupport"/>
+      <insert_block name="origin" />
+      <axis xyz="0 1 0" rpy="0 0 ${M_PI}" />
+      <limit lower="-0.5" upper="0.5" effort="100" velocity="0.5"/>
+      <joint_properties damping="5.0" friction="0.4"/>
+	</joint>
+	    	  
+	<!-- joint name="${prefix}joint_rsupport" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}rsupport"/>
+      <insert_block name="origin" />
+	</joint -->	    	  
+	    	  
+	<link name="${prefix}rsupport">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>     
+	       <mesh filename="package://summit_xl_description/meshes/structures/bal1.stl" />
+          </geometry>         
+      </visual>
+      <!-- collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>     
+	       <mesh filename="package://summit_xl_description/meshes/structures/bal1.stl" />
+          </geometry> 
+      </collision -->     
+      <inertial>
+        <mass value="${rocker_support_mass}" />
+        <origin xyz="0 0 0" />
+        <cylinder_inertia  m="${rocker_support_mass}" r="0.010" h="0.010" />  
+      </inertial>
+	</link>
+  
+	<!-- Transmission is important to link the joints and the controller -->
+	<!-- transmission name="${prefix}_rsupport_joint_trans">
+	  <type>transmission_interface/SimpleTransmission</type>
+	  <joint name="${prefix}_rsupport_joint">
+		  <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	  </joint>
+	  <actuator name="${prefix}_rsupport_joint_motor">
+		<mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
+	  </actuator>
+	</transmission --> 
+
+  
+    <!-- transmission name="${prefix}_rsupport_joint_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}_rsupport_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}rsupport_joint_motor">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission -->
+
+	<!-- Transmission is important to link the joints and the controller -->
+	<transmission name="${prefix}rsupport_joint_trans">
+	  <type>transmission_interface/SimpleTransmission</type>
+	  <joint name="${prefix}_rsupport_joint">
+		  <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	  </joint>
+	  <actuator name="${prefix}rsupport_joint_motor">
+		<mechanicalReduction>20</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
+	  </actuator>
+	</transmission>
+
+ 
+    
+	<!-- Flag to select the high or low quality model -->
+	<xacro:property name="hq" value="true" />
+	    
+    <xacro:property name="wheel_offset_x" value="0.175" />
+    <xacro:property name="wheel_offset_y" value="-0.075" />
+    <xacro:property name="wheel_offset_z" value="-0.100" />
+
+	<joint name="${prefix}_joint_rsupport_front" type="fixed">
+	  <origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+      <parent link="${prefix}rsupport"/>
+      <child link="${prefix}_rsupport_front"/>
+	</joint>	
+	
+	<link name="${prefix}_rsupport_front">
+	</link>
+
+	<joint name="${prefix}_joint_rsupport_mid" type="fixed">
+	  <origin xyz="${-wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+      <parent link="${prefix}rsupport"/>
+      <child link="${prefix}_rsupport_mid"/>
+	</joint>	
+
+	<link name="${prefix}_rsupport_mid">
+	</link>
+	
+	<xacro:if value="${reflect}">
+		<xacro:property name="wheel_offset_y" value="0.095" />
+    </xacro:if>
+			
+	<xacro:rubber_wheel prefix="${prefix}_mid" parent="${prefix}rsupport" reflect="${reflect}" hq="${hq}">
+		<origin xyz="${-wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+	</xacro:rubber_wheel>
+															
+	<xacro:rubber_wheel prefix="${prefix}_front" parent="${prefix}rsupport" reflect="${reflect}" hq="${hq}">
+		<origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+	</xacro:rubber_wheel>
+
+    <!-- gazebo reference="${prefix}support">
+			<mu1 value="5.0"/>
+			<mu2 value="0.5"/>
+			<kp value="10000000.0" />
+			<kd value="1.0" />
+			<fdir1 value="1 0 0"/>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+    
+     <gazebo reference="${prefix}_wheel">
+			<mu1 value="5.0"/>
+			<mu2 value="0.5"/>
+			<kp value="10000000.0" />
+			<kd value="1.0" />
+			<fdir1 value="1 0 0"/>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo --> 
+ </xacro:macro> 
+
+</robot>

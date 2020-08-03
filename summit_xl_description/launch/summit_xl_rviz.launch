@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <launch>
   
-  <arg name="prefix" default="summit_xl_"/>
+  <arg name="prefix" default="robot_"/>
   <arg name="rviz_config" default="$(find summit_xl_gazebo)/rviz/summitxl_a_std.rviz"/>
-  <arg name="robot_model"  default="summit_xl_std.urdf.xacro"  doc="Different robot versions: ('')"/>
+  <arg name="robot_model"  default="summit_xls_cobolleague.urdf.xacro"  doc="Different robot versions: ('')"/>
   
   <!-- Load the URDF into ROS parameter server -->
   <arg name="urdf_file" default="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg robot_model)' prefix:=$(arg prefix) --inorder" />

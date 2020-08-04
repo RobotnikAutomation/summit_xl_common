@@ -10,14 +10,16 @@
 
 
   joint_rocker_left_position_controller:
-    type: velocity_controllers/JointPositionController
+    type: position_controllers/JointPositionController
+    #type: velocity_controllers/JointVelocityController
     joint: $(arg prefix)left_rsupport_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 0.01, i: 0.0, d: 0.01}
 
   joint_rocker_right_position_controller:
-    type: velocity_controllers/JointPositionController
+    type: position_controllers/JointPositionController
+    #type: velocity_controllers/JointVelocityController    
     joint: $(arg prefix)right_rsupport_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 0.01, i: 0.0, d: 0.01}
 
   robotnik_base_control:
     type        : "diff_drive_controller/DiffDriveController"

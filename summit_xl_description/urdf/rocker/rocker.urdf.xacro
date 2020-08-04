@@ -7,7 +7,7 @@
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <!-- Rocker support parameters -->
-  <xacro:property name="rocker_support_mass" value="10" /> <!-- in kg-->
+  <xacro:property name="rocker_support_mass" value="15" /> <!-- in kg-->
 
   <xacro:macro name="cylinder_inertia" params="m r h">
     <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
@@ -22,10 +22,15 @@
       <child link="${prefix}rsupport"/>
       <insert_block name="origin" />
       <axis xyz="0 1 0" rpy="0 0 ${M_PI}" />
-      <limit lower="-0.5" upper="0.5" effort="100" velocity="0.5"/>
-      <joint_properties damping="5.0" friction="0.4"/>
+      <limit lower="-0.7854" upper="0.7854" effort="1" velocity="0.1"/>
+      <!-- joint_properties damping="10.0" friction="0.8"/ -->
+      <!-- joint_properties damping="10.0" friction="0.8"/ -->
+	  <!-- safety_controller k_position="100.0" k_velocity="10.0" soft_lower_limit="-0.65" soft_upper_limit="0.65"/ -->
+      <!-- dynamics damping="100" friction="0.5"/ -->
+      <joint_properties damping="10.0" friction="0.2"/>
 	</joint>
-	    	  
+
+
 	<!-- joint name="${prefix}joint_rsupport" type="fixed">
       <parent link="${parent}"/>
       <child link="${prefix}rsupport"/>
@@ -56,16 +61,16 @@
 	<!-- transmission name="${prefix}_rsupport_joint_trans">
 	  <type>transmission_interface/SimpleTransmission</type>
 	  <joint name="${prefix}_rsupport_joint">
-		  <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		  <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
 	  </joint>
 	  <actuator name="${prefix}_rsupport_joint_motor">
-		<mechanicalReduction>1</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		<mechanicalReduction>0.1</mechanicalReduction>		
+		<motorTorqueConstant>0.1</motorTorqueConstant>
 	  </actuator>
-	</transmission --> 
+	</transmission -->    
 
-  
-    <!-- transmission name="${prefix}_rsupport_joint_trans">
+    <transmission name="${prefix}_rsupport_joint_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${prefix}_rsupport_joint">
         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
@@ -73,22 +78,21 @@
       <actuator name="${prefix}rsupport_joint_motor">
         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         <mechanicalReduction>1</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
       </actuator>
-    </transmission -->
+    </transmission>
 
 	<!-- Transmission is important to link the joints and the controller -->
-	<transmission name="${prefix}rsupport_joint_trans">
+	<!-- transmission name="${prefix}rsupport_joint_trans">
 	  <type>transmission_interface/SimpleTransmission</type>
 	  <joint name="${prefix}_rsupport_joint">
 		  <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
 	  </joint>
 	  <actuator name="${prefix}rsupport_joint_motor">
-		<mechanicalReduction>20</mechanicalReduction>
-		<motorTorqueConstant>1</motorTorqueConstant>
+		<mechanicalReduction>200</mechanicalReduction>
+		<motorTorqueConstant>0.1</motorTorqueConstant>
 	  </actuator>
-	</transmission>
-
- 
+	</transmission -->
     
 	<!-- Flag to select the high or low quality model -->
 	<xacro:property name="hq" value="true" />
@@ -97,7 +101,7 @@
     <xacro:property name="wheel_offset_y" value="-0.075" />
     <xacro:property name="wheel_offset_z" value="-0.100" />
 
-	<joint name="${prefix}_joint_rsupport_front" type="fixed">
+	<!-- joint name="${prefix}_joint_rsupport_front" type="fixed">
 	  <origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
       <parent link="${prefix}rsupport"/>
       <child link="${prefix}_rsupport_front"/>
@@ -113,7 +117,7 @@
 	</joint>	
 
 	<link name="${prefix}_rsupport_mid">
-	</link>
+	</link -->
 	
 	<xacro:if value="${reflect}">
 		<xacro:property name="wheel_offset_y" value="0.095" />

@@ -60,6 +60,7 @@
 		<!-- 
 		  joint_rocker_left_position_controller
 		  joint_rocker_right_position_controller
+
       	  joint_pan_position_controller
       	  joint_tilt_position_controller
 		-->

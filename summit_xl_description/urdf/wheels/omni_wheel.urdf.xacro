@@ -68,6 +68,7 @@
 					</xacro:unless>
 -->
 					<cylinder length="${omni_wheel_height}" radius="${omni_wheel_radius}" />
+					<!-- sphere radius="${omni_wheel_radius}"/-->
         </geometry>
       </collision>
 

@@ -56,13 +56,17 @@
        <geometry>
          <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xlsk_oem.dae"/>
        </geometry>
+       <!-- better a box than a mesh for collision -->
+      <!--<origin xyz="0 0 0.381" rpy="0 0 0"/>-->
+      <!--<geometry>-->
+        <!--<box size="0.719 0.578 0.363"/>-->
+      <!--</geometry>-->
     </collision>
   </link>
 
   <gazebo reference="${prefix}base_link">
     <material>Gazebo/Black</material>
   </gazebo>
-
 
   <!-- CHAPAS INOX TAPAS -->
   <link name="${prefix}base_chapa">

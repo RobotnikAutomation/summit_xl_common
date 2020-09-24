@@ -99,9 +99,9 @@
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 		</xacro:sensor_hokuyo_ust10lx-->
 		<!-- 3d laser -->
-		<!--xacro:sensor_rslidar_mems prefix="$(arg prefix)top_3d_laser" parent="$(arg prefix)base_link">
+		<xacro:sensor_rslidar_mems prefix="$(arg prefix)top_3d_laser" parent="$(arg prefix)base_link">
 			<origin xyz="0.3134 0 0.2424" rpy="0 0 0"/>
-		</xacro:sensor_rslidar_mems-->
+		</xacro:sensor_rslidar_mems>
 		<!-- ptz camera -->
 		<!--xacro:sensor_axis prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
 			<origin xyz="0.19 0 0.26" rpy="0 ${15*PI/180} 0"/>
@@ -111,9 +111,9 @@
 			<origin xyz="0.324 0.012 0.172" rpy="0 0 0"/>
 		</xacro:sensor_orbbec_astra-->
 	  <!-- GPS -->
-	  <!--xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link">
-			<origin xyz="-0.28 0 0.6676" rpy="0 0 0"/>
-		</xacro:sensor_gps-->
+	  <xacro:sensor_gps_with_mast prefix="$(arg prefix)gps" parent="$(arg prefix)base_link">
+		<origin xyz="-0.28 0 0.4176" rpy="0 0 0"/>
+	</xacro:sensor_gps_with_mast>
 
     <!-- Instance jaco arm -->
     <joint name="$(arg prefix)arm_base_joint" type="fixed">

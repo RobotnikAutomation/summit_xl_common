@@ -74,7 +74,7 @@
       <inertial>
         <mass value="${omni_wheel_mass}" />
         <origin xyz="0 0 0" />
-        <cylinder_inertia  m="${omni_wheel_mass}" r="${omni_wheel_radius}" h="${omni_wheel_height}" />
+        <xacro:cylinder_inertia  m="${omni_wheel_mass}" r="${omni_wheel_radius}" h="${omni_wheel_height}" />
       </inertial>
     </link>
 

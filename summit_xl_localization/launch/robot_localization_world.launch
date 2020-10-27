@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <launch>
 	
-	  <arg name="prefix" default="summit_xl_"/>
-	 <arg name="global_frame" default="world_frame"/>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
+  <arg name="global_frame" default="world_frame"/>
 
  <!-- ekf_loc2 fuses all surces of data (imu, odometry and gps odom). Publish the tf from world frame to base_footprintt -->
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc_world" clear_params="true" output="screen">

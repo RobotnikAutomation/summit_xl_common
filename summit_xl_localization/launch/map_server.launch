@@ -5,7 +5,8 @@
 	<arg name="maps_path" default="$(eval find(config_package) + '/' + maps_folder)"/>
 
 	<arg name="map_file" default="map1/map1.yaml"/>
-	<arg name="prefix" default="summit_xl_"/>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
 	<arg name="frame_id" default="$(arg prefix)map"/>
 	<arg name="map_topic" default="map"/>
 

@@ -5,7 +5,8 @@
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="wait_for_datum" default="false" />
-  <arg name="prefix" default="summit_xl_a_"/>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
   
   <!-- Transform from odom to base_footprint (IMU and odometry) -->
   <include file="$(find summit_xl_localization)/launch/robot_localization_odom.launch">

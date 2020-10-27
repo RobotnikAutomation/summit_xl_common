@@ -1,6 +1,6 @@
 robot_id: $(arg id_robot)
-odom_frame: $(arg prefix)odom
-base_frame: $(arg prefix)base_footprint
-global_frame: $(arg prefix)map
+odom_frame: $(arg odom_frame)
+base_frame: $(arg base_frame)
+global_frame: $(arg global_frame)
 
 desired_freq: 2

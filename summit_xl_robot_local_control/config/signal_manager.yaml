@@ -1,0 +1,27 @@
+type: robot_local_control_components/SignalManagerComponent
+
+desired_freq: 1.0
+robot_status_topic: robot_local_control/state
+min_battery_level: 15
+
+# Time in seconds for change to the new state
+time_before_change_state: 5.0
+
+# signal_manager nodes name list
+#signal_manager_nodes_namespaces:
+#  - gazebo_leds_manager
+
+# Signal modes list, ordered by priority
+signals:
+ - charging
+ - safety_standby
+ - emergency_stop
+ - safety_obstacle_detected
+ - low_battery
+ - base_controller_error
+ - arm_controller_error
+ - sensor_error
+ - robot_idle
+ - robot_moving
+ #- raising_elevator
+ #- lowering_elevator

@@ -3,7 +3,7 @@ desired_freq: 1.0
 
 check_sensors_state: false
 check_localization_state: true
-has_safety_laser: false
+has_safety_laser: $(arg has_safety_laser)
 safety_laser_mode_allowed: safe
 charge_disable_procedures: true
 uncharge_procedure_name: UnchargeComponent
@@ -20,12 +20,12 @@ GoToComponent:
   type: robot_local_control_procedures/GoToMoveBase
   desired_freq: 5.0
   action_namespace: move_base
-  global_frame: $(arg prefix)map
-  base_frame: $(arg prefix)base_footprint
+  global_frame: $(arg global_frame)
+  base_frame: $(arg base_frame)
   default_yaw_tolerance: 0.1 # when goal has orientation. if orientation is invalid, goal tolerance is changed to 3.14
-  has_safety_laser: true
+  has_safety_laser: $(arg has_safety_laser)
   yaw_tolerance: 0.1
-  xy_tolerance: 0.15
+  xy_tolerance: 0.10
   preemptable: false
   clear_costmaps_before_send_goal: false
   local_planner_namespace: TebLocalPlannerROS
@@ -40,15 +40,15 @@ MoveComponent:
 ChargeComponent:
   type: robot_local_control_procedures/Charge
   desired_freq: 5.0
-  has_laser_safety: true # determines if the robot has safety_lasers and the safety zone must be changed
+  has_laser_safety: $(arg has_safety_laser) 
   docker_namespace: $(arg charge_docker_namespace)
   generic_dock_frame: .*docking_station.*
-  dock_frame: robot_docking_station_laser_for_base_frame #robot_docking_station_laser_filtered
+  dock_frame: $(arg charge_dock_frame) 
   laser_mode_at_begining: docking_station
-  robot_dock_frame: robot_base_footprint
+  robot_dock_frame: $(arg base_frame)
   dock_offset_x: $(arg charge_dock_offset_x)
   move_namespace: move
-  step_in_distance: 0.06 # Indicates the distance that the robot is going to move in x-axis after the docking. If 0.0 then no move action is done
+  step_in_distance: $(arg charge_dock_step_in_distance) # Indicates the distance that the robot is going to move in x-axis after the docking. If 0.0 then no move action is done
   set_laser_to_standby: false # If 'true' then the lasers will be in standby after the docking
   move:
     max_velocity:
@@ -65,7 +65,7 @@ ChargeComponent:
 UnchargeComponent:
   type: robot_local_control_procedures/Uncharge
   desired_freq: 5.0
-  has_laser_safety: true # determines if the robot has safety_lasers and the safety zone must be changed
+  has_laser_safety: $(arg has_safety_laser) 
   move_namespace: move
   laser_mode_at_finish: standard
   step_back_distance: 0.35 # Indicates the distance that the robot is going to move backwards. If 0.0 then no rotation action is done

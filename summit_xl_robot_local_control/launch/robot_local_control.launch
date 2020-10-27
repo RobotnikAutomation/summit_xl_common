@@ -40,7 +40,7 @@
   </node>
 
   <include file="$(find summit_xl_robot_local_control)/launch/frames_mapping.launch">
-    <arg name="config_folder" value="$(arg config_path)"/>
+    <arg name="config_folder" value="$(env ROBOT_MAPS_FOLDER)"/>
   </include>
 
 </group>

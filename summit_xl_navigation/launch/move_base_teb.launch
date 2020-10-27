@@ -4,7 +4,7 @@
   <arg name="config_folder" default="config"/>
   <arg name="config_path" default="$(eval find(config_package) + '/' + config_folder)"/>
   
-  <arg name="id_robot" default="robot"/>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
   <arg name="prefix" default="$(arg id_robot)_"/>
   
   <!-- Topics argumments -->
@@ -20,26 +20,29 @@
   <arg name="base_frame" default="$(arg prefix)base_footprint"/>
 
   <arg name="kinematics" default="diff"/>
+  <arg name="footprint_model" default="$(optenv ROBOT_FOOTPRINT_MODEL rbkairos)"/>
 
   <!-- Run move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base">
   	<remap from="cmd_vel" to="$(arg cmd_vel_topic)" />
-	<remap from="odom" to="$(arg odom_topic)" />
-	
-	<!-- Move base params -->
-	<rosparam file="$(arg config_path)/move_base_params.yaml" command="load" />
-	
-	<!-- Global costmap params-->
-	<rosparam file="$(arg config_path)/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true"/>
-	<rosparam file="$(arg config_path)/global_costmap_params_map.yaml" command="load" subst_value="true"/>
+    <remap from="odom" to="$(arg odom_topic)" />
+    
+    <!-- Move base params -->
+    <rosparam file="$(arg config_path)/move_base_params.yaml" command="load" />
+    
+    <!-- Global costmap params-->
+    <rosparam file="$(arg config_path)/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true"/>
+    <rosparam file="$(arg config_path)/global_costmap_params_map.yaml" command="load" subst_value="true"/>
 
-	<!-- Local costmap params-->
-	<rosparam file="$(arg config_path)/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true"/>
-	<rosparam file="$(arg config_path)/local_costmap_params.yaml" command="load" subst_value="true"/>
-	
-	<!-- Load local_planner diff or omni parameters -->
-	<rosparam file="$(arg config_path)/teb_local_planner_$(arg kinematics)_params.yaml" command="load" subst_value="true"/>
+    <!-- Local costmap params-->
+    <rosparam file="$(arg config_path)/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true"/>
+    <rosparam file="$(arg config_path)/local_costmap_params.yaml" command="load" subst_value="true"/>
+    
+    <!-- Load local_planner diff or omni parameters -->
+    <rosparam file="$(arg config_path)/teb_local_planner_$(arg kinematics)_params.yaml" command="load" subst_value="true"/>
 		
+    <!-- overwrites previous footprint values -->
+    <rosparam file="$(arg config_path)/planner_footprints/$(arg footprint_model).yaml" command="load"/>
   </node>
 
 </launch>

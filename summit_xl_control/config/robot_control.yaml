@@ -1,54 +1,51 @@
 joint_blw_velocity_controller:
   type: velocity_controllers/JointVelocityController
-  joint: summit_xl_back_left_wheel_joint
+  joint: $(arg prefix)back_left_wheel_joint
 joint_brw_velocity_controller:
   type: velocity_controllers/JointVelocityController
-  joint: summit_xl_back_right_wheel_joint
+  joint: $(arg prefix)back_right_wheel_joint
 joint_frw_velocity_controller:
   type: velocity_controllers/JointVelocityController
-  joint: summit_xl_front_right_wheel_joint
+  joint: $(arg prefix)front_right_wheel_joint
 joint_flw_velocity_controller:
   type: velocity_controllers/JointVelocityController
-  joint: summit_xl_front_left_wheel_joint
+  joint: $(arg prefix)front_left_wheel_joint
 
 robotnik_base_control:
-  type: summit_xl_controller/SummitXLController
+  type: $(arg prefix)controller/SummitXLController
   joint:
     front_right_wheel_joint:
-      name: summit_xl_front_right_wheel_joint
+      name: $(arg prefix)front_right_wheel_joint
       max_speed: 27.27 # rad/s
     front_left_wheel_joint:
-      name: summit_xl_front_left_wheel_joint
+      name: $(arg prefix)front_left_wheel_joint
       max_speed: 27.27 # rad/s
     back_right_wheel_joint:
-      name: summit_xl_back_right_wheel_joint
+      name: $(arg prefix)back_right_wheel_joint
       max_speed: 27.27 # rad/s
     back_left_wheel_joint:
-      name: summit_xl_back_left_wheel_joint
+      name: $(arg prefix)back_left_wheel_joint
       max_speed: 27.27 # rad/s
   linear_speed_limit: 1.5 # m/s
   linear_acceleration_limit: 0.6 # m/s^2
   angular_speed_limit: 3 # rad/s
   angular_acceleration_limit: 1.5 # rad/s^2
-  odom_frame: summit_xl_odom
-  robot_base_frame: summit_xl_base_footprint
-  odom_broadcast_tf: true
+  odom_frame: $(arg odom_frame)
+  robot_base_frame: $(arg base_frame)
+  odom_broadcast_tf: $(arg odom_broadcast_tf)
   odom_topic: 'robotnik_base_control/odom'
-  wheel_base: 0.445
-  track_width: 0.415
-  wheel_diameter: 0.220
+  wheel_base: $(arg wheel_base)
+  track_width: $(arg track_width)
+  wheel_diameter: $(arg wheel_diameter)
   cmd_watchdog_duration: 0.5
   imu_watchdog_duration: 0.1
   imu_topic: imu/data
   odom_publish_frequency: 100
   cmd_vel        : 'robotnik_base_control/cmd_vel'
-  kinematic_mode : 'skid'
+  kinematic_mode : $(arg kinematics)
   motion_odometry: true
   in_motion_timer: 2.0
 
 joint_read_state_controller:
-  type: joint_state_controller/JointStateController 
+  type: joint_state_controller/JointStateController
   publish_rate: 100.0
-
-
-

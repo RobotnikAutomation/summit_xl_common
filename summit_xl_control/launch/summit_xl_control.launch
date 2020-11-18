@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
-  <arg name="prefix" default="$(arg robot_id)_"/>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
 
   <!-- kinematics: skid, omni -->
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
@@ -12,12 +12,10 @@
   <arg name="base_frame" default="$(arg prefix)base_footprint"/>
   <arg name="ros_planar_move_plugin" default="false"/>
   <arg name="sim" default="false"/>
+  <arg name="sim_arm_control" default="false"/>
   <arg name="cmd_vel" default="robotnik_base_control/cmd_vel"/>
-  <arg name="launch_robot_localization" default="false"/>
   <arg name="launch_pantilt_camera_controller" default="false"/>
-  <!-- if robot_localization node is launched the controller must not publish the odom tf-->
-  <arg if="$(arg launch_robot_localization)" name="odom_broadcast_tf" value="false"/>
-  <arg unless="$(arg launch_robot_localization)" name="odom_broadcast_tf" value="true"/>
+  <arg name="odom_broadcast_tf" value="true"/>
 
   <!-- Robot - Load joint controller configurations from YAML file to parameter server -->
   <group unless="$(arg sim)">
@@ -35,8 +33,13 @@
   <group if="$(arg sim)">
 	  <rosparam file="$(find summit_xl_control)/config/simulation/robot_control.yaml" command="load" subst_value="true"/>
 
-	  <!-- if robot_localization node is launched the controller must not publish the odom tf-->
-	  <param if="$(arg launch_robot_localization)" name="robotnik_base_control/enable_odom_tf" value="false"/>
+    <group if="$(arg sim_arm_control)">
+      <!-- Kinova -->
+      <include file="$(find kinova_gazebo)/launch/robot_launch.launch">
+        <arg name="kinova_robotType" value="j2s7s300"/>
+        <arg name="kinova_robotName" value="$(arg id_robot)"/>
+      </include>
+    </group>
 
     <!-- if it has camera ptz -->
     <group if="$(arg launch_pantilt_camera_controller)">

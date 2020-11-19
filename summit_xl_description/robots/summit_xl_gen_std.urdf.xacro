@@ -19,7 +19,7 @@
     <!-- Import all available sensors -->
     <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
 
-    <xacro:include filename="$(find kinova_description)/urdf/j2s7s300.xacro" />
+    <xacro:include filename="$(find summit_xl_description)/urdf/arms/kinova/j2s7s300.xacro" />
 
     <xacro:property name="PI" value="3.1415926535897931"/>
 

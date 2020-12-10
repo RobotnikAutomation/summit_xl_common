@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: summit_xl_description
+    relative_path: robots/summit_xl_gen_std.urdf.xacro
+    xacro_args: --inorder prefix:=robot_
+  SRDF:
+    relative_path: config/summit_xl.srdf
+  CONFIG:
+    author_name: José Gómez
+    author_email: jgomez@robotnik.es
+    generated_timestamp: 1607609887

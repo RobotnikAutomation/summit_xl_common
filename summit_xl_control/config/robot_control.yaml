@@ -12,7 +12,7 @@ joint_flw_velocity_controller:
   joint: $(arg prefix)front_left_wheel_joint
 
 robotnik_base_control:
-  type: $(arg prefix)controller/SummitXLController
+  type: summit_xl_controller/SummitXLController
   joint:
     front_right_wheel_joint:
       name: $(arg prefix)front_right_wheel_joint

@@ -98,7 +98,7 @@
 			<origin xyz="0.324 0.012 0.172" rpy="0 0 0"/>
 		</xacro:sensor_orbbec_astra>
 	  <!-- GPS -->
-	  <xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link">
+	  <xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link" gps_latitude="$(arg gps_latitude)" gps_longitude="$(arg gps_longitude)">
 			<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
 		</xacro:sensor_gps>
 

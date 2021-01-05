@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="structure" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="structure" xmlns:xacro="http://wiki.ros.org/xacro">
 		
   <xacro:macro name="structure_ptz" params="prefix parent *origin">
     	 

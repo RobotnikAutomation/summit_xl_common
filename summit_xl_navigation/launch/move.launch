@@ -4,8 +4,8 @@
   <arg name="config_folder" default="config"/>
   <arg name="config_path" default="$(eval find(config_package) + '/' + config_folder)"/>
 
-  <arg name="id_robot" default="robot"/>
-  <arg name="prefix" default="$(arg id_robot)_"/> 
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
   
   <arg name="odom_frame" default="$(arg prefix)odom"/> 
   <arg name="base_frame" default="$(arg prefix)base_footprint"/>

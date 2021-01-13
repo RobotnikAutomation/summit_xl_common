@@ -7,7 +7,9 @@
 	
 	<arg name="camera" default="front_rgbd_camera" />
 	
-	<arg name="prefix" default="robot_"/>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
+
 	<arg name="target_frame" default="$(arg prefix)front_rgbd_camera_link" />
 	<arg name="max_height" default="1.0"/>
 	<arg name="min_height" default="-0.35"/>

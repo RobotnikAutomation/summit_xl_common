@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="id_robot" default="robot"/>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
   <arg name="filter_config_file" default="default_intensity_filter"/>
   <arg name="config_path" default="$(find summit_xl_perception)/config/laser/$(arg filter_config_file).yaml"/>
   <arg name="apply_filter" default="true"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="id_robot" default="robot"/>
-  <arg name="prefix" value="$(arg id_robot)_"/>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
   <arg name="camera_locator_node_name" default="camera_locator"/>
   <arg name="pose_filter_node_name" default="$(arg camera_locator_node_name)_pose_filter"/>
 

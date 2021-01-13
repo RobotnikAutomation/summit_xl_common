@@ -1,32 +1,32 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
-  <arg name="prefix" default="$(arg robot_id)_"/>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
 
   <!-- kinematics: skid, omni -->
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
   <arg name="wheel_diameter" default="$(optenv ROBOT_WHEEL_DIAMETER 0.22)"/>
   <arg name="track_width" default="$(optenv ROBOT_TRACK_WIDTH 0.439)"/>
+  <arg name="wheel_base" default="$(optenv ROBOT_WHEEL_BASE 0.430)"/>
+  <arg name="odom_frame" default="$(arg prefix)odom"/>
+  <arg name="base_frame" default="$(arg prefix)base_footprint"/>
   <arg name="ros_planar_move_plugin" default="false"/>
   <arg name="sim" default="false"/>
+  <arg name="sim_arm_control" default="false"/>
   <arg name="cmd_vel" default="robotnik_base_control/cmd_vel"/>
-  <arg name="launch_robot_localization" default="false"/>
+  <arg name="launch_pantilt_camera_controller" default="false"/>
+  <arg name="odom_broadcast_tf" value="true"/>
+  <!-- kinova arm -->
+  <arg name="kinova_arm" default="j2s7s300"/>
+  <arg name="arm_prefix" default="$(arg prefix)$(arg kinova_arm)"/>
+  <arg name="is7dof" default="true"/>
 
   <!-- Robot - Load joint controller configurations from YAML file to parameter server -->
   <group unless="$(arg sim)">
-	  <rosparam file="$(find summit_xl_control)/config/robot_control.yaml" command="load"/>
-	  <param name="robotnik_base_control/joint/back_left_wheel_joint/name" value="$(arg prefix)back_left_wheel_joint"/>
-	  <param name="robotnik_base_control/joint/back_right_wheel_joint/name" value="$(arg prefix)back_right_wheel_joint"/>
-	  <param name="robotnik_base_control/joint/front_right_wheel_joint/name" value="$(arg prefix)front_right_wheel_joint"/>
-	  <param name="robotnik_base_control/joint/front_left_wheel_joint/name" value="$(arg prefix)front_left_wheel_joint"/>
-	  <param name="robotnik_base_control/odom_frame" value="$(arg prefix)odom"/>
-	  <param name="robotnik_base_control/robot_base_frame" value="$(arg prefix)base_footprint"/>
-	  <param name="robotnik_base_control/wheel_diameter" value="$(arg wheel_diameter)"/>
-	  <param name="robotnik_base_control/track_width" value="$(arg track_width)"/>
-	  <param name="robotnik_base_control/kinematic_mode" value="$(arg kinematics)"/>
+	  <rosparam file="$(find summit_xl_control)/config/robot_control.yaml" command="load" subst_value="true"/>
+
 	  <!-- load the controllers -->
-	  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-		output="screen" args="
+	  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="
 		  robotnik_base_control
 		  joint_read_state_controller
 		  ">
@@ -37,27 +37,50 @@
   <group if="$(arg sim)">
 	  <rosparam file="$(find summit_xl_control)/config/simulation/robot_control.yaml" command="load" subst_value="true"/>
 
-	  <!-- if robot_localization node is launched the controller must not publish the odom tf-->
-	  <param if="$(arg launch_robot_localization)" name="robotnik_base_control/enable_odom_tf" value="false"/>
+    <group if="$(arg sim_arm_control)">
+      <!-- Kinova -->
+      <include file="$(find summit_xl_control)/launch/kinova_control.launch">
+        <arg name="prefix" value="$(arg prefix)"/>
+        <arg name="kinova_arm" value="$(arg kinova_arm)"/>
+        <arg name="arm_prefix" value="$(arg arm_prefix)"/>
+        <arg name="use_trajectory_controller" value="false"/>
+        <arg name="is7dof" value="$(arg is7dof)"/>
+      </include>
+    </group>
 
-	   <!-- load the planar ros controllers by urdf -->
-	  <node if="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-		output="screen" args="
-		  joint_read_state_controller
-		  joint_pan_position_controller
-      	  joint_tilt_position_controller
-		  ">
-	  </node>
-	  
-	  <!-- load the robotnik_base_control ros controllers -->
-	  <node unless="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-		output="screen" args="
-		  robotnik_base_control
-		  joint_read_state_controller
-      	  joint_pan_position_controller
-      	  joint_tilt_position_controller
-		  ">
-	  </node>
+    <!-- if it has camera ptz -->
+    <group if="$(arg launch_pantilt_camera_controller)">
+      <node if="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="
+        joint_read_state_controller
+        joint_pan_position_controller
+        joint_tilt_position_controller
+       ">
+      </node>
+
+      <!-- load the robotnik_base_control ros controllers -->
+      <node unless="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="
+        robotnik_base_control
+        joint_read_state_controller
+        joint_pan_position_controller
+        joint_tilt_position_controller
+       ">
+      </node>
+    </group>
+    <!-- if does not have camera ptz -->
+    <group unless="$(arg launch_pantilt_camera_controller)">
+      <node if="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="
+        joint_read_state_controller
+       ">
+      </node>
+
+      <!-- load the robotnik_base_control ros controllers -->
+      <node unless="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="
+        robotnik_base_control
+        joint_read_state_controller
+       ">
+      </node>
+    </group>
+
 
   </group>
 

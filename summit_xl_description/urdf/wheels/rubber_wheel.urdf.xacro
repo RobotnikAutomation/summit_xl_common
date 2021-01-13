@@ -58,7 +58,7 @@
       <inertial>
         <mass value="${rubber_wheel_mass}" />
         <origin xyz="0 0 0" />
-        <cylinder_inertia  m="${rubber_wheel_mass}" r="${rubber_wheel_radius}" h="${rubber_wheel_height}" />
+        <xacro:cylinder_inertia  m="${rubber_wheel_mass}" r="${rubber_wheel_radius}" h="${rubber_wheel_height}" />
       </inertial>
     </link>
 

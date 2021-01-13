@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="id_robot" default="robot"/>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
   <arg name="prefix" default="$(arg id_robot)_"/>
   <arg name="two_tag_locator_node_name" default="two_tag_laser_locator"/>
   <arg name="pose_filter_node_name" default="$(arg two_tag_locator_node_name)_pose_filter"/>

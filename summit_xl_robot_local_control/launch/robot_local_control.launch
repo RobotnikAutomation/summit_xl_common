@@ -7,8 +7,14 @@
 <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
 <arg name="prefix" default="$(arg id_robot)_" />
 <arg name="charge_docker_namespace" default="$(optenv ROBOT_RLC_CHARGE_DOCKER_NAMESPACE pp_docker)"/>
-<arg name="charge_dock_offset_x" default="$(optenv ROBOT_RLC_CHARGE_DOCK_OFFSET_X 0.65)"/>
+<arg name="charge_dock_offset_x" default="$(optenv ROBOT_RLC_CHARGE_DOCK_OFFSET_X -0.65)"/>
+<arg name="charge_dock_step_in_distance" default="$(optenv ROBOT_RLC_CHARGE_STEP_DISTANCE 0.05)"/>
+<arg name="charge_dock_frame" default="$(optenv ROBOT_RLC_CHARGE_FRAME robot_docking_station_1)"/>
 <arg name="global_frame" default="$(arg prefix)map" />
+<arg name="base_frame" default="$(arg prefix)base_footprint" />
+<arg name="odom_frame" default="$(arg prefix)odom" />
+<arg name="has_safety_laser" default="$(optenv ROBOT_HAS_SAFETY_MODULE false)" />
+
 
 <arg name="debug" default="false" />
 <arg unless="$(arg debug)" name="launch_prefix" value="" />
@@ -29,10 +35,12 @@
     <rosparam file="$(arg config_path)/operation.yaml" command="load" ns="OperationComponent"/>
     <!-- Control Component -->
     <rosparam file="$(arg config_path)/control.yaml" command="load" ns="ControlComponent"/>
+    <!-- Signal Manager -->
+    <rosparam file="$(arg config_path)/signal_manager.yaml" command="load" ns="SignalManagerComponent"/>
   </node>
 
   <include file="$(find summit_xl_robot_local_control)/launch/frames_mapping.launch">
-    <arg name="config_folder" value="$(arg config_path)"/>
+    <arg name="config_folder" value="$(env ROBOT_MAPS_FOLDER)"/>
   </include>
 
 </group>

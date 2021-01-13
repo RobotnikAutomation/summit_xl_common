@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
+  <arg name="two_tag_locator_node_name" default="two_tag_laser_locator"/>
+  <arg name="pose_filter_node_name" default="$(arg two_tag_locator_node_name)_pose_filter"/>
+
+	<arg name="tag_distance" default="$(optenv ROBOT_DOCKING_STATION_TAG_DISTANCE 0.3)"/>
+	<arg name="tag_max_distance_detection" default="$(optenv ROBOT_DOCKING_STATION_TAG_MAX_DISTANCE_DETECTION 3.5)"/>
+	<arg name="tag_distance_margin" default="0.1"/>
+	<arg name="min_num_cluster" default="5"/>
+	<arg name="max_num_cluster" default="50"/>
+	<arg name="desired_freq" default="40.0"/>
+	<arg name="cluster_tolerance" default="0.05"/>
+
+	<arg name="fixed_frame" default="$(arg prefix)odom"/>
+	<arg name="robot_base_frame" default="$(arg prefix)base_footprint"/>
+	<arg name="object_frame" default="$(arg prefix)tag"/>
+  <arg name="noisy_object_frame" default="$(arg object_frame)_noisy"/>
+	<arg name="filtered_object_frame" default="$(arg object_frame)"/>
+
+	<arg name="input_topic_name" default="perception_filtered_points" />
+
+
+  <node pkg="robotnik_locator" type="multi_two_tag_laser_locator_node" name="$(arg two_tag_locator_node_name)" clear_params="true">
+    <param name="robot_base_frame" value="$(arg robot_base_frame)"/>
+    <param name="fixed_frame" value="$(arg fixed_frame)" />
+    <param name="object_frame" value="$(arg noisy_object_frame)"/>
+    <param name="input_topic_name" value="$(arg input_topic_name)" />
+    <param name="min_num_cluster" type="int" value="$(arg min_num_cluster)"/>
+    <param name="max_num_cluster" type="int" value="$(arg max_num_cluster)"/>
+    <param name="cluster_tolerance" value="$(arg cluster_tolerance)"/>
+    <param name="tag_distance" value="$(arg tag_distance)"/>
+    <param name="tag_distance_margin" value="$(arg tag_distance_margin)"/>
+    <param name="distance_detection" value="$(arg tag_max_distance_detection)"/>
+    <param name="desired_freq" value="$(arg desired_freq)"/>
+    <param name="filter_object_by_orientation" value="false"/>
+  </node>
+
+  <node name="$(arg pose_filter_node_name)" pkg="robotnik_pose_filter" type="tf_pose_filter_node" respawn="false">
+    <param name="filter_position_sensitivity"       type="double" value="0.8" />
+    <param name="filter_orientation_sensitivity"    type="double" value="0.2" />
+    <param name="source_frame" type="string" value="$(arg fixed_frame)" />
+    <param name="target_frame" type="string" value="$(arg noisy_object_frame)" />
+    <param name="filtered_source_frame" type="string" value="$(arg fixed_frame)" />
+    <param name="filtered_target_frame" type="string" value="$(arg filtered_object_frame)" />
+    <param name="two_d_mode" type="bool" value="false" />
+    <rosparam param="apply_transform">[0.0, 0.0, 0.0, 0.0, 0.0, 1.5707]</rosparam>
+    <!-- if not set, does not apply a transform. transform is xyz-rpy, 6 parameters. remember that rotation is applied in reverse order (ypr) -->
+  </node>
+
+</launch>

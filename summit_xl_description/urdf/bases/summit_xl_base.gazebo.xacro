@@ -46,6 +46,7 @@
 	      <odometryRate>50.0</odometryRate>
 	      <robotBaseFrame>${prefix}base_footprint</robotBaseFrame>
 	      <publishTF>${publish_tf}</publishTF>
+		  <enableYAxis>false</enableYAxis>
 	    </plugin>
 	  </gazebo>
   </xacro:macro>

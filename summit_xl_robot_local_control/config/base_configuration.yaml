@@ -1,6 +1,0 @@
-robot_id: $(arg id_robot)
-odom_frame: $(arg odom_frame)
-base_frame: $(arg base_frame)
-global_frame: $(arg global_frame)
-
-desired_freq: 2

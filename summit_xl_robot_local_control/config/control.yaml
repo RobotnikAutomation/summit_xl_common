@@ -1,3 +1,0 @@
-type: robot_local_control_components/ControlComponent
-desired_freq: 5.0
-default_control_mode: auto

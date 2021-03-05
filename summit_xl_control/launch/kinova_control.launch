@@ -65,7 +65,10 @@
 
   <group if="$(arg use_trajectory_controller)">
     <!-- Effort Joint trajectory controller-->
-    <node name="$(arg arm_prefix)_trajectory_controller" pkg="controller_manager" type="spawner"
+    <node
+      name="$(arg arm_prefix)_trajectory_controller"
+      pkg="controller_manager"
+      type="spawner"
       output="screen"
       args="effort_joint_trajectory_controller
       effort_finger_trajectory_controller

@@ -54,9 +54,6 @@
           finger_2_position_controller
           finger_1_position_controller
           finger_3_position_controller
-          finger_tip_1_position_controller
-          finger_tip_2_position_controller
-          finger_tip_3_position_controller
           joint_state_controller
         "
       />

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot name="structure" xmlns:xacro="http://www.ros.org/wiki/xacro">
+		
+  <xacro:macro name="sick_microscan3_support" params="prefix parent *origin">
+
+    <!--CONTAINER -->
+    <joint name="${prefix}_support_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}_support_link"/>
+    </joint>
+
+    <link name="${prefix}_support_link">
+	       <visual>
+	      <geometry>
+	        <mesh filename="package://summit_xl_description/meshes/structures/sick_microscan3_support.stl"/>
+	      </geometry>
+	    </visual>
+	    <collision>
+	      <origin rpy="0 0 0" xyz="0.0 0 0"/>
+	      <geometry>
+          <!--box size="0.12 0.1 0.1" /-->
+	        <mesh filename="package://summit_xl_description/meshes/structures/sick_microscan3_support.stl"/>
+	      </geometry>
+	    </collision>
+	  </link>
+      
+  </xacro:macro>
+
+</robot>
+
+
+

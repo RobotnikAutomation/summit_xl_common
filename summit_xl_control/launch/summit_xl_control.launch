@@ -43,7 +43,7 @@
         <arg name="prefix" value="$(arg prefix)"/>
         <arg name="kinova_arm" value="$(arg kinova_arm)"/>
         <arg name="arm_prefix" value="$(arg arm_prefix)"/>
-        <arg name="use_trajectory_controller" value="false"/>
+        <arg name="use_trajectory_controller" value="true"/>
         <arg name="is7dof" value="$(arg is7dof)"/>
       </include>
     </group>

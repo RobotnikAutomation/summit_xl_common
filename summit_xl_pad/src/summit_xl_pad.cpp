@@ -246,7 +246,7 @@ SummitXLPad::SummitXLPad():
 
  	// Listen through the node handle sensor_msgs::Joy messages from joystick 
 	// (these are the references that we will sent to summit_xl_controller/command)
-	pad_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &SummitXLPad::padCallback, this);
+	pad_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 1, &SummitXLPad::padCallback, this);
 	
  	// Request service to activate / deactivate digital I/O
 	set_digital_outputs_client_ = nh_.serviceClient<robotnik_msgs::set_digital_output>(cmd_service_io_);
@@ -340,7 +340,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			}
 			bumper_override_true_number_ = 0;
 		}
-
+/*
 		if ( joy->buttons[speed_down_button_] == 1 ){
 
 			if(!bRegisteredButtonEvent[speed_down_button_]) 
@@ -372,7 +372,25 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}else{
 			bRegisteredButtonEvent[speed_up_button_] = false;
 		}
+		*/
 		//ROS_ERROR("SummitXLPad::padCallback: Passed SPEED UP button %d", speed_up_button_);
+		double v_level = 0;
+		/*
+		for (int i=6; i<16; i++){
+			if (joy->buttons[i] == 1){
+			v_level = i-5;
+			
+			}
+			}*/
+		int i=6;
+		while (joy->buttons[i] == 0 && i<16){
+			i++;
+		}
+		v_level = i-5;
+		current_vel = v_level/10;
+		char buf[50]="\0";
+		int percent = (int) (current_vel*100.0);
+		sprintf(buf," %d percent", percent);
 		
 		
 		

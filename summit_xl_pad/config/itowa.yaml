@@ -1,0 +1,29 @@
+pad_type: itowa
+num_of_buttons: 16 
+axis_linear_x: 0
+axis_linear_y: 1
+axis_angular: 2
+axis_linear_z: 
+scale_linear: 1.5
+scale_angular: 3
+scale_linear_z: 20.0 
+button_speed_up: 4
+button_speed_down: 5
+button_bumber_override: 16
+button_dead_man: 0
+button_output_1: 16
+button_output_2: 16
+output_1: 0
+output_2: 0
+button_ptz_tilt_up: 10 #dpad on ps4 is an axis
+button_ptz_tilt_down: 10
+button_ptz_pan_right: 9
+button_ptz_pan_left: 9
+button_ptz_zoom_wide: 0 
+button_ptz_zoom_tele: 2
+button_home: 16
+tilt_increment: 0.087 # radians
+pan_increment: 0.087  # radians
+zoom_increment: 300
+button_kinematic_mode: 1
+joystick_dead_zone: "false"  #useful for x-wam

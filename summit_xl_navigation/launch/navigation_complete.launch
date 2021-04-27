@@ -27,7 +27,7 @@
       </include>
     
       <include if="$(arg run_move)" file="$(find summit_xl_navigation)/launch/move.launch">
-        <arg name="config_path" value="$(arg config_path)"/>
+        <arg name="config_path" value="$(arg config_path)/move"/>
         <arg name="id_robot" value="$(arg id_robot)"/>
         <arg name="differential_robot" value="$(arg differential_robot)"/>
       </include>

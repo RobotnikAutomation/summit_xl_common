@@ -28,18 +28,18 @@
     <remap from="odom" to="$(arg odom_topic)" />
     
     <!-- Move base params -->
-    <rosparam file="$(arg config_path)/move_base_params.yaml" command="load" />
+    <rosparam file="$(arg config_path)/move_base/move_base_params.yaml" command="load" />
     
     <!-- Global costmap params-->
-    <rosparam file="$(arg config_path)/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true"/>
-    <rosparam file="$(arg config_path)/eband_global_costmap_params.yaml" command="load" subst_value="true"/>
+    <rosparam file="$(arg config_path)/costmaps/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true"/>
+    <rosparam file="$(arg config_path)/costmaps/eband_global_costmap_params.yaml" command="load" subst_value="true"/>
     
     <!-- Local costmap params-->
-    <rosparam file="$(arg config_path)/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true"/>
-    <rosparam file="$(arg config_path)/local_costmap_params.yaml" command="load" subst_value="true"/>
+    <rosparam file="$(arg config_path)/costmaps/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true"/>
+    <rosparam file="$(arg config_path)/costmaps/local_costmap_params.yaml" command="load" subst_value="true"/>
     
     <!-- Load local_planner diff or omni parameters -->
-    <rosparam file="$(arg config_path)/eband_local_planner_$(arg kinematics)_params.yaml" command="load" />
+    <rosparam file="$(arg config_path)/local_planners/eband_local_planner_$(arg kinematics)_params.yaml" command="load" />
     <!-- overwrites previous footprint values -->
     <rosparam file="$(arg config_path)/planner_footprints/$(arg footprint_model).yaml" command="load"/>
   </node>

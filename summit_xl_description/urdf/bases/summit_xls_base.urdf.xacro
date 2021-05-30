@@ -170,5 +170,20 @@
       <child link="${prefix}base_docking_contact" />
     </joint>
 
+  <xacro:include filename="$(find roas_bringup)/urdf/roas.urdf.xacro"/>
+  <xacro:include filename="$(find ur_e_description)/urdf/ur5e_robot.urdf.xacro"/>
+
+  <joint name="top_structure_joint" type="fixed">
+    <origin xyz="0.0 0 0.0" rpy="0 0 0" />
+    <parent link="${prefix}base_chapa"/>
+    <child link="top_structure" />
+  </joint>
+
+  <joint name="${prefix}ur5e_joint" type="fixed">
+    <parent link="${prefix}base_link" />
+    <child link ="ur5e_base_link" />
+    <origin xyz="0.255 0 0.4" rpy="0 0 -1.5708" />
+  </joint>
+	  
   </xacro:macro>
 </robot>

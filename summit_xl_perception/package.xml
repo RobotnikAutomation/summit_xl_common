@@ -10,8 +10,8 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>laser_filters</exec_depend>
-  <exec_depend>robotnik_locator</exec_depend>
-  <exec_depend>robotnik_pose_filter</exec_depend>
+  <!-- <exec_depend>robotnik_locator</exec_depend> -->
+  <!-- <exec_depend>robotnik_pose_filter</exec_depend> -->
 
   <export>
 

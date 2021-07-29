@@ -1,0 +1,19 @@
+controller_list:
+  - name: fake_vx300s_arm_controller
+    type: $(arg execution_type)
+    joints:
+      - robot_vx300s_waist_joint
+      - robot_vx300s_shoulder_joint
+      - robot_vx300s_elbow_joint
+      - robot_vx300s_forearm_roll_joint
+      - robot_vx300s_wrist_angle_joint
+      - robot_vx300s_wrist_rotate_joint
+  - name: fake_vx300s_gripper_controller
+    type: $(arg execution_type)
+    joints:
+      - robot_vx300s_left_finger_joint
+initial:  # Define initial robot poses.
+  - group: vx300s_arm
+    pose: home
+  - group: vx300s_gripper
+    pose: sleep

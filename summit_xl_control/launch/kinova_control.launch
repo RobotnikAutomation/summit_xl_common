@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="prefix" default="robot_"/>
-  <arg name="kinova_arm" default="j2s7s300"/>
-  <arg name="arm_prefix" default="$(arg prefix)$(arg kinova_arm)"/>
+  <arg name="arm_model" default="j2s7s300"/>
+  <arg name="arm_prefix" default="$(arg prefix)$(arg arm_model)"/>
   <arg name="use_trajectory_controller" default="true"/>
   <arg name="is7dof" default="false"/>
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
-  <rosparam file="$(find summit_xl_control)/config/kinova/$(arg kinova_arm)_control.yaml" command="load"/>
+  <rosparam file="$(find summit_xl_control)/config/kinova/$(arg arm_model)_control.yaml" command="load"/>
 
   <group unless="$(arg use_trajectory_controller)">
-    <group unless="$(arg is7dof)">
+      <group unless="$(eval arg('arm_model') == j2s7s300)">
       <!-- load the joint by joint position controllers -->
       <node
         name="$(arg arm_prefix)_joints_controller"
@@ -35,7 +35,7 @@
         "
       />
     </group>
-    <group if="$(arg is7dof)">
+    <group if="$(eval arg('arm_model') == j2s6s300)">
       <!-- load the joint by joint position controllers -->
       <node
         name="$(arg arm_prefix)_joints_controller"

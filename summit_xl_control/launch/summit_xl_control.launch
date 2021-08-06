@@ -38,17 +38,6 @@
 	  <rosparam file="$(find summit_xl_control)/config/simulation/robot_control.yaml" command="load" subst_value="true"/>
 
     <group if="$(arg sim_arm_control)">
-      <!-- Kinova -->
-      <!--
-      <include file="$(find summit_xl_control)/launch/kinova_control.launch">
-        <arg name="prefix" value="$(arg prefix)"/>
-        <arg name="kinova_arm" value="$(arg kinova_arm)"/>
-        <arg name="arm_prefix" value="$(arg arm_prefix)"/>
-        <arg name="use_trajectory_controller" value="false"/>
-        <arg name="is7dof" value="$(arg is7dof)"/>
-      </include>
-      -->
-      
       <include file="$(find summit_xl_control)/launch/$(arg arm_manufacturer)_control.launch">
         <arg name="prefix" value="$(arg prefix)"/>
         <arg name="arm_prefix" value="$(arg arm_prefix)"/>

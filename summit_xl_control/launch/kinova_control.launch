@@ -10,7 +10,7 @@
   <rosparam file="$(find summit_xl_control)/config/kinova/$(arg arm_model)_control.yaml" command="load"/>
 
   <group unless="$(arg use_trajectory_controller)">
-      <group unless="$(eval arg('arm_model') == j2s7s300)">
+      <group unless="$(eval arg('arm_model') == 'j2s7s300')">
       <!-- load the joint by joint position controllers -->
       <node
         name="$(arg arm_prefix)_joints_controller"
@@ -35,7 +35,7 @@
         "
       />
     </group>
-    <group if="$(eval arg('arm_model') == j2s6s300)">
+    <group if="$(eval arg('arm_model') == 'j2s6s300')">
       <!-- load the joint by joint position controllers -->
       <node
         name="$(arg arm_prefix)_joints_controller"

@@ -1,0 +1,20 @@
+controller_list:
+  - name: fake_j2n6s200_controller
+    type: $(arg execution_type)
+    joints:
+      - robot_j2n6s200_joint_1
+      - robot_j2n6s200_joint_2
+      - robot_j2n6s200_joint_3
+      - robot_j2n6s200_joint_4
+      - robot_j2n6s200_joint_5
+      - robot_j2n6s200_joint_6
+  - name: fake_j2n6s200_gripper_controller
+    type: $(arg execution_type)
+    joints:
+      - robot_j2n6s200_joint_finger_1
+      - robot_j2n6s200_joint_finger_tip_1
+      - robot_j2n6s200_joint_finger_2
+      - robot_j2n6s200_joint_finger_tip_2
+initial:  # Define initial robot poses.
+  - group: j2n6s200
+    pose: home

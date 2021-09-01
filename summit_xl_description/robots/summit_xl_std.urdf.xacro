@@ -33,7 +33,8 @@
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
 	<xacro:arg name="omni_wheels" default="false"/>
 	<xacro:arg name="gpu" default="false"/>
-
+	<xacro:arg name="gps_latitude" default="0"/>
+	<xacro:arg name="gps_longitude" default="0"/>
 
 
     <xacro:macro name="summit_xl" params="prefix publish_bf hq">

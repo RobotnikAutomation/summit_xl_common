@@ -3,8 +3,9 @@
 
 
   <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
+  <xacro:include filename="$(find summit_xl_description)/urdf/structures/sick_microscan3_support.urdf.xacro" />
 
-  <xacro:macro name="summit_xls_base" params="prefix publish_bf hq">
+  <xacro:macro name="summit_xls_base" params="prefix publish_bf hq laser_support:=true">
 
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
@@ -39,12 +40,12 @@
       <origin xyz="0 0 0" rpy="0 0 0" />
       <xacro:if value="${hq}">
       <geometry>
-      <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xlsk_oem.stl"/>
+      <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xlsk_plus.stl"/>
       </geometry>
       </xacro:if>
       <xacro:unless value="${hq}">
       <geometry>
-      <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xlsk_oem.dae"/>
+      <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xlsk_plus.dae"/>
       </geometry>
       </xacro:unless>
       <material name="black">
@@ -54,19 +55,15 @@
     <collision>
        <origin xyz="0 0 0" rpy="0 0 0 " />
        <geometry>
-         <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xlsk_oem.dae"/>
+         <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xlsk_plus.dae"/>
        </geometry>
-       <!-- better a box than a mesh for collision -->
-      <!--<origin xyz="0 0 0.381" rpy="0 0 0"/>-->
-      <!--<geometry>-->
-        <!--<box size="0.719 0.578 0.363"/>-->
-      <!--</geometry>-->
     </collision>
   </link>
 
   <gazebo reference="${prefix}base_link">
     <material>Gazebo/Black</material>
   </gazebo>
+
 
   <!-- CHAPAS INOX TAPAS -->
   <link name="${prefix}base_chapa">
@@ -82,7 +79,7 @@
   </link>
 
   <joint name="${prefix}base_tapa_joint" type="fixed">
-    <origin xyz="0.0 0 0.38062" rpy="0 0 0" />
+    <origin xyz="0.0 0 0.56162" rpy="0 0 0" />
     <parent link="${prefix}base_link"/>
     <child link="${prefix}base_chapa" />
   </joint>
@@ -101,7 +98,7 @@
   </link>
 
   <joint name="${prefix}base_logo_left_joint" type="fixed">
-    <origin xyz="0.0 0.28931 0.29062" rpy="0 0 0" />
+    <origin xyz="0.0 0.2894 0.35562" rpy="0 0 0" />
     <parent link="${prefix}base_link"/>
     <child link="${prefix}base_logo_left" />
   </joint>
@@ -120,7 +117,7 @@
   </link>
 
   <joint name="${prefix}base_logo_right_joint" type="fixed">
-    <origin xyz="0.0 -0.28931 0.29062" rpy="0 0 ${PI}" />
+    <origin xyz="0.0 -0.28931 0.35562" rpy="0 0 ${PI}" />
     <parent link="${prefix}base_link"/>
     <child link="${prefix}base_logo_right" />
   </joint>
@@ -173,6 +170,16 @@
       <parent link="${prefix}base_link"/>
       <child link="${prefix}base_docking_contact" />
     </joint>
+
+  <xacro:if value="${laser_support}">
+    <sick_microscan3_support prefix="${prefix}front_laser" parent="${prefix}base_link" >
+      <origin xyz="0.28704 -0.22255 0.20212" rpy="0 0 -0.645772" />
+    </sick_microscan3_support>
+
+    <sick_microscan3_support prefix="${prefix}rear_laser" parent="${prefix}base_link" >
+      <origin xyz="-0.28704 +0.22255 0.20212" rpy="0 0 2.496" />
+    </sick_microscan3_support>
+  </xacro:if>
 
   </xacro:macro>
 </robot>

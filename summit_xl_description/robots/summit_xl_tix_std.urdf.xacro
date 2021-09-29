@@ -120,9 +120,9 @@
             <axis xyz="0 0 0" />
         </joint>
 
-        <xacro:vx300s base_parent="$(arg prefix)arm_base_link" prefix="$(arg prefix)vx300s_"/>
+        <xacro:vx300s base_parent="$(arg prefix)arm_base_link" prefix="$(arg prefix)arm_"/>
 
-        <xacro:sensor_intel_d435 prefix="$(arg prefix)wrist_rgbd_camera" parent="$(arg prefix)vx300s_gripper_link" use_nominal_extrinsics="true" prefix_topic="robot/wrist_rgbd_camera">
+        <xacro:sensor_intel_d435 prefix="$(arg prefix)wrist_rgbd_camera" parent="$(arg prefix)arm_gripper_link" use_nominal_extrinsics="true" prefix_topic="robot/wrist_rgbd_camera">
             <origin xyz="0.0 0.0 0.05" rpy="0 0 0"/>
         </xacro:sensor_intel_d435>
 

@@ -1,0 +1,25 @@
+global_costmap:
+  global_frame: $(arg global_frame)
+  robot_base_frame: $(arg base_frame)
+  update_frequency: 5.0
+  static_map: true
+  
+  plugins:
+#    - name: obstacle_laser_layer
+#      type: "costmap_2d::VoxelLayer"
+#    - name: rgbd_obstacle_layer
+#      type: "costmap_2d::VoxelLayer"
+    - name: static_map
+      type: "costmap_2d::StaticLayer"
+#    - name: costmap_prohibition_layer
+#      type: "costmap_prohibition_layer_namespace::CostmapProhibitionLayer"
+    - name: inflation_layer
+      type: "costmap_2d::InflationLayer"
+
+  static_map:
+      lethal_cost_threshold: 94
+      static_map: true
+      map_topic: map
+      unknown_cost_value: 1
+      trinary_costmap: false
+      use_maximum: false

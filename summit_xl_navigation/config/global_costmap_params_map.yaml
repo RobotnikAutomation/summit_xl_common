@@ -1,25 +1,33 @@
 global_costmap:
-  global_frame: $(arg global_frame)
-  robot_base_frame: $(arg base_frame)
+  global_frame: $(arg prefix)map
+  robot_base_frame: $(arg prefix)base_footprint
   update_frequency: 5.0
+  rolling_window: false
   static_map: true
-  
-  plugins:
+  width: 200.0 # this are overwritten static_layer receives a map
+  height: 200.0 # this are overwritten static_layer receives a map
+  resolution: 0.05 # this are overwritten static_layer receives a map
+  origin_x: 0.0
+  origin_y: 0.0
+  # plugins:
+  #   - name: static_map
+  #     type: "costmap_2d::StaticLayer"
+# obstacle layers could also be included in global costmap
 #    - name: obstacle_laser_layer
 #      type: "costmap_2d::VoxelLayer"
 #    - name: rgbd_obstacle_layer
 #      type: "costmap_2d::VoxelLayer"
-    - name: static_map
-      type: "costmap_2d::StaticLayer"
 #    - name: costmap_prohibition_layer
 #      type: "costmap_prohibition_layer_namespace::CostmapProhibitionLayer"
-    - name: inflation_layer
-      type: "costmap_2d::InflationLayer"
+    # - name: inflation_layer
+    #   type: "costmap_2d::InflationLayer"
 
   static_map:
-      lethal_cost_threshold: 94
-      static_map: true
-      map_topic: map
-      unknown_cost_value: 1
-      trinary_costmap: false
-      use_maximum: false
+    # enabled: false
+    lethal_cost_threshold: 94
+    static_map: true
+    map_topic: map
+    unknown_cost_value: 1
+    trinary_costmap: false
+    use_maximum: false
+    first_map_only: false

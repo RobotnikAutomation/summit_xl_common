@@ -11,6 +11,7 @@ button_speed_up: 3
 button_speed_down: 1
 button_bumber_override: 4
 button_dead_man: 5
+button_pad_unsafe: 4
 button_output_1: 9
 button_output_2: 10
 output_1: 1 

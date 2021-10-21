@@ -23,7 +23,6 @@
 
   <run_depend>teb_local_planner</run_depend>
   <run_depend>eband_local_planner</run_depend>
-  <run_depend>costmap_prohibition_layer</run_depend>
   <run_depend>move_base</run_depend>
   <run_depend>global_planner</run_depend>
 

@@ -5,7 +5,7 @@ local_costmap:
   static_map: false
   rolling_window: true
   width: 7.0 
-  height: 7.0 
+  height: 7.0
   resolution: 0.05 
   
   # padding is 0.1 by default, making difficult to pass through narrow places

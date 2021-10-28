@@ -9,11 +9,6 @@ topics:
   timeout : 0.5
   priority: 75
 
-- name    : move_base
-  topic   : move_base/cmd_vel
-  timeout : 0.5
-  priority: 50
-
 - name    : move
   topic   : move/cmd_vel
   timeout : 0.5

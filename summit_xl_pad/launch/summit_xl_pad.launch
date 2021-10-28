@@ -11,11 +11,11 @@
  <arg name="cmd_service_io" default="modbus_io/write_digital_output"/>
 
  <!-- joy node -->
-  <node pkg="joy" type="joy_node" name="joy" output="screen" respawn="true">
+<!--  <node pkg="joy" type="joy_node" name="joy" output="screen" respawn="true">
     <param name="dev" type="string" value="$(arg joy_dev)" />
     <param name="deadzone" value="0.12" />
     <param name="autorepeat_rate" value="10.0" type="double" />
-  </node>
+  </node>-->
   
   <!-- Parameters -->
   

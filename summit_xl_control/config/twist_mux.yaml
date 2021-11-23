@@ -5,12 +5,12 @@ topics:
   priority: 100
 
 - name    : safe_command
-  topic   : rough_terrain_navigation/cmd_vel # SAFE
+  topic   : rough_terrain_navigation/pad_teleop/cmd_vel # SAFE
   timeout : 0.5
   priority: 75
 
-- name    : move
-  topic   : move/cmd_vel
+- name    : move_base
+  topic   : rough_terrain_navigation/move_base/cmd_vel
   timeout : 0.5
   priority: 50
 
@@ -27,5 +27,5 @@ topics:
 locks:
 - name    : e_stop
   topic   : robotnik_base_hw/emergency_stop
-  timeout : 0.0    
+  timeout : 0.0
   priority: 255

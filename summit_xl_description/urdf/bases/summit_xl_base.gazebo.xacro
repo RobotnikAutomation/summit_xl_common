@@ -48,6 +48,7 @@
 	      <publishTF>${publish_tf}</publishTF>
 	      <enableYAxis>true</enableYAxis>
 		  <disablePitchAndRoll>true</disablePitchAndRoll>
+		  <freezeAfterCmdTimeout>true</freezeAfterCmdTimeout>
 	    </plugin>
 	  </gazebo>
   </xacro:macro>

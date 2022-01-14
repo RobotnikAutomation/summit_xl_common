@@ -9,7 +9,7 @@ scale_angular: 3
 scale_linear_z: 20.0
 button_speed_up: 3
 button_speed_down: 1
-button_reset_traversability: 2
+button_reset_traversability: 0
 button_bumber_override: 4
 button_dead_man: 5
 button_pad_unsafe: 4

@@ -198,12 +198,12 @@ SummitXLPad::SummitXLPad():
 	pnh_.param("cmd_topic_vel", cmd_topic_vel_, cmd_topic_vel_);
 	pnh_.param<std::string>("vel_limit_topic", vel_limit_topic_, "pad_teleop/velocity_limit");
 	pnh_.param("unsafe_cmd_topic_vel", unsafe_cmd_topic_vel_, unsafe_cmd_topic_vel_);
-        pnh_.param("button_dead_man", dead_man_button_, dead_man_button_);
+  pnh_.param("button_dead_man", dead_man_button_, dead_man_button_);
 	pnh_.param("button_pad_unsafe", pad_unsafe_button_, pad_unsafe_button_);
 	pnh_.param("button_bumber_override", bumper_override_button_, bumper_override_button_);
 	pnh_.param("button_speed_up", speed_up_button_, speed_up_button_);  //4 Thrustmaster
 	pnh_.param("button_speed_down", speed_down_button_, speed_down_button_); //5 Thrustmaster
-	pnh_.param("button_reset_traversability", reset_traversability_button_, reset_traversability_button_); //5 Thrustmaster
+	pnh_.param("button_reset_traversability", reset_traversability_button_, reset_traversability_button_);
 	pnh_.param<std::string>("joystick_dead_zone", joystick_dead_zone_, "true");
 
 	// DIGITAL OUTPUTS CONF
@@ -220,7 +220,7 @@ SummitXLPad::SummitXLPad():
 	pnh_.param("button_ptz_pan_left", ptz_pan_left_, ptz_pan_left_);
 	pnh_.param("button_ptz_zoom_wide", ptz_zoom_wide_, ptz_zoom_wide_);
 	pnh_.param("button_ptz_zoom_tele", ptz_zoom_tele_, ptz_zoom_tele_);
-  	pnh_.param("button_home", button_home_, button_home_);
+  pnh_.param("button_home", button_home_, button_home_);
 	pnh_.param("pan_increment",  pan_increment_, 0.09);
 	pnh_.param("tilt_increment", tilt_increment_, 0.09);
 	pnh_.param("zoom_increment", zoom_increment_, 200);
@@ -268,7 +268,7 @@ SummitXLPad::SummitXLPad():
 	set_digital_outputs_client_ = nh_.serviceClient<robotnik_msgs::set_digital_output>(cmd_service_io_);
 	set_manual_release_client_ = nh_.serviceClient<std_srvs::SetBool>("safety_module/set_manual_release");
 	set_bumper_override_client_ = nh_.serviceClient<std_srvs::SetBool>("safety_module/set_bumper_override");
-	clear_traversability_map_client_ = nh_.serviceClient<std_srvs::Empty>("/traversability_estimation/clear_map");
+	clear_traversability_map_client_ = nh_.serviceClient<std_srvs::Empty>("elevation_mapping/clear_map");
 	bOutput1 = bOutput2 = false;
 
         // Request service to set kinematic mode
@@ -399,7 +399,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			if(!bRegisteredButtonEvent[reset_traversability_button_])
       {
         std_srvs::Empty reset_traversability_srv;
-        clear_traversability_map_client_.call(reset_traversability_srv);
+        bool response = clear_traversability_map_client_.call(reset_traversability_srv);
         bRegisteredButtonEvent[reset_traversability_button_] = true;
         ROS_INFO("CLearing traversability map");
       }

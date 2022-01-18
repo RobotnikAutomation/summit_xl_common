@@ -1,0 +1,28 @@
+robot_frame: $(arg base_frame)
+map_frame: $(arg global_frame)
+global_frame: $(arg global_frame)
+
+controller_frequency: 20.0         # How long the controller will wait in seconds
+                                  # without receiving a valid control before space-clearing
+                                  # operations are performed
+controller_patience: 15.0
+planner_frequency: 0.2
+planner_patience: 15.0            # How long the planner will wait in seconds in an
+                                  # attempt to find a valid plan before space-clearing
+                                  # operations are performed
+
+conservative_reset_dist: 3.0      # The distance away from the robot in meters beyond which
+                                  # obstacles will be cleared from the costmap when attempting to
+                                  # clear space in the map. Note, this parameter is only used when
+                                  # the default recovery behaviors are used for move_base.
+recovery_behavior_enabled: true
+clearing_rotation_allowed: false  # attempt an in-place rotation when attempting to clear out
+                                  # space.
+shutdown_costmaps: false
+oscillation_timeout: 0.0          # How long in seconds to allow for oscillation before executing
+                                  # recovery behaviors
+oscillation_distance: 0.5         # How far in meters the robot must move to be considered not
+                                  # to be oscillating
+max_planning_retries: 10          # How many times to allow for planning retries before executing
+                                  # recovery behaviors. A value of -1.0 corresponds to an infinite
+                                  # retries.

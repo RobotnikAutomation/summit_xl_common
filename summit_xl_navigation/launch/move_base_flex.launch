@@ -6,7 +6,9 @@
   <arg name="prefix" default="$(arg robot_id)_"/>
 
   <!-- Robot configuration -->
-  <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS diff)"/>
+  <arg name="differential_robot" default="$(optenv ROBOT_DIFFERENTIAL_KINEMATICS true)"/>
+  <arg if="$(arg differential_robot)" name="kinematics" value="diff"/>
+  <arg unless="$(arg differential_robot)" name="kinematics" value="omni"/>
   <arg name="has_safety_controller" default="$(optenv HAS_SAFETY_CONTROLLER false)"/>
 
   <!-- What navigation config package to use -->

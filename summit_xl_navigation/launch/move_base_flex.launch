@@ -16,7 +16,7 @@
   <arg name="config_folder" default="$(eval find(navigation_package) + '/config')" />
 
   <!-- Topics argumments -->
-  <arg name="cmd_vel_topic" default="move_base/cmd_vel"/>
+  <arg name="cmd_vel_topic" default="move_base_flex/cmd_vel"/>
   <arg name="odom_topic" default="robotnik_base_control/odom"/>
   <arg name="front_scan_topic" default="$(optenv ROBOT_NAVIGATION_FRONT_2D_SCAN front_laser/scan_filtered)"/>
   <arg name="rear_scan_topic" default="$(optenv ROBOT_NAVIGATION_REAR_2D_SCAN rear_laser/scan_filtered)"/>
@@ -72,7 +72,7 @@
 
     <param name="tf_timeout" value="1.5"/>
     <param name="planner_max_retries" value="3"/>
-    <remap from="cmd_vel" to="move_base_flex/cmd_vel"/>
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)" />
 
     <rosparam file="$(arg planners_config)" command="load" subst_value="true"/>

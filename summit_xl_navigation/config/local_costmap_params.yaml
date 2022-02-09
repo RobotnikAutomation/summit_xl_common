@@ -12,8 +12,8 @@ local_costmap:
   footprint_padding: 0.0
 
   plugins:
-    # - name: static_map
-    #   type: "costmap_2d::StaticLayer"
+    - name: static_map
+      type: "costmap_2d::StaticLayer"
     - name: obstacle_laser_layer
       type: "costmap_2d::ObstacleLayer"
 #    - name: obstacle_camera_layer
@@ -22,7 +22,7 @@ local_costmap:
       type: "costmap_2d::InflationLayer"
 
   static_map:
-    enabled: false
+    enabled: true
     lethal_cost_threshold: 94
     static_map: true
     map_topic: "/map"

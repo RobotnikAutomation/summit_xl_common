@@ -60,6 +60,7 @@
 
 	<xacro:arg name="prefix" default="summit_xl_"/>
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
+	<xacro:arg name="ros_planar_move_plugin_force_based" default="false"/>
 	<xacro:arg name="gpu" default="false"/>
 
 
@@ -125,7 +126,7 @@
    <xacro:ros_control/>
 
    <xacro:if value="$(arg ros_planar_move_plugin)">
-	   <xacro:omni_steering prefix="$(arg prefix)" publish_tf="true"/>
+	   <xacro:omni_steering prefix="$(arg prefix)" publish_tf="true" force_based="$(arg ros_planar_move_plugin_force_based)"/>
    </xacro:if>
 
    <xacro:summit_xl prefix="$(arg prefix)" publish_bf="true" hq="true"/>

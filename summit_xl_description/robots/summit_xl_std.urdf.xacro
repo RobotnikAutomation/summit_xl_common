@@ -31,6 +31,7 @@
 
 	<xacro:arg name="prefix" default="summit_xl_"/>
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
+	<xacro:arg name="ros_planar_move_plugin_force_based" default="false"/>
 	<xacro:arg name="omni_wheels" default="false"/>
 	<xacro:arg name="gpu" default="false"/>
 	<xacro:arg name="gps_latitude" default="0"/>
@@ -111,11 +112,11 @@
 	<xacro:if value="$(arg ros_planar_move_plugin)">
 
 		<xacro:if value="$(arg omni_wheels)">
-			<xacro:omni_steering prefix="$(arg prefix)" publish_tf="true"/>
+			<xacro:omni_steering prefix="$(arg prefix)" publish_tf="true" force_based="$(arg ros_planar_move_plugin_force_based)"/>
 		</xacro:if>
 
 		<xacro:unless value="$(arg omni_wheels)">
-			<xacro:skid_steering prefix="$(arg prefix)" publish_tf="true"/>
+			<xacro:skid_steering prefix="$(arg prefix)" publish_tf="true" force_based="$(arg ros_planar_move_plugin_force_based)"/>
 		</xacro:unless>
 
 	</xacro:if>

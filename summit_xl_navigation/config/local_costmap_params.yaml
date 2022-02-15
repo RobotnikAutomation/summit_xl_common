@@ -25,7 +25,7 @@ local_costmap:
     enabled: true
     lethal_cost_threshold: 94
     static_map: true
-    map_topic: "/map"
+    map_topic: "/robot/traversability_estimation/map"
     unknown_cost_value: -1
     trinary_costmap: false
     use_maximum: false

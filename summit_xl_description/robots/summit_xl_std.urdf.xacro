@@ -84,23 +84,23 @@
     </xacro:if>
         <!-- IMU -->
 		<xacro:sensor_imu prefix="$(arg prefix)imu" parent="$(arg prefix)base_link">
-			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
+			<origin xyz="-0.0365 0.132 0.161" rpy="0 0 0"/>
 		</xacro:sensor_imu>
-		<!-- 2d laser -->
-		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
-			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
-		</xacro:sensor_hokuyo_ust10lx>
+		<!-- Lidar -->
+		<xacro:sensor_rslidar_16 prefix="$(arg prefix)rslidar_16" parent="$(arg prefix)base_link" prefix_topic="rslidar_16" gpu="$(arg gpu)">
+			<origin xyz="-0.018 0.0 0.369" rpy="0 0 0"/>
+		</xacro:sensor_rslidar_16>
 		<!-- ptz camera -->
 		<xacro:sensor_axis prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
 			<origin xyz="0.19 0 0.26" rpy="0 ${15*PI/180} 0"/>
 		</xacro:sensor_axis>
 	  <!-- RGBD -->
 	  <xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)base_link" prefix_topic="front_rgbd_camera">
-			<origin xyz="0.324 0.012 0.172" rpy="0 0 0"/>
+			<origin xyz="0.028 0.0 0.471" rpy="0 0 0"/>
 		</xacro:sensor_orbbec_astra>
 	  <!-- GPS -->
 	  <xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link" gps_latitude="$(arg gps_latitude)" gps_longitude="$(arg gps_longitude)">
-			<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
+			<origin xyz="-0.235 0 0.647" rpy="0 0 0"/>
 		</xacro:sensor_gps>
 
    </xacro:macro>

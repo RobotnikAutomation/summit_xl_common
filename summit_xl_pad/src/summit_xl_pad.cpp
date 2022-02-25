@@ -42,6 +42,7 @@
 #include <robotnik_msgs/set_mode.h>
 #include <robotnik_msgs/set_digital_output.h>
 #include <std_srvs/SetBool.h>
+#include <std_srvs/Empty.h>
 #include <robotnik_msgs/ptz.h>
 #include <robotnik_msgs/home.h>
 #include <diagnostic_updater/diagnostic_updater.h>
@@ -51,10 +52,10 @@
 #define DEFAULT_AXIS_LINEAR_X		1
 #define DEFAULT_AXIS_LINEAR_Y       0
 #define DEFAULT_AXIS_ANGULAR		2
-#define DEFAULT_AXIS_LINEAR_Z       3	
+#define DEFAULT_AXIS_LINEAR_Z       3
 #define DEFAULT_SCALE_LINEAR		1.0
 #define DEFAULT_SCALE_ANGULAR		2.0
-#define DEFAULT_SCALE_LINEAR_Z      1.0 
+#define DEFAULT_SCALE_LINEAR_Z      1.0
 
 #define ITERATIONS_WRITE_MODBUS		2
 
@@ -64,11 +65,11 @@
 #define AXIS_PTZ_PAN_LEFT  2
 #define AXIS_PTZ_PAN_RIGHT  3
 
-    
+
 ////////////////////////////////////////////////////////////////////////
 //                               NOTE:                                //
 // This configuration is made for a THRUSTMASTER T-Wireless 3in1 Joy  //
-//   please feel free to modify to adapt for your own joystick.       //   
+//   please feel free to modify to adapt for your own joystick.       //
 // 								      //
 
 
@@ -87,24 +88,29 @@ class SummitXLPad
 
 	int manual_release_true_number_, manual_release_false_number_, bumper_override_false_number_, bumper_override_true_number_;
 	int linear_x_, linear_y_, linear_z_, angular_;
-	double l_scale_, a_scale_, l_scale_z_; 
+	double l_scale_, a_scale_, l_scale_z_;
 	//! It will publish into command velocity (for the robot) and the ptz_state (for the pantilt)
-	ros::Publisher vel_pub_, ptz_pub_;
+	ros::Publisher vel_pub_, vel_limit_pub_, ptz_pub_, unsafe_vel_pub_;
 	//! It will be suscribed to the joystick
 	ros::Subscriber pad_sub_;
 	//! Name of the topic where it will be publishing the velocity
 	std::string cmd_topic_vel_;
+        //! Name of the topic where it will be publishing the velocity limit
+	std::string vel_limit_topic_;
+	//! Name of the topic where it will be publishing the velocity under unsafe condition
+	std::string unsafe_cmd_topic_vel_;
 	//! Name of the service where it will be modifying the digital outputs
 	std::string cmd_service_io_;
-	//! Name of the topic where it will be publishing the pant-tilt values	
+	//! Name of the topic where it will be publishing the pant-tilt values
 	std::string cmd_topic_ptz_;
 	double current_vel;
 	//! Pad type
 	std::string pad_type_;
 	//! Number of the DEADMAN button
-	int dead_man_button_, bumper_override_button_;
-	//! Number of the button for increase or decrease the speed max of the joystick	
+	int dead_man_button_, bumper_override_button_, pad_unsafe_button_;
+	//! Number of the button for increase or decrease the speed max of the joystick
 	int speed_up_button_, speed_down_button_;
+	int reset_traversability_button_;
 	int button_output_1_, button_output_2_;
 	int output_1_, output_2_;
 	bool bOutput1, bOutput2;
@@ -113,7 +119,7 @@ class SummitXLPad
 	//! kinematic mode
 	int kinematic_mode_;
 	//! Service to modify the kinematic mode
-	ros::ServiceClient setKinematicMode;  
+	ros::ServiceClient setKinematicMode;
 	//! Name of the service to change the mode
 	std::string cmd_set_mode_;
 	//! button to start the homing service
@@ -124,11 +130,13 @@ class SummitXLPad
 	std::string cmd_home_;
 	//! buttons to the pan-tilt-zoom camera
 	int ptz_tilt_up_, ptz_tilt_down_, ptz_pan_right_, ptz_pan_left_;
-	int ptz_zoom_wide_, ptz_zoom_tele_;	
+	int ptz_zoom_wide_, ptz_zoom_tele_;
 	//! Service to modify the digital outputs
-	ros::ServiceClient set_digital_outputs_client_; 
+	ros::ServiceClient set_digital_outputs_client_;
 	//! Service to safety module
-	ros::ServiceClient  set_manual_release_client_, set_bumper_override_client_; 
+	ros::ServiceClient  set_manual_release_client_, set_bumper_override_client_;
+	//! Service to reset traversability map
+	ros::ServiceClient  clear_traversability_map_client_;
 	//! Number of buttons of the joystick
 	int num_of_buttons_;
 	//! Pointer to a vector for controlling the event when pushing the buttons
@@ -138,26 +146,28 @@ class SummitXLPad
 
 	// DIAGNOSTICS
 	//! Diagnostic to control the frequency of the published command velocity topic
-	diagnostic_updater::HeaderlessTopicDiagnostic *pub_command_freq; 
-	//! Diagnostic to control the reception frequency of the subscribed joy topic 
-	diagnostic_updater::HeaderlessTopicDiagnostic *sus_joy_freq; 
+	diagnostic_updater::HeaderlessTopicDiagnostic *pub_command_freq;
+	//! Diagnostic to control the reception frequency of the subscribed joy topic
+	diagnostic_updater::HeaderlessTopicDiagnostic *sus_joy_freq;
 	//! General status diagnostic updater
-	diagnostic_updater::Updater updater_pad;	
+	diagnostic_updater::Updater updater_pad;
 	//! Diagnostics min freq
-	double min_freq_command, min_freq_joy; // 
+	double min_freq_command, min_freq_joy; //
 	//! Diagnostics max freq
-	double max_freq_command, max_freq_joy; // 	
+	double max_freq_command, max_freq_joy; //
 	//! Flag to enable/disable the communication with the publishers topics
-	bool bEnable;
+	bool bEnable, bUnsafeEnable;
 	//! Flag to track the first reading without the deadman's button pressed.
 	bool last_command_;
+	//! Flag to track the first reading without the unsafe's button pressed.
+	bool last_command_unsafe_;
 	//! Client of the sound play service
 	//  sound_play::SoundClient sc;
 	//! Pan & tilt increment (degrees)
 	double pan_increment_, tilt_increment_;
 	//! Zoom increment (steps)
 	int zoom_increment_;
-	//! Add a dead zone to the joystick that controls scissor and robot rotation (only useful for xWam) 
+	//! Add a dead zone to the joystick that controls scissor and robot rotation (only useful for xWam)
 	std::string joystick_dead_zone_;
 	//! Flag to enable the ptz control via axes
 	bool ptz_control_by_axes_;
@@ -175,7 +185,7 @@ SummitXLPad::SummitXLPad():
 
 	//JOYSTICK PAD TYPE
 	pnh_.param<std::string>("pad_type",pad_type_,"ps3");
-	// 
+	//
 	pnh_.param("num_of_buttons", num_of_buttons_, DEFAULT_NUM_OF_BUTTONS);
 	// MOTION CONF
 	pnh_.param("axis_linear_x", linear_x_, DEFAULT_AXIS_LINEAR_X);
@@ -186,12 +196,16 @@ SummitXLPad::SummitXLPad():
 	pnh_.param("scale_linear", l_scale_, DEFAULT_SCALE_LINEAR);
 	pnh_.param("scale_linear_z", l_scale_z_, DEFAULT_SCALE_LINEAR_Z);
 	pnh_.param("cmd_topic_vel", cmd_topic_vel_, cmd_topic_vel_);
-	pnh_.param("button_dead_man", dead_man_button_, dead_man_button_);
+	pnh_.param<std::string>("vel_limit_topic", vel_limit_topic_, "pad_teleop/velocity_limit");
+	pnh_.param("unsafe_cmd_topic_vel", unsafe_cmd_topic_vel_, unsafe_cmd_topic_vel_);
+  pnh_.param("button_dead_man", dead_man_button_, dead_man_button_);
+	pnh_.param("button_pad_unsafe", pad_unsafe_button_, pad_unsafe_button_);
 	pnh_.param("button_bumber_override", bumper_override_button_, bumper_override_button_);
 	pnh_.param("button_speed_up", speed_up_button_, speed_up_button_);  //4 Thrustmaster
 	pnh_.param("button_speed_down", speed_down_button_, speed_down_button_); //5 Thrustmaster
+	pnh_.param("button_reset_traversability", reset_traversability_button_, reset_traversability_button_);
 	pnh_.param<std::string>("joystick_dead_zone", joystick_dead_zone_, "true");
-	
+
 	// DIGITAL OUTPUTS CONF
 	pnh_.param("cmd_service_io", cmd_service_io_, cmd_service_io_);
 	pnh_.param("button_output_1", button_output_1_, button_output_1_);
@@ -206,18 +220,18 @@ SummitXLPad::SummitXLPad():
 	pnh_.param("button_ptz_pan_left", ptz_pan_left_, ptz_pan_left_);
 	pnh_.param("button_ptz_zoom_wide", ptz_zoom_wide_, ptz_zoom_wide_);
 	pnh_.param("button_ptz_zoom_tele", ptz_zoom_tele_, ptz_zoom_tele_);
-  	pnh_.param("button_home", button_home_, button_home_);
+  pnh_.param("button_home", button_home_, button_home_);
 	pnh_.param("pan_increment",  pan_increment_, 0.09);
 	pnh_.param("tilt_increment", tilt_increment_, 0.09);
 	pnh_.param("zoom_increment", zoom_increment_, 200);
 
-	// KINEMATIC MODE 
+	// KINEMATIC MODE
 	pnh_.param("button_kinematic_mode", button_kinematic_mode_, button_kinematic_mode_);
 	pnh_.param("cmd_service_set_mode", cmd_set_mode_, cmd_set_mode_);
 	pnh_.param("cmd_service_home", cmd_home_, std::string("home"));
 	kinematic_mode_ = 1;
-	
-	ROS_INFO("SummitXLPad num_of_buttons_ = %d, zoom = %d, %d", num_of_buttons_, ptz_zoom_wide_, ptz_zoom_tele_);	
+
+	ROS_INFO("SummitXLPad num_of_buttons_ = %d, zoom = %d, %d", num_of_buttons_, ptz_zoom_wide_, ptz_zoom_tele_);
 	for(int i = 0; i < num_of_buttons_; i++){
 		bRegisteredButtonEvent[i] = false;
 		ROS_INFO("bREG %d", i);
@@ -237,24 +251,27 @@ SummitXLPad::SummitXLPad():
 	ROS_INFO("OUTPUT1 button %d", button_output_1_);
 	ROS_INFO("OUTPUT2 button %d", button_output_2_);
 	ROS_INFO("OUTPUT1 button %d", button_output_1_);
-	ROS_INFO("OUTPUT2 button %d", button_output_2_);*/	
+	ROS_INFO("OUTPUT2 button %d", button_output_2_);*/
 
   	// Publish through the node handle Twist type messages to the guardian_controller/command topic
 	vel_pub_ = nh_.advertise<geometry_msgs::Twist>(cmd_topic_vel_, 1);
+        vel_limit_pub_ = nh_.advertise<geometry_msgs::Twist>(vel_limit_topic_, 1);
+	unsafe_vel_pub_ = nh_.advertise<geometry_msgs::Twist>(unsafe_cmd_topic_vel_, 1);
 	//  Publishes msgs for the pant-tilt cam
 	ptz_pub_ = nh_.advertise<robotnik_msgs::ptz>(cmd_topic_ptz_, 1);
 
- 	// Listen through the node handle sensor_msgs::Joy messages from joystick 
+ 	// Listen through the node handle sensor_msgs::Joy messages from joystick
 	// (these are the references that we will sent to summit_xl_controller/command)
 	pad_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &SummitXLPad::padCallback, this);
-	
+
  	// Request service to activate / deactivate digital I/O
 	set_digital_outputs_client_ = nh_.serviceClient<robotnik_msgs::set_digital_output>(cmd_service_io_);
 	set_manual_release_client_ = nh_.serviceClient<std_srvs::SetBool>("safety_module/set_manual_release");
 	set_bumper_override_client_ = nh_.serviceClient<std_srvs::SetBool>("safety_module/set_bumper_override");
+	clear_traversability_map_client_ = nh_.serviceClient<std_srvs::Empty>("elevation_mapping/clear_map");
 	bOutput1 = bOutput2 = false;
 
-        // Request service to set kinematic mode 
+        // Request service to set kinematic mode
 	setKinematicMode = nh_.serviceClient<robotnik_msgs::set_mode>(cmd_set_mode_);
 
 	manual_release_false_number_  = 0;
@@ -267,7 +284,7 @@ SummitXLPad::SummitXLPad():
 
 	// Diagnostics
 	updater_pad.setHardwareID("None");
-	// Topics freq control 
+	// Topics freq control
 	min_freq_command = min_freq_joy = 5.0;
 	max_freq_command = max_freq_joy = 50.0;
 	sus_joy_freq = new diagnostic_updater::HeaderlessTopicDiagnostic("/joy", updater_pad,
@@ -278,7 +295,9 @@ SummitXLPad::SummitXLPad():
 
 
 	bEnable = false;	// Communication flag disabled by default
+	bUnsafeEnable = false;	// Communication flag disabled by default
 	last_command_ = true;
+	last_command_unsafe_ = true;
 	if(pad_type_=="ps4" || pad_type_=="logitechf710")
 		ptz_control_by_axes_ = true;
 	else
@@ -299,24 +318,26 @@ void SummitXLPad::Update(){
 void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
 	geometry_msgs::Twist vel;
+	geometry_msgs::Twist vel_limit;
 	robotnik_msgs::ptz ptz;
 	bool ptzEvent = false;
 
 	vel.linear.x = 0.0;
 	vel.linear.y = 0.0;
 	vel.linear.z = 0.0;
-	
+
 	vel.angular.x = 0.0;
 	vel.angular.y = 0.0;
 	vel.angular.z = 0.0;
-	
+
 	bEnable = (joy->buttons[dead_man_button_] == 1);
+        bUnsafeEnable = (joy->buttons[pad_unsafe_button_] == 1);
 
   	// Actions dependant on dead-man button
  	if (joy->buttons[dead_man_button_] == 1) {
 		//ROS_ERROR("SummitXLPad::padCallback: DEADMAN button %d", dead_man_button_);
 		//Set the current velocity level
-		
+
 		// Safety module management
 		manual_release_false_number_  = 0;
 		// MANUAL RELEASE -> 1
@@ -343,7 +364,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 		if ( joy->buttons[speed_down_button_] == 1 ){
 
-			if(!bRegisteredButtonEvent[speed_down_button_]) 
+			if(!bRegisteredButtonEvent[speed_down_button_])
 				if(current_vel > 0.1){
 		  			current_vel = current_vel - 0.1;
 					bRegisteredButtonEvent[speed_down_button_] = true;
@@ -368,20 +389,30 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 					sprintf(buf," %d percent", percent);
                     // sc.say(buf);
 				}
-		  
+
 		}else{
 			bRegisteredButtonEvent[speed_up_button_] = false;
 		}
 		//ROS_ERROR("SummitXLPad::padCallback: Passed SPEED UP button %d", speed_up_button_);
-		
-		
-		
+
+    if (joy->buttons[reset_traversability_button_] == 1){
+			if(!bRegisteredButtonEvent[reset_traversability_button_])
+      {
+        std_srvs::Empty reset_traversability_srv;
+        bool response = clear_traversability_map_client_.call(reset_traversability_srv);
+        bRegisteredButtonEvent[reset_traversability_button_] = true;
+        ROS_INFO("CLearing traversability map");
+      }
+		}else{
+			bRegisteredButtonEvent[reset_traversability_button_] = false;
+		}
+
 		vel.linear.x = current_vel*l_scale_*joy->axes[linear_x_];
 		if (kinematic_mode_ == 2) vel.linear.y = current_vel*l_scale_*joy->axes[linear_y_];
 		else vel.linear.y = 0.0;
-		
+
 		//ROS_ERROR("SummitXLPad::padCallback: Passed linear axes");
-		
+
 		if(joystick_dead_zone_=="true")
 		{
 			// limit scissor movement or robot turning (they are in the same joystick)
@@ -391,13 +422,13 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 				vel.angular.x = current_vel*(a_scale_*joy->axes[angular_]);
 				vel.angular.y = current_vel*(a_scale_*joy->axes[angular_]);
 				vel.angular.z = current_vel*(a_scale_*joy->axes[angular_]);
-				
+
 				vel.linear.z = 0.0;
 			}
-			else if (joy->axes[linear_z_] == 1.0 || joy->axes[linear_z_] == -1.0) // if scissor moving 
+			else if (joy->axes[linear_z_] == 1.0 || joy->axes[linear_z_] == -1.0) // if scissor moving
 			{
 				vel.linear.z = current_vel*l_scale_z_*joy->axes[linear_z_]; // scissor movement
-			
+
 				// limit robot turn
 				vel.angular.x = 0.0;
 				vel.angular.y = 0.0;
@@ -410,7 +441,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 				vel.angular.y = current_vel*(a_scale_*joy->axes[angular_]);
 				vel.angular.z = current_vel*(a_scale_*joy->axes[angular_]);
 				vel.linear.z = current_vel*l_scale_z_*joy->axes[linear_z_]; // scissor movement
-			} 
+			}
 		}
 		else // no dead zone
 		{
@@ -419,10 +450,10 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			vel.angular.z = current_vel*(a_scale_*joy->axes[angular_]);
 			vel.linear.z = current_vel*l_scale_z_*joy->axes[linear_z_];
 		}
-		
+
 		//ROS_ERROR("SummitXLPad::padCallback: Passed joystick deadzone ifelse");
-		
-		
+
+
 
 		// LIGHTS
 		if (joy->buttons[button_output_1_] == 1) {
@@ -443,8 +474,8 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}
 
 		if (joy->buttons[button_output_2_] == 1) {
-                        
-			if(!bRegisteredButtonEvent[button_output_2_]){                               
+
+			if(!bRegisteredButtonEvent[button_output_2_]){
 				//ROS_INFO("SummitXLPad::padCallback: OUTPUT2 button %d", button_output_2_);
 				robotnik_msgs::set_digital_output write_do_srv;
 				write_do_srv.request.output = output_2_;
@@ -455,23 +486,23 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 					set_digital_outputs_client_.call( write_do_srv );
 					bRegisteredButtonEvent[button_output_2_] = true;
 				}
-			}                     		  	
+			}
 		}else{
 			bRegisteredButtonEvent[button_output_2_] = false;
 		}
-		 
+
 		//ROS_ERROR("SummitXLPad::padCallback: Passed LIGHTS");
 
-		// HOMING SERVICE 
+		// HOMING SERVICE
 		if (joy->buttons[button_home_] == 1) {
 			if (!bRegisteredButtonEvent[button_home_]) {
 				robotnik_msgs::home home_srv;
 				home_srv.request.request = true;
 				if (bEnable) {
                                    ROS_INFO("SummitXLPad::padCallback - Home");
-   				   doHome.call( home_srv );			
+   				   doHome.call( home_srv );
                                    bRegisteredButtonEvent[button_home_] = true;
-                                   }                                  
+                                   }
 			}
 			// Use this button also to block robot motion while moving the scissor
 			vel.angular.x = 0.0;
@@ -483,9 +514,9 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		else {
 			bRegisteredButtonEvent[button_home_]=false;
 		}
-		
+
 		//ROS_ERROR("SummitXLPad::padCallback: Passed HOME BUTTON");
-		
+
 		// PTZ
 		ptz.pan = ptz.tilt = ptz.zoom = 0.0;
 		ptz.relative = true;
@@ -513,7 +544,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 				bRegisteredDirectionalArrows[AXIS_PTZ_TILT_DOWN] = false;
 			}
 			if (joy->axes[ptz_pan_left_] == -1.0) {
-				if(!bRegisteredDirectionalArrows[AXIS_PTZ_PAN_LEFT]){				
+				if(!bRegisteredDirectionalArrows[AXIS_PTZ_PAN_LEFT]){
 					ptz.pan = -pan_increment_;
 					//ROS_INFO("SummitXLPad::padCallback: PAN LEFT");
 					bRegisteredDirectionalArrows[AXIS_PTZ_PAN_LEFT] = true;
@@ -532,11 +563,11 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			}else{
 				bRegisteredDirectionalArrows[AXIS_PTZ_PAN_RIGHT] = false;
 			}
-		
+
 		}else{
 		  //ROS_ERROR("SummitXLPad::padCallback: INSIDE ELSE PTZ PAD_TYPE");
 		  // TILT-MOVEMENTS (RELATIVE POS)
-		  if (joy->buttons[ptz_tilt_up_] == 1) {		
+		  if (joy->buttons[ptz_tilt_up_] == 1) {
 		    if(!bRegisteredButtonEvent[ptz_tilt_up_]){
 		      ptz.tilt = tilt_increment_;
 		      //ROS_INFO("SummitXLPad::padCallback: TILT UP");
@@ -546,7 +577,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		  }else {
 		    bRegisteredButtonEvent[ptz_tilt_up_] = false;
 		  }
-		  
+
 		  if (joy->buttons[ptz_tilt_down_] == 1) {
 		    if(!bRegisteredButtonEvent[ptz_tilt_down_]){
 		      ptz.tilt = -tilt_increment_;
@@ -557,9 +588,9 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		  }else{
 		    bRegisteredButtonEvent[ptz_tilt_down_] = false;
 		  }
-		  
+
 		  // PAN-MOVEMENTS (RELATIVE POS)
-		  if (joy->buttons[ptz_pan_left_] == 1) {			
+		  if (joy->buttons[ptz_pan_left_] == 1) {
 		    if(!bRegisteredButtonEvent[ptz_pan_left_]){
 		      ptz.pan = -pan_increment_;
 		      //ROS_INFO("SummitXLPad::padCallback: PAN LEFT");
@@ -569,7 +600,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		  }else{
 		    bRegisteredButtonEvent[ptz_pan_left_] = false;
 		  }
-		  
+
 		  if (joy->buttons[ptz_pan_right_] == 1) {
 		    if(!bRegisteredButtonEvent[ptz_pan_right_]){
 		      ptz.pan = pan_increment_;
@@ -583,7 +614,7 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}
 
 		// ZOOM Settings (RELATIVE)
-		if (joy->buttons[ptz_zoom_wide_] == 1) {	
+		if (joy->buttons[ptz_zoom_wide_] == 1) {
 			if(!bRegisteredButtonEvent[ptz_zoom_wide_]){
 				ptz.zoom = -zoom_increment_;
 				//ROS_INFO("SummitXLPad::padCallback: ZOOM WIDe");
@@ -612,28 +643,28 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 				kinematic_mode_ += 1;
 				if (kinematic_mode_ > 2) kinematic_mode_ = 1;
  				ROS_INFO("SummitXLJoy::joyCallback: Kinematic Mode %d ", kinematic_mode_);
-				// Call service 
+				// Call service
 				robotnik_msgs::set_mode set_mode_srv;
 				set_mode_srv.request.mode = kinematic_mode_;
 				setKinematicMode.call( set_mode_srv );
 				bRegisteredButtonEvent[button_kinematic_mode_] = true;
 			}
 		}else{
-			bRegisteredButtonEvent[button_kinematic_mode_] = false;			
+			bRegisteredButtonEvent[button_kinematic_mode_] = false;
 		}
 
 		//ROS_ERROR("SummitXLPad::padCallback: Passed SPHERE CAM and KINEMATIC MODE");
 
 	}
    	else {
-		
+
 		// Safety module management
 		// MANUAL RELEASE -> 0
 		if(manual_release_false_number_ < ITERATIONS_WRITE_MODBUS){
 			setManualRelease(false);
 			manual_release_false_number_++;
 		}
-		
+
 		if(bumper_override_false_number_ < ITERATIONS_WRITE_MODBUS){
 			setBumperOverride(false);
 			bumper_override_false_number_++;
@@ -641,33 +672,50 @@ void SummitXLPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 		manual_release_true_number_ = 0;
 		bumper_override_true_number_ = 0;
-		
-		
+
+
 		vel.angular.x = 0.0;	vel.angular.y = 0.0; vel.angular.z = 0.0;
 		vel.linear.x = 0.0; vel.linear.y = 0.0; vel.linear.z = 0.0;
 	}
 
 	sus_joy_freq->tick();	// Ticks the reception of joy events
 
-     // Publish 
+     // Publish
 	// Only publishes if it's enabled
 	if(bEnable){
 		if (ptzEvent) ptz_pub_.publish(ptz);
-		vel_pub_.publish(vel);
+		vel_limit.linear.x = l_scale_*current_vel;
+		vel_limit.angular.z = a_scale_*current_vel;
+		vel_limit_pub_.publish(vel_limit);
+                vel_pub_.publish(vel);
 		pub_command_freq->tick();
 		last_command_ = true;
+                if(bUnsafeEnable)
+		{
+			unsafe_vel_pub_.publish(vel);
+			last_command_unsafe_ = true;
 		}
-		
-		
+		}
+
+
 	if(!bEnable && last_command_){
 		if (ptzEvent) ptz_pub_.publish(ptz);
-		
+
 		vel.angular.x = 0.0;  vel.angular.y = 0.0; vel.angular.z = 0.0;
 		vel.linear.x = 0.0;   vel.linear.y = 0.0; vel.linear.z = 0.0;
 		vel_pub_.publish(vel);
+		unsafe_vel_pub_.publish(vel);
 		pub_command_freq->tick();
 		last_command_ = false;
 		}
+
+	if(!bUnsafeEnable && last_command_unsafe_)
+	{
+		vel.angular.x = 0.0;  vel.angular.y = 0.0; vel.angular.z = 0.0;
+		vel.linear.x = 0.0;   vel.linear.y = 0.0; vel.linear.z = 0.0;
+		unsafe_vel_pub_.publish(vel);
+		last_command_unsafe_ = false;
+	}
 }
 
 int SummitXLPad::setManualRelease(bool value){
@@ -677,7 +725,7 @@ int SummitXLPad::setManualRelease(bool value){
 	set_manual_release_client_.call(set_bool_msg);
 
 	return 0;
-} 
+}
 
 int SummitXLPad::setBumperOverride(bool value){
 	std_srvs::SetBool set_bool_msg;
@@ -702,4 +750,3 @@ int main(int argc, char** argv)
 		r.sleep();
 		}
 }
-

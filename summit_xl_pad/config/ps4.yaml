@@ -1,25 +1,27 @@
 pad_type: ps4
-num_of_buttons: 13 
+num_of_buttons: 13
 axis_linear_x: 1
 axis_linear_y: 0
 axis_angular: 2
 axis_linear_z: 5
 scale_linear: 1.5
 scale_angular: 3
-scale_linear_z: 20.0 
+scale_linear_z: 20.0
 button_speed_up: 3
 button_speed_down: 1
+button_reset_traversability: 0
 button_bumber_override: 4
 button_dead_man: 5
+button_pad_unsafe: 4
 button_output_1: 9
 button_output_2: 10
-output_1: 1 
+output_1: 1
 output_2: 2
 button_ptz_tilt_up: 10 #dpad on ps4 is an axis
 button_ptz_tilt_down: 10
 button_ptz_pan_right: 9
 button_ptz_pan_left: 9
-button_ptz_zoom_wide: 0 
+button_ptz_zoom_wide: 0
 button_ptz_zoom_tele: 2
 button_home: 8
 tilt_increment: 0.087 # radians

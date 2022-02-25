@@ -87,7 +87,7 @@
 			<origin xyz="-0.0365 0.132 0.161" rpy="0 0 0"/>
 		</xacro:sensor_imu>
 		<!-- Lidar -->
-		<xacro:sensor_rslidar_16 prefix="$(arg prefix)rslidar_16" parent="$(arg prefix)base_link" prefix_topic="rslidar_16" gpu="$(arg gpu)">
+		<xacro:sensor_rslidar_16 prefix="$(arg prefix)top_3d_laser" parent="$(arg prefix)base_link" prefix_topic="top_3d_laser" gpu="$(arg gpu)">
 			<origin xyz="-0.018 0.0 0.369" rpy="0 0 0"/>
 		</xacro:sensor_rslidar_16>
 		<!-- ptz camera -->

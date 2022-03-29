@@ -88,9 +88,9 @@
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu>
 		<!-- 2d laser -->
-		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
-			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
-		</xacro:sensor_hokuyo_ust10lx>
+		<xacro:sensor_hokuyo_ust20lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
+			<origin xyz="0.0 0.0 0.2726" rpy="0 0 0"/>
+		</xacro:sensor_hokuyo_ust20lx>
 		<!-- ptz camera -->
 		<xacro:sensor_axis prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
 			<origin xyz="0.19 0 0.26" rpy="0 ${15*PI/180} 0"/>
@@ -100,9 +100,9 @@
 			<origin xyz="0.324 0.012 0.172" rpy="0 0 0"/>
 		</xacro:sensor_orbbec_astra>
 	  <!-- GPS -->
-	  <xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link" gps_latitude="$(arg gps_latitude)" gps_longitude="$(arg gps_longitude)">
+	  <xacro:sensor_gps_with_mast prefix="$(arg prefix)gps" parent="$(arg prefix)base_link" gps_latitude="$(arg gps_latitude)" gps_longitude="$(arg gps_longitude)">
 			<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
-		</xacro:sensor_gps>
+		</xacro:sensor_gps_with_mast>
 
    </xacro:macro>
 

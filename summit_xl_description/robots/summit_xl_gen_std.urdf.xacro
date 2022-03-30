@@ -27,7 +27,7 @@
     <xacro:property name="wheel_offset_x" value="0.229" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
     <xacro:property name="wheel_offset_y" value="0.235" />
     <xacro:property name="wheel_offset_z" value="0.0" />
-    
+
     <xacro:property name="arm_offset_x" value="0.204" />    <!-- x,y,z in translation from base_link to the center of the arm -->
     <xacro:property name="arm_offset_y" value="0.0" />
     <xacro:property name="arm_offset_z" value="0.110" />
@@ -94,7 +94,7 @@
         </xacro:if>
 
         <!-- IMU -->
-        <xacro:sensor_imu prefix="$(arg prefix)imu" parent="$(arg prefix)base_link">
+        <xacro:sensor_imu prefix="$(arg prefix)imu" parent="$(arg prefix)base_link" topic="imu/data_raw">
             <origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
         </xacro:sensor_imu>
 
@@ -125,7 +125,7 @@
 
         <!-- Instance jaco arm -->
         <joint name="$(arg prefix)arm_base_joint" type="fixed">
-            <origin xyz="${arm_offset_x} ${arm_offset_y} ${arm_offset_z}" rpy="${arm_offset_roll} ${arm_offset_pitch} ${arm_offset_yaw}" />    
+            <origin xyz="${arm_offset_x} ${arm_offset_y} ${arm_offset_z}" rpy="${arm_offset_roll} ${arm_offset_pitch} ${arm_offset_yaw}" />
             <parent link="$(arg prefix)base_link" />
             <child link="$(arg prefix)arm_base_link" />
             <axis xyz="0 0 0" />

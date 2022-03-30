@@ -31,7 +31,7 @@
 
 	<xacro:arg name="prefix" default="summit_xl_"/>
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
-	<xacro:arg name="ros_planar_move_plugin_force_based" default="false"/>
+  <xacro:arg name="ros_planar_move_plugin_force_based" default="false"/>
 	<xacro:arg name="omni_wheels" default="false"/>
 	<xacro:arg name="gpu" default="false"/>
 	<xacro:arg name="gps_latitude" default="0"/>
@@ -84,7 +84,7 @@
   		</xacro:omni_wheel>
     </xacro:if>
         <!-- IMU -->
-		<xacro:sensor_imu prefix="$(arg prefix)imu" parent="$(arg prefix)base_link">
+		<xacro:sensor_imu prefix="$(arg prefix)imu" parent="$(arg prefix)base_link" topic="imu/data_raw">
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu>
 		<!-- 2d laser -->

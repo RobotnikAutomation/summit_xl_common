@@ -91,7 +91,7 @@
 			<origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 		</xacro:omni_wheel>
         <!-- IMU -->
-		<xacro:sensor_imu prefix="$(arg prefix)imu" parent="$(arg prefix)base_link">
+		<xacro:sensor_imu prefix="$(arg prefix)imu" parent="$(arg prefix)base_link" topic="imu/data_raw">
 			<origin xyz="${imu_offset_x} ${imu_offset_y} ${imu_offset_z}" rpy="0 0 0"/>
 		</xacro:sensor_imu>
 

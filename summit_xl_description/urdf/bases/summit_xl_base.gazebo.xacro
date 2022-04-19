@@ -37,7 +37,7 @@
     </gazebo>
   </xacro:macro>
 
-  <xacro:macro name="omni_steering" params="prefix publish_tf force_based">
+  <xacro:macro name="omni_steering" params="prefix publish_tf force_based:=false">
 
 		<xacro:if value="${force_based}">
 			<gazebo>

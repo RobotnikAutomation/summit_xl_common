@@ -4,6 +4,16 @@ topics:
   timeout : 0.5
   priority: 100
 
+- name    : web_pad
+  topic   : web_teleop/cmd_vel
+  timeout : 0.5
+  priority: 70
+
+- name    : urcap
+  topic   : urcap_command_bridge/cmd_vel
+  timeout : 0.5
+  priority: 60
+
 - name    : move_base
   topic   : move_base/cmd_vel
   timeout : 0.5

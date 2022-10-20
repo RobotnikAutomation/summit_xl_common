@@ -1,8 +1,8 @@
 base_local_planner: teb_local_planner/TebLocalPlannerROS
 
 TebLocalPlannerROS:
-  odom_topic: $(arg odom_topic)
-  map_frame: $(arg global_frame)
+  odom_topic: odom
+  map_frame: map
 
   # Trajectory
 
@@ -23,29 +23,43 @@ TebLocalPlannerROS:
 
   # Robot
 
-  max_vel_x: 0.75
+#  max_vel_x: 1.2
+  max_vel_x: 1.5
   max_vel_x_backwards: 0.15
-  max_vel_theta: 0.785
-  max_vel_y: 0.5
-  acc_lim_y: 0.2
-  acc_lim_x: 0.2
-  acc_lim_theta: 0.2
+#  max_vel_theta: 0.2
+  max_vel_theta: 1.0
+  max_vel_y: 0.5 # not used, is differential
+  acc_lim_y: 0.5 # not used, is differential
+#  acc_lim_x: 0.2
+  acc_lim_x: 1.5
+#  acc_lim_theta: 0.2
+  acc_lim_theta: 1.0
   min_turning_radius: 0.0
   wheelbase: 0.0
   cmd_angle_instead_rotvel: false
   footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
-    type: "polygon"
-    vertices: [[0.375, -0.34], [0.375, 0.34], [-0.375,0.34], [-0.375, -0.34]]
+    #type: "circular"
+    #radius: 0.5 # for type "circular"
+    type: "line"
+    line_start: [-0.0545, 0.0] # for type "line"
+    line_end: [0.0545, 0.0] # for type "line"
+    #front_offset: 0.2 # for type "two_circles"
+    #front_radius: 0.2 # for type "two_circles"
+    #rear_offset: 0.2 # for type "two_circles"
+    #rear_radius: 0.2 # for type "two_circles"
+    #vertices: [ [0.25, -0.05], [0.18, -0.05], [0.18, -0.18], [-0.19, -0.18], [-0.25, 0], [-0.19, 0.18], [0.18, 0.18], [0.18, 0.05], [0.25, 0.05] ] # for type "polygon"
 
+
+  enable_allowable_speed: true # added by Jeongwoo Han
   # GoalTolerance
 
-  xy_goal_tolerance: 0.2
-  yaw_goal_tolerance: 0.1
+  xy_goal_tolerance: 0.05
+  yaw_goal_tolerance: 0.05
   free_goal_vel: False
 
   # Obstacles
 
-  min_obstacle_dist: 0.30 # minimum distance to obstacle: it depends on the footprint_model
+  min_obstacle_dist: 0.435 # minimum distance to obstacle: it depends on the footprint_model
   include_costmap_obstacles: True # use the local costmap
   costmap_obstacles_behind_robot_dist: 1.0 # distance at which obstacles behind the robot are taken into account
   obstacle_poses_affected: 30 # unused if legacy_obstacle_association is false
@@ -56,7 +70,9 @@ TebLocalPlannerROS:
   costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSMCCH"
   costmap_converter_spin_thread: True
   costmap_converter_rate: 5
- 
+  # costmap_converter/CostmapToLinesDBSRANSAC:
+  #    cluster_max_distance: 0.4
+
   # Optimization
 
   no_inner_iterations: 5
@@ -70,8 +86,8 @@ TebLocalPlannerROS:
   weight_acc_lim_x: 1
   weight_acc_lim_y: 1
   weight_acc_lim_theta: 1
-  weight_kinematics_nh: 10 # is a nonholonomic robot
-  weight_kinematics_forward_drive: 50 # prefer forward driving, for differential
+  weight_kinematics_nh: 5 # is a nonholonomic robot
+  weight_kinematics_forward_drive: 10 # prefer forward driving, for differential
   weight_kinematics_turning_radius: 1 # prefer turns that respect the min_turning_radius, not used if differential (min_turning_radius = 0)
   weight_optimaltime: 10 # prefer trajectories with less transition time
   weight_obstacle: 50 # prefer trajectories that respect the min_obstacle_dist

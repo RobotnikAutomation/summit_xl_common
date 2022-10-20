@@ -22,7 +22,6 @@
     <remap from="map" to="$(arg map_topic)"/>
 
     <rosparam command="load" file="$(arg config_path)/amcl.yaml" subst_value="true"/>
-
   </node>
 
 </launch>

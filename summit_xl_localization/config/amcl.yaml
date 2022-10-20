@@ -1,5 +1,5 @@
 # Publish scans from best pose at a max of 10 Hz 
-use_map_topic: false
+use_map_topic: true
 odom_model_type: $(arg odom_model_type)
 odom_alpha5: 0.1
 transform_tolerance: 0.2
@@ -23,7 +23,7 @@ laser_lambda_short: 0.1
 laser_lambda_short: 0.1
 laser_model_type: likelihood_field
 # laser_model_type: beam
-laser_likelihood_max_dist: 2.0
+laser_likelihood_max_dist: 10.0
 update_min_d: 0.2
 update_min_a: 0.5
 odom_frame_id: $(arg odom_frame)

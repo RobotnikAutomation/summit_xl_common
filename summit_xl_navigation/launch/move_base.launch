@@ -18,22 +18,50 @@
   <arg name="global_frame" default="$(arg prefix)map"/>
   <arg name="odom_frame" default="$(arg prefix)odom"/>
   <arg name="base_frame" default="$(arg prefix)base_footprint"/>
+  <arg name="scan_topic" default="front_laser/scan"/>
+  <!--arg name="base_global_planner" default="voronoi_planner/VoronoiPlanner"/-->
+  <arg name="base_global_planner" default="global_planner/GlobalPlanner"/>
+  
+  <!-- Run move_base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base">
+	<rosparam file="$(find summit_xl_navigation)/config/move_base_params.yaml" command="load" />
+	<rosparam file="$(find summit_xl_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+	<rosparam file="$(find summit_xl_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+	<rosparam file="$(find summit_xl_navigation)/config/local_costmap_params.yaml" command="load" />
+	<rosparam file="$(find summit_xl_navigation)/config/global_costmap_params_map.yaml" command="load" />
+	<!--rosparam file="$(find summit_xl_navigation)/config/teb_local_planner_params.yaml" command="load" /-->
+	<rosparam file="$(find summit_xl_navigation)/config/teb_local_planner_omni_params.yaml" command="load" />
+	<!--rosparam file="$(find summit_xl_navigation)/config/teb_local_planner_diff_params.yaml" command="load" /-->
+	<!-- reset frame_id parameters using user input data -->
+	<param name="global_costmap/obstacle_layer/scan/sensor_frame" value="$(arg prefix)front_laser_link"/>
+	<param name="local_costmap/obstacle_layer/scan/sensor_frame" value="$(arg prefix)front_laser_link"/>
+	<param name="global_costmap/obstacle_layer/scan/topic" value="$(arg scan_topic)"/>
+	<param name="local_costmap/obstacle_layer/scan/topic" value="$(arg scan_topic)"/>
+	<param name="local_costmap/global_frame" value="$(arg odom_frame)"/>
+	<param name="local_costmap/robot_base_frame" value="$(arg base_frame)"/>
+	<param name="global_costmap/global_frame" value="$(arg global_frame)"/>	
+	<param name="global_costmap/robot_base_frame" value="$(arg base_frame)"/>
+	<param name="DWAPlannerROS/global_frame_id" value="$(arg odom_frame)"/>
+	<!--param name="TebLocalPlannerROS/map_frame" value="$(arg global_frame)"/-->
+	<!--param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" /-->    
+	<param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>    
+	<!--param name="base_local_planner" value="eband_local_planner/EBandPlannerROS" /-->    
+	<!--param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" /-->    	
+	<param name="controller_frequency" value="5.0" />
+	<param name="controller_patience" value="15.0" /> 
 
-  <arg name="differential_robot" default="$(optenv ROBOT_DIFFERENTIAL_KINEMATICS true)"/>
-  <arg if="$(arg differential_robot)" name="kinematics" value="diff"/>
-  <arg unless="$(arg differential_robot)" name="kinematics" value="omni"/>
-  <arg name="local_planner" default="$(optenv ROBOT_MOVE_BASE_LOCAL_PLANNER eband)"/>
+	<!-- Global Planner Selection -->
+	<param name="base_global_planner" value="$(arg base_global_planner)"/>
 
-  <include file="$(find summit_xl_navigation)/launch/move_base_$(arg local_planner).launch">
-    <arg name="config_path" value="$(arg config_path)"/>
-    <arg name="id_robot" value="$(arg id_robot)"/>
-    
-    <!-- Topics argumments -->
-    <arg name="cmd_vel_topic" value="$(arg cmd_vel_topic)"/>
-    <arg name="odom_topic" value="$(arg odom_topic)"/>
-    <arg name="front_scan_topic" value="$(arg front_scan_topic)"/>
-    <arg name="rear_scan_topic" value="$(arg rear_scan_topic)"/>
-    <arg name="front_rgbd_to_scan_topic" value="$(arg front_rgbd_to_scan_topic)"/>
+	<!-- Global Planner Config -->
+	<!--param name="GlobalPlanner/lethal_cost" value="253" />
+	<param name="GlobalPlanner/neutral_cost" value="66" />
+	<param name="GlobalPlanner/cost_factor" value="0.55" />
+	<param name="GlobalPlanner/use_dijkstra" value="false" /-->
+
+	<!-- DWA Local Planner Config -->
+	<!--rosparam file="$(find summit_xl_navigation)/config/dwa_local_planner_params.yaml"/-->
+  </node>
   
     <!-- Frames arguments -->
     <arg name="global_frame" value="$(arg global_frame)"/>

@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<robot name="summit_xl" xmlns:xacro="http://wiki.ros.org/xacro">
+
+
+  <!-- ***************** -->
+  <!-- Imported elements -->
+  <!-- ***************** -->
+
+  <!-- Import RB1 base elements (base + wheels) -->
+  <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.urdf.xacro"/>
+  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro"/>
+  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/omni_wheel.urdf.xacro"/>
+
+  <!-- Import all available sensors -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro"/>
+
+
+  <!-- ***************** -->
+  <!-- Global parameters -->
+  <!-- ***************** -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+
+  <!-- Wheel parameters -->
+  <!-- x,y,z in translation from base_link to the center of the wheel -->
+  <xacro:property name="wheel_offset_x" value="0.218"/>
+  <xacro:property name="wheel_offset_y" value="0.218"/>
+  <xacro:property name="wheel_offset_z" value="0.0512"/>
+
+  <!-- Flag to select the high or low quality model -->
+  <xacro:property name="hq" value="true"/>
+  <xacro:arg name="robot_id" default="robot"/>
+  <xacro:arg name="robot_ns" default="$(arg robot_id)"/>
+  <xacro:arg name="omni_wheels" default="false"/>
+
+
+  <!-- *************** -->
+  <!-- Robots Elements -->
+  <!-- *************** -->
+
+  <!-- Summit XL -->
+  <xacro:summit_xl_base publish_bf="true" hq="${hq}"/>
+  <!--xacro:gazebo_colors /-->
+
+  <!-- WHEELS -->
+  <xacro:unless value="$(arg omni_wheels)">
+    <xacro:rubber_wheel prefix="front_right_" parent="base_link" reflect="false" hq="${hq}">
+      <origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+    </xacro:rubber_wheel>
+    <xacro:rubber_wheel prefix="front_left_" parent="base_link" reflect="true" hq="${hq}">
+      <origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+    </xacro:rubber_wheel>
+    <xacro:rubber_wheel prefix="rear_left_" parent="base_link" reflect="true" hq="${hq}">
+      <origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+    </xacro:rubber_wheel>
+    <xacro:rubber_wheel prefix="rear_right_" parent="base_link" reflect="false" hq="${hq}">
+      <origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+    </xacro:rubber_wheel>
+  </xacro:unless>
+  <xacro:if value="$(arg omni_wheels)">
+    <xacro:omni_wheel prefix="front_right_" parent="base_link" reflect="false" hq="${hq}">
+      <origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+    </xacro:omni_wheel>
+    <xacro:omni_wheel prefix="front_left_" parent="base_link" reflect="true" hq="${hq}">
+      <origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+    </xacro:omni_wheel>
+    <xacro:omni_wheel prefix="back_left_" parent="base_link" reflect="true" hq="${hq}">
+      <origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+    </xacro:omni_wheel>
+    <xacro:omni_wheel prefix="back_right_" parent="base_link" reflect="false" hq="${hq}">
+      <origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+    </xacro:omni_wheel>
+  </xacro:if>
+
+  <!-- SENSORS -->
+  <xacro:sensor_imu_hector ns="$(arg robot_ns)" prefix="imu" parent="base_link">
+    <origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
+  </xacro:sensor_imu_hector>
+
+  <xacro:sensor_hokuyo_ust20lx ns="$(arg robot_ns)" prefix="front_laser" parent="base_link">
+    <origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
+  </xacro:sensor_hokuyo_ust20lx>
+
+  <xacro:sensor_orbbec_astra ns="$(arg robot_ns)" prefix="front_rgbd_camera" parent="base_link">
+    <origin xyz="0.324 0.012 0.172" rpy="0 0 0"/>
+  </xacro:sensor_orbbec_astra>
+
+  <!-- Gazebo ros control plugins -->
+  <xacro:arg name="config_controllers" default=""/>
+  <xacro:include filename="$(find summit_xl_description)/urdf/ros2_control.urdf.xacro"/>
+  <xacro:ros2_control/>
+</robot>

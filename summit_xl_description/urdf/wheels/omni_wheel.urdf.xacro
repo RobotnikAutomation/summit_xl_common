@@ -31,12 +31,12 @@
           <origin xyz="0 0 0" rpy="0 0 0" />
           <xacro:if value="${reflect}">
             <geometry>
-              <mesh filename="package://summit_xl_description/meshes/wheels/omni_wheel_1.dae" />
+              <mesh filename="file://$(find summit_xl_description)/meshes/wheels/omni_wheel_1.dae" />
             </geometry>
           </xacro:if>
           <xacro:unless value="${reflect}">
             <geometry>
-              <mesh filename="package://summit_xl_description/meshes/wheels/omni_wheel_2.dae" />
+              <mesh filename="file://$(find summit_xl_description)/meshes/wheels/omni_wheel_2.dae" />
             </geometry>
 		  </xacro:unless>
         </xacro:if>
@@ -61,10 +61,10 @@
 
 <!--
           <xacro:if value="${reflect}">
-              <mesh filename="package://summit_xl_description/meshes/wheels/omni_wheel_1.dae" />
+              <mesh filename="file://$(find summit_xl_description)/meshes/wheels/omni_wheel_1.dae" />
           </xacro:if>
           <xacro:unless value="${reflect}">
-              <mesh filename="package://summit_xl_description/meshes/wheels/omni_wheel_2.dae" />
+              <mesh filename="file://$(find summit_xl_description)/meshes/wheels/omni_wheel_2.dae" />
 					</xacro:unless>
 -->
 					<cylinder length="${omni_wheel_height}" radius="${omni_wheel_radius}" />

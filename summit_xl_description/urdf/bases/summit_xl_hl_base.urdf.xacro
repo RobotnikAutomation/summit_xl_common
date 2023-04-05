@@ -39,12 +39,12 @@
        <origin xyz="0 0 0" rpy="0 0 0" />
        <xacro:if value="${hq}">
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_hl_chassis.dae"/>
+	     <mesh filename="file://$(find summit_xl_description)/meshes/bases/summit_xl_hl_chassis.dae"/>
        </geometry>
        </xacro:if>
        <xacro:unless value="${hq}">
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_hl_chassis.dae"/>
+	     <mesh filename="file://$(find summit_xl_description)/meshes/bases/summit_xl_hl_chassis.dae"/>
        </geometry>
        </xacro:unless>
        <material name="darkgrey">
@@ -54,7 +54,7 @@
     <collision>
        <origin xyz="0 0 0" rpy="0 0 0 " />
        <geometry>
-         <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_hl_chassis.dae"/>
+         <mesh filename="file://$(find summit_xl_description)/meshes/bases/summit_xl_hl_chassis.dae"/>
        </geometry>
     </collision>     
   </link>

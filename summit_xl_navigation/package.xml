@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
-<package>
+<?xml-model
+    href="http://download.ros.org/schema/package_format3.xsd"
+    schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>summit_xl_navigation</name>
   <version>1.1.3</version>
-  <description> Navigation launch and config files for Summit XL robot. </description>
-
-  <url type="website">http://ros.org/wiki/summit_xl_navigation</url>
-  <url type="repository">https://github.com/RobotnikAutomation/summit_xl_common.git</url>
-  <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_common/issues</url>
-
-  <author email="rguzman@robotnik.es">Roberto Guzmán</author>
+  <description>
+    Navigation launch and config files for Summit XL robot.
+  </description>
 
   <maintainer email="asoriano@robotnik.es">Angel Soriano</maintainer>
   <maintainer email="avillena@robotnik.es">Álvaro Villena</maintainer>
@@ -19,12 +18,21 @@
 
   <license>BSD</license>
 
+  <url type="website">http://ros.org/wiki/summit_xl_navigation</url>
+  <url type="repository">https://github.com/RobotnikAutomation/summit_xl_common.git</url>
+  <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_common/issues</url>
+
+  <author email="rguzman@robotnik.es">Roberto Guzmán</author>
+
   <buildtool_depend>catkin</buildtool_depend>
 
-  <run_depend>teb_local_planner</run_depend>
-  <run_depend>eband_local_planner</run_depend>
-  <run_depend>costmap_prohibition_layer</run_depend>
-  <run_depend>move_base</run_depend>
-  <run_depend>global_planner</run_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <exec_depend>nav2_bt_navigator</exec_depend>
+  <exec_depend>laser_filters</exec_depend>
+  <exec_depend>pointcloud_to_laserscan</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>

@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
-<package>
+<?xml-model
+    href="http://download.ros.org/schema/package_format3.xsd"
+    schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>summit_xl_control</name>
   <version>1.1.3</version>
   <description>
-		This package contains the launch files that load the required controller interfaces for simulation in Gazebo.
+		This package contains the launch files that load the required
+    controller interfaces for simulation in Gazebo.
   </description>
 
-  <author email="rguzman@robotnik.es">Roberto Guzmán</author>
-  
   <maintainer email="asoriano@robotnik.es">Angel Soriano</maintainer>
   <maintainer email="avillena@robotnik.es">Álvaro Villena</maintainer>
   <maintainer email="dredo@robotnik.es">David Redó</maintainer>
@@ -16,20 +18,20 @@
   <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
 
   <license>BSD</license>
+
   <url type="website">http://ros.org/wiki/summit_xl_control</url>
   <url type="repository">https://github.com/RobotnikAutomation/summit_xl_sim.git</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_sim/issues</url>
-  <buildtool_depend>catkin</buildtool_depend>
-  
- 
-  <build_depend>joint_state_controller</build_depend>
-  <build_depend>velocity_controllers</build_depend>
+
+  <author email="rguzman@robotnik.es">Roberto Guzmán</author>
+
   <build_depend>twist_mux</build_depend>
-  <build_depend>diff_drive_controller</build_depend>
+  <build_depend>controller_manager</build_depend>
 
-  <run_depend>joint_state_controller</run_depend>  
-  <run_depend>velocity_controllers</run_depend>  
-  <run_depend>twist_mux</run_depend>  
-  <run_depend>diff_drive_controller</run_depend>  
-
+  <exec_depend>twist_mux</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>joint_state_broadcaster</exec_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>

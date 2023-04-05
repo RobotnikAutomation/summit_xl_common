@@ -1,15 +1,11 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
 project(summit_xl_description)
 
-find_package(catkin REQUIRED COMPONENTS roslaunch urdf xacro robotnik_sensors)
+find_package(ament_cmake REQUIRED)
 
-catkin_package(
-  CATKIN_DEPENDS urdf xacro
+install(DIRECTORY launch meshes urdf robots
+  DESTINATION share/${PROJECT_NAME}
 )
 
-include_directories(${catkin_INCLUDE_DIRS})
-
-install(
-  DIRECTORY launch meshes urdf robots vrep
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
+ament_export_dependencies(${THIS_PACKAGE_INCLUDE_DEPENDS})
+ament_package()

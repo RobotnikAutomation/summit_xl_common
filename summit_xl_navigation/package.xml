@@ -22,7 +22,6 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <run_depend>teb_local_planner</run_depend>
-  <run_depend>eband_local_planner</run_depend>
   <run_depend>move_base</run_depend>
   <run_depend>global_planner</run_depend>
 

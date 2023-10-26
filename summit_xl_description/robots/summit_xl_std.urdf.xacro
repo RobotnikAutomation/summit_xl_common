@@ -18,6 +18,9 @@
 
 	<!-- Import all available sensors -->
 	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+	
+	<!-- Import antenna -->
+	<xacro:include filename="$(find summit_xl_description)/urdf/structures/structure_teltonika.urdf.xacro" />
 
 	<xacro:property name="PI" value="3.1415926535897931"/>
 
@@ -87,23 +90,26 @@
 		<xacro:sensor_imu prefix="$(arg prefix)imu" parent="$(arg prefix)base_link" topic="imu/data_raw">
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu>
-		<!-- 2d laser -->
-		<xacro:sensor_hokuyo_ust20lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
-			<origin xyz="0.0 0.0 0.2726" rpy="0 0 0"/>
-		</xacro:sensor_hokuyo_ust20lx>
+		<!-- 3d laser -->
+		<xacro:sensor_rs_helios_16p prefix="$(arg prefix)top_3d_laser" parent="$(arg prefix)base_link" gpu="$(arg gpu)">
+			<origin xyz="-0.11808 0.0 0.38509" rpy="0 0 0"/>
+		</xacro:sensor_rs_helios_16p>
 		<!-- ptz camera -->
-		<xacro:sensor_axis prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
+		<!--xacro:sensor_axis prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
 			<origin xyz="0.19 0 0.26" rpy="0 ${15*PI/180} 0"/>
-		</xacro:sensor_axis>
+		</xacro:sensor_axis-->
 	  <!-- RGBD -->
 	  <xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)base_link" prefix_topic="front_rgbd_camera">
 			<origin xyz="0.324 0.012 0.172" rpy="0 0 0"/>
 		</xacro:sensor_orbbec_astra>
 	  <!-- GPS -->
 	  <xacro:sensor_gps_with_mast prefix="$(arg prefix)gps" parent="$(arg prefix)base_link" gps_latitude="$(arg gps_latitude)" gps_longitude="$(arg gps_longitude)">
-			<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
+			<origin xyz="-0.22528 0.095 0.275" rpy="0 0 0"/>
 		</xacro:sensor_gps_with_mast>
-
+	  <!--Antenna-->
+	  	<xacro:structure_mastil_teltonika prefix="$(arg prefix)antenna" parent="$(arg prefix)base_link">
+			<origin xyz="-0.22528 -0.095 0.23325" rpy="0 0 0"/>
+		</xacro:structure_mastil_teltonika>
    </xacro:macro>
 
    <!-- Gazebo ros control pluggins -->

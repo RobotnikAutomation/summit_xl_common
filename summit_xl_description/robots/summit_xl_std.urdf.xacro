@@ -93,7 +93,7 @@
 		</xacro:sensor_hokuyo_ust20lx>
 		<!-- ptz camera -->
 		<xacro:sensor_axis prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
-			<origin xyz="0.19 0 0.26" rpy="0 ${15*PI/180} 0"/>
+			<origin xyz="0.185 0 0.1967" rpy="0 ${15*PI/180} 0"/>
 		</xacro:sensor_axis>
 	  <!-- RGBD -->
 	  <xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)base_link" prefix_topic="front_rgbd_camera">

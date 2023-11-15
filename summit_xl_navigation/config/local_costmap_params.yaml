@@ -2,7 +2,6 @@ local_costmap:
   global_frame: $(arg odom_frame)
   robot_base_frame: $(arg base_frame)
   update_frequency: 5.0
-  static_map: false
   rolling_window: true
   width: 7.0 
   height: 7.0 

@@ -5,8 +5,8 @@
   <description>
      An automatically generated package with all the configuration and launch files for using the summit_xl with the MoveIt! Motion Planning Framework
   </description>
-  <author email="jgomez@robotnik.es">José Gómez</author>
-  <maintainer email="jgomez@robotnik.es">José Gómez</maintainer>
+  <author email="jgomez@robotnik.es">José Gómez Gadea</author>
+  <maintainer email="jgomez@robotnik.es">José Gómez Gadea</maintainer>
 
   <license>BSD</license>
 
@@ -22,13 +22,16 @@
   <run_depend>moveit_planners_ompl</run_depend>
   <run_depend>moveit_ros_visualization</run_depend>
   <run_depend>moveit_setup_assistant</run_depend>
+  <run_depend>moveit_simple_controller_manager</run_depend>
   <run_depend>joint_state_publisher</run_depend>
+  <run_depend>joint_state_publisher_gui</run_depend>
   <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>tf2_ros</run_depend>
   <run_depend>xacro</run_depend>
   <!-- This package is referenced in the warehouse launch files, but does not build out of the box at the moment. Commented the dependency until this works. -->
   <!-- <run_depend>warehouse_ros_mongo</run_depend> -->
-  <build_depend>summit_xl_description</build_depend>
-  <run_depend>summit_xl_description</run_depend>
+    <run_depend>summit_xl_description</run_depend>
 
 
 </package>

@@ -1,7 +1,0 @@
-scan_filter_chain:
-- name: laser_intensity
-  type: laser_filters/LaserScanIntensityFilter
-  params:
-     lower_threshold: 3000
-     upper_threshold: 9500
-     disp_histogram: 0

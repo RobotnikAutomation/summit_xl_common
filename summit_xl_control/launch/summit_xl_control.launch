@@ -16,10 +16,10 @@
   <arg name="cmd_vel" default="robotnik_base_control/cmd_vel"/>
   <arg name="launch_pantilt_camera_controller" default="false"/>
   <arg name="odom_broadcast_tf" default="true"/>
-  <!-- kinova arm -->
-  <arg name="kinova_arm" default="j2s7s300"/>
-  <arg name="arm_prefix" default="$(arg prefix)$(arg kinova_arm)"/>
-  <arg name="is7dof" default="true"/>
+  <!-- arm -->
+  <arg name="arm_manufacturer" default="trossen"/>
+  <arg name="arm_model" default="vx300"/>
+  <arg name="arm_prefix" default="$(arg prefix)$(arg arm_model)"/>
 
   <!-- Robot - Load joint controller configurations from YAML file to parameter server -->
   <group unless="$(arg sim)">
@@ -38,13 +38,11 @@
 	  <rosparam file="$(find summit_xl_control)/config/simulation/robot_control.yaml" command="load" subst_value="true"/>
 
     <group if="$(arg sim_arm_control)">
-      <!-- Kinova -->
-      <include file="$(find summit_xl_control)/launch/kinova_control.launch">
+      <include file="$(find summit_xl_control)/launch/$(arg arm_manufacturer)_control.launch">
         <arg name="prefix" value="$(arg prefix)"/>
-        <arg name="kinova_arm" value="$(arg kinova_arm)"/>
         <arg name="arm_prefix" value="$(arg arm_prefix)"/>
-        <arg name="use_trajectory_controller" value="false"/>
-        <arg name="is7dof" value="$(arg is7dof)"/>
+        <arg name="arm_model" value="$(arg arm_model)"/>
+        <arg name="use_trajectory_controller" value="true"/>
       </include>
     </group>
 

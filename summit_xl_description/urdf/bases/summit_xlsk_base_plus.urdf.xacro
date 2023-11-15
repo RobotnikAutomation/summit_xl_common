@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<robot name="summit_xl" xmlns:xacro="http://wiki.ros.org/xacro">
+
+
+  <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
+  <xacro:include filename="$(find summit_xl_description)/urdf/structures/sick_microscan3_support.urdf.xacro" />
+
+  <xacro:macro name="summit_xls_base" params="prefix publish_bf hq laser_support:=true">
+
+  <!-- Robot mechanical and motor parameters -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="wheel_radius" value="0.127" />
+
+	<!-- BASE FOOTPRINT -->
+	  <xacro:if value="${publish_bf}">
+		<link name="${prefix}base_footprint">
+		  <visual>
+			  <origin xyz="0 0 0" rpy="0 0 0" />
+			  <geometry>
+				 <box size="0.001 0.001 0.001" />
+			  </geometry>
+		  </visual>
+		</link>
+
+		<joint name="${prefix}base_footprint_joint" type="fixed">
+		  <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" /> <!-- ${wheel_radius} property must be defined inside wheel description -->
+		  <parent link="${prefix}base_footprint"/>
+		  <child link="${prefix}base_link" />
+		</joint>
+	  </xacro:if>
+
+  <!-- BASE_LINK -->
+  <link name="${prefix}base_link">
+    <inertial>
+      <mass value="125.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="1.391" ixy="0.004"  ixz="0.0"  iyy="6.853"  iyz="0.0"  izz="6.125" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <xacro:if value="${hq}">
+      <geometry>
+      <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xlsk_plus.stl"/>
+      </geometry>
+      </xacro:if>
+      <xacro:unless value="${hq}">
+      <geometry>
+      <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xlsk_plus.dae"/>
+      </geometry>
+      </xacro:unless>
+      <material name="black">
+        <color rgba="0.0 0.0 0.0 1"/>
+      </material>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+         <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xlsk_plus.dae"/>
+       </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="${prefix}base_link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+
+  <!-- CHAPAS INOX TAPAS -->
+  <link name="${prefix}base_chapa">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+    <mesh filename="package://summit_xl_description/meshes/bases/xls/summit_xls_chapas_inox_tapas.stl"/>
+    </geometry>
+    <material name="darkgrey">
+      <color rgba="0.5 0.5 0.5 1"/>
+    </material>
+    </visual>
+  </link>
+
+  <joint name="${prefix}base_tapa_joint" type="fixed">
+    <origin xyz="0.0 0 0.56162" rpy="0 0 0" />
+    <parent link="${prefix}base_link"/>
+    <child link="${prefix}base_chapa" />
+  </joint>
+
+  <!-- LOGO ROBOTNIK IZQUIERDO -->
+  <link name="${prefix}base_logo_left">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+    <mesh filename="package://summit_xl_description/meshes/bases/xls/robotnik_logo_chasis.stl"/>
+    </geometry>
+    <material name="darkgrey">
+      <color rgba="0.5 0.5 0.5 1"/>
+    </material>
+    </visual>
+  </link>
+
+  <joint name="${prefix}base_logo_left_joint" type="fixed">
+    <origin xyz="0.0 0.2894 0.35562" rpy="0 0 0" />
+    <parent link="${prefix}base_link"/>
+    <child link="${prefix}base_logo_left" />
+  </joint>
+
+  <!-- LOGO ROBOTNIK DERECHO -->
+  <link name="${prefix}base_logo_right">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+    <mesh filename="package://summit_xl_description/meshes/bases/xls/robotnik_logo_chasis.stl"/>
+    </geometry>
+    <material name="darkgrey">
+      <color rgba="0.5 0.5 0.5 1"/>
+    </material>
+    </visual>
+  </link>
+
+  <joint name="${prefix}base_logo_right_joint" type="fixed">
+    <origin xyz="0.0 -0.28931 0.35562" rpy="0 0 ${PI}" />
+    <parent link="${prefix}base_link"/>
+    <child link="${prefix}base_logo_right" />
+  </joint>
+
+  <!-- LOGO ROBOTNIK FRONTAL -->
+  <link name="${prefix}base_logo_front">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+    <mesh filename="package://summit_xl_description/meshes/bases/xls/robotnik_logo_chasis.stl"/>
+    </geometry>
+    <material name="darkgrey">
+      <color rgba="0.5 0.5 0.5 1"/>
+    </material>
+    </visual>
+  </link>
+
+  <joint name="${prefix}base_logo_front_joint" type="fixed">
+    <origin xyz="0.345 0.0 0.0" rpy="0 0 ${-PI/2}" />
+    <parent link="${prefix}base_link"/>
+    <child link="${prefix}base_logo_front" />
+  </joint>
+
+  <!-- LOGO ROBOTNIK TRASERO -->
+  <link name="${prefix}base_logo_rear">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+    <mesh filename="package://summit_xl_description/meshes/bases/xls/robotnik_logo_chasis.stl"/>
+    </geometry>
+    <material name="darkgrey">
+      <color rgba="0.5 0.5 0.5 1"/>
+    </material>
+    </visual>
+  </link>
+
+  <joint name="${prefix}base_logo_rear_joint" type="fixed">
+    <origin xyz="-0.345 0.0 0.0" rpy="0 0 ${PI/2}" />
+    <parent link="${prefix}base_link"/>
+    <child link="${prefix}base_logo_rear" />
+  </joint>
+
+   <!-- DOCKING CONTACT -->
+
+    <link name="${prefix}base_docking_contact">
+    </link>
+
+    <joint name="${prefix}base_docking_joint" type="fixed">
+      <origin xyz="0.35 0 0.09" rpy="0 0 0" />
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}base_docking_contact" />
+    </joint>
+
+  <xacro:if value="${laser_support}">
+    <sick_microscan3_support prefix="${prefix}front_laser" parent="${prefix}base_link" >
+      <origin xyz="0.28704 -0.22255 0.20212" rpy="0 0 -0.645772" />
+    </sick_microscan3_support>
+
+    <sick_microscan3_support prefix="${prefix}rear_laser" parent="${prefix}base_link" >
+      <origin xyz="-0.28704 +0.22255 0.20212" rpy="0 0 2.496" />
+    </sick_microscan3_support>
+  </xacro:if>
+
+  </xacro:macro>
+</robot>

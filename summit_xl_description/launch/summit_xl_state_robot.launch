@@ -1,14 +1,42 @@
 <?xml version="1.0"?>
 <launch>
   
-  <arg name="prefix" default="summit_xl_"/>
+  <arg name="prefix" default="robot_"/>
+  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO summit_xl_std.urdf.xacro)"/>
+  <arg name="robot_xacro_package" default="$(optenv ROBOT_XACRO_PACKAGE summit_xl_description)"/>
+  <arg name="robot_xacro_relative_path" default="$(optenv ROBOT_XACRO_RELATIVE_PATH /robots/)" />
+  <arg name="robot_xacro_path" default="$(eval find(robot_xacro_package) + robot_xacro_relative_path + robot_xacro)"/>
+
   <arg name="use_joint_state_publisher" default="false"/>
-  
-  <arg name="robot_model"  default="summit_xl_std.urdf.xacro"  doc="Different robot versions: ('')"/>
-  
+
+  <arg name="gps_latitude" default="39.5080331"/>
+  <arg name="gps_longitude" default="-0.4619816"/>
+
+	<arg name="ros_planar_move_plugin" default="false"/>
+  <arg name="use_gpu_for_simulation" default="true"/>
+
+  <arg name="kinematics" default="skid"/>
+
+  <!-- 
+    kinematic argument must be parsed inside xacro file (diff and omni)
+    To do: add this feature without breaking others developments
+  -->
+
   <!-- Load the URDF into ROS parameter server -->
-  <arg name="urdf_file" default="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg robot_model)' prefix:=$(arg prefix) --inorder" />
-  <param name="robot_description" command="$(arg urdf_file)" />
+  <arg name="urdf_skid_file" default="$(find xacro)/xacro '$(arg robot_xacro_path)' prefix:=$(arg prefix)  ros_planar_move_plugin:=$(arg ros_planar_move_plugin) omni_wheels:=false gpu:=$(arg use_gpu_for_simulation) gps_latitude:='$(arg gps_latitude)' gps_longitude:='$(arg gps_longitude)'" />
+  <arg name="urdf_omni_file" default="$(find xacro)/xacro '$(arg robot_xacro_path)' prefix:=$(arg prefix)  ros_planar_move_plugin:=$(arg ros_planar_move_plugin) omni_wheels:=true gpu:=$(arg use_gpu_for_simulation) gps_latitude:='$(arg gps_latitude)' gps_longitude:='$(arg gps_longitude)'" />
+
+  <group unless="$(eval kinematics == 'skid')">
+    <param name="robot_description" command="$(arg urdf_skid_file)" />
+  </group>
+
+  <group unless="$(eval kinematics == 'diff')">
+    <param name="robot_description" command="$(arg urdf_skid_file)" />
+  </group>
+
+  <group if="$(eval kinematics == 'omni')">
+    <param name="robot_description" command="$(arg urdf_omni_file)" />
+  </group>
 
   <!-- send fake joint values -->
   <node if="$(arg use_joint_state_publisher)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">

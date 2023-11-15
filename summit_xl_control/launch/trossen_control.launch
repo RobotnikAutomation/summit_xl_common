@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="prefix" default="robot_"/>
+  <arg name="arm_model" default="vx300s"/>
+  <arg name="arm_prefix" default="$(arg prefix)$(arg arm_model)"/>
+  <arg name="use_trajectory_controller" default="true"/>
+
+   <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find summit_xl_control)/config/trossen/$(arg arm_model)_control.yaml" command="load"/>
+
+  <group if="$(arg use_trajectory_controller)">
+
+    <node name="$(arg arm_prefix)_trajectory_controller" pkg="controller_manager" type="controller_manager" output="screen" 
+      args="
+        spawn
+        arm_controller
+        gripper_controller
+        joint_state_controller
+      "
+    />
+  </group>
+
+  <node name="joint_state_publisher_arm" pkg="joint_state_publisher" type="joint_state_publisher" >   
+	  <rosparam param="source_list">["joint_states", "/joint_states"]</rosparam> 
+  </node>
+
+</launch>

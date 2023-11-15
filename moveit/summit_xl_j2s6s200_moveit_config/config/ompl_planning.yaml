@@ -120,7 +120,7 @@ planner_configs:
     sparse_delta_fraction: 0.25  # delta fraction for connection distance. This value represents the visibility range of sparse samples. default: 0.25
     dense_delta_fraction: 0.001  # delta fraction for interface detection. default: 0.001
     max_failures: 5000  # maximum consecutive failure limit. default: 5000
-j2s6s200_arm:
+j2s6s200:
   default_planner_config: RRTstar
   planner_configs:
     - SBL
@@ -147,7 +147,6 @@ j2s6s200_arm:
     - SPARS
     - SPARStwo
 j2s6s200_gripper:
-  default_planner_config: RRTstar
   planner_configs:
     - SBL
     - EST

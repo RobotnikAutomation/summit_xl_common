@@ -1,0 +1,29 @@
+arm_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - robot_arm_waist_joint
+    - robot_arm_shoulder_joint
+    - robot_arm_elbow_joint
+    - robot_arm_forearm_roll_joint
+    - robot_arm_wrist_angle_joint
+    - robot_arm_wrist_rotate_joint
+  constraints:
+    goal_time: 1
+    stopped_velocity_tolerance: 0.02
+
+# The gripper has two claws that are not mechanically independent. When one 
+# moves 0.1, the other moves -0.1. Therefore, both claws must be managed by 
+# a single controller. However, the manufacturer has not provided a specific
+# controller. For the simulation the manufacturer has assumed that each gripper
+# is controlled independently. This is not correct because different positions
+# from reality are generated. For the real robot only the left claw is controlled.
+# The right claw is managed through its hardware interface.
+
+gripper_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - robot_arm_left_finger_joint
+
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- By default, we are not in debug mode -->
+  <arg name="debug" default="false" />
+  <!--arg name="sim" default="false" /-->
+
+  <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
+  <include file="$(find summit_xl_j2n6s200_moveit_config)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="true"/>
+  </include>
+
+  <!-- Run the main MoveIt! executable without trajectory execution (we do not have controllers configured by default) -->
+  <include file="$(find summit_xl_j2n6s200_moveit_config)/launch/move_group.launch">
+    <arg name="load_robot_description" value="false"/>
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="fake_execution" value="false"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+    <!--arg name="sim" value="$(arg sim)"/-->
+  </include>
+
+  <!-- Run Rviz and load the default config to see the state of the move_group node -->
+  <include file="$(find summit_xl_j2n6s200_moveit_config)/launch/moveit_rviz.launch">
+    <!--arg name="config" value="true"/-->
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+</launch>

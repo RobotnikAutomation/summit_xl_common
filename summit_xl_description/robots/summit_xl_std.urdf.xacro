@@ -19,6 +19,11 @@
 	<!-- Import all available sensors -->
 	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
 	
+	
+	<!-- Import antenna -->
+	<xacro:include filename="$(find summit_xl_description)/urdf/structures/structure_teltonika.urdf.xacro" />
+
+
 	<!-- Import antenna -->
 	<xacro:include filename="$(find summit_xl_description)/urdf/structures/structure_teltonika.urdf.xacro" />
 
@@ -34,14 +39,14 @@
 
 	<xacro:arg name="prefix" default="summit_xl_"/>
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
-  <xacro:arg name="ros_planar_move_plugin_force_based" default="false"/>
-	<xacro:arg name="omni_wheels" default="false"/>
+    <xacro:arg name="ros_planar_move_plugin_force_based" default="false"/>
+	<xacro:arg name="kinematics" default="skid"/>
 	<xacro:arg name="gpu" default="false"/>
 	<xacro:arg name="gps_latitude" default="0"/>
 	<xacro:arg name="gps_longitude" default="0"/>
 
 
-    <xacro:macro name="summit_xl" params="prefix publish_bf hq">
+    <xacro:macro name="summit_xl" params="prefix publish_bf hq kinematics">
 
 		<!-- *************** -->
 		<!-- Robots Elements -->
@@ -52,7 +57,7 @@
 		<!-- Summit XL base -->
 		<xacro:summit_xl_base prefix="$(arg prefix)" publish_bf="true" hq="${hq}" />
 
-    <xacro:unless value="$(arg omni_wheels)">
+    <xacro:if value="${kinematics == 'skid' or kinematics == 'skid_4w'}">
   		<xacro:rubber_wheel prefix="$(arg prefix)front_right" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
   			<origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
   		</xacro:rubber_wheel>
@@ -68,8 +73,8 @@
   		<xacro:rubber_wheel prefix="$(arg prefix)back_right" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
   			<origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
   		</xacro:rubber_wheel>
-    </xacro:unless>
-    <xacro:if value="$(arg omni_wheels)">
+    </xacro:if>
+    <xacro:if value="${kinematics == 'omni' or kinematics == 'omni_4w'}">
   		<xacro:omni_wheel prefix="$(arg prefix)front_right" parent="$(arg prefix)base_link" reflect="false" hq="${hq}">
   			<origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
   		</xacro:omni_wheel>
@@ -106,28 +111,25 @@
 	  <xacro:sensor_gps_with_mast prefix="$(arg prefix)gps" parent="$(arg prefix)base_link" gps_latitude="$(arg gps_latitude)" gps_longitude="$(arg gps_longitude)">
 			<origin xyz="-0.22528 0.095 0.275" rpy="0 0 0"/>
 		</xacro:sensor_gps_with_mast>
-	  <!--Antenna-->
-	  	<xacro:structure_mastil_teltonika prefix="$(arg prefix)antenna" parent="$(arg prefix)base_link">
-			<origin xyz="-0.22528 -0.095 0.23325" rpy="0 0 0"/>
-		</xacro:structure_mastil_teltonika>
-   </xacro:macro>
 
-   <!-- Gazebo ros control pluggins -->
-   <xacro:ros_control/>
+	  <!-- Gazebo ros control pluggins -->
+      <xacro:ros_control/>
 
-	<xacro:if value="$(arg ros_planar_move_plugin)">
+	  <xacro:if value="$(arg ros_planar_move_plugin)">
 
-		<xacro:if value="$(arg omni_wheels)">
+		<xacro:if value="${kinematics == 'omni' or kinematics == 'omni_4w'}">
 			<xacro:omni_steering prefix="$(arg prefix)" publish_tf="true" force_based="$(arg ros_planar_move_plugin_force_based)"/>
 		</xacro:if>
 
-		<xacro:unless value="$(arg omni_wheels)">
+		<xacro:if value="${kinematics == 'skid' or kinematics == 'skid_4w'}">
 			<xacro:skid_steering prefix="$(arg prefix)" publish_tf="true" force_based="$(arg ros_planar_move_plugin_force_based)"/>
-		</xacro:unless>
+		</xacro:if>
 
-	</xacro:if>
+	  </xacro:if>
 
-   <xacro:summit_xl prefix="$(arg prefix)" publish_bf="true" hq="true"/>
+   </xacro:macro>
+
+   <xacro:summit_xl prefix="$(arg prefix)" publish_bf="true" hq="true" kinematics="$(arg kinematics)"/>
 
 
 </robot>

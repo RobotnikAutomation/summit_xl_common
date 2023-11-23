@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Source: https://en.wikipedia.org/wiki/List_of_moments_of_inertia-->
+
+  <!-- Solid sphere of radius r and mass m-->
+  <xacro:macro name="solid_sphere_inertia" params="m r">
+    <inertia  ixx="${(2*r*r*m)/5}" ixy = "0" ixz = "0"
+              iyy="${(2*r*r*m)/5}" iyz = "0"
+              izz="${(2*r*r*m)/5}"
+    />
+  </xacro:macro>
+
+  <!-- Hollow sphere of radius r and mass m-->
+  <xacro:macro name="solid_sphere_inertia" params="m r">
+    <inertia  ixx="${(2*r*r*m)/3}" ixy = "0" ixz = "0"
+              iyy="${(2*r*r*m)/3}" iyz = "0"
+              izz="${(2*r*r*m)/3}"
+    />
+  </xacro:macro>
+
+  <!-- Solid ellipsoid of semi-axes a, b, c and mass m-->
+  <xacro:macro name="ellipsoid_semi_axes_inertia" params="a b c m r">
+    <inertia  ixx="${(m*(b*b+c*c))/5}" ixy = "0" ixz = "0"
+              iyy="${(m*(a*a+c*c))/5}" iyz = "0"
+              izz="${(m*(a*a+b*b))/5}"
+    />
+  </xacro:macro>
+
+  <!-- Right circular cone with radius r, height h and mass m, about the apex -->
+  <xacro:macro name="right_circular_cone_inertia" params="m r h">
+    <inertia  ixx="${((3*m*(h*h))/5)+((3*m*(r*r))/20)}" ixy = "0" ixz = "0"
+              iyy="${((3*m*(h*h))/5)+((3*m*(r*r))/20)}" iyz = "0"
+              izz="${(3*m*(r*r))/10}"
+    />
+  </xacro:macro>
+
+  <!-- Solid cuboid of width w, height h, depth d, and mass m -->
+  <xacro:macro name="solid_cuboid_inertia" params="m h d w">
+    <inertia  ixx="${(m*(h*h+d*d))/12}" ixy = "0" ixz = "0"
+              iyy="${(m*(w*w+d*d))/12}" iyz = "0"
+              izz="${(m*(w*w+h*h))/12}"
+    />
+  </xacro:macro>
+
+  <!-- Solid cylinder of radius r, height h and mass m -->
+  <xacro:macro name="solid_cylinder_inertia" params="m r h">
+    <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+              iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
+              izz="${m*r*r/2}"
+    />
+  </xacro:macro>
+
+  <!-- Thick-walled cylindrical tube with open ends, of inner radius r1, outer radius r2, length h and mass m -->
+  <xacro:macro name="thick_walled_cylinder_inertia" params="m r1 r2 h">
+    <inertia  ixx="${m*((3*(r1*r1+r2*r2))+(h*h))/12}" ixy = "0" ixz = "0"
+              iyy="${m*((3*(r1*r1+r2*r2))+(h*h))/12}" iyz = "0"
+              izz="${m*(r1*r1+r2*r2)/2}"
+    />
+  </xacro:macro>
+</robot>

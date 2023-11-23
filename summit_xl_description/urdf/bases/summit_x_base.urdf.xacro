@@ -39,12 +39,12 @@
 		   <origin xyz="0 0 0" rpy="0 0 0" />
 		   <xacro:if value="${hq}">
 		   <geometry>
-			 <mesh filename="package://summit_xl_description/meshes/bases/x/summit_x_chassis_down.dae"/>
+			 <mesh filename="file://$(find summit_xl_description)/meshes/bases/x/summit_x_chassis_down.dae"/>
 		   </geometry>
 		   </xacro:if>
 		   <xacro:unless value="${hq}">
 		   <geometry>
-			 <mesh filename="package://summit_xl_description/meshes/bases/x/summit_x_chassis_down.stl"/>
+			 <mesh filename="file://$(find summit_xl_description)/meshes/bases/x/summit_x_chassis_down.stl"/>
 		   </geometry>
 		   </xacro:unless>
 		   <material name="darkgrey">
@@ -54,7 +54,7 @@
 		<collision>
 		   <origin xyz="0 0 0" rpy="0 0 0 " />
 		   <geometry>
-			 <mesh filename="package://summit_xl_description/meshes/bases/x/summit_x_chassis_down.dae"/>
+			 <mesh filename="file://$(find summit_xl_description)/meshes/bases/x/summit_x_chassis_down.dae"/>
 		   </geometry>
 		</collision>     
 	  </link>
@@ -68,7 +68,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://summit_xl_description/meshes/bases/x/summit_x_chassis_up.stl"/>
+				<mesh filename="file://$(find summit_xl_description)/meshes/bases/x/summit_x_chassis_up.stl"/>
 			</geometry>
 			<material name="summit_x_rover_color">
 				<color rgba="0.1 0.1 0.1 1"/>
@@ -77,7 +77,7 @@
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0 " />
 			<geometry>
-				<mesh filename="package://summit_xl_description/meshes/bases/x/summit_x_chassis_up.stl"/>
+				<mesh filename="file://$(find summit_xl_description)/meshes/bases/x/summit_x_chassis_up.stl"/>
 			</geometry>
 		</collision>     
 	</link>

@@ -89,7 +89,7 @@
     </xacro:if>
         <!-- IMU -->
 		<xacro:sensor_imu prefix="$(arg prefix)imu" parent="$(arg prefix)base_link" topic="imu/data_raw">
-			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
+			<origin xyz="0.0385 0.132 0.158" rpy="0 0 0"/>
 		</xacro:sensor_imu>
 		<!-- 3d laser -->
 		<xacro:sensor_rs_helios_16p prefix="$(arg prefix)top_3d_laser" parent="$(arg prefix)base_link" gpu="$(arg gpu)">

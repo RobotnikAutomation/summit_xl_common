@@ -18,10 +18,6 @@
 
 	<!-- Import all available sensors -->
 	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
-	
-	
-	<!-- Import antenna -->
-	<xacro:include filename="$(find summit_xl_description)/urdf/structures/structure_teltonika.urdf.xacro" />
 
 
 	<!-- Import antenna -->
@@ -111,6 +107,11 @@
 	  <xacro:sensor_gps_with_mast prefix="$(arg prefix)gps" parent="$(arg prefix)base_link" gps_latitude="$(arg gps_latitude)" gps_longitude="$(arg gps_longitude)">
 			<origin xyz="-0.22528 0.095 0.275" rpy="0 0 0"/>
 		</xacro:sensor_gps_with_mast>
+
+	  <!--Antenna-->
+	  <xacro:structure_mastil_teltonika prefix="$(arg prefix)antenna" parent="$(arg prefix)base_link">
+			<origin xyz="-0.22528 -0.095 0.23325" rpy="0 0 0"/>
+		</xacro:structure_mastil_teltonika>
 
 	  <!-- Gazebo ros control pluggins -->
       <xacro:ros_control/>

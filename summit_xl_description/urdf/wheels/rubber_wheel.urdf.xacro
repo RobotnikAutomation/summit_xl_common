@@ -50,9 +50,11 @@
       </visual>
 
       <collision>
-				<origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
+				<!--origin xyz="0 0 0" rpy="${M_PI/2} 0 0" /-->
+        <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder length="${rubber_wheel_height}" radius="${rubber_wheel_radius}" />
+          <!--cylinder length="${rubber_wheel_height}" radius="${rubber_wheel_radius}" /-->
+          <mesh filename="package://summit_xl_description/meshes/wheels/rubber_wheel_right.dae" />
         </geometry>
       </collision>
       <inertial>
@@ -75,14 +77,14 @@
       </actuator>
      </transmission>
 
-    <gazebo reference="${prefix}_wheel">
+    <!--gazebo reference="${prefix}_wheel">
 			<mu1 value="1.0"/>
 			<mu2 value="1.0"/>
 			<kp value="10000000.0" />
 			<kd value="1.0" />
 			<fdir1 value="1 0 0"/>
       <turnGravityOff>false</turnGravityOff>
-    </gazebo>
+    </gazebo-->
 
 
   </xacro:macro>
